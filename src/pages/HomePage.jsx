@@ -5,6 +5,8 @@ export function HomePage() {
             <h1>Home sweet Home</h1>
             <span> commitisddfdsfsfdsfng the system! </span>
           
+     
+            <p> ohad</p>
         </section >
     )
 }
