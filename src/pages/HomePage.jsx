@@ -1,3 +1,4 @@
+import { Player } from "../cmps/Player";
 
 export function HomePage() {
     function hello(){

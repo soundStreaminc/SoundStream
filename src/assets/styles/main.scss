@@ -1,12 +1,14 @@
 
-// Basics
-@import "basics/helpers";
-@import "basics/layout";
-@import "basics/base";
-// @import "basics/links";
-@import "basics/forms";
+// // Basics
+// @import "basics/helpers";
+// @import "basics/layout";
+// @import "basics/base";
+// // @import "basics/links";
+// @import "basics/forms";
 
-@import "cmps/appheader"
+/* Components */
+@import "./cmps/player.css";
+@import "./cmps/app-footer.css";@import "cmps/appheader"
 
 
 
