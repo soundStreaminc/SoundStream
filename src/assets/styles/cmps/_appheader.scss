@@ -1,0 +1,92 @@
+.app-header {
+	background-color: #121212;  // Spotify's black shade
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 5rem;
+	padding: 0 1.5rem;
+	width: 100%;
+	color: white;  // Ensure text is visible on the dark background
+  
+	.app-header-logo {
+	  width: 40px;
+	  height: 40px;
+	}
+  
+	.app-header-nav {
+	  display: flex;
+	  align-items: center;
+  
+	  .home-icon {
+		font-size: 1.5rem;
+		margin-right: 1rem;
+		color: white;
+	  }
+  
+	  .search-bar {
+		display: flex;
+		align-items: center;
+		background-color: #333;
+		border-radius: 20px;
+		padding: 0.5rem;
+		width: 300px;
+		color: white;
+  
+		input {
+		  border: none;
+		  background: none;
+		  outline: none;
+		  color: white;
+		  margin-left: 0.5rem;
+		  width: 100%;
+		}
+  
+		i {
+		  color: #888;
+		}
+	  }
+  
+	  .cart-icon {
+		margin-left: 1rem;
+		font-size: 1.5rem;
+		color: white;
+	  }
+	}
+  
+	.app-header-right {
+	  display: flex;
+	  align-items: center;
+  
+	  .btn {
+		margin-right: 1rem;
+		padding: 0.5rem 1rem;
+		border-radius: 20px;
+		color: white;
+		background-color: #1db954;
+		text-decoration: none;
+  
+		&.btn-install {
+		  background-color: transparent;
+		  border: 1px solid white;
+		}
+	  }
+  
+	  .notification-icon {
+		font-size: 1.5rem;
+		margin-right: 1rem;
+		color: white;
+	  }
+  
+	  .user-profile {
+		.user-avatar {
+		  background-color: #e91e63;
+		  border: none;
+		  border-radius: 50%;
+		  width: 40px;
+		  height: 40px;
+		  color: white;
+		  font-size: 1.2rem;
+		}
+	  }
+	}
+  }

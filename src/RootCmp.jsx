@@ -5,7 +5,6 @@ import { HomePage } from './pages/HomePage'
 import { StationDetails } from './pages/StationDetails'
 
 import { AppHeader } from './cmps/AppHeader'
-import { AppFooter } from './cmps/AppFooter'
 
 export function RootCmp() {
     return (
@@ -17,7 +16,7 @@ export function RootCmp() {
                     <Route path="/:stationId" element={<StationDetails />} />
                 </Routes>
             </main>
-            <AppFooter />
+           
         </div>
     )
 }
