@@ -6,7 +6,7 @@ export function HomePage() {
         
     }
     return (
-        <section>
+        <section className="home-container">
             {/* <h1>Home sweet Home</h1> */}
          
         </section >

@@ -1,6 +1,7 @@
 .app-header {
 	background-color: #121212;  // Spotify's black shade
 	display: flex;
+	grid-area: header;
 	justify-content: space-between;
 	align-items: center;
 	height: 5rem;
