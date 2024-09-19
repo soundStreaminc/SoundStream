@@ -69,82 +69,91 @@ export function Player(){
 
     return (
         <div className="player-container">
-            <div className="mini-details-container">
-                <img
-                className="musicCover"
-                src="https://picsum.photos/200/200"
-                />
-                <div className="mini-details">
-                    <h3 className="title"> Edenbridge  </h3> { /*//get the details from the song  */}
-                    <p className="subTitle"> Sunrise in Eden </p>
-                </div>        
-            </div>
-          
-          <div className="mini-player-container">
-            <div className="player-btn-container">
-                <button className="prev playerButton">
-                <IconContext.Provider value={{ size: "3em", color: "white" }}>
-                    <BiSkipPrevious />
-                </IconContext.Provider>
-                </button>
-                {!isPlaying ? (
-                <button className="play playerButton" onClick={playingButton}>
-                    <IconContext.Provider value={{ size: "3em", color: "white" }}>
-                    <AiFillPlayCircle />
-                    </IconContext.Provider>
-                </button>
-                ) : (
-                <button className="pause playerButton" onClick={playingButton}>
-                    <IconContext.Provider value={{ size: "3em", color: "white" }}>
-                    <AiFillPauseCircle />
-                    </IconContext.Provider>
-                </button>
-                )}
-                <button className="next playerButton">
-                <IconContext.Provider value={{ size: "3em", color: "white" }}>
-                    <BiSkipNext />
-                </IconContext.Provider>
-                </button>
-            </div>
-            <div className="time-duration-container">
-                <div className="time">
-                    <p>
-                        {currTime.min}:{currTime.sec}
-                    </p>
-                    <input
-                        type="range"
-                        min="0"
-                        max={duration / 1000}
-                        default="0"
-                        value={seconds}
-                        className="timeline"
-                        onChange={(e) => {
-                            sound.seek([e.target.value]);
-                        }}
-                    />
-                    <p>
-                        {time.min}:{time.sec}
-                    </p>
+            <div className="player-sub-container">
+                <div className="mini-details-container">
+                    <div className="mini-details-sub-container">
+                        <div className="musicCover-container">
+                            <img
+                            className="musicCover"
+                            src="https://picsum.photos/200/200"
+                            />
+                        </div>
+                        
+                        <div className="mini-details">
+                            <h3 className="title"> Edenbridge  </h3> { /*//get the details from the song  */}
+                            <p className="subTitle"> Sunrise in Eden </p>
+                        </div>     
                     </div>
-                    
+                       
+                </div>
+            
+            <div className="mini-player-container">
+                <div className="player-btn-container">
+                    <button className="prev playerButton">
+                    <IconContext.Provider value={{ size: "3em", color: "white" }}>
+                        <BiSkipPrevious />
+                    </IconContext.Provider>
+                    </button>
+                    {!isPlaying ? (
+                    <button className="play playerButton" onClick={playingButton}>
+                        <IconContext.Provider value={{ size: "3em", color: "white" }}>
+                        <AiFillPlayCircle />
+                        </IconContext.Provider>
+                    </button>
+                    ) : (
+                    <button className="pause playerButton" onClick={playingButton}>
+                        <IconContext.Provider value={{ size: "3em", color: "white" }}>
+                        <AiFillPauseCircle />
+                        </IconContext.Provider>
+                    </button>
+                    )}
+                    <button className="next playerButton">
+                    <IconContext.Provider value={{ size: "3em", color: "white" }}>
+                        <BiSkipNext />
+                    </IconContext.Provider>
+                    </button>
+                </div>
+                <div className="time-duration-container">
+                    <div className="time">
+                        <p>
+                            {currTime.min}:{currTime.sec}
+                        </p>
+                        <input
+                            type="range"
+                            min="0"
+                            max={duration / 1000}
+                            default="0"
+                            value={seconds}
+                            className="timeline"
+                            onChange={(e) => {
+                                sound.seek([e.target.value]);
+                            }}
+                        />
+                        <p>
+                            {time.min}:{time.sec}
+                        </p>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div className="player-settings-container">
+                    <img ref={imgRef} src={nowPlayingView} alt="" className="now-playing-view smallImage"/>
+                    <img ref={imgRef} src={lyrics} alt="" className="lyrics smallImage"/>
+                    <img ref={imgRef} src={queue} alt="" className="queue smallImage"/>
+                    <input type="range" 
+                        min='0' 
+                        max="1" 
+                        step='0.01' 
+                        value={volume} 
+                        className='slider' 
+                        id="myRange" 
+                        onChange={changeVolume}
+                    />
+    
                 </div>
             </div>
-
-            <div className="player-settings-container">
-                <img ref={imgRef} src={nowPlayingView} alt="" className="now-playing-view smallImage"/>
-                <img ref={imgRef} src={lyrics} alt="" className="lyrics smallImage"/>
-                <img ref={imgRef} src={queue} alt="" className="queue smallImage"/>
-                <input type="range" 
-                    min='0' 
-                    max="1" 
-                    step='0.01' 
-                    value={volume} 
-                    className='slider' 
-                    id="myRange" 
-                    onChange={changeVolume}
-                />
-   
-            </div>
+            
         </div>
     );
 }

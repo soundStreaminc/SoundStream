@@ -10,14 +10,17 @@ import { AppFooter } from './cmps/AppFooter'
 export function RootCmp() {
     return (
         <div className='app-container'>
-            <AppHeader />
-            <main>
-                <Routes>
-                    <Route path="" element={<HomePage />} />
-                    <Route path="/:stationId" element={<StationDetails />} />
-                </Routes>
-            </main>
-            <AppFooter />
+
+                <AppHeader />
+                <main>
+                    <Routes>
+                        <Route path="" element={<HomePage />} />
+                        <Route path="/:stationId" element={<StationDetails />} />
+                    </Routes>
+                </main>
+                <AppFooter />
+
+            
         </div>
     )
 }

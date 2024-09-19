@@ -1,4 +1,6 @@
 .app-container{
+    box-sizing: border-box;
+    background-color: #000;
     display: grid;
     height: inherit;
     grid-template-columns: auto 1fr;
@@ -7,4 +9,8 @@
         "header header header"
         "left-sidebar main-view right-sidebar"
         "footer footer footer";
+    gap: 8px;
+    padding: 8px;
+    position: relative;
+    
 }
