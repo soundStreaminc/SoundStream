@@ -9,7 +9,7 @@ import { AppFooter } from './cmps/AppFooter'
 
 export function RootCmp() {
     return (
-        <div>
+        <div className='app-container'>
             <AppHeader />
             <main>
                 <Routes>
