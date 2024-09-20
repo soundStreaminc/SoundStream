@@ -7,6 +7,9 @@ import { IconContext } from "react-icons"; // for customazing the icons
 import nowPlayingView from '../assets/imgs/open-view-button.png'
 import lyrics from '../assets/imgs/lyrics.jpeg'
 import queue from '../assets/imgs/queue.jpg'
+import NowPlayingView from '../assets/svgs/nowPlayingView.svg?react'
+import Lyrics from '../assets/svgs/lyrics.svg?react'
+
 
 
 //TODO change pictures. and size of player
@@ -80,8 +83,8 @@ export function Player(){
                         </div>
                         
                         <div className="mini-details">
-                            <h3 className="title"> Edenbridge  </h3> { /*//get the details from the song  */}
-                            <p className="subTitle"> Sunrise in Eden </p>
+                            <div className="song-title"> Edenbridge  </div> { /*//get the details from the song  */}
+                            <p className="song-subTitle"> Sunrise in Eden </p>
                         </div>     
                     </div>
                        
@@ -114,31 +117,46 @@ export function Player(){
                     </button>
                 </div>
                 <div className="time-duration-container">
-                    <div className="time">
-                        <p>
-                            {currTime.min}:{currTime.sec}
-                        </p>
-                        <input
-                            type="range"
-                            min="0"
-                            max={duration / 1000}
-                            default="0"
-                            value={seconds}
-                            className="timeline"
-                            onChange={(e) => {
-                                sound.seek([e.target.value]);
-                            }}
-                        />
-                        <p>
-                            {time.min}:{time.sec}
-                        </p>
-                        </div>
-                        
-                    </div>
+                    <p className="current-time">
+                        {currTime.min}:{currTime.sec}
+                    </p>
+                    <input
+                        type="range"
+                        min="0"
+                        max={duration / 1000}
+                        default="0"
+                        value={seconds}
+                        className="timeline"
+                        onChange={(e) => {
+                            sound.seek([e.target.value]);
+                        }}
+                    />
+                    <p className="time-duration">
+                        {time.min}:{time.sec}
+                    </p>             
                 </div>
+            </div>
+
+                        {/* TODO : add image factory to remove code repitition */}
 
                 <div className="player-settings-container">
-                    <img ref={imgRef} src={nowPlayingView} alt="" className="now-playing-view smallImage"/>
+                    <button className="now-playing-view-btn">
+                        <span aria-hidden="true" className="iconWrapper">
+                       
+                            <NowPlayingView className="now-playing-view smallImage"/>
+                        </span>
+                    </button>
+
+                    <button className="now-playing-view-btn">
+                        <span aria-hidden="true" className="iconWrapper">
+                       
+                            <Lyrics className="now-playing-view smallImage"/>
+                        </span>
+                    </button>
+
+
+                
+                   
                     <img ref={imgRef} src={lyrics} alt="" className="lyrics smallImage"/>
                     <img ref={imgRef} src={queue} alt="" className="queue smallImage"/>
                     <input type="range" 
