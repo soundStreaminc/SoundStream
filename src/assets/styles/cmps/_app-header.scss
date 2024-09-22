@@ -1,93 +1,176 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
 .app-header {
-	background-color: #121212;  // Spotify's black shade
+	background-color: #121212; // Spotify's black shade
 	display: flex;
 	grid-area: header;
 	justify-content: space-between;
 	align-items: center;
-	height: 5rem;
-	padding: 0 1.5rem;
+	height: 3.7rem;
+	// padding: 0 1.5rem;
 	width: 100%;
-	color: white;  // Ensure text is visible on the dark background
-  
+	color: white; // Ensure text is visible on the dark background
+	margin: 0;
+	/* Remove any margin */
+	padding: 0;
+
+	/* Remove padding from the header itself */
 	.app-header-logo {
-	  width: 40px;
-	  height: 40px;
+		width: 30px;
+		height: 30px;
 	}
-  
+
 	.app-header-nav {
-	  display: flex;
-	  align-items: center;
-  
-	  .home-icon {
-		font-size: 1.5rem;
-		margin-right: 1rem;
-		color: white;
-	  }
-  
-	  .search-bar {
 		display: flex;
 		align-items: center;
-		background-color: #333;
-		border-radius: 20px;
-		padding: 0.5rem;
-		width: 300px;
-		color: white;
-  
-		input {
-		  border: none;
-		  background: none;
-		  outline: none;
-		  color: white;
-		  margin-left: 0.5rem;
-		  width: 100%;
+
+		.home-icon {
+			font-size: 1.50rem;
+			margin-right: 1rem;
+			color: #b3b3b3;
+			background-color: #333;
+			/* Light black background */
+			padding: 0.5rem;
+			/* Increase padding to make the radius larger */
+			border-radius: 50%;
+			/* Keep the circle shape */
+			// display: flex;
+			align-items: center;
+			justify-content: center;
+
+			// transition: transform 0.2s, color 0.2s,background-color 0.2s;
+			&:hover {
+				color: white;
+				/* Change color to white on hover */
+				background-color: #444;
+				/* Lighter background on hover */
+
+			}
+
 		}
-  
-		i {
-		  color: #888;
-		}
-	  }
-  
-	  .cart-icon {
-		margin-left: 1rem;
-		font-size: 1.5rem;
-		color: white;
-	  }
-	}
-  
-	.app-header-right {
-	  display: flex;
-	  align-items: center;
-  
-	  .btn {
-		margin-right: 1rem;
-		padding: 0.5rem 1rem;
-		border-radius: 20px;
-		color: white;
-		background-color: #1db954;
-		text-decoration: none;
-  
-		&.btn-install {
-		  background-color: transparent;
-		  border: 1px solid white;
-		}
-	  }
-  
-	  .notification-icon {
-		font-size: 1.5rem;
-		margin-right: 1rem;
-		color: white;
-	  }
-  
-	  .user-profile {
-		.user-avatar {
-		  background-color: #e91e63;
-		  border: none;
-		  border-radius: 50%;
-		  width: 40px;
-		  height: 40px;
-		  color: white;
-		  font-size: 1.2rem;
-		}
-	  }
-	}
+
+		.search-bar {
+			display: flex;
+			align-items: center;
+			background-color: #333;
+			border-radius: 20px;
+			padding: 0.7rem;
+			width: 400px;
+			color: #b3b3b3;
+			/* Matching placeholder color */
+			transition: background-color 0.2s, color 0.2s;
+			border: 2px solid transparent;
+			/* Start with no visible border */
+
+
+			input {
+				border: none;
+				background: none;
+				outline: none;
+				color: #b3b3b3;
+				/* Match the placeholder's initial color */
+
+				margin-left: 0.5rem;
+				width: 100%;
+				transition: color 0.2s;
+			}
+
+
+
+			&:hover {
+				background-color: #444;
+				/* Slightly lighter background on hover */
+
+				input {
+					color: white;
+					/* Make text white on hover */
+				}
+
+				.search-icon {
+					color: #b3b3b3;
+					/* Initial color matching the placeholder */
+					transition: color 0.2s;
+				}
+
+
+
+				.search-icon {
+					color: white;
+					/* Make search icon white on hover */
+
+				}
+			}
+
+			/* Focus effect for the entire search-bar when input is focused */
+			input:focus+.separator,
+			input:focus+.browse-icon,
+			input:focus {
+				border-color: white;
+				/* Change border to white on focus */
+			}
+			 /* Focus effect for the whole search-bar when input is focused */
+  &:has(input:focus) {
+    border-color: white; /* White border when focused */
   }
+
+
+			// Separator Line
+			.separator {
+				height: 1.5rem;
+				width: 1px;
+				background-color: #888;
+				margin: 0 0.5rem;
+			}
+
+			// Browse Icon
+			.browse-icon {
+				font-size: 1.2rem;
+				color: white;
+				margin-left: 0.5rem;
+			}
+		}
+
+		.cart-icon {
+			margin-left: 1.2rem;
+			font-size: 1.5rem;
+			color: white;
+		}
+	}
+
+	.app-header-right {
+		display: flex;
+		align-items: center;
+
+		.btn {
+			margin-right: 1rem;
+			padding: 0.5rem 1rem;
+			border-radius: 20px;
+			color: white;
+			background-color: #1db954;
+			text-decoration: none;
+
+			&.btn-install {
+				background-color: transparent;
+				border: 1px solid white;
+			}
+		}
+
+		.notification-icon {
+			font-size: 1.5rem;
+			margin-right: 1rem;
+			color: white;
+		}
+
+		.user-profile {
+			margin-right: 1rem; // Moved to the left a bit
+			display: flex;
+			align-items: center;
+			width: 30px;
+			height: 30px;
+
+		}
+	}
+}
