@@ -147,21 +147,6 @@
   text-align: right;
 }
 
-
-
-
-
-
-
-
-.timeline{
-  
-}
-
-
-
-
-
 :root {
   --thumb-size: 15px;
   --track-height: 4px;
@@ -179,7 +164,6 @@
 }
 
 input[type="range"] {
-  -webkit-appearance: none;
   width: 100%;
   height: var(--track-height);
   background: #e0e0e0;
