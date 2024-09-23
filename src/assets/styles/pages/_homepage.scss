@@ -1,3 +1,16 @@
 .home-container{
     background-color: aquamarine;
+    display: grid;
+    justify-items: center;
+    gap: 1em
+}
+
+.testApi{
+
+    width: 50%;
+}
+
+.input-filed-container{
+    display: grid;
+    justify-items: center;
 }
