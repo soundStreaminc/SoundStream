@@ -1,31 +1,17 @@
 import { useEffect, useRef } from "react";
 import { Player } from "../cmps/Player";
+import { stationService } from "../services/station.service";
 
 export function HomePage() {
     let accessToken = useRef('')
     let inputArtist = useRef('Taylor Swift')
 
-    const clientId = import.meta.env.VITE_CLIENT_ID
-    const clientSecret = import.meta.env.VITE_CLIENT_SECRET
+
     
     
 
     useEffect( ()=>{
-        //TODO add error handling
-        //API ACESS TOKEN
-        var authParameters = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'grant_type=client_credentials&client_id=' + 
-                clientId + '&client_secret=' + clientSecret
-        }
-        console.log('authParameters:', authParameters)
-        fetch ( 'https://accounts.spotify.com/api/token', authParameters )
-            .then( result => result.json())
-            .then( data => accessToken.current = data.access_token)
-        
+        accessToken.current = stationService.getAccessKey()        
     }, [])
 
     /**
@@ -33,28 +19,9 @@ export function HomePage() {
      * @param {*} artist 
      */
     async function getDateByArtist( artist ){
-        var searchParameters = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + accessToken.current
-            }
-        }
-        var artistId = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
-            artist + '&type=artist' , searchParameters)
-            .then( response => response.json())
-            .then( data => { return  data.artists.items[0].id }
-
-            )
+        var artistId = stationService.getArtistId ( accessToken.current , artist)
+        var albums = stationService.getAlbumsByArtistId ( artistId)
         
-         console.log('artistId:', artistId)
-
-         var albums = await fetch ('https://api.spotify.com/v1/artists/' + 
-            artistId + '/albums' + '?', searchParameters )
-            .then( response => response.json())
-            .then( data => { return  data }
-            )
-        console.log('albums:', albums)
     }
     
     function handleChange( {target }){
