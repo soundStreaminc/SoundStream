@@ -15,6 +15,7 @@ export function RootCmp() {
         <div className='app-container'>
                 <AppHeader />
                 <RightSidebar />
+                <div data-testid="LayoutResizer__resize-bar" className="LayoutResizer__resize-bar LayoutResizer__inline-end"><label className="hidden-visually">Resize main navigation<input className="LayoutResizer__input" type="range" min="72" max="1021" step="10" /*value="420" */ /></label></div>
                     <Routes>
                         <Route path="" element={<HomePage />} />
                         <Route path="/:stationId" element={<StationDetails />} />
