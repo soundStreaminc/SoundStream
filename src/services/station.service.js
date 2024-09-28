@@ -15,6 +15,7 @@ export const stationService = {
     getAccessKey,
     getArtistId,
     getAlbumsByArtistId,
+    getTracksByAlbumId,
     getEmptyStation,
     getEmptySong
 }
@@ -55,10 +56,8 @@ async function getAccessKey(){
             body: 'grant_type=client_credentials&client_id=' + 
                 clientId + '&client_secret=' + clientSecret
         }
-        console.log('authParameters:', authParameters)
-        return await fetch ( 'https://accounts.spotify.com/api/token', authParameters )
-            .then( result => result.json())
-            .then( data => {return data.access_token})
+        //console.log('authParameters:', authParameters)
+        return await fetch ( 'https://accounts.spotify.com/api/token', authParameters )           
 }
 async function getArtistId( accessToken , artistName){
     var searchParameters = {
@@ -80,6 +79,7 @@ async function getArtistId( accessToken , artistName){
      return artistId
 
 }
+
 async function getAlbumsByArtistId( accessToken, artistId ){
     var searchParameters = {
         method: 'GET',
@@ -91,10 +91,27 @@ async function getAlbumsByArtistId( accessToken, artistId ){
     var albums = await fetch ('https://api.spotify.com/v1/artists/' + 
         artistId + '/albums' + '?', searchParameters )
         .then( response => response.json())
-        .then( data => { return  data }
+        .then( data => { return  data.items }
         )
     console.log('albums:', albums)
     return albums
+}
+
+async function getTracksByAlbumId( accessToken, albumId ){
+    var searchParameters = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+    }
+    var tracks = await fetch ('https://api.spotify.com/v1/albums/' + 
+        albumId + '/tracks' + '?', searchParameters )
+        .then( response => response.json())
+        .then( data => { return  data.items }
+        )
+    console.log('tracks:', tracks)
+    return tracks
 }
 
 // async function addCarMsg(carId, txt) {
