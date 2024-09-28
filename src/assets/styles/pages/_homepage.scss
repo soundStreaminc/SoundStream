@@ -3,8 +3,13 @@
     display: flex;
     flex-direction: column;
     justify-items: center;
+    align-items: flex-end; /* Aligns the content to the right */
     gap: 1em;
     padding: 10px;
+    position: absolute;
+    right: 10px; /* Ensures it stays on the right */
+    bottom: 10px; /* Moves it to the bottom */
+
 }
 
 .testApi{
