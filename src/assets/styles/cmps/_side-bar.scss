@@ -1,0 +1,256 @@
+.sidebar {
+    background-color: #121212;  // Dark background for the sidebar
+    width: 54vh;
+    height: 72vh;  // Full viewport height
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    color: white;
+    grid-area: sidebar;
+
+
+    .sidebar-section {
+        margin-bottom: 20px;
+        display: flex; 
+        flex-direction: row; // Align header and add-arrow in a row
+        justify-content: space-between;
+        align-items: center; // Vertically center both items on the same linee
+
+           /* Styling for the library header (icon and text) */
+           .library-header {
+            display: flex;
+            align-items: center;
+            color: #b3b3b3; /* Default color */
+fill:#b3b3b3;
+            /* Apply hover to both the icon and text */
+            &:hover {
+                color: white; /* Changes text and icon color to white */
+                fill:white;
+            }
+
+            .library-icon {
+                width: 24px;
+                height: 24px;
+                margin-left: 8px;
+                transition: fill 0.3s ease;
+                
+
+                svg {
+                    color: #b3b3b3;             }
+            }
+
+            h3 {
+                font-size: 18px;
+                font-weight: bold;
+                margin-left: 6px;
+                transition: color 0.3s ease;
+            }
+        }
+
+        .add-arrow {
+            display: flex;
+            gap: 10px;
+            margin-top: 0; 
+            
+            /* Add Icon */
+            .library-add-btn {
+                background-color: transparent;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                cursor: pointer;
+                width: 24px;
+                height: 24px;
+
+                &:hover {
+                    border-radius: 50%;
+                    background-color: #333;
+                }
+
+                .Add-icon {
+                    width: 16px;
+                    height: 16px;
+                    fill: #b3b3b3;
+                    transition: fill 0.3s ease;
+
+                    &:hover {
+                        fill: white; /* Changes to white on hover */
+                    }
+                }
+            }
+
+            /* Arrow Icon */
+            .library-arrow-btn {
+                background-color: transparent;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                cursor: pointer;
+                width: 24px;
+                height: 24px;
+
+                &:hover {
+                    border-radius: 50%;
+                    background-color: #333;
+                }
+
+                .Arrow-icon {
+                    width: 16px;
+                    height: 16px;
+                    fill: #b3b3b3;
+                    transition: fill 0.3s ease;
+
+                    &:hover {
+                        fill: white; /* Changes to white on hover */
+                    }
+                }
+            }
+        }
+
+    }
+    .library-options {
+        margin-top: 15px; // Add spacing from the library-header and add-arrow
+        display: flex;
+        gap: 10px;
+        flex-direction: row; // Keep the buttons inline but below the header
+        padding: 0 10px; // Padding around the section
+        margin-bottom: 30px; // Add space between serch-recents and playlist-list
+        padding: 0 10px; // Padding around the section
+        .library-btn {
+            background-color: #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            border: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #444;
+            }
+        }
+    }
+
+    .sidebar-playlists {
+        flex-grow: 1;
+        overflow-y: auto;
+
+        .serch-recents{
+
+            display: flex;
+            justify-content: space-between; // Align search and recents to opposite ends
+            align-items: center;
+            padding: 0 10px; // Padding around the section
+            margin-bottom: 15px; // Add space between serch-recents and playlist-list
+
+
+            .library-search-btn{
+                display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+
+           
+            .search-icon{
+                width: 24px; // Make the search icon smaller
+                height: 24px; // Adjust the size as needed
+                fill:#b3b3b3; // Ensure the search icon is white in color
+                transition: fill 0.2s, width 0.2s, height 0.2s ease; // Smooth transition for icon size and color changes
+                &:hover {
+                    fill: white; // Change to white on hover
+                }
+            }
+           }
+            .library-recents-btn{
+                display: flex;
+                align-items: center;
+                color: #b3b3b3; /* Default color */
+                /* Apply hover to both the icon and text */
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                &:hover {
+                    color: white; /* Changes text and icon color to white */
+                    fill:white;
+
+        h3 {
+            color: white; /* Changes text color */
+        }
+        .recents-icon {
+            fill: white; /* Changes icon color */
+        }
+                }
+
+                .h3{
+                    font-size: 14px;
+                    font-weight: bold;
+                    margin-bottom: 0; /* Align text with icon */
+                    transition: color 0.3s ease-in-out;
+                    color: #b3b3b3;
+                 
+                }
+
+          
+            .recents-icon{
+                width: 24px;  // Adjust icon size
+                height: 24px; // Adjust icon size
+                fill: #b3b3b3;
+                transition: fill 0.2s ease-in-out;
+                margin-left: 5px; // Space between text and icon
+             
+            }
+
+
+        }
+    }
+
+        .playlist-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px; 
+
+            li {
+                margin-bottom: 15px;
+                a {
+                    display: flex;
+                    align-items: center;
+                    color: #b3b3b3;
+                    text-decoration: none;
+
+                    .playlist-icon {
+                        width: 30px;
+                        height: 30px;
+                        margin-right: 10px;
+                    }
+
+                    span {
+                        font-size: 14px;
+                    }
+
+                    &:hover {
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+
+    .sidebar-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        font-size: 14px;
+        color: #b3b3b3;
+
+        .arrow-icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
