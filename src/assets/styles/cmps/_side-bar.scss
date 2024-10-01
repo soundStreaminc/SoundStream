@@ -1,12 +1,12 @@
 .sidebar {
     background-color: #121212;  // Dark background for the sidebar
     width: 54vh;
-    height: 72vh;  // Full viewport height
+    //height: 72vh;  // Full viewport height
     display: flex;
     flex-direction: column;
     padding: 20px;
     color: white;
-    grid-area: sidebar;
+    grid-area: left-sidebar;
 
 
     .sidebar-section {

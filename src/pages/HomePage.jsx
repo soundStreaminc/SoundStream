@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 export function HomePage() {
     const [ albums , setAlbums ] = useState([])
     let accessToken = useRef('')
+
     let inputArtist = useRef('Taylor Swift')
 
-    useEffect( ()=>{
+    useEffect( ()=>{           
         stationService.getAccessKey().then( result => result.json())
         .then( data =>   accessToken.current = data.access_token ) 
     }, [])
@@ -53,10 +54,7 @@ export function HomePage() {
                     )
                 }
                 ) }
-            </div> 
-
-            
-         
+            </div>     
         </section >
     )
 }
