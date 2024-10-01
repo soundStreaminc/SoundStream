@@ -34,7 +34,7 @@ export function RootCmp() {
     return (
         <div className='main-app'>
                 <AppHeader />
-                <div className="main-content-container">
+                
                 <SideBar/> 
                 <main className='container'>
                     <Routes>
@@ -42,7 +42,7 @@ export function RootCmp() {
                             <Route path="/:stationId" element={<StationDetails />} />
                     </Routes>
                 </main>
-                </div>
+                
                 <RightSidebar />
                 <AppFooter tracks={ tracks  }/> 
         </div>
