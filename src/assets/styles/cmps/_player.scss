@@ -148,12 +148,13 @@
 }
 
 input[type="range"] {
+  background-color: #7c7c7c;
+  -webkit-appearance: none;
   width: 100%;
   height: var(--track-height);
-  background: #e0e0e0;
   outline: none;
-  opacity: 0.7;
-  transition: opacity 0.2s, background-color 0.2s;
+  //opacity: 0.7;
+  //transition: opacity 0.2s, background-color 0.2s;
   border-radius: calc(var(--track-height) / 2);
 }
 
@@ -166,7 +167,9 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: var(--thumb-size);
   height: var(--thumb-size);
-  background: none;
+  background: #ffffff;
+  opacity: 0;
+  border: none;
   cursor: pointer;
   border-radius: 50%;
   //border: 2px solid #ccc;
@@ -174,15 +177,23 @@ input[type="range"]::-webkit-slider-thumb {
   margin-top: calc((var(--track-height) - var(--thumb-size)) / 2);
   position: relative;
   z-index: 2;
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+
+}
+
+input[type="range"]:focus {
+  outline: none;
 }
 
 input[type="range"]::-moz-range-thumb {
   width: var(--thumb-size);
   height: var(--thumb-size);
-  background: white;
+  background: transparent;
+  opacity: 0;
+  border: none;
   cursor: pointer;
   border-radius: 50%;
-  border: 2px solid #ccc;
+  border: none;
   transition: background-color 0.2s, border-color 0.2s;
   position: relative;
   z-index: 2;
@@ -192,7 +203,7 @@ input[type="range"]::-moz-range-thumb {
 input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
   height: var(--track-height);
-  background: linear-gradient(to right, white var(--progress), #e0e0e0 var(--progress));
+  background: linear-gradient(to right, white var(--progress), transparent var(--progress));
   border-radius: calc(var(--track-height) / 2);
 }
 
@@ -214,224 +225,28 @@ input[type="range"]:hover::-webkit-slider-runnable-track {
   background: linear-gradient(to right, #4CAF50 var(--progress), #e0e0e0 var(--progress));
 }
 
-input[type="range"]:hover::-moz-range-progress {
-  background-color: #4CAF50;
-}
+
+// input[type="range"]:hover::-moz-range-progress {
+//   background-color: #4CAF50;
+// }
 
 input[type="range"]:hover::-webkit-slider-thumb {
-  background: white;
-  //border-color: #4CAF50;
+  opacity: 1;
+  color: white;
+  //background: white;
 }
 
 input[type="range"]:hover::-moz-range-thumb {
-  background: white;
-  //border-color: #4CAF50;
+  opacity: 1;
+  color: white;
+  //background: white;
+  
 }
-
-
-
-
-
-
-// input[type="range"] {
-//   -webkit-appearance: none;
-//   appearance: none; 
-//   width: 100%;
-//   cursor: pointer;
-//   outline: none;
-//   border-radius: 15px;
-//   height: 6px;
-//   //background: linear-gradient(to right, #f50 10%, #ccc 10%);
-// }
-
-// /* Thumb: webkit */
-// input[type="range"]::-webkit-slider-thumb {
-//   -webkit-appearance: none;
-//   appearance: none; 
-//   height: 30px;
-//   width: 30px;
-//    background-color: white; 
-//   //background-image: url("https://ibaslogic.github.io/hosted-assets/smile.png");
-//   background-size: cover;
-//   border-radius: 50%;
-//   border: none;
-//   transition: .2s ease-in-out;
-//   /*  rotate thumb  */
-//   transform: rotateZ(var(--thumb-rotate, 0deg));
-// }
-
-// /* Thumb: Firefox */
-// input[type="range"]::-moz-range-thumb {
-//   height: 30px;
-//   width: 30px;
-// /*   background-color: #f50; */
-//   background-image: url("https://ibaslogic.github.io/hosted-assets/smile.png");
-//   background-size: cover;
-//   border-radius: 50%;
-//   border: none;
-//   transition: .2s ease-in-out;
-//   /*  rotate thumb  */
-//   transform: rotateZ(var(--thumb-rotate, 0deg));
-// }
-
-// .timeline::-webkit-slider-runnable-track {
-//   background: linear-gradient(to right, #4CAF50 var(--progress), transparent var(--progress));
-//   height: 8px;
-//   margin-top: -4px;
-// }
-
-// .timeline::-moz-range-progress {
-//   background-color: #4CAF50;
-//   height: 8px;
-//   margin-top: 4px;
-// }
-
-
-
-// input[type="range"]:hover {
-//   &::-webkit-slider-thumb{
-//     box-shadow: -407px 0 0 400px white;
-//   }
-   
-
-//}
-
-// input[type="range"] {
-//   --c: white; /* active color */
-//   --g: 8px; /* the gap */
-//   --l: 5px; /* line thickness*/
-//   --s: 4px; /* thumb size*/
-//   --h: #1db954; //hover-color
-//   --bg: #ccc; //background color
-  
-//   -webkit-appearance: none;
-//   appearance: none; 
-//   /* creating a custom design */
-//   width: 100%;
-//   outline: none;
-//   /*  slider progress trick  */
-//   overflow: hidden;
-//   border-radius: 16px;
-//   cursor: pointer;
-// }
-
-// /* Track: webkit browsers */
-// input[type="range"]::-webkit-slider-runnable-track {
-//   height: 15px;
-//   background: #ccc;
-//   border-radius: 16px;
-// }
-
-// /* Track: Mozilla Firefox */
-// input[type="range"]::-moz-range-track {
-//   height: 15px;
-//   background: #ccc;
-//   border-radius: 16px;
-// }
-
-// /* Thumb: webkit */
-// input[type="range"]::-webkit-slider-thumb {
-//   /* removing default appearance */
-//   -webkit-appearance: none;
-//   appearance: none; 
-//   /* creating a custom design */
-//   height: 15px;
-//   width: 15px;
-//   background-color: --bg;
-//   //border-radius: 50%;
-//   //border: 2px solid --c;
-//   /*  slider progress trick  */
-//   box-shadow: -407px 0 0 400px white;
-// }
-
-// input[type="range"]:hover {
-//   /* removing default appearance */
-//   -webkit-appearance: none;
-//   appearance: none; 
-//   /* creating a custom design */
-//   width: 100%;
-//   cursor: pointer;
-//   outline: #1db954;
-//   // border-radius: 15px;
-//   overflow: visible;  
-//   -webkit-box-shadow: none;
-//   -moz-box-shadow: none;
-//   box-shadow: none;
-//   background-color: #ff0095;
-//   /* New additions */
-//   //height: 156px;
-//   // background: #ccc;
-//   &::-webkit-slider-runnable-track{
-//     background: --bg;
-//     border-radius: 16px;
-//     -webkit-box-shadow: none;
-//     -moz-box-shadow: none;
-//     box-shadow: none;
-//   }
-//   &::-webkit-slider-thumb{
-//      /* removing default appearance */
-//     -webkit-appearance: none;
-//     appearance: none; 
-//     /* creating a custom design */
-//     height: 15px;
-//     width: 15px;
-    
-//     background-color: white;
-//     border-radius: 50%;
-//     border: none;
-
-//     -webkit-box-shadow: none;
-//     -moz-box-shadow: none;
-//     box-shadow: none;
-//     transition: .2s ease-in-out;
-//   }
-//}
-
-
-
-// /* Thumb: webkit */
-// input[type="range"]::-webkit-slider-thumb:hover {
-//   /* removing default appearance */
-//   -webkit-appearance: none;
-//   appearance: none; 
-//   /* creating a custom design */
-//   height: 15px;
-//   width: 15px;
-//   background-color: #f50;
-//   border-radius: 50%;
-//   border: none;
-
-//   box-shadow: none;
-//   transition: .2s ease-in-out;
-// }
-
-/* Thumb: Firefox */
-// input[type="range"]::-moz-range-thumb:hover {
-//   height: 15px;
-//   width: 15px;
-//   background-color: #f50;
-//   border-radius: 50%;
-//   border: none;
-  
-//   /* box-shadow: -407px 0 0 400px #f50; emove this line */
-//   transition: .2s ease-in-out;
-// }
 
 .time-duration{
   min-width: 40px;
   text-align: left;
 }
-
-
-
-
-input[type="range"] {
-  background-color: white;
-}
-
-
-
-
 
 .smallImage{
   width: 25px;

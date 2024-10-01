@@ -102,28 +102,28 @@ export function Player({ tracks }){
         }
       }, [isPlaying]);
 
-    // useEffect( () => {
-    //     // console.log('time:', time)
-    //     // const progress = (seconds / time.sec) * 100;
-    //     // console.log('progress:', progress)
+    useEffect( () => {
+        // console.log('time:', time)
+        // const progress = (seconds / time.sec) * 100;
+        // console.log('progress:', progress)
 
-    //     const rangeInput = document.getElementById('range1');
-    //     const updateRangeProgress = () => {
-    //       const progress = (rangeInput.value / rangeInput.max) * 100;
+        const rangeInput = document.getElementById('range1');
+        const updateRangeProgress = () => {
+          const progress = (rangeInput.value / rangeInput.max) * 100;
           
 
-    //       rangeInput.style.setProperty('--progress', `${progress}%`);
-    //       console.log('updateRange1Progress:', rangeInput)
-    //     };
+          rangeInput.style.setProperty('--progress', `${progress}%`);
+          console.log('updateRange1Progress:', rangeInput)
+        };
         
-    //     rangeInput.addEventListener('input', updateRangeProgress);
-    //     updateRangeProgress(); // Initial call to set the progress
-    //     //setProgressBar(progress)
-    //     return () => {
-    //       rangeInput.removeEventListener('input', updateRangeProgress);
-    //     };
+        rangeInput.addEventListener('input', updateRangeProgress);
+        updateRangeProgress(); // Initial call to set the progress
+        //setProgressBar(progress)
+        return () => {
+          rangeInput.removeEventListener('input', updateRangeProgress);
+        };
         
-    // }, [seconds])
+    }, [trackProgress])
 
     useEffect( () => {
         audioRef.current.volume = volume
@@ -330,15 +330,6 @@ export function Player({ tracks }){
                                 />
                                     </div>
                                 </div>
-                                {/* <input type="range" 
-                                min='0' 
-                                max="1" 
-                                step='0.01' 
-                                value={volume} 
-                                className='slider' 
-                                id="myRange" 
-                                onChange={changeVolume}
-                            /> */}
                         </div>
                         
 
