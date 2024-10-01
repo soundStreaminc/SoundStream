@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState } from "react"; 
 import useSound from "use-sound"; // for handling the sound
-import sunrise from "../assets/sounds/sunrise.mp3"; // importing the music
-import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai"; // icons for play and pause
-import { BiSkipNext, BiSkipPrevious } from "react-icons/bi"; // icons for next and previous track
-import { IconContext } from "react-icons"; // for customazing the icons
 
 import NowPlayingView from '../assets/svgs/nowPlayingView.svg?react'
 import Lyrics from '../assets/svgs/lyrics.svg?react'
@@ -13,49 +9,124 @@ import Mute from '../assets/svgs/mute.svg?react'
 import MiniPlayer from '../assets/svgs/miniplayer.svg?react'
 import FullScreen from '../assets/svgs/fullScreen.svg?react'
 import AddToLiked from '../assets/svgs/addToLiked.svg?react'
+import { AudioControls } from "./AudioControls";
 
 //TODO change pictures. and size of player
 //TODO add the last icon
 
-export function Player(){
-    const [ volume, setVolume ] = useState(0.5);
+export function Player({ tracks }){
+
+    const [trackIndex, setTrackIndex] = useState(0);
+    const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [play, { pause, duration, sound }] = useSound(sunrise, { volume }); //Enter the audio here, instead of qala
-    const [seconds, setSeconds] = useState(0); // current position of the audio in seconds
+    const [ volume, setVolume ] = useState(0.5);
+
+    const { title, artist, color, image, audioSrc } = tracks[trackIndex];
+
+    const audioRef = useRef(new Audio(audioSrc));
+    const intervalRef = useRef();
+    const isReady = useRef(false);
+
+    let { duration } = audioRef.current;
+
+
+
     const [currTime, setCurrTime] = useState({
-        min: "",
-        sec: "",
+        min: "00",
+        sec: "00",
       }); // current position of the audio in minutes and seconds
       const [time, setTime] = useState({
         min: "",
         sec: ""
       });
-    const imgRef = useRef()
 
-    useEffect( () => {
-        // console.log('time:', time)
-        // const progress = (seconds / time.sec) * 100;
-        // console.log('progress:', progress)
+    const startTimer = () => {
+        // Clear any timers already running
+        clearInterval(intervalRef.current);
+        
+        
+        intervalRef.current = setInterval(() => {
 
-        const rangeInput = document.getElementById('range1');
-        const updateRangeProgress = () => {
-          const progress = (rangeInput.value / rangeInput.max) * 100;
+          if (audioRef.current.ended) {
+            toNextTrack();
+          } else {
+            console.log('audioRef.current.volume:', audioRef.current.volume)
+            setTrackProgress(audioRef.current.currentTime);
+            setCurrTime( {
+                sec: ('0'+  (Math.floor(audioRef.current.currentTime % 60))).slice(-2),
+                min: ('0'+ (Math.floor(audioRef.current.currentTime / 60))).slice(-2)
+            })
+
+
+          }
+        }, [1000]);
+      }
+
+    // Handle setup when changing tracks
+    useEffect(() => {
+
+        audioRef.current.pause();
+    
+        audioRef.current = new Audio(audioSrc);
+        setTrackProgress(audioRef.current.currentTime);
+    
+        if (isReady.current) {
+        audioRef.current.play();
+        setIsPlaying(true);
+        startTimer();
+        } else {
+        // Set the isReady ref as true for the next pass
+        isReady.current = true;
+        }
+    }, [trackIndex]);
+
+    useEffect(() => {
+
+        loadDuration()
+
+        // Pause and clean up on unmount
+        return () => {
+          audioRef.current.pause();
+          clearInterval(intervalRef.current);
+        }
+      }, []);
+
+    useEffect(() => {
+
+        if (isPlaying) {
+            startTimer();
+            audioRef.current.play();
+        } else {
+            clearInterval(intervalRef.current);
+            audioRef.current.pause();
+        }
+      }, [isPlaying]);
+
+    // useEffect( () => {
+    //     // console.log('time:', time)
+    //     // const progress = (seconds / time.sec) * 100;
+    //     // console.log('progress:', progress)
+
+    //     const rangeInput = document.getElementById('range1');
+    //     const updateRangeProgress = () => {
+    //       const progress = (rangeInput.value / rangeInput.max) * 100;
           
 
-          rangeInput.style.setProperty('--progress', `${progress}%`);
-          console.log('updateRange1Progress:', rangeInput)
-        };
+    //       rangeInput.style.setProperty('--progress', `${progress}%`);
+    //       console.log('updateRange1Progress:', rangeInput)
+    //     };
         
-        rangeInput.addEventListener('input', updateRangeProgress);
-        updateRangeProgress(); // Initial call to set the progress
-        //setProgressBar(progress)
-        return () => {
-          rangeInput.removeEventListener('input', updateRangeProgress);
-        };
+    //     rangeInput.addEventListener('input', updateRangeProgress);
+    //     updateRangeProgress(); // Initial call to set the progress
+    //     //setProgressBar(progress)
+    //     return () => {
+    //       rangeInput.removeEventListener('input', updateRangeProgress);
+    //     };
         
-    }, [seconds])
+    // }, [seconds])
 
     useEffect( () => {
+        audioRef.current.volume = volume
         const rangeInput = document.getElementById('range2');
         const updateRangeProgress = () => {
           const progress = volume*100;
@@ -75,41 +146,44 @@ export function Player(){
     }, [volume])
 
 
-    useEffect(() => {
-    const sec = duration / 1000;
-    const min = ('0'+ (Math.floor(sec / 60))).slice(-2);
-    const secRemain = ('0'+  (Math.floor(sec % 60))).slice(-2);
-    setTime({
-        min: min,
-        sec: secRemain
-      });
-    }, [isPlaying]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-          if (sound) {
-            setSeconds(sound.seek([])); // setting the seconds state with the current state
-            const min = ('0'+ Math.floor(sound.seek([]) / 60)).slice(-2);
-            const sec = ('0'+ Math.floor(sound.seek([]) % 60)).slice(-2);
-                setCurrTime({
-                    min,
-                    sec
-                });
-            }
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [sound]);
       
-    
-    const playingButton = () => {
+    function loadDuration(){
+        audioRef.current.onloadedmetadata = function() {
+            duration = audioRef.current.duration;
+
+            const min = ('0'+ (Math.floor(duration / 60))).slice(-2);
+            const secRemain = ('0'+  (Math.floor(duration % 60))).slice(-2);
+            setTime({
+                min: min,
+                sec: secRemain
+            });
+          };
+    }
+
+    function onPlayPauseClick(  ){
         if (isPlaying) {
-          pause(); // this will pause the audio
+            audioRef.current.pause();// this will pause the audio
           setIsPlaying(false);
         } else {
-          play();// this will play the audio
+          audioRef.current.play();
           setIsPlaying(true);
         }
     };
+
+    const onScrub = (value) => {
+        // Clear any timers already running
+      clearInterval(intervalRef.current);
+      audioRef.current.currentTime = value;
+      setTrackProgress(audioRef.current.currentTime);
+    }
+    
+    const onScrubEnd = () => {
+      // If not already playing, start
+      if (!isPlaying) {
+        setIsPlaying(true);
+      }
+      startTimer();
+    }
 
     function changeVolume({target}){
         setVolume(target.value)
@@ -121,6 +195,22 @@ export function Player(){
 
     // }
 
+    const toPrevTrack = () => {
+        if (trackIndex - 1 < 0) {
+            setTrackIndex(tracks.length - 1);
+          } else {
+            setTrackIndex(trackIndex - 1);
+          }
+    }
+
+    const toNextTrack = () => {
+        if (trackIndex < tracks.length - 1) {
+            setTrackIndex(trackIndex + 1);
+          } else {
+            setTrackIndex(0);
+          }
+    }
+
     return (
         <div className="player-container">
             <div className="player-sub-container">
@@ -129,19 +219,20 @@ export function Player(){
                         <div className="musicCover-container">
                             <img
                             className="musicCover"
-                            src="https://picsum.photos/200/200"
+                            src={image}
+                            alt={`track artwork for ${title} by ${artist}`}
                             />
                         </div>
                         
                         <div className="mini-details">
-                            <div className="song-title"> Edenbridge  </div> { /*//get the details from the song  */}
-                            <p className="song-subTitle"> Sunrise in Eden </p>
+                            <div className="artist"> {artist}  </div> { /*//get the details from the song  */}
+                            <p className="song-title"> {title} </p>
                         </div> 
 
                         <button className="add-to-liked-btn">
                             <span aria-hidden="true" className="iconWrapper">
                         
-                                <AddToLiked className="add-to-liked smallImage"/>
+                                <AddToLiked className="add-to-liked"/>
                             </span>
                         </button>
                     </div>
@@ -150,29 +241,13 @@ export function Player(){
             
                 <div className="mini-player-container">
                     <div className="player-btn-container">
-                        <button className="prev playerButton">
-                        <IconContext.Provider value={{ size: "3em", color: "white" }}>
-                            <BiSkipPrevious />
-                        </IconContext.Provider>
-                        </button>
-                        {!isPlaying ? (
-                        <button className="play playerButton" onClick={playingButton}>
-                            <IconContext.Provider value={{ size: "3em", color: "white" }}>
-                            <AiFillPlayCircle />
-                            </IconContext.Provider>
-                        </button>
-                        ) : (
-                        <button className="pause playerButton" onClick={playingButton}>
-                            <IconContext.Provider value={{ size: "3em", color: "white" }}>
-                            <AiFillPauseCircle />
-                            </IconContext.Provider>
-                        </button>
-                        )}
-                        <button className="next playerButton">
-                        <IconContext.Provider value={{ size: "3em", color: "white" }}>
-                            <BiSkipNext />
-                        </IconContext.Provider>
-                        </button>
+                    <AudioControls
+                        isPlaying={isPlaying}
+                        onPrevClick={toPrevTrack}
+                        onNextClick={toNextTrack}
+                        onPlayPauseClick={onPlayPauseClick}
+                    />
+                    
                     </div>
                     <div className="time-duration-container">
                         <p className="current-time">
@@ -184,13 +259,13 @@ export function Player(){
                                 type="range"
                                 id="range1"
                                 min="0"
-                                max={duration / 1000}
+                                max={duration ? duration : `${duration}`}
                                 default="0"
-                                value={seconds}
+                                value={trackProgress}
                                 className="timeline"
-                                onChange={(e) => {
-                                    sound.seek([e.target.value]);
-                                }}
+                                onChange={(e) => onScrub(e.target.value)}
+                                onMouseUp={onScrubEnd}
+                                onKeyUp={onScrubEnd}
                         />
                             </div>
                         </div>

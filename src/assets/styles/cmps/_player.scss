@@ -3,7 +3,7 @@
   min-width: 620px;
   flex-direction: column;
   height: auto;
-   background-color: rgb(158, 148, 148);
+   background-color: black;
 
   // display: flex;
   // font-family: sans-serif;
@@ -75,17 +75,18 @@
         "pretitle pretitle"
         "title title"
         "badges subtitle" / auto 1fr;
-      width: 16.235%;
+      width: 148px;
+      height: 37px;
 }
 
-.song-title{
+.artist{
   color: #fff;
   grid-area: title;
   justify-self: start;
   width: 100%;
 }
 
-.song-subTitle {
+.song-title {
   display: inline-flex;
   min-width: 0px;
   width: 100%;
@@ -95,6 +96,7 @@
   overflow: hidden;
   color: #b3b3b3;
   font-size: 0.75rem;
+  max-height: 20px;
 }
 
 
@@ -111,24 +113,6 @@
   fill: white
 
 
-}
-
-.player-btn-container{
-  // width: 100%;
-  // flex-flow: row nowrap;
-  gap: 16px;
-  margin-bottom: 8px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.playerButton {
-  background: none;
-  border: none;
-  align-items: center;
-  justify-content: center;
 }
 
 .time-duration-container{
@@ -463,11 +447,7 @@ input[type="range"] {
 //   height: 16px;
 }
 
-.iconWrapper{
-  display: flex;
-}
-
-.player-settings-container button, .add-to-liked-btn{
+.player-settings-container button{
   background-color: transparent;
   border: none;
   color: hsla(0, 0%, 100%, .7);
@@ -476,6 +456,17 @@ input[type="range"] {
   width: 32px;
   cursor: pointer;
 
+}
+
+.add-to-liked-btn{
+  background-color: transparent;
+  border: none;
+  color: hsla(0, 0%, 100%, .7);
+  height: 32px;
+  position: relative;
+  width: 32px;
+  cursor: pointer;
+  fill: white;
 }
 
 .player-settings-container{
