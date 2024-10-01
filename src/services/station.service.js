@@ -4,8 +4,10 @@ import { httpService } from './http.service'
 import { utilService } from './util.service'
 const clientId = import.meta.env.VITE_CLIENT_ID
 const clientSecret = import.meta.env.VITE_CLIENT_SECRET
-
+// const clientId = 'd3fc38ce7f59434d9d1ee7e7c85205fd'; // Replace with your client ID
+// const clientSecret = '06fd876e23034893aa7f2f0af79a42ca'; // Replace with your client secret
 const STORAGE_KEY = 'station'
+import axios from 'axios';
 
 export const stationService = {
     query,
@@ -17,7 +19,9 @@ export const stationService = {
     getAlbumsByArtistId,
     getTracksByAlbumId,
     getEmptyStation,
-    getEmptySong
+    getEmptySong,
+    getPlaylistByName,
+    getPlaylistData
 }
 window.cs = stationService
 
@@ -46,9 +50,10 @@ async function remove(stationId) {
 }
 
 async function getAccessKey(){
-
-    //might need to add scopes later
-    var scope =[
+    console.log("Client ID:", clientId);
+    console.log("Client Secret:", clientSecret);
+    var scope = [
+        'playlist-read-private', // Ensure this scope is included
         'user-read-email',
         'user-read-private',
         'user-read-playback-state',
@@ -56,9 +61,21 @@ async function getAccessKey(){
         'user-read-currently-playing',
         'user-read-playback-position',
         'user-top-read',
-'        user-read-recently-played'
-    ]
-
+        'user-read-recently-played'
+      ];
+//    await stationService.getAccessKey().then(result => {
+//     if (!result.ok) {
+//       throw new Error('Failed to obtain access token');
+//     }
+//     return result.json();
+//   }).then(data => {
+//     token.current = data.access_token;
+//     console.log("data.access_token", data.access_token);
+//   });
+    if (!clientId || !clientSecret) {
+      console.error('Client ID or Secret not found');
+      return;
+    }
     //TODO add error handling
         //API ACESS TOKEN
         var authParameters = {
@@ -69,9 +86,33 @@ async function getAccessKey(){
             body: 'grant_type=client_credentials&client_id=' + 
                 clientId + '&client_secret=' + clientSecret
         }
-        //console.log('authParameters:', authParameters)
-        return await fetch ( 'https://accounts.spotify.com/api/token', authParameters )           
+        console.log('authParameters:', authParameters)
+        return await fetch ( 'https://accounts.spotify.com/api/token?scope='+ scope.join(' '), authParameters)           
 }
+
+
+
+async function getPlaylistData(token) {
+    console.log("getPlaylistData",token);
+    try {
+        
+        const response = await fetch("https://api.spotify.com/v1/me/playlists", {
+            method: 'GET',
+            headers: {
+              Authorization: "Bearer " + token,  // Ensure token is correctly set
+              "Content-Type": "application/json",
+            },
+          });
+      const { items } = response.data;
+      const playlists = items.map(({ name, id }) => {
+        return { name, id };
+      });
+      return playlists;
+    } catch (error) {
+      console.error("Error fetching playlists:", error);
+      throw error;
+    }
+  }
 
 async function getArtistId( accessToken , artistName){
     var searchParameters = {
@@ -127,23 +168,30 @@ async function getTracksByAlbumId( accessToken, albumId ){
     console.log('tracks:', tracks)
     return tracks
 }
+async function getPlaylistByName(accessToken, name) {
+    try {
+        var searchParameters = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        };
 
-// async function getCurrentlyPlayingTrack( authorizationToken ){
-//     var searchParameters = {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': 'Bearer ' + authorizationToken
-//         }
-//     }
-//     var currentlyPlaying = await fetch ('https://api.spotify.com/v1/me/player/currently-playing', searchParameters )
-//         .then( response => response.json())
-//         .then( data => { return  data }
-//         )
-//     console.log('currentlyPlaying:', currentlyPlaying)
-//     return currentlyPlaying
-// }
-
+        // Use the search endpoint to find playlists by name
+        const response = await fetch(`https://api.spotify.com/v1/search?q=${name}&type=playlist`, searchParameters);
+        const data = await response.json();
+        
+        if (response.ok && data.playlists.items.length > 0) {
+            console.log('playlist:', data.playlists.items[0]);
+            return data.playlists.items[0];  // Return the first playlist match
+        } else {
+            throw new Error(`No playlist found with name: ${name}`);
+        }
+    } catch (err) {
+        console.error('Error fetching playlist:', err);
+    }
+}
 
 
 // async function addCarMsg(carId, txt) {

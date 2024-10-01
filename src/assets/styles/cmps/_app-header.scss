@@ -10,21 +10,20 @@
 	color: white; // Ensure text is visible on the dark background
 
 
-
 	/* Remove padding from the header itself */
 	.app-header-logo {
 		fill: white;
 		width: 35px;
 		height: 35px;
 		align-content: center;
-		margin-left: 17px;
+		margin-left: 19px;
 
 	}
 
 	.container-serch-home {
 		display: flex;
 		align-items: center;
-		gap: 5px;
+		gap: 10px;
 	}
 
 	.border-icon {
@@ -108,64 +107,49 @@
 
 
 		.search-bar {
-			gap: 10px;
 			display: flex;
 			align-items: center;
 			background-color: #333;
 			border-radius: 53px;
 			padding: 0.7rem;
-			width: 520px;
+			width: 520px; /* Keep the width fixed */
 			color: #b3b3b3;
-			/* Matching placeholder color */
-			transition: background-color 0.2s, color 0.2s;
+			transition: background-color 0.2s ease, color 0.2s ease; /* No width transition */
 			border: 2px solid transparent;
-			/* Start with no visible border */
-
-
-
-
+		  
 			input {
-				border: none;
-				background: none;
-				outline: none;
-				color: #b3b3b3;
-				/* Match the placeholder's initial color */
-
-
-				width: 100%;
-				transition: color 0.2s;
+			  border: none;
+			  background: none;
+			  outline: none;
+			  color: #b3b3b3; /* Default color for placeholder and text */
+			  width: 100%; /* Ensure the input takes full width */
+			  transition: color 0.2s ease;
 			}
-
-
-
+		  
 			&:hover {
-				background-color: #444;
-				/* Slightly lighter background on hover */
-
-				input {
-					color: white;
-					/* Make text white on hover */
-				}
-
-				.search-icon {
-					width: 30px; // Make the search icon smaller
-					height: 30px; // Adjust the size as needed
-					fill: #fff; // Ensure the search icon is white in color
-					transition: fill 0.2s, width 0.2s, height 0.2s ease; // Smooth transition for icon size and color changes
-				}
-
-				.search-bar:hover .search-icon {
-					fill: #fff; // Keep the icon white on hover
-				}
-
-
-
-				// .search-icon {
-				// 	color: white;
-				// 	/* Make search icon white on hover */
-
-				// }
+			  background-color: #444; /* Change background color on hover */
+			  input {
+				color: white; /* Change text color on hover */
+			  }
+		  
+			  .search-icon {
+				fill: white; /* Change icon color on hover */
+				transition: fill 0.2s ease;
+			  }
 			}
+		  
+			input:focus {
+			  border-color: white; /* Change border color on focus */
+			  color: white; /* Change input text color on focus */
+			}
+		  
+		  
+		  .search-icon {
+			width: 24px;
+			height: 24px;
+			fill: #b3b3b3; /* Default icon color */
+			transition: fill 0.2s ease; /* Smooth color change */
+		  }
 
 			/* Focus effect for the entire search-bar when input is focused */
 			input:focus+.separator,
@@ -182,13 +166,13 @@
 			}
 
 
-			// Separator Line
-			.separator {
-				height: 1.5rem;
-				width: 1px;
-				background-color: #888;
+			// // Separator Line
+			// .separator {
+			// 	height: 1.5rem;
+			// 	width: 1px;
+			// 	background-color: #888;
 
-			}
+			// }
 
 			// Browse Icon
 

@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 // import SearchIcon from '@mui/icons-material/Search';
@@ -14,7 +14,7 @@ export function AppHeader() {
     const [activeButton, setActiveButton] = useState(''); // Track which button is active
     const [searchTerm, setSearchTerm] = useState(''); // Declare and initialize searchTerm
 
-useEffect(( )=>{ console.log(activeButton)} ,[activeButton])
+    useEffect(() => { console.log(activeButton) }, [activeButton])
     const handleHomeClick = () => {
         setActiveButton('home'); // Set home as the active button
     };
@@ -55,7 +55,9 @@ useEffect(( )=>{ console.log(activeButton)} ,[activeButton])
                     {/* Search Bar */}
                     <div className="search-bar">
                         <Tooltip title="Search" arrow>
-                            <SearchIcon className="search-icon" onClick={handleOtherButtonClick} />
+                            <div onClick={handleOtherButtonClick}>
+                                <SearchIcon className="search-icon" />
+                            </div>
                         </Tooltip>
                         <input
                             type="text"
@@ -64,19 +66,21 @@ useEffect(( )=>{ console.log(activeButton)} ,[activeButton])
                             onChange={handleSearchChange} // Handle input change
                         />
 
-                        <div className='separator'/>
+                        <div className='separator' />
                         <div className=' container-serch-home'>
-                        <div    exact="true"
-                            to="/"
-                            className={`app-header-icon browse-icon ${activeButton === 'browse' ? 'active' : ''}`}
+                            <div exact="true"
+                                to="/"
+                                className={`app-header-icon browse-icon ${activeButton === 'browse' ? 'active' : ''}`}
 
 
-                            onClick={handleBrowseClick}>
-                        <Tooltip title="Browse" arrow>
-                        <BrowseIcon className="border-icon-browse" fill={activeButton === 'browse' ? "#fff" : "#333"} />
-                        </Tooltip >
+                                onClick={handleBrowseClick}>
+                                <Tooltip title="Browse" arrow>
+                                    <div onClick={handleBrowseClick}>
+                                        <BrowseIcon className="border-icon-browse" />
+                                    </div>
+                                </Tooltip>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 {/* Shopping Cart Icon */}
