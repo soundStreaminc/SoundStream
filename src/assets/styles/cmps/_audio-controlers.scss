@@ -1,0 +1,36 @@
+.action-btn{
+    fill: black;
+    background-color: white;
+    width: 16px;
+    height: 16px;
+}
+
+
+.playerButton {
+    //background: white;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+
+  .audio-controls{
+    // width: 100%;
+    // flex-flow: row nowrap;
+    gap: 16px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  
+.iconWrapper{
+    display: flex;
+    justify-content: center;
+  }
+  
+

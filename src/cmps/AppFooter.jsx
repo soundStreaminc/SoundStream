@@ -1,10 +1,10 @@
 import { Player } from "./Player";
 
-export function AppFooter(){
+export function AppFooter( {tracks }){
 
     return (
         <section className="footer-container">
-            <Player />
+            <Player tracks= {tracks } />
         </section>
     )
 }

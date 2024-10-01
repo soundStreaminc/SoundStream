@@ -46,6 +46,19 @@ async function remove(stationId) {
 }
 
 async function getAccessKey(){
+
+    //might need to add scopes later
+    var scope =[
+        'user-read-email',
+        'user-read-private',
+        'user-read-playback-state',
+        'user-modify-playback-state',
+        'user-read-currently-playing',
+        'user-read-playback-position',
+        'user-top-read',
+'        user-read-recently-played'
+    ]
+
     //TODO add error handling
         //API ACESS TOKEN
         var authParameters = {
@@ -59,6 +72,7 @@ async function getAccessKey(){
         //console.log('authParameters:', authParameters)
         return await fetch ( 'https://accounts.spotify.com/api/token', authParameters )           
 }
+
 async function getArtistId( accessToken , artistName){
     var searchParameters = {
         method: 'GET',
@@ -113,6 +127,24 @@ async function getTracksByAlbumId( accessToken, albumId ){
     console.log('tracks:', tracks)
     return tracks
 }
+
+// async function getCurrentlyPlayingTrack( authorizationToken ){
+//     var searchParameters = {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': 'Bearer ' + authorizationToken
+//         }
+//     }
+//     var currentlyPlaying = await fetch ('https://api.spotify.com/v1/me/player/currently-playing', searchParameters )
+//         .then( response => response.json())
+//         .then( data => { return  data }
+//         )
+//     console.log('currentlyPlaying:', currentlyPlaying)
+//     return currentlyPlaying
+// }
+
+
 
 // async function addCarMsg(carId, txt) {
 //     const savedMsg = await httpService.post(`car/${carId}/msg`, {txt})
