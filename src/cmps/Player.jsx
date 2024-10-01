@@ -232,7 +232,7 @@ export function Player({ tracks }){
                         <button className="add-to-liked-btn">
                             <span aria-hidden="true" className="iconWrapper">
                         
-                                <AddToLiked className="add-to-liked smallImage"/>
+                                <AddToLiked className="add-to-liked"/>
                             </span>
                         </button>
                     </div>
