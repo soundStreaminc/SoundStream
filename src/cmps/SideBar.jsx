@@ -8,7 +8,22 @@ import Add from '../assets/svgs/add.svg?react';
 import Arrow from '../assets/svgs/rightArrow.svg?react';
 import Search from '../assets/svgs/search.svg?react';
 import Recents from '../assets/svgs/recents.svg?react';
+import Playlist from "./Playlist";
 export function SideBar() {
+    const samplePlaylists = [
+        {
+          image: 'https://link-to-image.com/image1.jpg',
+          name: 'Liked Songs',
+          owner: 'Spotify',
+        },
+        {
+          image: 'https://link-to-image.com/image2.jpg',
+          name: 'This Is ShrekDiMC',
+          owner: 'Spotify',
+        },
+        // Add more sample playlists here...
+      ];
+
     return (
         <div className="sidebar">
         
@@ -38,29 +53,9 @@ export function SideBar() {
                 </div>
                 <ul className="playlist-list">
                     <li>
-                        <NavLink to="/liked-songs">
-                            {/* <LikedSongsIcon className="playlist-icon" />  */}
-                            <span>Liked Songs</span>
-                        </NavLink>
+                    <Playlist  />
                     </li>
-                    <li>
-                        <NavLink to="/playlist/this-is-shrek">
-                            {/* <PlaylistIcon className="playlist-icon" /> */}
-                            <span>This Is ShrekDiMC</span>
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/playlist/project-test">
-                            {/* <PlaylistIcon className="playlist-icon" /> */}
-                            <span>ProjectTestPlaylist</span>
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/playlist/peer-tasi">
-                            {/* <ArtistIcon className="playlist-icon" /> */}
-                            <span>Peer Tasi</span>
-                        </NavLink>
-                    </li>
+                  
                 </ul>
             </div>
 
