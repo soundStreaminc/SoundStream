@@ -1,3 +1,6 @@
+
+
+
 import React from 'react'
 import { Routes, Route } from 'react-router'
 
@@ -7,8 +10,8 @@ import { StationDetails } from './pages/StationDetails'
 import { AppHeader } from './cmps/AppHeader'
 import { AppFooter } from './cmps/AppFooter'
 import { RightSidebar } from './pages/RightSidebar'
-import { LeftSidebar } from './pages/LeftSidebar'
-
+// import { LeftSidebar } from './pages/LeftSidebar'
+import { SideBar } from './cmps/SideBar'
 export function RootCmp() {
 
     const tracks = [
@@ -31,13 +34,15 @@ export function RootCmp() {
     return (
         <div className='main-app'>
                 <AppHeader />
-                <LeftSidebar />        
+                <div className="main-content-container">
+                <SideBar/> 
                 <main className='container'>
                     <Routes>
                             <Route path="" element={<HomePage />} />
                             <Route path="/:stationId" element={<StationDetails />} />
                     </Routes>
                 </main>
+                </div>
                 <RightSidebar />
                 <AppFooter tracks={ tracks  }/> 
         </div>
