@@ -13,9 +13,6 @@ import { AudioControls } from "./AudioControls";
 import { useSelector } from "react-redux";
 import { loadTracks } from "../store/currentPlaylist/currentPlaylist.actions";
 
-//TODO change pictures. and size of player
-//TODO add the last icon
-
 export function Player(){
     let tracks = useSelector ( storeState => storeState.currentPlaylist )
 
@@ -26,8 +23,10 @@ export function Player(){
 
     const intervalRef = useRef();
     const isReady = useRef(false);
-
-    let duration = 0;
+    
+    const { title, artist, color, image, audioSrc } = tracks[trackIndex]
+    const audioRef = useRef(new Audio(audioSrc));
+    let duration = audioRef.current.duration;
 
 
 
@@ -56,7 +55,6 @@ export function Player(){
 
     // Handle setup when changing tracks
     useEffect(() => {
-        if(!tracks) return
         audioRef.current.pause();
     
         audioRef.current = new Audio(audioSrc);
@@ -73,7 +71,6 @@ export function Player(){
     }, [trackIndex]);
 
     useEffect(() => {
-        if(!tracks) return
 
         if (isPlaying) {
             startTimer();
@@ -85,7 +82,6 @@ export function Player(){
       }, [isPlaying]);
 
     useEffect( () => {
-        if(!tracks) return
 
         // console.log('time:', time)
         // const progress = (seconds / time.sec) * 100;
@@ -110,7 +106,6 @@ export function Player(){
     }, [trackProgress])
 
     useEffect( () => {
-        if(!tracks) return
 
         audioRef.current.volume = volume
         const rangeInput = document.getElementById('range2');
@@ -215,10 +210,6 @@ export function Player(){
           }
     }
 
-    if (!tracks) return (<div>  loading ... </div>)
-    const { title, artist, color, image, audioSrc } = tracks[trackIndex]
-    const audioRef = useRef(new Audio(audioSrc));
-    duration = audioRef.current;
     return (
         <div className="player-container">
             <div className="player-sub-container">
