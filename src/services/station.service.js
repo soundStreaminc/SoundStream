@@ -14,8 +14,9 @@ export const stationService = {
     getById,
     save,
     remove,
-    getAccessKey,
+    setAccessKey,
     getArtistId,
+    getArtist,
     getAlbumsByArtistId,
     getTracksByAlbumId,
     getEmptyStation,
@@ -24,6 +25,8 @@ export const stationService = {
     getPlaylistData
 }
 window.cs = stationService
+
+let gAccesskey = ''
 
 _createStation()
 
@@ -52,7 +55,7 @@ async function remove(stationId) {
     return httpService.delete(`station/${stationId}`)
 }
 
-async function getAccessKey(){
+async function setAccessKey(){
     console.log("Client ID:", clientId);
     console.log("Client Secret:", clientSecret);
     var scope = [
@@ -90,7 +93,12 @@ async function getAccessKey(){
                 clientId + '&client_secret=' + clientSecret
         }
         console.log('authParameters:', authParameters)
-        return await fetch ( 'https://accounts.spotify.com/api/token?scope='+ scope.join(' '), authParameters)           
+        gAccesskey =  await fetch ( 'https://accounts.spotify.com/api/token?scope='+ scope.join(' '), authParameters)
+            .then( response => response.json())
+            .then( data => { 
+                console.log('data:', data)   
+                return  data.access_token })
+        
 }
 
 
@@ -117,12 +125,12 @@ async function getPlaylistData(token) {
     }
   }
 
-async function getArtistId( accessToken , artistName){
+async function getArtistId( artistName){
     var searchParameters = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+            'Authorization': 'Bearer ' + gAccesskey
         }
     }
     var artistId = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
@@ -138,12 +146,33 @@ async function getArtistId( accessToken , artistName){
 
 }
 
-async function getAlbumsByArtistId( accessToken, artistId ){
+async function getArtist( artistName){
     var searchParameters = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+            'Authorization': 'Bearer ' + gAccesskey
+        }
+    }
+    var foundArtist = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
+        artistName + '&type=artist' , searchParameters)
+        .then( response => response.json())
+        .then( data => { return  data.artists? data.artists.items[0] : '' }
+
+        )
+    
+     console.log('foundArtist:', foundArtist)
+
+     return foundArtist
+
+}
+
+async function getAlbumsByArtistId( artistId ){
+    var searchParameters = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + gAccesskey
         }
     }
     var albums = await fetch ('https://api.spotify.com/v1/artists/' + 
@@ -155,12 +184,12 @@ async function getAlbumsByArtistId( accessToken, artistId ){
     return albums
 }
 
-async function getTracksByAlbumId( accessToken, albumId ){
+async function getTracksByAlbumId( albumId ){
     var searchParameters = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+            'Authorization': 'Bearer ' + gAccesskey
         }
     }
     var tracks = await fetch ('https://api.spotify.com/v1/albums/' + 
@@ -235,6 +264,7 @@ function _createStation() {
      
     station = [
         {
+          id: "c1",
           title: "Love It When You Hate Me (feat. blackbear) - Acoustic",
           artist: "Avril Lavigne",
           audioSrc: "https://p.scdn.co/mp3-preview/ddabbe456fde1ab1bef88c8022056f7d26f2f5ba?cid=426b1061c8be4e70babeec62bbcf0f08",
@@ -242,6 +272,7 @@ function _createStation() {
           color: "blue",
         },
         {
+            id: "c2",
             title: "Waiting for the End",
             artist: "Linkin Park",
             audioSrc: "https://p.scdn.co/mp3-preview/1e52f7874a0864d96c106a5ee93970dcee66b05f?cid=426b1061c8be4e70babeec62bbcf0f08",
@@ -250,6 +281,10 @@ function _createStation() {
           }
       ]
     utilService.saveToStorage(STORAGE_KEY, station)
+}
+
+function getAccessKey() {
+    return gAccesskey
 }
 
 //TODO add get empy msgs?

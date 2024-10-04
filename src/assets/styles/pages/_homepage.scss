@@ -3,12 +3,9 @@
     display: flex;
     flex-direction: column;
     justify-items: center;
-    align-items: flex-end; /* Aligns the content to the right */
     gap: 1em;
     padding: 10px;
     position: absolute;
-    right: 10px; /* Ensures it stays on the right */
-    bottom: 10px; /* Moves it to the bottom */
 
 }
 
@@ -24,4 +21,75 @@
 
 .authorize{
     width: 30%;
+}
+
+.filter-menu-container {
+    padding-bottom: 12px;
+    padding-top: 12px;
+    display: flex;
+    gap: 10px;
+    flex-direction: row; // Keep the buttons inline but below the header
+    padding: 0 10px; // Padding around the section
+    margin-bottom: 30px; // Add space between serch-recents and playlist-list
+    padding: 0 10px; // Padding around the section
+    .filter-btn {
+        background-color: #333;
+        padding: 8px 16px;
+        border-radius: 20px;
+        color: white;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #444;
+        }
+    }
+}
+
+.filter-results-container{
+    display: grid;
+    //grid-gap: var(--grid-gap);
+    grid-auto-rows: -webkit-min-content;
+    grid-auto-rows: min-content;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.top-result-container{
+    display: flex;
+    grid-column: 1 / -1 ;
+}
+
+.title{
+    margin-bottom: 8px;
+}
+
+.top-result-sub-container{
+    background: #181818;
+    grid-column: span 2;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.artist-image-container{
+
+    width: 92px;
+    height: 92px;
+    background-color: #181818;
+}
+
+.artist-image{
+    border-radius: 50%;
+    width: 92px;
+    height: 92px;
+}
+
+.artist-name{
+    font-family: SpotifyMixUITitle, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic, sans-serif;
+    font-weight: 700;
+    text-wrap: balance;
+    font-size: 32px;
 }
