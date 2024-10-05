@@ -1,5 +1,5 @@
 import { legacy_createStore as createStore } from "redux";
-import { stationReducer } from "./currentPlaylist/currentPlaylist.reducer";
+import { stationReducer } from "./song/song.reducer";
 
 export const store = createStore( stationReducer)
 

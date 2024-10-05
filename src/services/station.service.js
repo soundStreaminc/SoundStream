@@ -16,7 +16,8 @@ export const stationService = {
     remove,
     setAccessKey,
     getArtistId,
-    getArtist,
+    getArtists,
+    getTracks,
     getAlbumsByArtistId,
     getTracksByAlbumId,
     getEmptyStation,
@@ -146,7 +147,7 @@ async function getArtistId( artistName){
 
 }
 
-async function getArtist( artistName){
+async function getArtists( artistName){
     var searchParameters = {
         method: 'GET',
         headers: {
@@ -154,16 +155,39 @@ async function getArtist( artistName){
             'Authorization': 'Bearer ' + gAccesskey
         }
     }
-    var foundArtist = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
+    var foundArtists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
         artistName + '&type=artist' , searchParameters)
         .then( response => response.json())
-        .then( data => { return  data.artists? data.artists.items[0] : '' }
+        .then( data => { return  data.artists? data.artists.items : '' }
 
         )
     
-     console.log('foundArtist:', foundArtist)
+     console.log('foundArtists:', foundArtists)
 
-     return foundArtist
+     return foundArtists
+
+}
+
+async function getTracks ( tracktName, limit ){
+    var searchParameters = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + gAccesskey
+        }
+    }
+    var foundTracks = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
+        tracktName + '&type=track&limit=' + limit , searchParameters)
+        .then( response => response.json())
+        .then( data => { 
+            console.log('data:', data)
+            return  data.tracks.items? data.tracks.items : '' }
+
+        )
+    
+     console.log('foundTracks:', foundTracks)
+
+     return foundTracks
 
 }
 

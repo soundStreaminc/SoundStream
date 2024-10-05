@@ -6,7 +6,7 @@
     gap: 1em;
     padding: 10px;
     position: absolute;
-
+    width: 100%;
 }
 
 .testApi{
@@ -46,7 +46,7 @@
     }
 }
 
-.filter-results-container{
+.filter-top-result-container{
     display: grid;
     //grid-gap: var(--grid-gap);
     grid-auto-rows: -webkit-min-content;

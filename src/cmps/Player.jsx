@@ -11,7 +11,7 @@ import FullScreen from '../assets/svgs/fullScreen.svg?react'
 import AddToLiked from '../assets/svgs/addToLiked.svg?react'
 import { AudioControls } from "./AudioControls";
 import { useSelector } from "react-redux";
-import { loadTracks } from "../store/currentPlaylist/currentPlaylist.actions";
+import { loadTracks } from "../store/song/song.actions";
 
 export function Player(){
     let tracks = useSelector ( storeState => storeState.currentPlaylist )

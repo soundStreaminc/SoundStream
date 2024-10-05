@@ -18,10 +18,12 @@ const intialState = {
             color: "green",
           }
       ],
-      foundArtist : []
+      foundArtists : [],
+      foundSongs: []
 }
 
-export const SET_ARTIST = 'SET_ARTIST'
+export const SEARCH_SONGS = 'SEARCH_SONGS'
+export const SEARCH_ARTISTS = 'SEARCH_ARTISTS'
 export const SET_STATION = 'SET_STATION'
 export const ADD_TRACK = 'ADD_TRACK'
 export const REMOVE_TRACK = 'REMOVE_TRACK'
@@ -31,10 +33,15 @@ export const EDIT_TRACK = 'EDIT_TRACK'
 
 export function stationReducer ( state = intialState, cmd = {}  ){
     switch (cmd.type){
-        case SET_ARTIST :
+        case SEARCH_ARTISTS :
             return{
                 ...state,
-                foundArtist : cmd.artist
+                foundArtists : cmd.artists
+            }  
+        case SEARCH_SONGS :
+            return{
+                ...state,
+                foundSongs : cmd.songs
             }  
         case SET_STATION :
             return{

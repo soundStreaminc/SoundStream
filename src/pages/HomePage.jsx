@@ -1,36 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { stationService } from "../services/station.service";
-import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { StationFilter } from "../cmps/StationFilter";
 
 export function HomePage() {
-    let tracks = useSelector ( storeState => storeState.currentPlaylist )
-    let foundArtist = useSelector ( storeState => storeState.foundArtist )
-
-    const [ albums , setAlbums ] = useState([])
-
-    let inputArtist = useRef('Taylor Swift')
+    let foundArtists = useSelector ( storeState => storeState.foundArtists )
 
     useEffect( ()=>{           
         stationService.setAccessKey()
     }, [])
-
-    /**
-     * Get request with artist Id: grab all the albums from that article
-     * @param {*} artist 
-     */
-    async function getDateByArtist( artist ){
-        var artistId = await stationService.getArtistId (  artist)
-        var returnedAlbums = await stationService.getAlbumsByArtistId ( artistId)
-
-        setAlbums ( returnedAlbums )
-        
-    }
-    
-    function handleChange( {target }){
-        inputArtist.current = target.value
-    }
 
     return (
         <section className="home-container">
@@ -39,26 +17,13 @@ export function HomePage() {
                 <button className="filter-btn"> Artists </button>
                 <button className="filter-btn"> Songs </button>
             </div>
-            <div className="filter-results-container">
-                <div className="title">
-                    <h2>
-                        <span> Top result </span>
-                    </h2>
-                </div>
-               
-                <div className="top-result-container">
-                    <div className="top-result-sub-container">
-                        <div className="artist-image-container" >
-                            <img className="artist-image" src={foundArtist.images? foundArtist.images[0].url : "not found"} />
-                        </div>
-                        <div className="artist-name">
-                            {foundArtist.name? foundArtist.name : "not found"}
-                        </div>
-                        <span> Artist </span>
-                    </div>
-                </div>
-                
-            </div>
+            
+            {/* make this better by not using the use selector and getting from service the search input */}
+            {foundArtists[0] && (
+                <StationFilter / > 
+            
+            )}  
+
             {/* <div className="station-container">
                 <pre> 
                     playlist: {JSON.stringify(tracks, null, "\t") }  
