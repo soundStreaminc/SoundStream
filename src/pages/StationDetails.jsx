@@ -11,13 +11,13 @@ export function StationDetails() {
     const [searchParams, setSearchParams] = useSearchParams()  
 
     useEffect(() => {
-        loadTracks()
+        // loadTracks()
     }, [params])
 
-    async function loadTracks(){
-        const tracks = await stationService.getTracksByAlbumId( searchParams.get('access-token') ,params.stationId)
-        setStation(tracks)
-    }
+    // async function loadTracks(){
+    //     const tracks = await stationService.getTracksByAlbumId( searchParams.get('access-token') ,params.stationId)
+    //     setStation(tracks)
+    // }
 
     function setSong ( url){
         try {
