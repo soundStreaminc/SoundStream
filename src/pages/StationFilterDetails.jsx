@@ -1,10 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router";
+import { useSearchParams } from "react-router-dom";
+import { stationService } from "../services/station.service";
 
-export function StationFilter(){
+export function StationFilterDetails(){
     let foundArtists = useSelector ( storeState => storeState.foundArtists )
     let foundSongs = useSelector ( storeState => storeState.foundSongs )
 
+    const params = useParams()
+    const [searchParams, setSearchParams] = useSearchParams()  
+    const [searchTerm, setSearchTerm] = useState( params  ); // Declare and initialize searchTerm
+
+    useEffect( ()=>{   
+
+
+        setSearchParams(searchTerm.size > 0 ? { filterText: searchTerm }: '')
+        console.log('StationFilterDetails useEffect searchTerm:', searchTerm)
+
+    }, [ searchTerm ])
+
+    if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
                 <div className="filter-top-result-container">

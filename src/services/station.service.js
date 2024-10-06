@@ -23,7 +23,8 @@ export const stationService = {
     getEmptyStation,
     getEmptySong,
     getPlaylistByName,
-    getPlaylistData
+    getPlaylistData,
+    getFilterFromSearchParams
 }
 window.cs = stationService
 
@@ -148,6 +149,7 @@ async function getArtistId( artistName){
 }
 
 async function getArtists( artistName){
+    console.log('gAccesskey:', gAccesskey)
     var searchParameters = {
         method: 'GET',
         headers: {
@@ -305,6 +307,16 @@ function _createStation() {
           }
       ]
     utilService.saveToStorage(STORAGE_KEY, station)
+}
+
+function getFilterFromSearchParams(searchParams){
+    console.log('test2 : searchParams:', searchParams)
+    const filterBy = {
+        filterText: searchParams.size > 0 ?  searchParams.filterText : ''
+
+    }
+    console.log('filterBy:', filterBy)
+    return filterBy
 }
 
 function getAccessKey() {

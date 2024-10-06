@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { stationService } from "../services/station.service";
 import { useSelector } from "react-redux";
-import { StationFilter } from "../cmps/StationFilter";
+import { StationFilter } from "./StationFilter";
 
 export function HomePage() {
     let foundArtists = useSelector ( storeState => storeState.foundArtists )

@@ -62,3 +62,12 @@ function loadFromStorage(key) {
     return (data) ? JSON.parse(data) : undefined
 }
 
+export function getExistingProperties(obj){
+    const trueObj = {}
+    for (const key in obj){
+        const val = obj[key]
+        if ( val || typeof val === 'boolean')
+            trueObj[key] = val
+    }
+    return trueObj
+}

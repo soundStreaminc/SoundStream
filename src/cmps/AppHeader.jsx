@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, Navigate, NavLink, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 // import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -11,17 +11,24 @@ import BrowseIcon from '../assets/svgs/browse.svg?react';
 import UserIcon from '../assets/svgs/user.svg?react';
 import { stationService } from '../services/station.service';
 import { searchArtists, searchSongs } from '../store/song/song.actions';
+import { getExistingProperties } from '../services/util.service';
 
 export function AppHeader() {
+    const params = useParams()
+    const [searchParams, setSearchParams] = useSearchParams()  
+
     const DISPLAYEDSONGSNUMBER = 4
 
     const [activeButton, setActiveButton] = useState(''); // Track which button is active
-    const [searchTerm, setSearchTerm] = useState(''); // Declare and initialize searchTerm
+    const [searchTerm, setSearchTerm] = useState( stationService.getFilterFromSearchParams(params) ); // Declare and initialize searchTerm
 
     useEffect(() => { console.log(activeButton) }, [activeButton])
     const handleHomeClick = () => {
         setActiveButton('home'); // Set home as the active button
     };
+
+    const navigate = useNavigate()
+
     const handleBrowseClick = () => {
         setActiveButton('browse'); // Set home as the active button
     };
@@ -30,19 +37,23 @@ export function AppHeader() {
     };
 
     const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value); // Update searchTerm state when input changes
+        if (event.target.value)
+            navigate(`/search/${ event.target.value }`)
+        setSearchTerm({ filterText: event.target.value }); // Update searchTerm state when input changes
     };
 
-    useEffect( ()=>{           
-        const foundArtist = onSearchArtist( searchTerm )
+    useEffect( ()=>{   
+        setSearchParams(searchTerm.size > 0 ? { filterText: searchTerm }: '')
+        console.log('useEffect searchTerm:', searchTerm)
+        const foundArtist = onSearchArtist( searchTerm.filterText )
         console.log('header foundArtist:', foundArtist)
-        const foundSongs = onSearchSongs( searchTerm )
+        const foundSongs = onSearchSongs( searchTerm.filterText )
         console.log('header foundSongs:', foundSongs)
     }, [ searchTerm ])
 
      async function onSearchArtist( artist = '' ){
         try {
-            var foundArtists = artist !== '' ? searchArtists( artist ) : ''
+            var foundArtists = artist ? searchArtists( artist ) : ''
             console.log('foundArtists:', foundArtists)
         } catch (err) {
             console.log('err:', err)
@@ -51,25 +62,17 @@ export function AppHeader() {
 
     async function onSearchSongs( song = '' ){
         try {
-            var foundSongs = song !== '' ? searchSongs( song , DISPLAYEDSONGSNUMBER) : ''
+            var foundSongs = song ? searchSongs( song , DISPLAYEDSONGSNUMBER) : ''
             console.log('foundSongs:', foundSongs)
         } catch (err) {
             console.log('err:', err)
         }    
     }
 
-    async function onSearchTracks ( trackName = '' ){
-        try {
-            var foundTracks = trackName !== '' ? await stationService.getTracks ( trackName , DISPLAYEDSONGSNUMBER ) : ''
-            console.log('foundTracks:', foundTracks)
-            // var returnedAlbums = await stationService.getAlbumsByArtistId (artistId)
-            // var albumId = returnedAlbums[0].id
-            // var foundTracks = await stationService.getTracksByAlbumId( albumId )
-            // setFoundTracks ( foundTracks )
-            //addFoundArtist( foundArtist )
-        } catch (err) {
-            console.log('err:', err)
-        }    
+    function handleSearchClick(){
+        console.log('test:  searchTerm.filterText :', searchTerm )
+        if (!searchTerm.filterText )
+            navigate(`/search/${ searchTerm.filterText }`)
     }
 
     return (
@@ -79,7 +82,7 @@ export function AppHeader() {
             </Link>
             {/* Home and Search */}
             <nav className="container-mid-app-header">
-                <div className=' container-serch-home'>
+                <div className=' container-search-home'>
                     <Tooltip title="Home" arrow>
                         <div
                             exact="true"
@@ -105,24 +108,27 @@ export function AppHeader() {
                         <input
                             type="text"
                             placeholder="What do you want to play?"
-                            value={searchTerm} // Bind searchTerm to input
+                            value={searchTerm.filterText}  // Bind searchTerm to input
                             onChange={handleSearchChange} // Handle input change
+                            onClick={handleSearchClick}
                         />
 
                         <div className='separator' />
-                        <div className=' container-serch-home'>
-                            <div exact="true"
-                                to="/"
-                                className={`app-header-icon browse-icon ${activeButton === 'browse' ? 'active' : ''}`}
+                        <div className=' container-search-home'>
+                            <NavLink to="/search">
+                                <div exact="true"
+                                    to="/"
+                                    className={`app-header-icon browse-icon ${activeButton === 'browse' ? 'active' : ''}`}
 
 
-                                onClick={handleBrowseClick}>
-                                <Tooltip title="Browse" arrow>
-                                    <div onClick={handleBrowseClick}>
-                                        <BrowseIcon className="border-icon-browse" />
-                                    </div>
-                                </Tooltip>
-                            </div>
+                                    onClick={handleBrowseClick}>
+                                    <Tooltip title="Browse" arrow>
+                                        <div onClick={handleBrowseClick}>
+                                            <BrowseIcon className="border-icon-browse" />
+                                        </div>
+                                    </Tooltip>
+                                </div>
+                            </NavLink>  
                         </div>
                     </div>
                 </div>
