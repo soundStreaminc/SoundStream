@@ -288,6 +288,7 @@ function getEmptyStation() {
 function getEmptySong() {
     return {
         _id: utilService.makeId(),
+        type: '',
         title: '',
         url: '',
         imgUrl: '',
@@ -306,6 +307,7 @@ function _createStation() {
     station = [
         {
           id: "c1",
+          type: "album",
           title: "Love It When You Hate Me (feat. blackbear) - Acoustic",
           artist: "Avril Lavigne",
           audioSrc: "https://p.scdn.co/mp3-preview/ddabbe456fde1ab1bef88c8022056f7d26f2f5ba?cid=426b1061c8be4e70babeec62bbcf0f08",
@@ -314,6 +316,7 @@ function _createStation() {
         },
         {
             id: "c2",
+            type: "playlist",
             title: "Waiting for the End",
             artist: "Linkin Park",
             audioSrc: "https://p.scdn.co/mp3-preview/1e52f7874a0864d96c106a5ee93970dcee66b05f?cid=426b1061c8be4e70babeec62bbcf0f08",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 // import LikedSongsIcon from '../assets/svgs/likedSongs.svg';
 // import PlaylistIcon from '../assets/svgs/playlist.svg';
@@ -9,7 +9,23 @@ import Arrow from '../assets/svgs/rightArrow.svg?react';
 import Search from '../assets/svgs/search.svg?react';
 import Recents from '../assets/svgs/recents.svg?react';
 import Playlist from "./Playlist";
+import { stationService } from '../services/station.service';
 export function SideBar() {
+
+    useEffect( ()=> {
+        loadPlaylist()
+    }, [])
+
+
+    async function loadPlaylist(){
+        const data = await stationService.query()
+        var jsonData = data.json()
+        jsonData.map( station => {
+            (station.type === 'playlist') 
+            return station
+        } )
+    }
+
     const samplePlaylists = [
         {
           image: 'https://link-to-image.com/image1.jpg',
@@ -27,6 +43,7 @@ export function SideBar() {
     return (
         <div className="sidebar">
         
+        <div data-testid="LayoutResizer__resize-bar" className="LayoutResizer__resize-bar LayoutResizer__inline-end"><label className="hidden-visually">Resize main navigation<input className="LayoutResizer__input" type="range" min="72" max="1021" step="10" /*value="420" */ /></label></div>
 
              {/* Your Library */}
              <div className="sidebar-section">

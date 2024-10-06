@@ -23,6 +23,11 @@ export function StationFilterDetails(){
     if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
+            <div className="filter-menu-container">
+                <button className="filter-btn"> All </button>
+                <button className="filter-btn"> Artists </button>
+                <button className="filter-btn"> Songs </button>
+            </div>
                 <div className="filter-top-result-container">
                     <div className="title">
                         <h2>
