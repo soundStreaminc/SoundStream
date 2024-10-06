@@ -1,27 +1,132 @@
-.home-container{
-    grid-area: main-view;
+// .home-container{
+//     grid-area: main-view;
+//     display: flex;
+//     flex-direction: column;
+//     justify-items: center;
+//     align-items: flex-end; /* Aligns the content to the right */
+//     gap: 1em;
+//     padding: 10px;
+//     position: absolute;
+//     right: 10px; /* Ensures it stays on the right */
+//     bottom: 10px; /* Moves it to the bottom */
+
+// }
+
+// .testApi{
+
+//     width: 50%;
+// }
+
+// .input-filed-container{
+//     display: flex;
+//     gap: 1em;
+// }
+
+// .authorize{
+//     width: 30%;
+// }
+
+
+.spotify-homepage {
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-items: center;
-    align-items: flex-end; /* Aligns the content to the right */
-    gap: 1em;
-    padding: 10px;
-    position: absolute;
-    right: 10px; /* Ensures it stays on the right */
-    bottom: 10px; /* Moves it to the bottom */
-
+    gap: 2em;
+    color: #fff;
+    background-color: #181818;
 }
 
-.testApi{
-
-    width: 50%;
-}
-
-.input-filed-container{
+.content-filters {
     display: flex;
     gap: 1em;
+    justify-content: flex-start;
 }
 
-.authorize{
-    width: 30%;
+.content-filters button {
+    background-color: #333;
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+ .made-for-you-section, .top-mixes-section, .recently-played-section, .favorite-artists-section, .recommended-stations-section, .stay-tuned-section {
+    display: flex;
+    flex-direction: column;
+}
+
+// .playlists-grid, .cards-grid {
+//     display: grid;
+//     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+//     gap: 1em;
+// }
+
+// .cards-grid > div {
+//     background-color: #282828;
+//     padding: 10px;
+//     border-radius: 8px;
+//     text-align: center;
+//     overflow: hidden;
+// }
+//playlists
+.playlists-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: #fff;
+    width: 100%;
+    margin-top: -10px; /* Move the section 3px up */
+}
+
+.horizontal-playlists {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #333;
+    padding: 0;  /* Remove padding to avoid gaps inside the card */
+    // border-radius: 8px;
+    min-width: 260px; /* Adjust width as necessary */
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+    overflow: hidden; /* Ensure the content doesn’t overflow the card */
+    position: relative; /* Position relative to control the play button */
+}
+
+.playlist-item:hover {
+    background-color: #444;
+}
+
+.playlist-item img {
+    width: 50px;
+    height: 50px;
+    // border-radius: 4px;
+    object-fit: cover;
+}
+
+.cards-grid img {
+    width: 50px;
+    height: 50px;
+    // border-radius: 8px;
+}
+.play-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none; /* Hidden by default */
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.playlist-item:hover .play-button {
+    display: block; /* Show the play button on hover */
 }
