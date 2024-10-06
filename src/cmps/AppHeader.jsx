@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, Navigate, NavLink, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, NavLink, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 // import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -11,9 +11,11 @@ import BrowseIcon from '../assets/svgs/browse.svg?react';
 import UserIcon from '../assets/svgs/user.svg?react';
 import { stationService } from '../services/station.service';
 import { searchArtists, searchSongs } from '../store/song/song.actions';
+import { getExistingProperties } from '../services/util.service';
 
 export function AppHeader() {
     const params = useParams()
+    const [searchParams, setSearchParams] = useSearchParams()  
 
     const DISPLAYEDSONGSNUMBER = 4
 
@@ -36,7 +38,9 @@ export function AppHeader() {
     };
     const navigate = useNavigate()
 
-    useEffect( ()=>{           
+    useEffect( ()=>{   
+        setSearchParams(searchTerm)
+        
         const foundArtist = onSearchArtist( searchTerm )
         console.log('header foundArtist:', foundArtist)
         const foundSongs = onSearchSongs( searchTerm )
