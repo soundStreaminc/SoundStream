@@ -45,6 +45,7 @@ export function HomePage() {
 
 
         <section className="spotify-homepage" >
+
     <div className="content-filters"  onClick={()=> getDateByArtist( inputArtist.current )}>
         <button>All</button>
         <button>Music</button>
@@ -131,9 +132,8 @@ export function HomePage() {
             {/* Stay Tuned cards */}
         </div>
     </div>
-</section>
-        
-        <section className="home-container">
+       
+    <div className="home-container">
             <div className="filter-menu-container">
                 <button className="filter-btn"> All </button>
                 <button className="filter-btn"> Artists </button>
@@ -179,7 +179,9 @@ export function HomePage() {
                 }
                 ) }
             </div>      */}
-        </section >
+        </div >
+</section>
+     
     )
 }
 

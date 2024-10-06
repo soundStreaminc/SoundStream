@@ -57,9 +57,7 @@ async function remove(stationId) {
     return httpService.delete(`station/${stationId}`)
 }
 
-async function setAccessKey(){
-    console.log("Client ID:", clientId);
-    console.log("Client Secret:", clientSecret);
+
 async function getAccessKey(){
    console.log("Fetching access token...");
     if (!clientId || !clientSecret) {
