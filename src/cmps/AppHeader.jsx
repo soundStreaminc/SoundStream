@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, Navigate, NavLink, useNavigate, useParams } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 // import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -13,6 +13,8 @@ import { stationService } from '../services/station.service';
 import { searchArtists, searchSongs } from '../store/song/song.actions';
 
 export function AppHeader() {
+    const params = useParams()
+
     const DISPLAYEDSONGSNUMBER = 4
 
     const [activeButton, setActiveButton] = useState(''); // Track which button is active
@@ -32,6 +34,7 @@ export function AppHeader() {
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value); // Update searchTerm state when input changes
     };
+    const navigate = useNavigate()
 
     useEffect( ()=>{           
         const foundArtist = onSearchArtist( searchTerm )
@@ -72,6 +75,11 @@ export function AppHeader() {
         }    
     }
 
+    function handleSearchClick(){
+        if (!params.filterText )
+            navigate('/search')
+    }
+
     return (
         <div className="app-header">
             <Link to="/">
@@ -79,7 +87,7 @@ export function AppHeader() {
             </Link>
             {/* Home and Search */}
             <nav className="container-mid-app-header">
-                <div className=' container-serch-home'>
+                <div className=' container-search-home'>
                     <Tooltip title="Home" arrow>
                         <div
                             exact="true"
@@ -107,22 +115,25 @@ export function AppHeader() {
                             placeholder="What do you want to play?"
                             value={searchTerm} // Bind searchTerm to input
                             onChange={handleSearchChange} // Handle input change
+                            onClick={handleSearchClick}
                         />
 
                         <div className='separator' />
-                        <div className=' container-serch-home'>
-                            <div exact="true"
-                                to="/"
-                                className={`app-header-icon browse-icon ${activeButton === 'browse' ? 'active' : ''}`}
+                        <div className=' container-search-home'>
+                            <NavLink to="/search">
+                                <div exact="true"
+                                    to="/"
+                                    className={`app-header-icon browse-icon ${activeButton === 'browse' ? 'active' : ''}`}
 
 
-                                onClick={handleBrowseClick}>
-                                <Tooltip title="Browse" arrow>
-                                    <div onClick={handleBrowseClick}>
-                                        <BrowseIcon className="border-icon-browse" />
-                                    </div>
-                                </Tooltip>
-                            </div>
+                                    onClick={handleBrowseClick}>
+                                    <Tooltip title="Browse" arrow>
+                                        <div onClick={handleBrowseClick}>
+                                            <BrowseIcon className="border-icon-browse" />
+                                        </div>
+                                    </Tooltip>
+                                </div>
+                            </NavLink>  
                         </div>
                     </div>
                 </div>

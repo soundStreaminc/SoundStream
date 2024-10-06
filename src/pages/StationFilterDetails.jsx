@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
-export function StationFilter(){
+export function StationFilterDetails(){
     let foundArtists = useSelector ( storeState => storeState.foundArtists )
     let foundSongs = useSelector ( storeState => storeState.foundSongs )
 
+    if (!foundArtists[0] ) return <span> station filter page loading.. </span>
     return (
         <section className="station-filter-container">
                 <div className="filter-top-result-container">
