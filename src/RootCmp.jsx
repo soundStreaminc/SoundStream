@@ -12,6 +12,9 @@ import { AppFooter } from './cmps/AppFooter'
 import { RightSidebar } from './pages/RightSidebar'
 // import { LeftSidebar } from './pages/LeftSidebar'
 import { SideBar } from './cmps/SideBar'
+import { StationFilter } from './pages/StationFilter'
+import { TrackDetails } from './pages/TrackDetails'
+import { StationFilterDetails } from './pages/StationFilterDetails'
 export function RootCmp() {
 
     const tracks = [
@@ -39,7 +42,10 @@ export function RootCmp() {
                 <main className='container'>
                     <Routes>
                             <Route path="" element={<HomePage />} />
-                            <Route path="/:stationId" element={<StationDetails />} />
+                            <Route path='/search' element={<StationFilter />} />
+                            <Route path='/search/:filterText' element={<StationFilterDetails />} />
+                            <Route path="/playlist/:stationId" element={<StationDetails />} />
+                            <Route path="/track/:trackId" element={<TrackDetails />} />
                     </Routes>
                 </main>
                 

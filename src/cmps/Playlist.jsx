@@ -9,27 +9,27 @@ export default function Playlists() {
   useEffect(() => {
     const fetchPlaylists = async () => {
  
-      try {
-        // Fetch access token from stationService
-        console.log("Fetching access token...");
-        await stationService.getAccessKey().then( result => result.json())
-        .then( data => {  token.current = data.access_token
-          console.log("data.access_token",data.access_token);
-         }) 
-        console.log("Access token received:", token.current);
+      // try {
+      //   // Fetch access token from stationService
+      //   console.log("Fetching access token...");
+      //   await stationService.getAccessKey().then( result => result.json())
+      //   .then( data => {  token.current = data.access_token
+      //     console.log("data.access_token",data.access_token);
+      //    }) 
+      //   console.log("Access token received:", token.current);
 
-        // Fetch playlist data using the token
-        if (token.current) {
-          console.log("Fetching playlists data...");
-          const playlistsData = await stationService.getPlaylistData(token.current);
-          console.log("Playlists data received:", playlistsData);
-          setPlaylists(playlistsData);  // Save the fetched playlists
-        } else {
-          console.error("Failed to get access token");
-        }
-      } catch (error) {
-        console.error("Error fetching playlists:", error);
-      }
+      //   // Fetch playlist data using the token
+      //   if (token.current) {
+      //     console.log("Fetching playlists data...");
+      //     const playlistsData = await stationService.getPlaylistData(token.current);
+      //     console.log("Playlists data received:", playlistsData);
+      //     setPlaylists(playlistsData);  // Save the fetched playlists
+      //   } else {
+      //     console.error("Failed to get access token");
+      //   }
+      // } catch (error) {
+      //   console.error("Error fetching playlists:", error);
+      // }
     };
 
     fetchPlaylists();  // Call function to fetch playlists

@@ -10,24 +10,23 @@ import MiniPlayer from '../assets/svgs/miniplayer.svg?react'
 import FullScreen from '../assets/svgs/fullScreen.svg?react'
 import AddToLiked from '../assets/svgs/addToLiked.svg?react'
 import { AudioControls } from "./AudioControls";
+import { useSelector } from "react-redux";
+import { loadTracks } from "../store/song/song.actions";
 
-//TODO change pictures. and size of player
-//TODO add the last icon
-
-export function Player({ tracks }){
+export function Player(){
+    let tracks = useSelector ( storeState => storeState.currentPlaylist )
 
     const [trackIndex, setTrackIndex] = useState(0);
     const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [ volume, setVolume ] = useState(0.5);
 
-    const { title, artist, color, image, audioSrc } = tracks[trackIndex];
-
-    const audioRef = useRef(new Audio(audioSrc));
     const intervalRef = useRef();
     const isReady = useRef(false);
-
-    let { duration } = audioRef.current;
+    
+    const { title, artist, color, image, audioSrc } = tracks[trackIndex]
+    const audioRef = useRef(new Audio(audioSrc));
+    let duration = audioRef.current.duration;
 
 
 
@@ -40,31 +39,22 @@ export function Player({ tracks }){
         sec: ""
       });
 
-    const startTimer = () => {
-        // Clear any timers already running
-        clearInterval(intervalRef.current);
-        
-        
-        intervalRef.current = setInterval(() => {
+    useEffect(() => {
+        loadTracks()
+        console.log('tracks:', tracks)
+        if(!tracks) return     
 
-          if (audioRef.current.ended) {
-            toNextTrack();
-          } else {
-            console.log('audioRef.current.volume:', audioRef.current.volume)
-            setTrackProgress(audioRef.current.currentTime);
-            setCurrTime( {
-                sec: ('0'+  (Math.floor(audioRef.current.currentTime % 60))).slice(-2),
-                min: ('0'+ (Math.floor(audioRef.current.currentTime / 60))).slice(-2)
-            })
+        loadDuration()
 
-
-          }
-        }, [1000]);
-      }
+        // Pause and clean up on unmount
+        return () => {
+            audioRef.current.pause();
+            clearInterval(intervalRef.current);
+        }
+    }, []);
 
     // Handle setup when changing tracks
     useEffect(() => {
-
         audioRef.current.pause();
     
         audioRef.current = new Audio(audioSrc);
@@ -82,17 +72,6 @@ export function Player({ tracks }){
 
     useEffect(() => {
 
-        loadDuration()
-
-        // Pause and clean up on unmount
-        return () => {
-          audioRef.current.pause();
-          clearInterval(intervalRef.current);
-        }
-      }, []);
-
-    useEffect(() => {
-
         if (isPlaying) {
             startTimer();
             audioRef.current.play();
@@ -102,30 +81,32 @@ export function Player({ tracks }){
         }
       }, [isPlaying]);
 
-    // useEffect( () => {
-    //     // console.log('time:', time)
-    //     // const progress = (seconds / time.sec) * 100;
-    //     // console.log('progress:', progress)
+    useEffect( () => {
 
-    //     const rangeInput = document.getElementById('range1');
-    //     const updateRangeProgress = () => {
-    //       const progress = (rangeInput.value / rangeInput.max) * 100;
+        // console.log('time:', time)
+        // const progress = (seconds / time.sec) * 100;
+        // console.log('progress:', progress)
+
+        const rangeInput = document.getElementById('range1');
+        const updateRangeProgress = () => {
+          const progress = (rangeInput.value / rangeInput.max) * 100;
           
 
-    //       rangeInput.style.setProperty('--progress', `${progress}%`);
-    //       console.log('updateRange1Progress:', rangeInput)
-    //     };
+          rangeInput.style.setProperty('--progress', `${progress}%`);
+          console.log('updateRange1Progress:', rangeInput)
+        };
         
-    //     rangeInput.addEventListener('input', updateRangeProgress);
-    //     updateRangeProgress(); // Initial call to set the progress
-    //     //setProgressBar(progress)
-    //     return () => {
-    //       rangeInput.removeEventListener('input', updateRangeProgress);
-    //     };
+        rangeInput.addEventListener('input', updateRangeProgress);
+        updateRangeProgress(); // Initial call to set the progress
+        //setProgressBar(progress)
+        return () => {
+          rangeInput.removeEventListener('input', updateRangeProgress);
+        };
         
-    // }, [seconds])
+    }, [trackProgress])
 
     useEffect( () => {
+
         audioRef.current.volume = volume
         const rangeInput = document.getElementById('range2');
         const updateRangeProgress = () => {
@@ -145,8 +126,26 @@ export function Player({ tracks }){
         
     }, [volume])
 
+    const startTimer = () => {
+        // Clear any timers already running
+        clearInterval(intervalRef.current);
+        
+        
+        intervalRef.current = setInterval(() => {
 
-      
+            if (audioRef.current.ended) {
+                toNextTrack();
+            } else {
+                console.log('audioRef.current.volume:', audioRef.current.volume)
+                setTrackProgress(audioRef.current.currentTime);
+                setCurrTime( {
+                    sec: ('0'+  (Math.floor(audioRef.current.currentTime % 60))).slice(-2),
+                    min: ('0'+ (Math.floor(audioRef.current.currentTime / 60))).slice(-2)
+                })
+            }
+        }, [1000]);
+    }
+
     function loadDuration(){
         audioRef.current.onloadedmetadata = function() {
             duration = audioRef.current.duration;
@@ -330,15 +329,6 @@ export function Player({ tracks }){
                                 />
                                     </div>
                                 </div>
-                                {/* <input type="range" 
-                                min='0' 
-                                max="1" 
-                                step='0.01' 
-                                value={volume} 
-                                className='slider' 
-                                id="myRange" 
-                                onChange={changeVolume}
-                            /> */}
                         </div>
                         
 
