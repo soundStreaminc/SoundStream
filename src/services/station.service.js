@@ -58,13 +58,9 @@ async function remove(stationId) {
 }
 
 
-async function getAccessKey(){
-   console.log("Fetching access token...");
-    if (!clientId || !clientSecret) {
-        console.error('Client ID or Secret not found');
-        return;
-    }
-
+async function setAccessKey(){
+    console.log("Client ID:", clientId);
+    console.log("Client Secret:", clientSecret);
     var scope = [
         'playlist-read-private', // Ensure this scope is included
         'user-read-email',
@@ -76,15 +72,7 @@ async function getAccessKey(){
         'user-top-read',
         'user-read-recently-played'
       ];
-//    await stationService.getAccessKey().then(result => {
-//     if (!result.ok) {
-//       throw new Error('Failed to obtain access token');
-//     }
-//     return result.json();
-//   }).then(data => {
-//     token.current = data.access_token;
-//     console.log("data.access_token", data.access_token);
-//   });
+
     if (!clientId || !clientSecret) {
       console.error('Client ID or Secret not found');
       return;
@@ -110,14 +98,14 @@ async function getAccessKey(){
 
 
 
-async function getPlaylistData(token) {
-    console.log("getPlaylistData",token);
+
+async function getPlaylistData() {
     try {
         
         const response = await fetch("https://api.spotify.com/v1/me/playlists", {
             method: 'GET',
             headers: {
-              Authorization: "Bearer " + token,  // Ensure token is correctly set
+              Authorization: "Bearer " + gAccesskey,  // Ensure token is correctly set
               "Content-Type": "application/json",
             },
           });
@@ -232,20 +220,22 @@ async function getTracksByAlbumId( albumId ){
     console.log('tracks:', tracks)
     return tracks
 }
-async function getPlaylistByName(accessToken, name) {
+async function getPlaylistByName(name) {
     try {
+        const test = await getUserProfile()
+        console.log('test:', test)
         var searchParameters = {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + accessToken
+                'Authorization': 'Bearer ' + gAccesskey
             }
         };
-
+        console.log('getPlaylistByName gAccesskey:', gAccesskey)
         // Use the search endpoint to find playlists by name
-        const response = await fetch(`https://api.spotify.com/v1/search?q=${name}&type=playlist`, searchParameters);
-        const data = await response.json();
-        
+        const response = await fetch(`https://api.spotify.com/v1/users/${name}/playlists`, searchParameters);
+        const data = response.json();
+        console.log('getPlaylistByName data:', data)
         if (response.ok && data.playlists.items.length > 0) {
             console.log('playlist:', data.playlists.items[0]);
             return data.playlists.items[0];  // Return the first playlist match
@@ -257,6 +247,25 @@ async function getPlaylistByName(accessToken, name) {
     }
 }
 
+async function getUserProfile(){
+    var searchParameters = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + gAccesskey
+        }
+    }
+    console.log('getUserProfile searchParameters:', searchParameters)
+    var test = await fetch ('https://api.spotify.com/v1/me' , searchParameters )
+        .then( response => response.json())
+        .then( data => { 
+            console.log('data:', data)
+            return  data }
+        )
+    console.log('getUserProfile test:', test)
+    return test
+    
+}
 
 // async function addCarMsg(carId, txt) {
 //     const savedMsg = await httpService.post(`car/${carId}/msg`, {txt})
