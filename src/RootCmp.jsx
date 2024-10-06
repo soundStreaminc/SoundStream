@@ -49,7 +49,7 @@ export function RootCmp() {
                     </Routes>
                 </main>
                 
-                <RightSidebar />
+                {/* <RightSidebar /> */}
                 <AppFooter tracks={ tracks  }/> 
         </div>
     )

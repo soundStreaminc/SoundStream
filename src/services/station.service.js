@@ -57,9 +57,14 @@ async function remove(stationId) {
     return httpService.delete(`station/${stationId}`)
 }
 
-async function setAccessKey(){
-    console.log("Client ID:", clientId);
-    console.log("Client Secret:", clientSecret);
+
+async function getAccessKey(){
+   console.log("Fetching access token...");
+    if (!clientId || !clientSecret) {
+        console.error('Client ID or Secret not found');
+        return;
+    }
+
     var scope = [
         'playlist-read-private', // Ensure this scope is included
         'user-read-email',
@@ -116,6 +121,7 @@ async function getPlaylistData(token) {
               "Content-Type": "application/json",
             },
           });
+          console.log("response",response);
       const { items } = response.data;
       const playlists = items.map(({ name, id }) => {
         return { name, id };
