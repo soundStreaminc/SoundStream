@@ -24,7 +24,10 @@ export const stationService = {
     getEmptySong,
     getPlaylistByName,
     getPlaylistData,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+    getPlaylistById,
+    getPlaylistByUser,
+    getPlaylistById_SpotifyApi
 }
 window.cs = stationService
 
@@ -306,8 +309,29 @@ function _createStation() {
      
     station = [
         {
+            users: [
+                {
+                userName : "ohad",
+                playlists : [ 
+                    {
+                        "name": "the best playlist!",
+                        "id": "3cEYpjA9oz9GiPac4AsH4n",
+                    } 
+                ]
+                },
+                {
+                    userName : "avinoam",
+                    playlists : [ 
+                        {
+                            "name": "the best playlist!!!!",
+                            "id": "3cEYpjA9oz9GiPac4AsH4n",
+                        } 
+                    ]
+                }        
+            ]         
+        },    
+        {
           id: "c1",
-          type: "album",
           title: "Love It When You Hate Me (feat. blackbear) - Acoustic",
           artist: "Avril Lavigne",
           audioSrc: "https://p.scdn.co/mp3-preview/ddabbe456fde1ab1bef88c8022056f7d26f2f5ba?cid=426b1061c8be4e70babeec62bbcf0f08",
@@ -316,7 +340,6 @@ function _createStation() {
         },
         {
             id: "c2",
-            type: "playlist",
             title: "Waiting for the End",
             artist: "Linkin Park",
             audioSrc: "https://p.scdn.co/mp3-preview/1e52f7874a0864d96c106a5ee93970dcee66b05f?cid=426b1061c8be4e70babeec62bbcf0f08",
@@ -335,6 +358,47 @@ function getFilterFromSearchParams(searchParams){
     }
     console.log('filterBy:', filterBy)
     return filterBy
+}
+
+async function getPlaylistById( playlistId ){
+    const playlists = await query()
+        .then( data => { 
+            console.log('data:', data)
+            data[0].users.playlists.filter(playlist => playlist.id === playlistId )
+            return  data 
+        })
+
+
+    return playlists
+}
+
+async function getPlaylistByUser ( userName ){
+    const playlists = await query()
+    .then( data => { 
+
+        console.log('result:',  data[0].users)
+        
+        return  (data[0].users.find( user => user.userName === userName )).playlists
+    })
+    return playlists
+}
+
+async function getPlaylistById_SpotifyApi( playlistId ){
+    var searchParameters = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + gAccesskey
+        }
+    }
+    var playlist = await fetch ('https://api.spotify.com/v1/playlists/' + playlistId , searchParameters )
+        .then( response => response.json())
+        .then( data => { 
+            console.log('data:', data)
+            return  data }
+        )
+    console.log('getPlaylistById_SpotifyApi playlist:', playlist)
+    return playlist
 }
 
 function getAccessKey() {
