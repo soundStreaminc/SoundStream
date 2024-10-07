@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { StationFilter } from "./StationFilter";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import playGreen from '../assets/svgs/playGreen.svg?react';
 import omerAdamImage from '../assets/imgs/omerAdam.jpg'; // Import the image
 
 
@@ -13,8 +12,6 @@ export function HomePage() {
 
     const [ playlists , setplaylists ] = useState([])
     const [activeButton, setActiveButton] = useState(''); // Track which button is active
-    let accessToken = useRef('')
-    useEffect(() => { console.log(activeButton) }, [activeButton])
 
     let inputArtist = useRef('Taylor Swift')
     let foundArtists = useSelector ( storeState => storeState.foundArtists )
@@ -22,24 +19,6 @@ export function HomePage() {
     useEffect( ()=>{           
         stationService.setAccessKey()
     }, [])
-
-    /**
-     * Get request with artist Id: grab all the albums from that article
-     * @param {*} artist 
-     */
-    async function getDateByArtist( artist ){
-        console.log('accessToken.current:', accessToken.current)
-        var artistId = await stationService.getArtistId ( accessToken.current , artist)
-        var returnedAlbums = await stationService.getAlbumsByArtistId ( accessToken.current ,artistId)
-        
-        setAlbums ( returnedAlbums )
-        setplaylists(artistId)
-
-    }
-    
-    function handleChange( {target }){
-        inputArtist.current = target.value
-    }
 
     return (
 
@@ -57,17 +36,17 @@ export function HomePage() {
     <div className="horizontal-playlists">
         {/* First Playlist */}
         <Card className="playlist-item">
-        <Card.Img src={omerAdamImage} alt="Omer Adam" />
+        <Card.Img src={ omerAdamImage ? omerAdamImage : 'picture not found '} alt="Omer Adam" />
         <Card.Body className="card-body">
             <Card.Title className="card-title">Omer Adam Playlist</Card.Title>
         </Card.Body>
         {/* Play button using the imported image */}
-        <img src={playGreen} className="play-button"/>
+        {/* <img src={playGreen ? playGreen : 'picture not found '} className="play-button"/> */}
     </Card>
 
         {/* Second Playlist */}
         <Card className="playlist-item">
-        <Card.Img src={omerAdamImage} alt="Omer Adam" />
+        <Card.Img src={ omerAdamImage ? omerAdamImage : 'picture not found '} alt="Omer Adam" />
         <Card.Body className="card-body">
                 <Card.Title>Latin Party 2024</Card.Title>
             </Card.Body>
@@ -75,7 +54,7 @@ export function HomePage() {
 
         {/* Third Playlist */}
         <Card className="playlist-item">
-        <Card.Img src={omerAdamImage} alt="Omer Adam" />
+        <Card.Img src={ omerAdamImage ? omerAdamImage : 'picture not found '} alt="Omer Adam" />
         <Card.Body className="card-body">
                 <Card.Title>Osher Cohen Mix</Card.Title>
             </Card.Body>
@@ -83,7 +62,7 @@ export function HomePage() {
 
         {/* Fourth Playlist */}
         <Card className="playlist-item">
-        <Card.Img src={omerAdamImage} alt="Omer Adam" />
+        <Card.Img src={ omerAdamImage ? omerAdamImage : 'picture not found '} alt="Omer Adam" />
         <Card.Body className="card-body">
                 <Card.Title>הלהיטים הגדולים של ישראל</Card.Title>
             </Card.Body>

@@ -4,7 +4,8 @@ import { REMOVE_TRACK, SEARCH_ARTISTS, SEARCH_SONGS, SET_STATION } from "./song.
 
 export async function loadTracks(){
     try {
-        const tracks = await stationService.query()
+        const tracks = await stationService.getCurrentlyPlaying()
+        console.log('tracks:', tracks)
         store.dispatch( { type: SET_STATION , tracks })
 
     } catch (err) {

@@ -41,9 +41,6 @@ export function Player(){
 
     useEffect(() => {
         loadTracks()
-        console.log('tracks:', tracks)
-        if(!tracks) return     
-
         loadDuration()
 
         // Pause and clean up on unmount
@@ -83,17 +80,12 @@ export function Player(){
 
     useEffect( () => {
 
-        // console.log('time:', time)
-        // const progress = (seconds / time.sec) * 100;
-        // console.log('progress:', progress)
-
         const rangeInput = document.getElementById('range1');
         const updateRangeProgress = () => {
-          const progress = (rangeInput.value / rangeInput.max) * 100;
+        const progress = (rangeInput.value / rangeInput.max) * 100;
           
 
           rangeInput.style.setProperty('--progress', `${progress}%`);
-          console.log('updateRange1Progress:', rangeInput)
         };
         
         rangeInput.addEventListener('input', updateRangeProgress);
@@ -114,7 +106,6 @@ export function Player(){
           
 
           rangeInput.style.setProperty('--progress', `${progress}%`);
-          console.log('updateRange2Progress:', rangeInput)
         };
         
         rangeInput.addEventListener('input', updateRangeProgress);
@@ -136,7 +127,6 @@ export function Player(){
             if (audioRef.current.ended) {
                 toNextTrack();
             } else {
-                console.log('audioRef.current.volume:', audioRef.current.volume)
                 setTrackProgress(audioRef.current.currentTime);
                 setCurrTime( {
                     sec: ('0'+  (Math.floor(audioRef.current.currentTime % 60))).slice(-2),

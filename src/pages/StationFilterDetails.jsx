@@ -13,8 +13,6 @@ export function StationFilterDetails(){
     const [searchTerm, setSearchTerm] = useState( params  ); // Declare and initialize searchTerm
 
     useEffect( ()=>{   
-
-
         setSearchParams(searchTerm.size > 0 ? { filterText: searchTerm }: '')
         console.log('StationFilterDetails useEffect searchTerm:', searchTerm)
 
