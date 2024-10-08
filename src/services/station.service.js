@@ -11,9 +11,6 @@ import axios from 'axios';
 
 export const stationService = {
     query,
-    getById,
-    save,
-    remove,
     setAccessKey,
     getArtistId,
     getArtists,
@@ -22,14 +19,15 @@ export const stationService = {
     getTracksByAlbumId,
     getEmptyStation,
     getEmptySong,
-    getPlaylistByName,
     getPlaylistData,
     getFilterFromSearchParams,
     getPlaylistById,
     getPlaylistByUser,
     getPlaylistById_SpotifyApi,
     getPlaylist_SpotifiApi,
-    getCurrentlyPlaying
+    getCurrentlyPlaying,
+    setPLaylistByUser,
+    addPlaylist
 }
 window.cs = stationService
 
@@ -42,24 +40,43 @@ async function query() {
     return res
 }
 
-function getById(stationId) {
-    return httpService.get(`station/${stationId}`)
+async function addPlaylist ( playlistId, playlistName , user ){
+    const res = await setPLaylistByUser(user, { playlistId, playlistName })
 }
 
-async function save(station) {
-    var savedStation
-    if (station._id) {
-        savedStation = await httpService.put(`station/${station._id}`, station)
+async function setPLaylistByUser ( userName , playlist ) {
+    console.log('playlist:', playlist)
+    const res = await query(STORAGE_KEY).then(entity => {
 
-    } else {
-        savedStation = await httpService.post('station', station)
-    }
-    return savedStation
+        const idx = entity[0].users.find(entity => entity.userName === userName)
+        idx.playlists.push(playlist)
+        console.log('idx:', idx)
+
+        
+        if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${updatedEntity.id} in: ${entityType}`)
+            console.log('idx:', idx)
+        return entity
+        })
+    console.log('res:', res)
+    utilService.saveToStorage(STORAGE_KEY, res)
+
+
 }
 
-async function remove(stationId) {
-    return httpService.delete(`station/${stationId}`)
-}
+// async function save(station) {
+//     var savedStation
+//     if (station._id) {
+//         savedStation = await httpService.put(`station/${station._id}`, station)
+
+//     } else {
+//         savedStation = await httpService.post('station', station)
+//     }
+//     return savedStation
+// }
+
+// async function remove(stationId) {
+//     return httpService.delete(`station/${stationId}`)
+// }
 
 
 async function setAccessKey(){
@@ -226,45 +243,7 @@ async function getTracksByAlbumId( albumId ){
         )
     return tracks
 }
-async function getPlaylistByName(name) {
-    try {
-        const test = await getUserProfile()
-        var searchParameters = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + gAccesskey
-            }
-        };
-        // Use the search endpoint to find playlists by name
-        const response = await fetch(`https://api.spotify.com/v1/users/${name}/playlists`, searchParameters);
-        const data = response.json();
-        if (response.ok && data.playlists.items.length > 0) {
-            return data.playlists.items[0];  // Return the first playlist match
-        } else {
-            throw new Error(`No playlist found with name: ${name}`);
-        }
-    } catch (err) {
-        console.error('Error fetching playlist:', err);
-    }
-}
 
-async function getUserProfile(){
-    var searchParameters = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + gAccesskey
-        }
-    }
-    var test = await fetch ('https://api.spotify.com/v1/me' , searchParameters )
-        .then( response => response.json())
-        .then( data => { 
-            return  data }
-        )
-    return test
-    
-}
 
 // async function addCarMsg(carId, txt) {
 //     const savedMsg = await httpService.post(`car/${carId}/msg`, {txt})

@@ -19,6 +19,16 @@ export function StationFilterDetails(){
 
     }, [ searchTerm ])
 
+    async function onAddPlaylist(playlistId, playlistName , user = 'ohad' ){
+        try {
+            console.log('playlistName:', playlistName)
+            if ( playlistId && playlistName) 
+                await stationService.addPlaylist ( playlistId, playlistName , user )
+        } catch (err) {
+            console.log('err:', err)
+        }  
+    }
+
     if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
@@ -118,8 +128,9 @@ export function StationFilterDetails(){
 
                                         
                                     </div>
-                                    
+                                    <button key={i + 'y'} type="button" className="add-playlist-btn" onClick={() => onAddPlaylist( playlist.id , playlist.name )}> Add Playlist </button>
                                 </div>
+
                             )
                         }
                         ) }
