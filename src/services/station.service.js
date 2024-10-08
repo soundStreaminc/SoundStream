@@ -28,6 +28,7 @@ export const stationService = {
     getPlaylistById,
     getPlaylistByUser,
     getPlaylistById_SpotifyApi,
+    getPlaylist_SpotifiApi,
     getCurrentlyPlaying
 }
 window.cs = stationService
@@ -171,6 +172,26 @@ async function getTracks ( tracktName, limit ){
 
         )
      return foundTracks
+
+}
+
+async function getPlaylist_SpotifiApi ( playlistName, limit ){
+    var searchParameters = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + gAccesskey
+        }
+    }
+    var foundPlaylists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
+        playlistName + '&type=playlist&limit=' + limit , searchParameters)
+        .then( response => response.json())
+        .then( data => { 
+            console.log('data:', data)
+            return  data.playlists.items? data.playlists.items : '' }
+
+        )
+     return foundPlaylists
 
 }
 

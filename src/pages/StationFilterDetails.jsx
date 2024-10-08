@@ -7,6 +7,7 @@ import { stationService } from "../services/station.service";
 export function StationFilterDetails(){
     let foundArtists = useSelector ( storeState => storeState.foundArtists )
     let foundSongs = useSelector ( storeState => storeState.foundSongs )
+    let foundPlaylists = useSelector ( storeState => storeState.foundPlaylists )
 
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()  
@@ -84,6 +85,45 @@ export function StationFilterDetails(){
                         }
                         ) }
                     </div>  
+
+                     
+                </div>
+
+                <div className="filter-songs-container">
+                    <div className="title">
+                        <h2>
+                            <span> Playlists </span>
+                        </h2>
+                    </div>
+
+                    <div className="playlists-container">
+                        { foundPlaylists.map( (playlist , i) =>{
+                            console.log('playlist:', playlist);
+                            return (
+
+                                <div className="mini-details-container" key={i}>
+                                    <div className="mini-details-sub-container" key={i + 'r'}>
+                                        <div className="musicCover-container" key={i + 'a'}>
+                                            <img
+                                            className="musicCover"
+                                            src={playlist.images[0].url}
+                                            alt={`track artwork for ${playlist.name}`}
+                                            key={i + 'q'}
+                                            />
+                                        </div>
+                                        
+                                        <div className="mini-details" key={i + 's'}>
+                                            <p className="playlist-title" key={i + 'e'}> {playlist.name} </p>
+                                        </div> 
+
+                                        
+                                    </div>
+                                    
+                                </div>
+                            )
+                        }
+                        ) }
+                    </div> 
                 </div>
         </section>
     )

@@ -10,7 +10,7 @@ import HomeIcon from '../assets/svgs/home.svg?react';
 import BrowseIcon from '../assets/svgs/browse.svg?react';
 import UserIcon from '../assets/svgs/user.svg?react';
 import { stationService } from '../services/station.service';
-import { searchArtists, searchSongs } from '../store/song/song.actions';
+import { searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
 import { getExistingProperties } from '../services/util.service';
 
 export function AppHeader() {
@@ -46,6 +46,8 @@ export function AppHeader() {
         console.log('appHeader searchTerm:', searchTerm)
         const foundArtist = onSearchArtist( searchTerm.filterText )
         const foundSongs = onSearchSongs( searchTerm.filterText )
+        const foundPlaylist = onSearchPlaylists( searchTerm.filterText )
+
     }, [ searchTerm ])
 
      async function onSearchArtist( artist = '' ){
@@ -59,6 +61,14 @@ export function AppHeader() {
     async function onSearchSongs( song = '' ){
         try {
             var foundSongs = song ? searchSongs( song , DISPLAYEDSONGSNUMBER) : ''
+        } catch (err) {
+            console.log('err:', err)
+        }    
+    }
+
+    async function onSearchPlaylists( playlists = '' ){
+        try {
+            var foundPlaylists = playlists ? searchPlaylists( playlists , DISPLAYEDSONGSNUMBER) : ''
         } catch (err) {
             console.log('err:', err)
         }    
