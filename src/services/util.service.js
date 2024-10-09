@@ -71,3 +71,19 @@ export function getExistingProperties(obj){
     }
     return trueObj
 }
+
+export function setTrackJson( trackInfo ){
+    if(!trackInfo) return 'error, did not get track'
+    console.log('trackInfo:', trackInfo)
+    const trackJson =   [     
+    {
+        id: trackInfo.id,
+        title: trackInfo.name,
+        artist: trackInfo.artists[0].name,
+        audioSrc: trackInfo.preview_url,
+        image: trackInfo.album.images[0].url,
+        color: Math.floor(Math.random()*16777215).toString(16)
+        
+    }]
+    return trackJson
+}

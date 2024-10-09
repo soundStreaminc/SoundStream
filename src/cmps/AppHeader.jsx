@@ -32,6 +32,7 @@ export function AppHeader() {
         setActiveButton('browse'); // Set home as the active button
     };
     const handleOtherButtonClick = () => {
+        onClickSearch()
         setActiveButton(''); // Reset active button on other button click
     };
 
@@ -43,12 +44,15 @@ export function AppHeader() {
 
     useEffect( ()=>{   
         setSearchParams(searchTerm.size > 0 ? { filterText: searchTerm }: '')
+
+    }, [ searchTerm ])
+
+    async function onClickSearch(){
         console.log('appHeader searchTerm:', searchTerm)
         const foundArtist = onSearchArtist( searchTerm.filterText )
         const foundSongs = onSearchSongs( searchTerm.filterText )
         const foundPlaylist = onSearchPlaylists( searchTerm.filterText )
-
-    }, [ searchTerm ])
+    }
 
      async function onSearchArtist( artist = '' ){
         try {

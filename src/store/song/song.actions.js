@@ -1,6 +1,7 @@
 import { stationService } from "../../services/station.service";
+import { setTrackJson } from "../../services/util.service";
 import { store } from "../store";
-import { REMOVE_TRACK, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_STATION } from "./song.reducer";
+import { REMOVE_TRACK, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_STATION } from "./song.reducer";
 
 export async function loadTracks(){
     try {
@@ -31,7 +32,7 @@ export async function removeTrack( trackId ){
 
 export async function searchArtists ( artistName ){
     try {
-        const artists = await stationService.getArtists ( artistName)
+        const artists = await stationService.getArtists_SpotifyApi ( artistName)
         console.log('dispatch foundArtists:', artists)
         store.dispatch( { type: SEARCH_ARTISTS , artists })
 
@@ -45,7 +46,7 @@ export async function searchArtists ( artistName ){
 
 export async function searchSongs ( songName , limit ){
     try {
-        const songs = await stationService.getTracks ( songName, limit)
+        const songs = await stationService.getTracks_SpotifyApi ( songName, limit)
         console.log('dispatch found songs:', songs)
         store.dispatch( { type: SEARCH_SONGS , songs })
 
@@ -62,6 +63,20 @@ export async function searchPlaylists ( playlistName , limit){
         const playlists = await stationService.getPlaylist_SpotifiApi ( playlistName, limit)
         console.log('dispatch playlists:', playlists)
         store.dispatch( { type: SEARCH_PLAYLISTS , playlists })
+
+    } catch (err) {
+        console.log('Having issues finding playlists:', err)
+        //showErrorMsg( ''Having issues finding playlists:' )
+        throw err
+    }
+
+}
+
+export async function setCurrentlyPlaying ( trackInfo ){
+    try {
+        const trackJson = setTrackJson( trackInfo )
+        console.log('dispatch setCurrentlyPlaying:', trackJson)
+        store.dispatch( { type: SET_CURRENT_PLAYLIST , trackJson })
 
     } catch (err) {
         console.log('Having issues finding playlists:', err)

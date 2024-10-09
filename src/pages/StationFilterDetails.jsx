@@ -111,7 +111,7 @@ export function StationFilterDetails(){
                             console.log('playlist:', playlist);
                             return (
 
-                                <div className="mini-details-container" key={i}>
+                                <a href={`/playlist/${ playlist.id }`} className="mini-details-container" key={i}>
                                     <div className="mini-details-sub-container" key={i + 'r'}>
                                         <div className="musicCover-container" key={i + 'a'}>
                                             <img
@@ -129,7 +129,7 @@ export function StationFilterDetails(){
                                         
                                     </div>
                                     <button key={i + 'y'} type="button" className="add-playlist-btn" onClick={() => onAddPlaylist( playlist.id , playlist.name )}> Add Playlist </button>
-                                </div>
+                                </a>
 
                             )
                         }

@@ -15,7 +15,7 @@ import { loadTracks } from "../store/song/song.actions";
 
 export function Player(){
     let tracks = useSelector ( storeState => storeState.currentPlaylist )
-
+    const [audio, setAudio] = useState(  )
     const [trackIndex, setTrackIndex] = useState(0);
     const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -23,9 +23,9 @@ export function Player(){
 
     const intervalRef = useRef();
     const isReady = useRef(false);
-    
     const { title, artist, color, image, audioSrc } = tracks[trackIndex]
-    const audioRef = useRef(new Audio(audioSrc));
+    
+    let audioRef = useRef(new Audio(audioSrc));
     let duration = audioRef.current.duration;
 
 
@@ -40,8 +40,12 @@ export function Player(){
       });
 
     useEffect(() => {
-        loadTracks()
+        console.log('test:')
+    }, [tracks]);
+
+    useEffect(() => {
         loadDuration()
+        setAudio(audioRef.current)
 
         // Pause and clean up on unmount
         return () => {
