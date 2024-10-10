@@ -26,6 +26,7 @@ const intialState = {
 export const SEARCH_SONGS = 'SEARCH_SONGS'
 export const SEARCH_ARTISTS = 'SEARCH_ARTISTS'
 export const SEARCH_PLAYLISTS = 'SEARCH_PLAYLISTS'
+export const SET_CURRENT_PLAYLIST = 'SET_CURRENT_PLAYLIST'
 export const SET_STATION = 'SET_STATION'
 export const ADD_TRACK = 'ADD_TRACK'
 export const REMOVE_TRACK = 'REMOVE_TRACK'
@@ -54,6 +55,12 @@ export function stationReducer ( state = intialState, cmd = {}  ){
             return{
                 ...state,
                 currentPlaylist : cmd.tracks
+            }  
+
+        case SET_CURRENT_PLAYLIST :
+            return{
+                ...state,
+                currentPlaylist : cmd.trackJson
             }  
         case REMOVE_TRACK :
             return{

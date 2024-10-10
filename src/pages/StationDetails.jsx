@@ -2,8 +2,7 @@ import { useParams } from "react-router"
 import { stationService } from "../services/station.service"
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { Card } from "react-bootstrap";
-
+import { setCurrentlyPlaying } from "../store/song/song.actions"
 
 export function StationDetails() {
     const params = useParams()
@@ -11,20 +10,21 @@ export function StationDetails() {
     const [searchParams, setSearchParams] = useSearchParams()  
 
     useEffect(() => {
-        // loadTracks()
-    }, [params])
+        loadTracks()
+    }, [])
 
-    // async function loadTracks(){
-    //     const tracks = await stationService.getTracksByAlbumId( searchParams.get('access-token') ,params.stationId)
-    //     setStation(tracks)
-    // }
+    async function loadTracks(){
+        const station = await stationService.getPlaylistById_SpotifyApi( params.stationId )
+        const tracks = station.tracks.items
+        setStation(tracks)
+    }
 
-    function setSong ( url){
-        try {
-            //var currentSong = SoundPlayer.playUrl(url);
-           } catch (e) {
-            console.error(e);
-           }
+    function onPlayTrack ( track ){
+        try {            
+            var playCurrent = track ? setCurrentlyPlaying ( track ) : ''             
+        } catch (e) {
+        console.error(e);
+        }
     }
 
     if(!station) return <span> loading in progress... </span>
@@ -35,11 +35,12 @@ export function StationDetails() {
                     console.log('track:', track);
                     return (
 
-                        <Card key={i}> 
-                            <Card.Body key={track + 'body'}>
-                                <Card.Title key={track + 'title'}> {track.name} </Card.Title>
-                            </Card.Body> 
-                        </Card>
+                        <div key={i}> 
+                            <div key={track + 'body'}>
+                                <div key={track + 'title'}> {track.track.name} </div>
+                                <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button>
+                            </div> 
+                        </div>
                     )
                 }
                 ) }
