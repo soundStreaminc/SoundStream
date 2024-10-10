@@ -39,9 +39,22 @@ export function Player(){
         sec: ""
       });
 
-    useEffect(() => {
-        console.log('test:')
-    }, [tracks]);
+      useEffect(() => {
+        // Update the audio source when `audioSrc` changes
+        audioRef.current.src = audioSrc;
+        audioRef.current.volume = volume;
+        duration = audioRef.current.duration;
+        
+        // Play the new track if it's already playing
+        if (isPlaying) {
+          audioRef.current.play();
+        }
+      
+        // Clean up when the component unmounts
+        return () => {
+          audioRef.current.pause();
+        };
+      }, [audioSrc]);
 
     useEffect(() => {
         loadDuration()
