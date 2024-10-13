@@ -11,25 +11,23 @@ import axios from 'axios';
 
 export const stationService = {
     query,
-    getById,
-    save,
-    remove,
     setAccessKey,
-    getArtistId,
-    getArtists,
-    getTracks,
+    getArtistId_SpotifyApi,
+    getArtists_SpotifyApi,
+    getTracks_SpotifyApi,
     getAlbumsByArtistId,
-    getTracksByAlbumId,
+    getTracksByAlbumId_SpotifyApi,
     getEmptyStation,
     getEmptySong,
-    getPlaylistByName,
     getPlaylistData,
     getFilterFromSearchParams,
     getPlaylistById,
     getPlaylistByUser,
     getPlaylistById_SpotifyApi,
     getPlaylist_SpotifiApi,
-    getCurrentlyPlaying
+    getCurrentlyPlaying,
+    setPLaylistByUser,
+    addPlaylist
 }
 window.cs = stationService
 
@@ -42,24 +40,43 @@ async function query() {
     return res
 }
 
-function getById(stationId) {
-    return httpService.get(`station/${stationId}`)
+async function addPlaylist ( playlistId, playlistName , user ){
+    const res = await setPLaylistByUser(user, { playlistId, playlistName })
 }
 
-async function save(station) {
-    var savedStation
-    if (station._id) {
-        savedStation = await httpService.put(`station/${station._id}`, station)
+async function setPLaylistByUser ( userName , playlist ) {
+    console.log('playlist:', playlist)
+    const res = await query(STORAGE_KEY).then(entity => {
 
-    } else {
-        savedStation = await httpService.post('station', station)
-    }
-    return savedStation
+        const idx = entity[0].users.find(entity => entity.userName === userName)
+        idx.playlists.push(playlist)
+        console.log('idx:', idx)
+
+        
+        if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${updatedEntity.id} in: ${entityType}`)
+            console.log('idx:', idx)
+        return entity
+        })
+    console.log('res:', res)
+    utilService.saveToStorage(STORAGE_KEY, res)
+
+
 }
 
-async function remove(stationId) {
-    return httpService.delete(`station/${stationId}`)
-}
+// async function save(station) {
+//     var savedStation
+//     if (station._id) {
+//         savedStation = await httpService.put(`station/${station._id}`, station)
+
+//     } else {
+//         savedStation = await httpService.post('station', station)
+//     }
+//     return savedStation
+// }
+
+// async function remove(stationId) {
+//     return httpService.delete(`station/${stationId}`)
+// }
 
 async function setAccessKey(){
     console.log("Client ID:", clientId);
@@ -102,6 +119,7 @@ async function setAccessKey(){
             .then( response => response.json())
             .then( data => { 
                 return  data.access_token })
+        return gAccesskey
         
 }
 
@@ -130,14 +148,9 @@ async function getPlaylistData(gAccesskey) {
     }
   }
 
-async function getArtistId( artistName){
-    var searchParameters = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + gAccesskey
-        }
-    }
+async function getArtistId_SpotifyApi( artistName){
+    var searchParameters = await setupHeader()
+
     var artistId = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
         artistName + '&type=artist' , searchParameters)
         .then( response => response.json())
@@ -148,14 +161,9 @@ async function getArtistId( artistName){
 
 }
 
-async function getArtists( artistName){
-    var searchParameters = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + gAccesskey
-        }
-    }
+async function getArtists_SpotifyApi( artistName){
+    var searchParameters = await setupHeader()
+
     var foundArtists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
         artistName + '&type=artist' , searchParameters)
         .then( response => response.json())
@@ -166,14 +174,9 @@ async function getArtists( artistName){
 
 }
 
-async function getTracks ( tracktName, limit ){
-    var searchParameters = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + gAccesskey
-        }
-    }
+async function getTracks_SpotifyApi ( tracktName, limit ){
+    var searchParameters = await setupHeader()
+
     var foundTracks = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
         tracktName + '&type=track&limit=' + limit , searchParameters)
         .then( response => response.json())
@@ -186,13 +189,8 @@ async function getTracks ( tracktName, limit ){
 }
 
 async function getPlaylist_SpotifiApi ( playlistName, limit ){
-    var searchParameters = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + gAccesskey
-        }
-    }
+    var searchParameters = await setupHeader()
+
     var foundPlaylists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
         playlistName + '&type=playlist&limit=' + limit , searchParameters)
         .then( response => response.json())
@@ -206,13 +204,8 @@ async function getPlaylist_SpotifiApi ( playlistName, limit ){
 }
 
 async function getAlbumsByArtistId( artistId ){
-    var searchParameters = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + gAccesskey
-        }
-    }
+    var searchParameters = await setupHeader()
+
     var albums = await fetch ('https://api.spotify.com/v1/artists/' + 
         artistId + '/albums' + '?', searchParameters )
         .then( response => response.json())
@@ -221,14 +214,9 @@ async function getAlbumsByArtistId( artistId ){
     return albums
 }
 
-async function getTracksByAlbumId( albumId ){
-    var searchParameters = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + gAccesskey
-        }
-    }
+async function getTracksByAlbumId_SpotifyApi( albumId ){
+    var searchParameters = await setupHeader()
+
     var tracks = await fetch ('https://api.spotify.com/v1/albums/' + 
         albumId + '/tracks' + '?', searchParameters )
         .then( response => response.json())
@@ -236,45 +224,8 @@ async function getTracksByAlbumId( albumId ){
         )
     return tracks
 }
-async function getPlaylistByName(name) {
-    try {
-        const test = await getUserProfile()
-        var searchParameters = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + gAccesskey
-            }
-        };
-        // Use the search endpoint to find playlists by name
-        const response = await fetch(`https://api.spotify.com/v1/users/${name}/playlists`, searchParameters);
-        const data = response.json();
-        if (response.ok && data.playlists.items.length > 0) {
-            return data.playlists.items[0];  // Return the first playlist match
-        } else {
-            throw new Error(`No playlist found with name: ${name}`);
-        }
-    } catch (err) {
-        console.error('Error fetching playlist:', err);
-    }
-}
 
-async function getUserProfile(){
-    var searchParameters = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + gAccesskey
-        }
-    }
-    var test = await fetch ('https://api.spotify.com/v1/me' , searchParameters )
-        .then( response => response.json())
-        .then( data => { 
-            return  data }
-        )
-    return test
-    
-}
+
 
 // async function addCarMsg(carId, txt) {
 //     const savedMsg = await httpService.post(`car/${carId}/msg`, {txt})
@@ -320,8 +271,8 @@ function _createStation() {
                 userName : "ohad",
                 playlists : [ 
                     {
-                        "name": "the best playlist!",
-                        "id": "3cEYpjA9oz9GiPac4AsH4n",
+                        "name": "רשימת השמעה המאוד מגניבה של שקד / shaked cool playlist",
+                        "id": "2ezyaQ3apZRID1oOIBHfLz",
                     } 
                 ]
                 },
@@ -400,6 +351,24 @@ async function getCurrentlyPlaying (  ){
 }
 
 async function getPlaylistById_SpotifyApi( playlistId ){
+    var searchParameters = await setupHeader()
+
+    var playlist = await fetch ('https://api.spotify.com/v1/playlists/' + playlistId , searchParameters )
+        .then( response => response.json())
+        .then( data => { 
+            return  data ? data : ' could not get playlist '}
+        )
+    return playlist
+}
+
+function getAccessKey() {
+    return gAccesskey
+}
+
+async function setupHeader(){
+    if  ( !gAccesskey || gAccesskey === '' ){
+        gAccesskey = await setAccessKey()
+    }
     var searchParameters = {
         method: 'GET',
         headers: {
@@ -407,16 +376,7 @@ async function getPlaylistById_SpotifyApi( playlistId ){
             'Authorization': 'Bearer ' + gAccesskey
         }
     }
-    var playlist = await fetch ('https://api.spotify.com/v1/playlists/' + playlistId , searchParameters )
-        .then( response => response.json())
-        .then( data => { 
-            return  data }
-        )
-    return playlist
-}
-
-function getAccessKey() {
-    return gAccesskey
+    return searchParameters
 }
 
 //TODO add get empy msgs?
