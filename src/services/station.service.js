@@ -24,7 +24,12 @@ export const stationService = {
     getEmptySong,
     getPlaylistByName,
     getPlaylistData,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+    getPlaylistById,
+    getPlaylistByUser,
+    getPlaylistById_SpotifyApi,
+    getPlaylist_SpotifiApi,
+    getCurrentlyPlaying
 }
 window.cs = stationService
 
@@ -34,7 +39,6 @@ _createStation()
 
 async function query() {
     const res = await utilService.loadFromStorage(STORAGE_KEY)
-    console.log('res:', res)
     return res
 }
 
@@ -61,6 +65,7 @@ async function setAccessKey(){
     console.log("Client ID:", clientId);
     console.log("Client Secret:", clientSecret);
 
+
    console.log("Fetching access token...");
     if (!clientId || !clientSecret) {
         console.error('Client ID or Secret not found');
@@ -78,15 +83,7 @@ async function setAccessKey(){
         'user-top-read',
         'user-read-recently-played'
       ];
-//    await stationService.getAccessKey().then(result => {
-//     if (!result.ok) {
-//       throw new Error('Failed to obtain access token');
-//     }
-//     return result.json();
-//   }).then(data => {
-//     token.current = data.access_token;
-//     console.log("data.access_token", data.access_token);
-//   });
+
     if (!clientId || !clientSecret) {
       console.error('Client ID or Secret not found');
       return;
@@ -101,11 +98,9 @@ async function setAccessKey(){
             body: 'grant_type=client_credentials&client_id=' + 
                 clientId + '&client_secret=' + clientSecret
         }
-        console.log('authParameters:', authParameters)
         gAccesskey =  await fetch ( 'https://accounts.spotify.com/api/token?scope='+ scope.join(' '), authParameters)
             .then( response => response.json())
             .then( data => { 
-                console.log('data:', data)   
                 return  data.access_token })
         
 }
@@ -120,10 +115,10 @@ async function getPlaylistData(gAccesskey) {
             method: 'GET',
             headers: {
               Authorization: "Bearer " + gAccesskey,  // Ensure token is correctly set
+              Authorization: "Bearer " + gAccesskey,  // Ensure token is correctly set
               "Content-Type": "application/json",
             },
           });
-          console.log("response",response);
       const { items } = response.data;
       const playlists = items.map(({ name, id }) => {
         return { name, id };
@@ -149,15 +144,11 @@ async function getArtistId( artistName){
         .then( data => { return  data.artists.items[0].id }
 
         )
-    
-     console.log('artistId:', artistId)
-
      return artistId
 
 }
 
 async function getArtists( artistName){
-    console.log('gAccesskey:', gAccesskey)
     var searchParameters = {
         method: 'GET',
         headers: {
@@ -171,9 +162,6 @@ async function getArtists( artistName){
         .then( data => { return  data.artists? data.artists.items : '' }
 
         )
-    
-     console.log('foundArtists:', foundArtists)
-
      return foundArtists
 
 }
@@ -190,14 +178,30 @@ async function getTracks ( tracktName, limit ){
         tracktName + '&type=track&limit=' + limit , searchParameters)
         .then( response => response.json())
         .then( data => { 
-            console.log('data:', data)
             return  data.tracks.items? data.tracks.items : '' }
 
         )
-    
-     console.log('foundTracks:', foundTracks)
-
      return foundTracks
+
+}
+
+async function getPlaylist_SpotifiApi ( playlistName, limit ){
+    var searchParameters = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + gAccesskey
+        }
+    }
+    var foundPlaylists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
+        playlistName + '&type=playlist&limit=' + limit , searchParameters)
+        .then( response => response.json())
+        .then( data => { 
+            console.log('data:', data)
+            return  data.playlists.items? data.playlists.items : '' }
+
+        )
+     return foundPlaylists
 
 }
 
@@ -214,7 +218,6 @@ async function getAlbumsByArtistId( artistId ){
         .then( response => response.json())
         .then( data => { return  data.items }
         )
-    console.log('albums:', albums)
     return albums
 }
 
@@ -231,25 +234,22 @@ async function getTracksByAlbumId( albumId ){
         .then( response => response.json())
         .then( data => { return  data.items }
         )
-    console.log('tracks:', tracks)
     return tracks
 }
-async function getPlaylistByName(accessToken, name) {
+async function getPlaylistByName(name) {
     try {
+        const test = await getUserProfile()
         var searchParameters = {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + accessToken
+                'Authorization': 'Bearer ' + gAccesskey
             }
         };
-
         // Use the search endpoint to find playlists by name
-        const response = await fetch(`https://api.spotify.com/v1/search?q=${name}&type=playlist`, searchParameters);
-        const data = await response.json();
-        
+        const response = await fetch(`https://api.spotify.com/v1/users/${name}/playlists`, searchParameters);
+        const data = response.json();
         if (response.ok && data.playlists.items.length > 0) {
-            console.log('playlist:', data.playlists.items[0]);
             return data.playlists.items[0];  // Return the first playlist match
         } else {
             throw new Error(`No playlist found with name: ${name}`);
@@ -259,6 +259,22 @@ async function getPlaylistByName(accessToken, name) {
     }
 }
 
+async function getUserProfile(){
+    var searchParameters = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + gAccesskey
+        }
+    }
+    var test = await fetch ('https://api.spotify.com/v1/me' , searchParameters )
+        .then( response => response.json())
+        .then( data => { 
+            return  data }
+        )
+    return test
+    
+}
 
 // async function addCarMsg(carId, txt) {
 //     const savedMsg = await httpService.post(`car/${carId}/msg`, {txt})
@@ -281,6 +297,7 @@ function getEmptyStation() {
 function getEmptySong() {
     return {
         _id: utilService.makeId(),
+        type: '',
         title: '',
         url: '',
         imgUrl: '',
@@ -298,33 +315,104 @@ function _createStation() {
      
     station = [
         {
-          id: "c1",
-          title: "Love It When You Hate Me (feat. blackbear) - Acoustic",
-          artist: "Avril Lavigne",
-          audioSrc: "https://p.scdn.co/mp3-preview/ddabbe456fde1ab1bef88c8022056f7d26f2f5ba?cid=426b1061c8be4e70babeec62bbcf0f08",
-              image: "https://i.scdn.co/image/ab67616d0000b273ae6b206adcb3d283e9b327ca",
-          color: "blue",
-        },
+            users: [
+                {
+                userName : "ohad",
+                playlists : [ 
+                    {
+                        "name": "the best playlist!",
+                        "id": "3cEYpjA9oz9GiPac4AsH4n",
+                    } 
+                ]
+                },
+                {
+                    userName : "avinoam",
+                    playlists : [ 
+                        {
+                            "name": "the best playlist!!!!",
+                            "id": "3cEYpjA9oz9GiPac4AsH4n",
+                        } 
+                    ]
+                }        
+            ]         
+        },    
         {
-            id: "c2",
-            title: "Waiting for the End",
-            artist: "Linkin Park",
-            audioSrc: "https://p.scdn.co/mp3-preview/1e52f7874a0864d96c106a5ee93970dcee66b05f?cid=426b1061c8be4e70babeec62bbcf0f08",
-                image: "https://i.scdn.co/image/ab67616d0000b273163d1c5eddd35473f030f2d4",
-            color: "green",
-          }
+            currentlyPlaying: [
+                
+                    {
+                        id: "c1",
+                        title: "Love It When You Hate Me (feat. blackbear) - Acoustic",
+                        artist: "Avril Lavigne",
+                        audioSrc: "https://p.scdn.co/mp3-preview/ddabbe456fde1ab1bef88c8022056f7d26f2f5ba?cid=426b1061c8be4e70babeec62bbcf0f08",
+                            image: "https://i.scdn.co/image/ab67616d0000b273ae6b206adcb3d283e9b327ca",
+                        color: "blue",
+                    } ,
+                    {
+                        id: "c2",
+                        title: "Waiting for the End",
+                        artist: "Linkin Park",
+                        audioSrc: "https://p.scdn.co/mp3-preview/1e52f7874a0864d96c106a5ee93970dcee66b05f?cid=426b1061c8be4e70babeec62bbcf0f08",
+                            image: "https://i.scdn.co/image/ab67616d0000b273163d1c5eddd35473f030f2d4",
+                        color: "green",
+                      }
+                
+                   
+            ]     
+        },
+        
       ]
     utilService.saveToStorage(STORAGE_KEY, station)
 }
 
 function getFilterFromSearchParams(searchParams){
-    console.log('test2 : searchParams:', searchParams)
     const filterBy = {
         filterText: searchParams.size > 0 ?  searchParams.filterText : ''
 
     }
-    console.log('filterBy:', filterBy)
     return filterBy
+}
+
+async function getPlaylistById( playlistId ){
+    const playlists = await query()
+        .then( data => { 
+            data[0].users.playlists.filter(playlist => playlist.id === playlistId )
+            return  data 
+        })
+
+
+    return playlists
+}
+
+async function getPlaylistByUser ( userName ){
+    const playlists = await query()
+    .then( data => {   
+        return  (data[0].users.find( user => user.userName === userName )).playlists
+    })
+    return playlists
+}
+
+async function getCurrentlyPlaying (  ){
+    const playlists = await query()
+    .then( data => {   
+        return  data[1].currentlyPlaying
+    })
+    return playlists
+}
+
+async function getPlaylistById_SpotifyApi( playlistId ){
+    var searchParameters = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + gAccesskey
+        }
+    }
+    var playlist = await fetch ('https://api.spotify.com/v1/playlists/' + playlistId , searchParameters )
+        .then( response => response.json())
+        .then( data => { 
+            return  data }
+        )
+    return playlist
 }
 
 function getAccessKey() {

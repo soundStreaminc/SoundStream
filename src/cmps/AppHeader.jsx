@@ -10,7 +10,7 @@ import HomeIcon from '../assets/svgs/home.svg?react';
 import BrowseIcon from '../assets/svgs/browse.svg?react';
 import UserIcon from '../assets/svgs/user.svg?react';
 import { stationService } from '../services/station.service';
-import { searchArtists, searchSongs } from '../store/song/song.actions';
+import { searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
 import { getExistingProperties } from '../services/util.service';
 
 export function AppHeader() {
@@ -22,7 +22,6 @@ export function AppHeader() {
     const [activeButton, setActiveButton] = useState(''); // Track which button is active
     const [searchTerm, setSearchTerm] = useState( stationService.getFilterFromSearchParams(params) ); // Declare and initialize searchTerm
 
-    useEffect(() => { console.log(activeButton) }, [activeButton])
     const handleHomeClick = () => {
         setActiveButton('home'); // Set home as the active button
     };
@@ -44,17 +43,16 @@ export function AppHeader() {
 
     useEffect( ()=>{   
         setSearchParams(searchTerm.size > 0 ? { filterText: searchTerm }: '')
-        console.log('useEffect searchTerm:', searchTerm)
+        console.log('appHeader searchTerm:', searchTerm)
         const foundArtist = onSearchArtist( searchTerm.filterText )
-        console.log('header foundArtist:', foundArtist)
         const foundSongs = onSearchSongs( searchTerm.filterText )
-        console.log('header foundSongs:', foundSongs)
+        const foundPlaylist = onSearchPlaylists( searchTerm.filterText )
+
     }, [ searchTerm ])
 
      async function onSearchArtist( artist = '' ){
         try {
             var foundArtists = artist ? searchArtists( artist ) : ''
-            console.log('foundArtists:', foundArtists)
         } catch (err) {
             console.log('err:', err)
         }    
@@ -63,14 +61,20 @@ export function AppHeader() {
     async function onSearchSongs( song = '' ){
         try {
             var foundSongs = song ? searchSongs( song , DISPLAYEDSONGSNUMBER) : ''
-            console.log('foundSongs:', foundSongs)
+        } catch (err) {
+            console.log('err:', err)
+        }    
+    }
+
+    async function onSearchPlaylists( playlists = '' ){
+        try {
+            var foundPlaylists = playlists ? searchPlaylists( playlists , DISPLAYEDSONGSNUMBER) : ''
         } catch (err) {
             console.log('err:', err)
         }    
     }
 
     function handleSearchClick(){
-        console.log('test:  searchTerm.filterText :', searchTerm )
         if (!searchTerm.filterText )
             navigate(`/search/${ searchTerm.filterText }`)
     }

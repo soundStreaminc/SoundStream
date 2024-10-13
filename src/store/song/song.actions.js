@@ -1,10 +1,11 @@
 import { stationService } from "../../services/station.service";
 import { store } from "../store";
-import { REMOVE_TRACK, SEARCH_ARTISTS, SEARCH_SONGS, SET_STATION } from "./song.reducer";
+import { REMOVE_TRACK, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_STATION } from "./song.reducer";
 
 export async function loadTracks(){
     try {
-        const tracks = await stationService.query()
+        const tracks = await stationService.getCurrentlyPlaying()
+        console.log('tracks:', tracks)
         store.dispatch( { type: SET_STATION , tracks })
 
     } catch (err) {
@@ -45,12 +46,26 @@ export async function searchArtists ( artistName ){
 export async function searchSongs ( songName , limit ){
     try {
         const songs = await stationService.getTracks ( songName, limit)
-        console.log('dispatch foundArtist:', songs)
+        console.log('dispatch found songs:', songs)
         store.dispatch( { type: SEARCH_SONGS , songs })
 
     } catch (err) {
         console.log('Having issues finding songs:', err)
         //showErrorMsg( ''Having issues finding songs' )
+        throw err
+    }
+
+}
+
+export async function searchPlaylists ( playlistName , limit){
+    try {
+        const playlists = await stationService.getPlaylist_SpotifiApi ( playlistName, limit)
+        console.log('dispatch playlists:', playlists)
+        store.dispatch( { type: SEARCH_PLAYLISTS , playlists })
+
+    } catch (err) {
+        console.log('Having issues finding playlists:', err)
+        //showErrorMsg( ''Having issues finding playlists:' )
         throw err
     }
 
