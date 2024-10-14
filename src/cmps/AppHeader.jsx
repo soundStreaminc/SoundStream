@@ -15,12 +15,12 @@ import { getExistingProperties } from '../services/util.service';
 
 export function AppHeader() {
     const params = useParams()
-    const [searchParams, setSearchParams] = useSearchParams()  
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const DISPLAYEDSONGSNUMBER = 4
 
     const [activeButton, setActiveButton] = useState(''); // Track which button is active
-    const [searchTerm, setSearchTerm] = useState( stationService.getFilterFromSearchParams(params) ); // Declare and initialize searchTerm
+    const [searchTerm, setSearchTerm] = useState(stationService.getFilterFromSearchParams(params)); // Declare and initialize searchTerm
 
     const handleHomeClick = () => {
         setActiveButton('home'); // Set home as the active button
@@ -38,49 +38,49 @@ export function AppHeader() {
 
     const handleSearchChange = (event) => {
         if (event.target.value)
-            navigate(`/search/${ event.target.value }`)
+            navigate(`/search/${event.target.value}`)
         setSearchTerm({ filterText: event.target.value }); // Update searchTerm state when input changes
     };
 
-    useEffect( ()=>{   
-        setSearchParams(searchTerm.size > 0 ? { filterText: searchTerm }: '')
+    useEffect(() => {
+        setSearchParams(searchTerm.size > 0 ? { filterText: searchTerm } : '')
 
-    }, [ searchTerm ])
+    }, [searchTerm])
 
-    async function onClickSearch(){
+    async function onClickSearch() {
         console.log('appHeader searchTerm:', searchTerm)
-        const foundArtist = onSearchArtist( searchTerm.filterText )
-        const foundSongs = onSearchSongs( searchTerm.filterText )
-        const foundPlaylist = onSearchPlaylists( searchTerm.filterText )
+        const foundArtist = onSearchArtist(searchTerm.filterText)
+        const foundSongs = onSearchSongs(searchTerm.filterText)
+        const foundPlaylist = onSearchPlaylists(searchTerm.filterText)
     }
 
-     async function onSearchArtist( artist = '' ){
+    async function onSearchArtist(artist = '') {
         try {
-            var foundArtists = artist ? searchArtists( artist ) : ''
+            var foundArtists = artist ? searchArtists(artist) : ''
         } catch (err) {
             console.log('err:', err)
-        }    
+        }
     }
 
-    async function onSearchSongs( song = '' ){
+    async function onSearchSongs(song = '') {
         try {
-            var foundSongs = song ? searchSongs( song , DISPLAYEDSONGSNUMBER) : ''
+            var foundSongs = song ? searchSongs(song, DISPLAYEDSONGSNUMBER) : ''
         } catch (err) {
             console.log('err:', err)
-        }    
+        }
     }
 
-    async function onSearchPlaylists( playlists = '' ){
+    async function onSearchPlaylists(playlists = '') {
         try {
-            var foundPlaylists = playlists ? searchPlaylists( playlists , DISPLAYEDSONGSNUMBER) : ''
+            var foundPlaylists = playlists ? searchPlaylists(playlists, DISPLAYEDSONGSNUMBER) : ''
         } catch (err) {
             console.log('err:', err)
-        }    
+        }
     }
 
-    function handleSearchClick(){
-        if (!searchTerm.filterText )
-            navigate(`/search/${ searchTerm.filterText }`)
+    function handleSearchClick() {
+        if (!searchTerm.filterText)
+            navigate(`/search/${searchTerm.filterText}`)
     }
 
     return (
@@ -136,7 +136,7 @@ export function AppHeader() {
                                         </div>
                                     </Tooltip>
                                 </div>
-                            </NavLink>  
+                            </NavLink>
                         </div>
                     </div>
                 </div>
@@ -154,13 +154,25 @@ export function AppHeader() {
 
             {/* Right-side buttons */}
             <div className="app-header-right">
-
+{/* 
                 <div className="notification-icon">
                     <i className="fas fa-bell"></i>
-                </div>
+                </div> */}
+
+                <button className="user-profile-btn" >
+                    <figure>
+                        <div className="user-profile-container" style={{ "borderRadius" : "50%" ,"width" : "32px" , "height" : "32px", "insetInlineStart" : "0px"}}>
+                            <img 
+                                src="https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10216273432443013&height=50&width=50&ext=1731476384&hash=Abb3U5-0-6bLM3quVOH_n7mU" 
+                                //alt="Yozik Personage"  TODO: ADD user name
+                                className="user-profile-img" />
+                        </div>
+                    </figure>
+                </button>
+{/* 
                 <div className="user-profile">
                     <UserIcon />
-                </div>
+                </div> */}
             </div>
         </div>
     );
