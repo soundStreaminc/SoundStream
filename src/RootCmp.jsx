@@ -1,7 +1,7 @@
 
 
 
-import React,{PureComponent} from 'react'
+import React from 'react'
 import { Routes, Route } from 'react-router'
 
 import { HomePage } from './pages/HomePage'
@@ -15,8 +15,8 @@ import { SideBar } from './cmps/SideBar'
 import { StationFilter } from './pages/StationFilter'
 import { TrackDetails } from './pages/TrackDetails'
 import { StationFilterDetails } from './pages/StationFilterDetails'
-// import { useResizable } from 'react-resizable-layout';
-import { Resize, ResizeHorizon  } from 'react-resize-layout';
+import { Resizable } from './cmps/Resizable'
+
 
 export function RootCmp() {
 
@@ -36,42 +36,11 @@ export function RootCmp() {
             color: "green",
           }
       ];
-
-//      const { position, separatorProps } = useResizable({
-//     axis: 'x',
-//     initial: 300, // initial width of the sidebar
-//   });
       
     return (
         <div className='main-app'>
-                <AppHeader />
-                <div className={'resizeContainer'}>
-                <Resize 
-          handleWidth={'5px'} 
-          handleColor={'#777'}
-        >
-             <ResizeHorizon 
-                width={'100px'}
-            >
-        <SideBar  />
-        </ResizeHorizon>
-
-        <ResizeHorizon 
-              width={'200px'}
-              minWidth={'150px'}
-            >
-                <main className='container'>
-                    <Routes>
-                            <Route path="" element={<HomePage />} />
-                            <Route path='/search' element={<StationFilter />} />
-                            <Route path='/search/:filterText' element={<StationFilterDetails />} />
-                            <Route path="/playlist/:stationId" element={<StationDetails />} />
-                            <Route path="/track/:trackId" element={<TrackDetails />} />
-                    </Routes>
-                </main>
-                </ResizeHorizon>
-                </Resize>
-          </div>
+                <AppHeader />               
+                <Resizable/>                   
                 {/* <RightSidebar /> */}
                 <AppFooter tracks={ tracks  }/> 
         </div>

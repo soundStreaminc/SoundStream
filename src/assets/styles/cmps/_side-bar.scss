@@ -3,11 +3,9 @@
     width: 39vh;
     //height: 72vh;  // Full viewport height
     display: flex;
-    flex-direction: column;
     padding: 20px;
     color: white;
-    grid-area: left-sidebar;
-
+    height: 100%;
 
     .sidebar-section {
         margin-bottom: 20px;
@@ -254,3 +252,4 @@ fill:#b3b3b3;
         }
     }
 }
+

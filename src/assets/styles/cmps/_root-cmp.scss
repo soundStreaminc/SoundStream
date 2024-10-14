@@ -7,7 +7,7 @@
     grid-template-rows: auto 1fr auto;
     grid-template-areas:
         "header header header"
-        "left-sidebar main-view right-sidebar"
+        "resize-container resize-container resize-container" 
         "footer footer footer";
     gap: 8px;
     padding: 8px;
@@ -30,22 +30,34 @@
     //z-index: var(--left-sidebar-grid-area-z-index);
 }
 
-.LayoutResizer__resize-bar{
-    .LayoutResizer__resize-bar {
-        display: flex;
-        align-items: center;
-        cursor: -webkit-grab;
-        cursor: grab;
-        height: 100%;
-        justify-content: center;
-        opacity: 0;
-        position: absolute;
-        touch-action: none;
-        transition: opacity .15s ease-out;
-        width: 8px;
-    }
-}
-
 .rightSidebar-container{
     grid-area: right-sidebar;
 }
+
+.main-resize-container{
+    grid-area: resize-container;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.container{
+    flex: 1; 
+}
+
+.gutter {
+    background-color: #e5e7eb;
+    background-repeat: no-repeat;
+    background-position: 50%;
+  }
+  
+  .gutter.gutter-horizontal {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+    cursor: col-resize;
+  }
+  
+  .gutter.gutter-vertical {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+    cursor: row-resize;
+  }

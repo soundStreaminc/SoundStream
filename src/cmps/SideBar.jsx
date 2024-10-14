@@ -10,8 +10,10 @@ import Search from '../assets/svgs/search.svg?react';
 import Recents from '../assets/svgs/recents.svg?react';
 import { stationService } from '../services/station.service';
 import PlaylistDetails from './PlaylistDetails';
+
 export function SideBar() {
     const [ playlists , setPlaylists ] = useState([])
+
     useEffect( ()=> {
         loadPlaylist()
     }, [])
@@ -39,41 +41,46 @@ export function SideBar() {
       ];
 
     return (
-        <div className="sidebar">
-         {/* <div data-testid="LayoutResizer__resize-bar" className="LayoutResizer__resize-bar LayoutResizer__inline-end"><label className="hidden-visually">Resize main navigation<input className="LayoutResizer__input" type="range" min="72" max="1021" step="10" /></label></div> */}
+        <div className="sidebar" >
+        {/* <div data-testid="LayoutResizer__resize-bar" className="LayoutResizer__resize-bar LayoutResizer__inline-end"><label className="hidden-visually">Resize main navigation<input className="LayoutResizer__input" type="range" min="72" max="1021" step="10" /></label></div> */}
             
-             {/* Your Library */}
-             <div className="sidebar-section">
-                <div className="library-header">
-                    <LibraryIcon className='library-icon' />
-                    <h3>Your Library</h3>
+            <div className="sidebar-content" >
+                {/* Your Library */}
+                <div className="sidebar-section">
+                    <div className="library-header">
+                        <LibraryIcon className='library-icon' />
+                        <h3>Your Library</h3>
+                    </div>
+                    <div className="add-arrow">
+                    <button className="library-add-btn"><Add className="Add-icon"/></button>
+                    <button className="library-arrow-btn"><Arrow className="Arrow-icon"/></button>
+                    </div>
+                    
                 </div>
-                <div className="add-arrow">
-                <button className="library-add-btn"><Add className="Add-icon"/></button>
-                <button className="library-arrow-btn"><Arrow className="Arrow-icon"/></button>
-                </div>
-                
-            </div>
-            <div className="library-options">
-                    <button className="library-btn">Playlists</button>
-                    <button className="library-btn">Artists</button>
-                </div>
+                <div className="library-options">
+                        <button className="library-btn">Playlists</button>
+                        <button className="library-btn">Artists</button>
+                    </div>
 
-            {/* Playlist Section */}
-            
-            <div className="sidebar-playlists">
-                <div className="serch-recents">
-                <button className="library-search-btn"><Search className="search-icon"/></button>
-                <button className="library-recents-btn"><h3>Recents</h3><Recents className="recents-icon"/></button>
+                {/* Playlist Section */}
+                
+                <div className="sidebar-playlists">
+                    <div className="serch-recents">
+                    <button className="library-search-btn"><Search className="search-icon"/></button>
+                    <button className="library-recents-btn"><h3>Recents</h3><Recents className="recents-icon"/></button>
+                    </div>
+                    <ul className="playlist-list">
+                    {samplePlaylists.map((playlist, index) => (
+                            <PlaylistDetails key={index} playlist={playlist} />
+                        ))}
+                    
+                    </ul>
                 </div>
-                <ul className="playlist-list">
-                {samplePlaylists.map((playlist, index) => (
-                        <PlaylistDetails key={index} playlist={playlist} />
-                    ))}
-                  
-                </ul>
             </div>
+
+            {/* <div className="divider"/> */}
 
         </div>
     );
 }
+

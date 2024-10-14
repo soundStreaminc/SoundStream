@@ -16,7 +16,7 @@ export default function PlaylistDetails({ playlist }) {
         <div className="play-button-container">
           <button aria-label={`Play ${playlist.name}`} className="play-button">
             <span aria-hidden="true" className="play-icon-wrapper">
-              <img src={playPlaylist} alt="Play" />
+              {/* <img src={playPlaylist} alt="Play" /> */}
             </span>
           </button>
         </div>
