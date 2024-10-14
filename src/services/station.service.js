@@ -78,8 +78,17 @@ async function setPLaylistByUser ( userName , playlist ) {
 //     return httpService.delete(`station/${stationId}`)
 // }
 
-
 async function setAccessKey(){
+    console.log("Client ID:", clientId);
+    console.log("Client Secret:", clientSecret);
+
+
+   console.log("Fetching access token...");
+    if (!clientId || !clientSecret) {
+        console.error('Client ID or Secret not found');
+        return;
+    }
+
     var scope = [
         'playlist-read-private', // Ensure this scope is included
         'user-read-email',
@@ -116,13 +125,14 @@ async function setAccessKey(){
 
 
 
-
-async function getPlaylistData() {
+async function getPlaylistData(gAccesskey) {
+    console.log("getPlaylistData",gAccesskey);
     try {
         
         const response = await fetch("https://api.spotify.com/v1/me/playlists", {
             method: 'GET',
             headers: {
+              Authorization: "Bearer " + gAccesskey,  // Ensure token is correctly set
               Authorization: "Bearer " + gAccesskey,  // Ensure token is correctly set
               "Content-Type": "application/json",
             },

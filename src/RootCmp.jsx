@@ -1,7 +1,7 @@
 
 
 
-import React from 'react'
+import React,{PureComponent} from 'react'
 import { Routes, Route } from 'react-router'
 
 import { HomePage } from './pages/HomePage'
@@ -15,6 +15,9 @@ import { SideBar } from './cmps/SideBar'
 import { StationFilter } from './pages/StationFilter'
 import { TrackDetails } from './pages/TrackDetails'
 import { StationFilterDetails } from './pages/StationFilterDetails'
+// import { useResizable } from 'react-resizable-layout';
+import { Resize, ResizeHorizon  } from 'react-resize-layout';
+
 export function RootCmp() {
 
     const tracks = [
@@ -33,12 +36,30 @@ export function RootCmp() {
             color: "green",
           }
       ];
+
+//      const { position, separatorProps } = useResizable({
+//     axis: 'x',
+//     initial: 300, // initial width of the sidebar
+//   });
       
     return (
         <div className='main-app'>
                 <AppHeader />
-                
-                <SideBar/> 
+                <div className={'resizeContainer'}>
+                <Resize 
+          handleWidth={'5px'} 
+          handleColor={'#777'}
+        >
+             <ResizeHorizon 
+                width={'100px'}
+            >
+        <SideBar  />
+        </ResizeHorizon>
+
+        <ResizeHorizon 
+              width={'200px'}
+              minWidth={'150px'}
+            >
                 <main className='container'>
                     <Routes>
                             <Route path="" element={<HomePage />} />
@@ -48,7 +69,9 @@ export function RootCmp() {
                             <Route path="/track/:trackId" element={<TrackDetails />} />
                     </Routes>
                 </main>
-                
+                </ResizeHorizon>
+                </Resize>
+          </div>
                 {/* <RightSidebar /> */}
                 <AppFooter tracks={ tracks  }/> 
         </div>

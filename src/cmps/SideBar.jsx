@@ -40,7 +40,7 @@ export function SideBar() {
 
     return (
         <div className="sidebar">
-            <div data-testid="LayoutResizer__resize-bar" className="LayoutResizer__resize-bar LayoutResizer__inline-end"><label className="hidden-visually">Resize main navigation<input className="LayoutResizer__input" type="range" min="72" max="1021" step="10" /*value="420" */ /></label></div>
+         {/* <div data-testid="LayoutResizer__resize-bar" className="LayoutResizer__resize-bar LayoutResizer__inline-end"><label className="hidden-visually">Resize main navigation<input className="LayoutResizer__input" type="range" min="72" max="1021" step="10" /></label></div> */}
             
              {/* Your Library */}
              <div className="sidebar-section">
@@ -67,13 +67,9 @@ export function SideBar() {
                 <button className="library-recents-btn"><h3>Recents</h3><Recents className="recents-icon"/></button>
                 </div>
                 <ul className="playlist-list">
-                    <li>
-                                
-                    {playlists.map( playlist => {
-                        <PlaylistDetails  playlist={playlist}/>
-                    })}
-                    
-                    </li>
+                {samplePlaylists.map((playlist, index) => (
+                        <PlaylistDetails key={index} playlist={playlist} />
+                    ))}
                   
                 </ul>
             </div>
