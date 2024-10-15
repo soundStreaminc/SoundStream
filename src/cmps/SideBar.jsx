@@ -9,7 +9,8 @@ import Arrow from '../assets/svgs/rightArrow.svg?react';
 import Search from '../assets/svgs/search.svg?react';
 import Recents from '../assets/svgs/recents.svg?react';
 import { stationService } from '../services/station.service';
-import PlaylistDetails from './PlaylistDetails';
+import PlaylistDetails from './PlaylistPreview';
+import PlaylistPreview from './PlaylistPreview';
 
 export function SideBar() {
     const [ playlists , setPlaylists ] = useState([])
@@ -69,11 +70,13 @@ export function SideBar() {
                     <button className="library-search-btn"><Search className="search-icon"/></button>
                     <button className="library-recents-btn"><h3>Recents</h3><Recents className="recents-icon"/></button>
                     </div>
+                        <ul className="playlist-test">
+                            {playlists.map((playlist, index) => (
+                                <PlaylistPreview key={index} playlistInfo={playlist} />
+                            ))}
+                        </ul>
                     <ul className="playlist-list">
-                    {samplePlaylists.map((playlist, index) => (
-                            <PlaylistDetails key={index} playlist={playlist} />
-                        ))}
-                    
+                        
                     </ul>
                 </div>
             </div>
