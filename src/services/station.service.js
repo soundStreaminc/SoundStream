@@ -17,6 +17,7 @@ export const stationService = {
     getTracks_SpotifyApi,
     getAlbumsByArtistId,
     getTracksByAlbumId_SpotifyApi,
+    getRecomended_SpotifyApi,
     getEmptyStation,
     getEmptySong,
     getPlaylistData,
@@ -201,6 +202,59 @@ async function getPlaylist_SpotifiApi ( playlistName, limit ){
         )
      return foundPlaylists
 
+}
+
+/**
+ * You can specify up to 5 seed values in total (any combination of tracks, artists, or genres).
+ * @param {*} seedTracksArray 
+ */
+async function getRecomended_SpotifyApi ( seedTracksArray ){
+    var searchParameters = await setupHeader()
+    var seedTrackParams = _setSeedTrack( seedTracksArray)
+
+    var foundPlaylists = await fetch ( 'https://api.spotify.com/v1/recommendations?' + 
+        seedTrackParams , searchParameters)
+        .then( response => response.json())
+        .then( data => { 
+            console.log('data:', data)
+            return  data.playlists.items? data.playlists.items : '' }
+
+        )
+     return foundPlaylists
+}
+
+/**
+ * every seed can have a type (artist, track, genre).
+ * @param {*} seedTracksArray 
+ */
+function _setSeedTrack( seedTracksArray){
+    var res = ''
+    var tracks = []
+    var artists = []
+    var genres = []
+
+    seedTracksArray.map( track => {
+        const { type } = track
+        switch (type){
+            case 'track':
+                tracks.push( track.id )
+                break
+            case 'artist':
+                artists.push( track.name )
+                break
+            case 'genre':
+                genres.push( track.name )
+                break
+            default: 
+                throw 'did not get correct seed Tracks Array'
+        }
+
+        res += tracks.length > 0 ? 'seed_tracks=' + tracks.toString() : ''
+        res += artists.length > 0 ? 'seed_artists=' + artists.toString() : ''
+        res += genres.length > 0 ? 'seed_genres=' + genres.toString() : ''
+        return res
+
+    })
 }
 
 async function getAlbumsByArtistId( artistId ){
