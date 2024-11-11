@@ -267,8 +267,8 @@ export function Player(){
     return (
         <div className="player-container">
             <div className="player-sub-container">
-                <div className="mini-details-container">
-                    <div className="mini-details-sub-container">
+                <div className="mini-details-player-container">
+                    <div className="mini-details-sub-player-container">
                         <div className="musicCover-container">
                             <img
                             className="musicCover"
@@ -277,7 +277,7 @@ export function Player(){
                             />
                         </div>
                         
-                        <div className="mini-details">
+                        <div className="mini-details-player">
                             <div className="artist"> {artist}  </div> { /*//get the details from the song  */}
                             <p className="song-title"> {title} </p>
                         </div> 

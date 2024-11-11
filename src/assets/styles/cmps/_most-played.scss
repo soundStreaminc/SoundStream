@@ -17,7 +17,11 @@
     --item-height: 64px;
     -webkit-box-ordinal-group: 0;
     -ms-flex-order: -1;
-    order: -1;
+}
+
+.most-played-preview{
+    --item-height: 48px;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .most-played-list{

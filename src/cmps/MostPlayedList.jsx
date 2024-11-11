@@ -18,13 +18,11 @@ export function MostPlayedList(){
     if( !playlists) return <div> loading, please wait. </div>
     return (
         <section className="most-played-container">
-            <ul className="most-played-list">
+            <div className="most-played-list">
                 {playlists.map((station) => (
-                    <div className="most-played-preview" key={station._id}>
-                        <StationPreview station={station} />
-                    </div>
+                    <StationPreview station={station} />
                 ))}
-                </ul>
+                </div>
             
         </section>
     )

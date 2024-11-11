@@ -5,9 +5,25 @@
     height: 16px;
 }
 
+.action-btn2{
+  fill: #b3b3b3;
+  background-color: transparent;
+  width: 16px;
+  height: 16px;
+}
 
 .playerButton {
     //background: white;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+
+  .playerButton2 {
+    background: transparent;
     border: none;
     align-items: center;
     justify-content: center;

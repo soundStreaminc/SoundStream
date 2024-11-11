@@ -26,7 +26,7 @@
 }
 
 //the picture and text:
-.mini-details-container{
+.mini-details-player-container{
   // display: flex;
   // align-items: center;
   // gap: 1em;
@@ -36,7 +36,7 @@
   width: 30%;
 }
 
-.mini-details-sub-container{
+.mini-details-sub-player-container{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -67,7 +67,7 @@
   height: 56px;
 }
 
-.mini-details{
+.mini-details-player{
   margin: 0 8px;
   column-gap: 8px;
     display: grid;
@@ -255,7 +255,23 @@ input[type="range"]:hover::-moz-range-thumb {
 }
 
 .now-playing-view, .lyrics, .queue, .mute, .connectToDevice, .miniPlayer, .addToLiked, .fullScreen{
+  fill: rgb(211, 209, 209);
+  border-color: #000;
+ // fill: #1db954; //changes according to click
+//   width: 16px;
+//   height: 16px;
+}
+
+.now-playing-view:hover, .lyrics:hover, .queue:hover, .mute:hover, .connectToDevice:hover, .miniPlayer:hover, .addToLiked:hover, .fullScreen:hover{
   fill: white;
+  border-color: #000;
+ // fill: #1db954; //changes according to click
+//   width: 16px;
+//   height: 16px;
+}
+
+.now-playing-view-selected, .lyrics-selected, .queue-selected, .connectToDevice-selected, .miniPlayer-selected, .addToLiked-selected, .fullScreen-selected{
+  fill: rgb(42, 255, 124);
   border-color: #000;
  // fill: #1db954; //changes according to click
 //   width: 16px;
