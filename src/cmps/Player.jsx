@@ -26,8 +26,9 @@ export function Player(){
     const { title, artist, image, audioSrc } = tracks[trackIndex]
     
     let audioRef = useRef(new Audio(audioSrc));
-    let duration = audioRef.current.duration;
+    const [duration, setDuration] = useState(null);
 
+    //let duration = audioRef.current.duration;
 
     //TODO when switching songs the volume is not saved
     //TODO the duration is not working well espcially when playing a new song from homepage
@@ -35,31 +36,9 @@ export function Player(){
     const [currTime, setCurrTime] = useState({
         min: "00",
         sec: "00",
-      }); // current position of the audio in minutes and seconds
-      const [time, setTime] = useState({
-        min: "",
-        sec: ""
-      });
-
-      useEffect(() => {
-        // Update the audio source when `audioSrc` changes
-        audioRef.current.src = audioSrc;
-        audioRef.current.volume = volume;
-        duration = audioRef.current.duration;
-        
-        // Play the new track if it's already playing
-        if (isPlaying) {
-          audioRef.current.play();
-        }
-      
-        // Clean up when the component unmounts
-        return () => {
-          audioRef.current.pause();
-        };
-      }, [audioSrc]);
-
+    }); // current position of the audio in minutes and seconds
+    
     useEffect(() => {
-        loadDuration()
         setAudio(audioRef.current)
 
         // Pause and clean up on unmount
@@ -116,25 +95,85 @@ export function Player(){
         
     }, [trackProgress])
 
-    useEffect( () => {
 
-        audioRef.current.volume = volume
+    useEffect(() => {
+        // Set the source and volume whenever these props change
+        if (audioRef.current) {
+            audioRef.current.src = audioSrc;
+            audioRef.current.volume = volume;
+
         const rangeInput = document.getElementById('range2');
         const updateRangeProgress = () => {
-          const progress = volume*100;
-          
-
-          rangeInput.style.setProperty('--progress', `${progress}%`);
+            const progress = volume*100;
+            rangeInput.style.setProperty('--progress', `${progress}%`);
         };
         
         rangeInput.addEventListener('input', updateRangeProgress);
         updateRangeProgress(); // Initial call to set the progress
         //setProgressBar(progress)
-        return () => {
-          rangeInput.removeEventListener('input', updateRangeProgress);
+
+        // Event listener for loadedmetadata (when duration is available)
+        const handleLoadedMetadata = () => {
+        console.log('The duration and dimensions of the media are now known.');
+        setDuration(audioRef.current.duration);  // Store the duration
         };
+
+        // Play the new track if it's already playing
+        if (isPlaying) {
+            audioRef.current.play();
+        }
+
+        // Add the event listener to the audio element
+        audioRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+
+        // Clean up the event listener when the component unmounts
+        return () => {
+            rangeInput.removeEventListener('input', updateRangeProgress);
+            audioRef.current.pause();
+            if (audioRef.current) {
+                audioRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
+            }
+        };
+    }
+    }, [audioSrc, volume]);
+
+    // useEffect(() => {
+    //     // Update the audio source when `audioSrc` changes
+    //     audioRef.current.src = audioSrc;
+    //     audioRef.current.volume = volume;
+    //     console.log('audioRef.current.duration:', audioRef.current)
+    //     setDuration(audioRef.current.duration)
         
-    }, [volume])
+    //     // Play the new track if it's already playing
+    //     if (isPlaying) {
+    //         audioRef.current.play();
+    //     }
+        
+    //     // Clean up when the component unmounts
+    //     return () => {
+    //         audioRef.current.pause();
+    //     };
+    // }, [audioSrc]);
+
+    // useEffect( () => {
+
+    //     audioRef.current.volume = volume
+    //     const rangeInput = document.getElementById('range2');
+    //     const updateRangeProgress = () => {
+    //       const progress = volume*100;
+          
+
+    //       rangeInput.style.setProperty('--progress', `${progress}%`);
+    //     };
+        
+    //     rangeInput.addEventListener('input', updateRangeProgress);
+    //     updateRangeProgress(); // Initial call to set the progress
+    //     //setProgressBar(progress)
+    //     return () => {
+    //       rangeInput.removeEventListener('input', updateRangeProgress);
+    //     };
+        
+    // }, [volume])
 
     const startTimer = () => {
         // Clear any timers already running
@@ -157,7 +196,7 @@ export function Player(){
 
     function loadDuration(){
         audioRef.current.onloadedmetadata = function() {
-            duration = audioRef.current.duration;
+            setDuration(audioRef.current.duration)
 
             const min = ('0'+ (Math.floor(duration / 60))).slice(-2);
             const secRemain = ('0'+  (Math.floor(duration % 60))).slice(-2);
@@ -196,6 +235,17 @@ export function Player(){
     function changeVolume({target}){
         setVolume(target.value)
     }
+
+    // Function to convert seconds to a "MM:SS" format
+    const formatTime = (timeInSeconds) => {
+        if (timeInSeconds === null) return '00:00';  // Handle case if duration is not available yet
+
+        const minutes = Math.floor(timeInSeconds / 60);
+        const seconds = Math.floor(timeInSeconds % 60);
+
+        // Ensure two digits for seconds (e.g., "01" instead of "1")
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    };
 
     // function setProgressBar( progressVal ){
     //     const sliderEl = document.querySelector("#range1")
@@ -279,7 +329,7 @@ export function Player(){
                         </div>
                         
                         <p className="time-duration">
-                            {time.min}:{time.sec}
+                            {duration !== null ? formatTime(duration) : '00:00'}
                         </p>             
                     </div>
                 </div>
