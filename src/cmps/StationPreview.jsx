@@ -1,15 +1,17 @@
 import Play from '../assets/svgs/play.svg?react'
 import Pause from '../assets/svgs/pause.svg?react'
+import { useState } from 'react';
 
-export function StationPreview({station, isPlaying=false }) {
+export function StationPreview({station, isPlayingPlaylist=false }) {
+    const [isPlaying, setIsPlaying] = useState(isPlayingPlaylist);
 
     function onPlayPauseClick(  ){
         if (isPlaying) {
             //audioRef.current.pause();// this will pause the audio
-            isPlaying = false
+            setIsPlaying(false)
         } else {
           //audioRef.current.play();
-          isPlaying = true
+          setIsPlaying(true)
         }
     };
 

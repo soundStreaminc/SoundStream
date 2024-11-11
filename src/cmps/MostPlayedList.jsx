@@ -20,7 +20,7 @@ export function MostPlayedList(){
         <section className="most-played-container">
             <div className="most-played-list">
                 {playlists.map((station) => (
-                    <StationPreview station={station} />
+                    <StationPreview station={station} isPlayingPlaylist={false}/>
                 ))}
                 </div>
             
