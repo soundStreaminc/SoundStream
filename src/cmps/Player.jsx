@@ -28,11 +28,6 @@ export function Player(){
     let audioRef = useRef(new Audio(audioSrc));
     const [duration, setDuration] = useState(null);
 
-    //let duration = audioRef.current.duration;
-
-    //TODO when switching songs the volume is not saved
-    //TODO the duration is not working well espcially when playing a new song from homepage
-
     const [currTime, setCurrTime] = useState({
         min: "00",
         sec: "00",
