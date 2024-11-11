@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { stationService } from "../services/station.service";
 import { useSelector } from "react-redux";
-import { StationFilter } from "./StationFilter";
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import omerAdamImage from '../assets/imgs/omerAdam.jpg'; // Import the image
+import { MostPlayedList } from "../cmps/MostPlayedList";
 
 
 export function HomePage() {
@@ -28,6 +27,7 @@ export function HomePage() {
                 <button>Podcasts</button>
             </div>
 
+            <MostPlayedList />
             <div className="playlists-section">
         
                 <div className="horizontal-playlists">

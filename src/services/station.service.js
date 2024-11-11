@@ -1,34 +1,35 @@
+import { utilService } from './util.service.js'
 
-// import { storageService } from './async-storage.service'
-import { httpService } from './http.service'
-import { utilService } from './util.service'
 const clientId = import.meta.env.VITE_CLIENT_ID
 const clientSecret = import.meta.env.VITE_CLIENT_SECRET
 // const clientId = 'd3fc38ce7f59434d9d1ee7e7c85205fd'; // Replace with your client ID
 // const clientSecret = '06fd876e23034893aa7f2f0af79a42ca'; // Replace with your client secret
 const STORAGE_KEY = 'station'
-import axios from 'axios';
+
+//TODO getMostPlayed_SpotifiApi
 
 export const stationService = {
     query,
     setAccessKey,
-    getArtistId_SpotifyApi,
-    getArtists_SpotifyApi,
-    getTracks_SpotifyApi,
     getAlbumsByArtistId,
-    getTracksByAlbumId_SpotifyApi,
-    getRecomended_SpotifyApi,
     getEmptyStation,
     getEmptySong,
     getPlaylistData,
     getFilterFromSearchParams,
     getPlaylistById,
     getPlaylistByUser,
-    getPlaylistById_SpotifyApi,
-    getPlaylist_SpotifiApi,
     getCurrentlyPlaying,
     setPLaylistByUser,
-    addPlaylist
+    addPlaylist,
+
+    getArtistId_SpotifyApi,
+    getArtists_SpotifyApi,
+    getTracks_SpotifyApi,
+    getTracksByAlbumId_SpotifyApi,
+    getRecomended_SpotifyApi,  
+    getPlaylistById_SpotifyApi,
+    getPlaylist_SpotifiApi,
+    getMostPlayed_SpotifiApi,
 }
 window.cs = stationService
 
@@ -124,12 +125,9 @@ async function setAccessKey(){
         
 }
 
-
-
 async function getPlaylistData(gAccesskey) {
     console.log("getPlaylistData",gAccesskey);
-    try {
-        
+    try {       
         const response = await fetch("https://api.spotify.com/v1/me/playlists", {
             method: 'GET',
             headers: {
@@ -147,80 +145,6 @@ async function getPlaylistData(gAccesskey) {
       console.error("Error fetching playlists:", error);
       throw error;
     }
-  }
-
-async function getArtistId_SpotifyApi( artistName){
-    var searchParameters = await setupHeader()
-
-    var artistId = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
-        artistName + '&type=artist' , searchParameters)
-        .then( response => response.json())
-        .then( data => { return  data.artists.items[0].id }
-
-        )
-     return artistId
-
-}
-
-async function getArtists_SpotifyApi( artistName){
-    var searchParameters = await setupHeader()
-
-    var foundArtists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
-        artistName + '&type=artist' , searchParameters)
-        .then( response => response.json())
-        .then( data => { return  data.artists? data.artists.items : '' }
-
-        )
-     return foundArtists
-
-}
-
-async function getTracks_SpotifyApi ( tracktName, limit ){
-    var searchParameters = await setupHeader()
-
-    var foundTracks = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
-        tracktName + '&type=track&limit=' + limit , searchParameters)
-        .then( response => response.json())
-        .then( data => { 
-            return  data.tracks.items? data.tracks.items : '' }
-
-        )
-     return foundTracks
-
-}
-
-async function getPlaylist_SpotifiApi ( playlistName, limit ){
-    var searchParameters = await setupHeader()
-
-    var foundPlaylists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
-        playlistName + '&type=playlist&limit=' + limit , searchParameters)
-        .then( response => response.json())
-        .then( data => { 
-            console.log('data:', data)
-            return  data.playlists.items? data.playlists.items : '' }
-
-        )
-     return foundPlaylists
-
-}
-
-/**
- * You can specify up to 5 seed values in total (any combination of tracks, artists, or genres).
- * @param {*} seedTracksArray 
- */
-async function getRecomended_SpotifyApi ( seedTracksArray ){
-    var searchParameters = await setupHeader()
-    var seedTrackParams = _setSeedTrack( seedTracksArray)
-
-    var foundPlaylists = await fetch ( 'https://api.spotify.com/v1/recommendations?' + 
-        seedTrackParams , searchParameters)
-        .then( response => response.json())
-        .then( data => { 
-            console.log('data:', data)
-            return  data.playlists.items? data.playlists.items : '' }
-
-        )
-     return foundPlaylists
 }
 
 /**
@@ -257,35 +181,10 @@ function _setSeedTrack( seedTracksArray){
     })
 }
 
-async function getAlbumsByArtistId( artistId ){
-    var searchParameters = await setupHeader()
-
-    var albums = await fetch ('https://api.spotify.com/v1/artists/' + 
-        artistId + '/albums' + '?', searchParameters )
-        .then( response => response.json())
-        .then( data => { return  data.items }
-        )
-    return albums
-}
-
-async function getTracksByAlbumId_SpotifyApi( albumId ){
-    var searchParameters = await setupHeader()
-
-    var tracks = await fetch ('https://api.spotify.com/v1/albums/' + 
-        albumId + '/tracks' + '?', searchParameters )
-        .then( response => response.json())
-        .then( data => { return  data.items }
-        )
-    return tracks
-}
-
-
-
 // async function addCarMsg(carId, txt) {
 //     const savedMsg = await httpService.post(`car/${carId}/msg`, {txt})
 //     return savedMsg
 // }
-
 
 function getEmptyStation() {
     return {
@@ -315,9 +214,10 @@ function getEmptySong() {
 }
 
 function _createStation() {
-    let station = utilService.loadFromStorage(STORAGE_KEY)
+    const station = utilService.loadFromStorage(STORAGE_KEY)
     if (station && station.length > 0) return
      
+    console.log('no staorage data, creating template data')
     station = [
         {
             users: [
@@ -404,17 +304,6 @@ async function getCurrentlyPlaying (  ){
     return playlists
 }
 
-async function getPlaylistById_SpotifyApi( playlistId ){
-    var searchParameters = await setupHeader()
-
-    var playlist = await fetch ('https://api.spotify.com/v1/playlists/' + playlistId , searchParameters )
-        .then( response => response.json())
-        .then( data => { 
-            return  data ? data : ' could not get playlist '}
-        )
-    return playlist
-}
-
 function getAccessKey() {
     return gAccesskey
 }
@@ -433,9 +322,143 @@ async function setupHeader(){
     return searchParameters
 }
 
+async function getAlbumsByArtistId( artistId ){
+    var searchParameters = await setupHeader()
+
+    var albums = await fetch ('https://api.spotify.com/v1/artists/' + 
+        artistId + '/albums' + '?', searchParameters )
+        .then( response => response.json())
+        .then( data => { return  data.items }
+        )
+    return albums
+}
+
+async function _getMostPlayedHardCoded(){
+    return [              
+        {
+            id: "c1",
+            title: "הכבש השישה עשר",
+            artist: "Avril Lavigne",
+            audioSrc: "https://p.scdn.co/mp3-preview/ddabbe456fde1ab1bef88c8022056f7d26f2f5ba?cid=426b1061c8be4e70babeec62bbcf0f08",
+            image: "https://i.scdn.co/image/ab67616d0000b273ae6b206adcb3d283e9b327ca",
+            color: "blue",
+        } ,
+        {
+            id: "c2",
+            title: "Best Platlist!",
+            artist: "Linkin Park",
+            audioSrc: "https://p.scdn.co/mp3-preview/1e52f7874a0864d96c106a5ee93970dcee66b05f?cid=426b1061c8be4e70babeec62bbcf0f08",
+            image: "https://i.scdn.co/image/ab67616d0000b273163d1c5eddd35473f030f2d4",
+            color: "green",
+          }
+    ]     
+}
+
 //TODO add get empy msgs?
 
+/*
+    Spotifi Api functions: connect to spotifi using the api key and get information about playlists and songs.
+*/
 
+async function getPlaylistById_SpotifyApi( playlistId ){
+    var searchParameters = await setupHeader()
+
+    var playlist = await fetch ('https://api.spotify.com/v1/playlists/' + playlistId , searchParameters )
+        .then( response => response.json())
+        .then( data => { 
+            return  data ? data : ' could not get playlist '}
+        )
+    return playlist
+}
+
+async function getTracksByAlbumId_SpotifyApi( albumId ){
+    var searchParameters = await setupHeader()
+
+    var tracks = await fetch ('https://api.spotify.com/v1/albums/' + 
+        albumId + '/tracks' + '?', searchParameters )
+        .then( response => response.json())
+        .then( data => { return  data.items }
+        )
+    return tracks
+}
+
+async function getPlaylist_SpotifiApi ( playlistName, limit ){
+    var searchParameters = await setupHeader()
+
+    var foundPlaylists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
+        playlistName + '&type=playlist&limit=' + limit , searchParameters)
+        .then( response => response.json())
+        .then( data => { 
+            console.log('data:', data)
+            return  data.playlists.items? data.playlists.items : '' }
+
+        )
+     return foundPlaylists
+}
+
+async function getArtistId_SpotifyApi( artistName){
+    var searchParameters = await setupHeader()
+
+    var artistId = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
+        artistName + '&type=artist' , searchParameters)
+        .then( response => response.json())
+        .then( data => { return  data.artists.items[0].id }
+
+        )
+     return artistId
+
+}
+
+async function getArtists_SpotifyApi( artistName){
+    var searchParameters = await setupHeader()
+
+    var foundArtists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
+        artistName + '&type=artist' , searchParameters)
+        .then( response => response.json())
+        .then( data => { return  data.artists? data.artists.items : '' }
+
+        )
+     return foundArtists
+
+}
+
+async function getTracks_SpotifyApi ( tracktName, limit ){
+    var searchParameters = await setupHeader()
+
+    var foundTracks = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
+        tracktName + '&type=track&limit=' + limit , searchParameters)
+        .then( response => response.json())
+        .then( data => { 
+            return  data.tracks.items? data.tracks.items : '' }
+
+        )
+     return foundTracks
+
+}
+
+async function getMostPlayed_SpotifiApi (){
+    //TODO create function, for now using some hard coded data.
+    return await _getMostPlayedHardCoded()
+}
+
+/**
+ * You can specify up to 5 seed values in total (any combination of tracks, artists, or genres).
+ * @param {*} seedTracksArray 
+ */
+async function getRecomended_SpotifyApi ( seedTracksArray ){
+    var searchParameters = await setupHeader()
+    var seedTrackParams = _setSeedTrack( seedTracksArray)
+
+    var foundPlaylists = await fetch ( 'https://api.spotify.com/v1/recommendations?' + 
+        seedTrackParams , searchParameters)
+        .then( response => response.json())
+        .then( data => { 
+            console.log('data:', data)
+            return  data.playlists.items? data.playlists.items : '' }
+
+        )
+     return foundPlaylists
+}
 
 
 
