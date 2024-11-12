@@ -32,32 +32,32 @@ export function HomePage() {
 
             <div className="made-for-you-section">
                 <h2>Made For You</h2>
-                <CategoryList categoryName='madeForU' />
+                <CategoryList categoryName='Made For You' />
             </div>
 
             <div className="top-mixes-section">
                 <h2>Your Top Mixes</h2>
-                <CategoryList categoryName='topMixes' />
+                <CategoryList categoryName='Your Top Mixes' />
             </div>
 
             <div className="recently-played-section">
                 <h2>Recently Played</h2>
-                <CategoryList categoryName='recentlyPlayed' />
+                <CategoryList categoryName='Recently Played' />
             </div>
 
             <div className="favorite-artists-section">
                 <h2>Your Favorite Artists</h2>
-                <CategoryList categoryName='favoriteArtists' />
+                <CategoryList categoryName='Your Favorite Artists' />
             </div>
 
             <div className="recommended-stations-section">
                 <h2>Recommended Stations</h2>
-                <CategoryList categoryName='recommendedStations' />
+                <CategoryList categoryName='Recommended Stations' />
             </div>
 
             <div className="stay-tuned-section">
                 <h2>Stay Tuned</h2>
-                <CategoryList categoryName='stayTuned' />
+                <CategoryList categoryName='Stay Tuned' />
             </div>  
         </section>
      

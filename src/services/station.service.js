@@ -363,23 +363,23 @@ async function _getHardCodedData(){
 
 async function getCategoryPlaylists( category ){
     switch (category){
-        case 'madeForU':
+        case 'Made For You':
             const madeForU = await getMadeForU_SpotifiApi();
             console.log('madeForU:', madeForU)
             return madeForU
-        case 'topMixes':
+        case 'Your Top Mixes':
             const topMixes = await getTopMixes_SpotifiApi();
             return topMixes
-        case 'recentlyPlayed':
+        case 'Recently Played':
             const recentlyPlayed = await getRecentlyPlayed_SpotifiApi();
             return recentlyPlayed
-        case 'favoriteArtists':
+        case 'Your Favorite Artists':
             const yourFavoriteArtist = await getYourFavoriteArtist_SpotifiApi();
             return yourFavoriteArtist
-        case 'recommendedStations':
+        case 'Recommended Stations':
             const recommended = await getRecommended_SpotifiApi();
             return recommended
-        case 'stayTuned':
+        case 'Stay Tuned':
             const stayTuned = await getStayTuned_SpotifiApi();
             return stayTuned
         default:

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { stationService } from "../services/station.service.js"
-import { StationPreview } from "./StationPreview.jsx"
+import { CategoryPreview } from "./CategoryPreview.jsx"
 
 export function CategoryList( {categoryName} ){
     const [playlists, setPlaylists ] = useState( null )
@@ -16,10 +16,10 @@ export function CategoryList( {categoryName} ){
 
     if( !playlists) return <div> loading, please wait. </div>
     return (
-        <section className="most-played-container">
-            <div className="most-played-list">
-                {playlists.map((station) => (
-                    <StationPreview station={station} isPlayingPlaylist={false} key={station.id}/>
+        <section className="category-list-container">
+            <div className="category-list">
+                {playlists.map((category) => (
+                    <CategoryPreview category={category} isPlayingPlaylist={false} key={category.id}/>
                 ))}
                 </div>
             

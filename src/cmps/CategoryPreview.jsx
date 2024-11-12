@@ -2,8 +2,8 @@ import Play from '../assets/svgs/play.svg?react'
 import Pause from '../assets/svgs/pause.svg?react'
 import { useState } from 'react';
 
-export function StationPreview({station, isPlayingPlaylist=false }) {
-    const [isPlaying, setIsPlaying] = useState(isPlayingPlaylist);
+export function CategoryPreview({category, isPlayingCategory= false }) {
+    const [isPlaying, setIsPlaying] = useState(isPlayingCategory);
 
     function onPlayPauseClick(  ){
         if (isPlaying) {
@@ -15,20 +15,20 @@ export function StationPreview({station, isPlayingPlaylist=false }) {
         }
     };
 
-    return <section className="station-preview-container">
-            <div className="mini-details-container">
-                <div className="mini-details-sub-container">
-                    <div className="musicCover-container">
+    return <section className="category-preview-container">
+            <div className="category-details-container">
+                <div className="category-details-sub-container">
+                    <div className="categoryCover-container">
                         <img
-                        className="musicCover"
-                        src={station?.image || ''}
-                        alt={`track artwork for ${station?.title || 'not found'}`}
+                        className="categoryCover"
+                        src={category?.image || ''}
+                        alt={`track artwork for ${category?.title || 'not found'}`}
                         />
                     </div>       
                 </div>     
-                <div className="mini-details">
-                    <div className="sub-mini-details">
-                        <div className="station-title"> {station?.title || 'not found'} </div>
+                <div className="category-details">
+                    <div className="sub-category-details">
+                        <div className="category-title"> {category?.title || 'not found'} </div>
                         
                         <div className='controll-btns'>
                             {!isPlaying ? (
