@@ -21,6 +21,7 @@ export const stationService = {
     getCurrentlyPlaying,
     setPLaylistByUser,
     addPlaylist,
+    getCategoryPlaylists,
 
     getArtistId_SpotifyApi,
     getArtists_SpotifyApi,
@@ -29,6 +30,12 @@ export const stationService = {
     getRecomended_SpotifyApi,  
     getPlaylistById_SpotifyApi,
     getPlaylist_SpotifiApi,
+    getMadeForU_SpotifiApi,
+    getTopMixes_SpotifiApi,
+    getYourFavoriteArtist_SpotifiApi,
+    getRecommended_SpotifiApi,
+    getStayTuned_SpotifiApi,
+    getRecentlyPlayed_SpotifiApi,
     getMostPlayed_SpotifiApi,
 }
 window.cs = stationService
@@ -333,7 +340,7 @@ async function getAlbumsByArtistId( artistId ){
     return albums
 }
 
-async function _getMostPlayedHardCoded(){
+async function _getHardCodedData(){
     return [              
         {
             id: "c1",
@@ -352,6 +359,33 @@ async function _getMostPlayedHardCoded(){
             color: "green",
           }
     ]     
+}
+
+async function getCategoryPlaylists( category ){
+    switch (category){
+        case 'madeForU':
+            const madeForU = await getMadeForU_SpotifiApi();
+            console.log('madeForU:', madeForU)
+            return madeForU
+        case 'topMixes':
+            const topMixes = await getTopMixes_SpotifiApi();
+            return topMixes
+        case 'recentlyPlayed':
+            const recentlyPlayed = await getRecentlyPlayed_SpotifiApi();
+            return recentlyPlayed
+        case 'favoriteArtists':
+            const yourFavoriteArtist = await getYourFavoriteArtist_SpotifiApi();
+            return yourFavoriteArtist
+        case 'recommendedStations':
+            const recommended = await getRecommended_SpotifiApi();
+            return recommended
+        case 'stayTuned':
+            const stayTuned = await getStayTuned_SpotifiApi();
+            return stayTuned
+        default:
+            console.log('error: the category was not found')
+            return []
+    }
 }
 
 //TODO add get empy msgs?
@@ -438,7 +472,37 @@ async function getTracks_SpotifyApi ( tracktName, limit ){
 
 async function getMostPlayed_SpotifiApi (){
     //TODO create function, for now using some hard coded data.
-    return await _getMostPlayedHardCoded()
+    return await _getHardCodedData()
+}
+
+async function getMadeForU_SpotifiApi (){
+    //TODO create function, for now using some hard coded data.
+    return await _getHardCodedData()
+}
+
+async function getTopMixes_SpotifiApi (){
+    //TODO create function, for now using some hard coded data.
+    return await _getHardCodedData()
+}
+
+async function getYourFavoriteArtist_SpotifiApi (){
+    //TODO create function, for now using some hard coded data.
+    return await _getHardCodedData()
+}
+
+async function getRecommended_SpotifiApi (){
+    //TODO create function, for now using some hard coded data.
+    return await _getHardCodedData()
+}
+
+async function getStayTuned_SpotifiApi (){
+    //TODO create function, for now using some hard coded data.
+    return await _getHardCodedData()
+}
+
+async function getRecentlyPlayed_SpotifiApi (){
+    //TODO create function, for now using some hard coded data.
+    return await _getHardCodedData()
 }
 
 /**

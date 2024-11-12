@@ -2,16 +2,15 @@ import { useEffect, useState } from "react"
 import { stationService } from "../services/station.service.js"
 import { StationPreview } from "./StationPreview.jsx"
 
-export function MostPlayedList(){
+export function CategoryList( {categoryName} ){
     const [playlists, setPlaylists ] = useState( null )
 
     useEffect(() => {
-        loadMostPlayedList()
+        loadCategoryPlayedList( categoryName)
     }, [])
 
-    async function loadMostPlayedList(){
-        const playlists = await stationService.getMostPlayed_SpotifiApi()
-        console.log('playlists:', playlists)
+    async function loadCategoryPlayedList( categoryName){
+        const playlists = await stationService.getCategoryPlaylists ( categoryName )
         setPlaylists ( playlists )
     }
 
