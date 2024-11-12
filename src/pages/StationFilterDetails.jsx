@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { stationService } from "../services/station.service";
+import AddToLiked from '../assets/svgs/addToLiked.svg?react';
+import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
 
 export function StationFilterDetails(){
     let foundArtists = useSelector ( storeState => storeState.foundArtists )
@@ -67,34 +69,47 @@ export function StationFilterDetails(){
                 
                     
                     <div className="songs-container">
-                        { foundSongs.map( (song , i) =>{
-                            console.log('song:', song);
-                            return (
+                    {foundSongs.map((song, i) => {
+                        console.log('song:', song);
+                        const durationInMinutes = Math.floor(song.duration_ms / 60000);
+                        const durationInSeconds = Math.floor((song.duration_ms % 60000) / 1000).toString().padStart(2, '0');
+                        return (
 
-                                <div className="mini-details-container" key={i}>
-                                    <div className="mini-details-sub-container" key={i + 'r'}>
-                                        <div className="musicCover-container" key={i + 'a'}>
-                                            <img
+                            <div className="mini-details-container" key={i}>
+                                <div className="mini-details-sub-container" key={i + 'r'}>
+                                    <div className="musicCover-container" key={i + 'a'}>
+                                        <img
                                             className="musicCover"
                                             src={song.album.images[0].url}
                                             alt={`track artwork for ${song.name} by ${song.artists[0].name}`}
                                             key={i + 'q'}
-                                            />
-                                        </div>
-                                        
-                                        <div className="mini-details" key={i + 's'}>
-                                            <div className="artist" key={i + 'o'}> {song.artists[0].name}  </div> { /*//get the details from the song  */}
-                                            <p className="song-title" key={i + 'e'}> {song.name} </p>
-                                        </div> 
-
-                                        
+                                        />
                                     </div>
-                                    
+
+                                    <div className="mini-details" key={i + 's'}>
+                                        <div className="artist" key={i + 'o'}> {song.artists[0].name}  </div> { /*//get the details from the song  */}
+                                        <p className="song-title" key={i + 'e'}> {song.name} </p>
+                                    </div>
+
+
                                 </div>
-                            )
-                        }
-                        ) }
-                    </div>  
+
+                                <div className="song-actions">
+                                    <div className="action-icon">
+                                        <AddToLiked className="add-to-liked" />
+                                    </div>
+                                    <div className="song-duration">{durationInMinutes}:{durationInSeconds}</div>
+                                    <div className="action-icon">
+                                        <MoreOptionFor className="more-option-for" />
+                                    </div>
+                                </div>
+
+                           
+                            </div>
+                        )
+                    }
+                    )}
+                </div>
 
                      
                 </div>
