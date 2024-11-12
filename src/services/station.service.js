@@ -221,7 +221,7 @@ function getEmptySong() {
 }
 
 function _createStation() {
-    const station = utilService.loadFromStorage(STORAGE_KEY)
+    var station = utilService.loadFromStorage(STORAGE_KEY)
     if (station && station.length > 0) return
      
     console.log('no staorage data, creating template data')

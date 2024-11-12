@@ -50,7 +50,7 @@ export function StationFilterDetails(){
                     <div className="top-result-container">
                         <div className="top-result-sub-container">
                             <div className="artist-image-container" >
-                                <img className="artist-image" src={foundArtists[0].images? foundArtists[0].images[0].url : "not found"} />
+                                <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : "not found"} />
                             </div>
                             <div className="artist-name">
                                 {foundArtists[0].name ? foundArtists[0].name : "not found"}
@@ -96,7 +96,9 @@ export function StationFilterDetails(){
 
                                 <div className="song-actions">
                                     <div className="action-icon">
-                                        <AddToLiked className="add-to-liked" />
+                                        <span aria-hidden="true" className="iconWrapper">         
+                                            <AddToLiked className="add-to-liked" />
+                                        </span>
                                     </div>
                                     <div className="song-duration">{durationInMinutes}:{durationInSeconds}</div>
                                     <div className="action-icon">

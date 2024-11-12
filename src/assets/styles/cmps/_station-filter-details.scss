@@ -1,3 +1,7 @@
+.station-filter-container{
+    overflow: hidden;
+}
+
 .songs-container {
     max-height: 500px; // Limit the height of the container to allow scrolling
     overflow-y: auto; // Enable vertical scrolling
@@ -81,7 +85,6 @@
         margin-left: auto; /* Push actions to the right */
 
         .action-icon {
-            display: none;
             align-items: center;
             svg {
                 width: 20px; /* Control size of the icons */
@@ -105,5 +108,13 @@
         //     margin-left: 5px; /* Slight spacing to the right of song-duration */
         // }
     }
+    }
+
+    .action-icon:hover {
+        visibility: visible;
+    }
+
+    .action-icon .iconWrapper{
+        //visibility: hidden;
     }
 }
