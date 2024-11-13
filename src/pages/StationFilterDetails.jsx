@@ -13,24 +13,22 @@ export function StationFilterDetails(){
 
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()  
-    const [searchTerm, setSearchTerm] = useState( params  ); // Declare and initialize searchTerm
+    const [urlParams, setUrlParams] = useState( params  ); // Declare and initialize urlParams
 
     useEffect( ()=>{   
-        setSearchParams(searchTerm.size > 0 ? { filterText: searchTerm }: '')
-        console.log('StationFilterDetails useEffect searchTerm:', searchTerm)
-
-    }, [ searchTerm ])
+        setSearchParams(urlParams.size > 0 ? { filterText: urlParams }: '')
+    }, [ urlParams ])
 
     async function onAddPlaylist(playlistId, playlistName , user = 'ohad' ){
         try {
-            console.log('playlistName:', playlistName)
             if ( playlistId && playlistName) 
                 await stationService.addPlaylist ( playlistId, playlistName , user )
         } catch (err) {
             console.log('err:', err)
+            showErrorMsg('problem Adding Playlist: ', err)
         }  
     }
-
+    console.log('foundArtists:', foundArtists)
     if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
@@ -70,7 +68,6 @@ export function StationFilterDetails(){
                     
                     <div className="songs-container">
                     {foundSongs.map((song, i) => {
-                        console.log('song:', song);
                         const durationInMinutes = Math.floor(song.duration_ms / 60000);
                         const durationInSeconds = Math.floor((song.duration_ms % 60000) / 1000).toString().padStart(2, '0');
                         return (
@@ -125,7 +122,6 @@ export function StationFilterDetails(){
 
                     <div className="playlists-container">
                         { foundPlaylists.map( (playlist , i) =>{
-                            console.log('playlist:', playlist);
                             return (
 
                                 <a href={`/playlist/${ playlist.id }`} className="mini-details-container" key={i}>

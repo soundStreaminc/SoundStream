@@ -49,24 +49,20 @@ async function query() {
     return res
 }
 
-async function addPlaylist ( playlistId, playlistName , user ){
-    const res = await setPLaylistByUser(user, { playlistId, playlistName })
+async function addPlaylist ( id, name , user ){
+    const res = await setPLaylistByUser(user, { name, id })
 }
 
 async function setPLaylistByUser ( userName , playlist ) {
-    console.log('playlist:', playlist)
     const res = await query(STORAGE_KEY).then(entity => {
 
         const idx = entity[0].users.find(entity => entity.userName === userName)
         idx.playlists.push(playlist)
-        console.log('idx:', idx)
 
         
         if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${updatedEntity.id} in: ${entityType}`)
-            console.log('idx:', idx)
         return entity
         })
-    console.log('res:', res)
     utilService.saveToStorage(STORAGE_KEY, res)
 
 
@@ -88,11 +84,6 @@ async function setPLaylistByUser ( userName , playlist ) {
 // }
 
 async function setAccessKey(){
-    console.log("Client ID:", clientId);
-    console.log("Client Secret:", clientSecret);
-
-
-   console.log("Fetching access token...");
     if (!clientId || !clientSecret) {
         console.error('Client ID or Secret not found');
         return;
@@ -133,7 +124,6 @@ async function setAccessKey(){
 }
 
 async function getPlaylistData(gAccesskey) {
-    console.log("getPlaylistData",gAccesskey);
     try {       
         const response = await fetch("https://api.spotify.com/v1/me/playlists", {
             method: 'GET',
@@ -365,7 +355,6 @@ async function getCategoryPlaylists( category ){
     switch (category){
         case 'Made For You':
             const madeForU = await getMadeForU_SpotifiApi();
-            console.log('madeForU:', madeForU)
             return madeForU
         case 'Your Top Mixes':
             const topMixes = await getTopMixes_SpotifiApi();
@@ -384,6 +373,7 @@ async function getCategoryPlaylists( category ){
             return stayTuned
         default:
             console.log('error: the category was not found')
+            showErrorMsg('error: the category was not found')
             return []
     }
 }
@@ -423,7 +413,6 @@ async function getPlaylist_SpotifiApi ( playlistName, limit ){
         playlistName + '&type=playlist&limit=' + limit , searchParameters)
         .then( response => response.json())
         .then( data => { 
-            console.log('data:', data)
             return  data.playlists.items? data.playlists.items : '' }
 
         )

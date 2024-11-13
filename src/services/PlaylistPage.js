@@ -28,5 +28,4 @@ async function searchArtistByCharacter(accessToken, character) {
     const accessToken = await getAccessToken(clientId, clientSecret);
     
     const artists = await searchArtistByCharacter(accessToken, 'A');
-    console.log(artists);
 })();

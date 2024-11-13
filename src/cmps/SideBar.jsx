@@ -23,7 +23,6 @@ export function SideBar() {
     async function loadPlaylist(){
         //get playlists array from local storage (all the ids)
         const playlistsArray = await stationService.getPlaylistByUser("ohad")
-        console.log('playlistsArray:', playlistsArray)
         setPlaylists( playlistsArray )
     }
 

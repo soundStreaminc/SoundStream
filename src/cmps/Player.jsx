@@ -109,6 +109,7 @@ export function Player(){
 
         // Event listener for loadedmetadata (when duration is available)
         const handleLoadedMetadata = () => {
+        //show('problem searching for artist: ', err)
         console.log('The duration and dimensions of the media are now known.');
         setDuration(audioRef.current.duration);  // Store the duration
         };
@@ -131,44 +132,6 @@ export function Player(){
         };
     }
     }, [audioSrc, volume]);
-
-    // useEffect(() => {
-    //     // Update the audio source when `audioSrc` changes
-    //     audioRef.current.src = audioSrc;
-    //     audioRef.current.volume = volume;
-    //     console.log('audioRef.current.duration:', audioRef.current)
-    //     setDuration(audioRef.current.duration)
-        
-    //     // Play the new track if it's already playing
-    //     if (isPlaying) {
-    //         audioRef.current.play();
-    //     }
-        
-    //     // Clean up when the component unmounts
-    //     return () => {
-    //         audioRef.current.pause();
-    //     };
-    // }, [audioSrc]);
-
-    // useEffect( () => {
-
-    //     audioRef.current.volume = volume
-    //     const rangeInput = document.getElementById('range2');
-    //     const updateRangeProgress = () => {
-    //       const progress = volume*100;
-          
-
-    //       rangeInput.style.setProperty('--progress', `${progress}%`);
-    //     };
-        
-    //     rangeInput.addEventListener('input', updateRangeProgress);
-    //     updateRangeProgress(); // Initial call to set the progress
-    //     //setProgressBar(progress)
-    //     return () => {
-    //       rangeInput.removeEventListener('input', updateRangeProgress);
-    //     };
-        
-    // }, [volume])
 
     const startTimer = () => {
         // Clear any timers already running

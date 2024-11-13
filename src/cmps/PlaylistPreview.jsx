@@ -13,13 +13,12 @@ export default function PlaylistPreview({ playlistInfo }) {
 
   async function loadPlaylist(){
     try {
-      console.log('loading playlist from spotify..')
-
-        if (! playlistInfo.id) throw 'error: did not get playlistInfo.id'
+        if (! playlistInfo.id) throw new Error ('error: did not get playlistInfo.id')
         const loadedPlaylist = await stationService.getPlaylistById_SpotifyApi ( playlistInfo.id )
         setPlaylist( loadedPlaylist )
       } catch (err) {
         console.log('err:', err)
+        showErrorMsg('problem loading Playlist: ', err)
     }  
 }
 

@@ -48,7 +48,6 @@ export function AppHeader() {
     }, [searchTerm])
 
     async function onClickSearch() {
-        console.log('appHeader searchTerm:', searchTerm)
         const foundArtist = onSearchArtist(searchTerm.filterText)
         const foundSongs = onSearchSongs(searchTerm.filterText)
         const foundPlaylist = onSearchPlaylists(searchTerm.filterText)
@@ -59,6 +58,7 @@ export function AppHeader() {
             var foundArtists = artist ? searchArtists(artist) : ''
         } catch (err) {
             console.log('err:', err)
+            showErrorMsg('problem searching for artist: ', err)
         }
     }
 
@@ -67,6 +67,7 @@ export function AppHeader() {
             var foundSongs = song ? searchSongs(song, DISPLAYEDSONGSNUMBER) : ''
         } catch (err) {
             console.log('err:', err)
+            showErrorMsg('problem searching for songs: ', err)
         }
     }
 
@@ -75,6 +76,7 @@ export function AppHeader() {
             var foundPlaylists = playlists ? searchPlaylists(playlists, DISPLAYEDSONGSNUMBER) : ''
         } catch (err) {
             console.log('err:', err)
+            showErrorMsg('problem searching for playlist: ', err)
         }
     }
 

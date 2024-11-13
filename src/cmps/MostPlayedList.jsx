@@ -11,7 +11,6 @@ export function MostPlayedList(){
 
     async function loadMostPlayedList(){
         const playlists = await stationService.getMostPlayed_SpotifiApi()
-        console.log('playlists:', playlists)
         setPlaylists ( playlists )
     }
 

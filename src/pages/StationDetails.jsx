@@ -32,7 +32,6 @@ export function StationDetails() {
         <section className="station-details">
             <div className="tracks-container">
                 { station.map( (track , i) =>{
-                    console.log('track:', track);
                     return (
 
                         <div key={i}> 
