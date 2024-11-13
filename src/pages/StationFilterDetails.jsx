@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { stationService } from "../services/station.service";
 import AddToLiked from '../assets/svgs/addToLiked.svg?react';
 import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
+import { showErrorMsg } from '../services/event-bus.service.js';
 
 export function StationFilterDetails(){
     let foundArtists = useSelector ( storeState => storeState.foundArtists )

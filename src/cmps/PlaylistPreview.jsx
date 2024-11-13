@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import omerAdamImage from '../assets/imgs/omerAdam.jpg'; // Import the image
-import playPlaylist from '../assets/svgs/playPlaylist.svg?react'; // Import play icon
+import { showErrorMsg } from '../services/event-bus.service.js';
 import { stationService } from "../services/station.service";
 
 export default function PlaylistPreview({ playlistInfo }) {

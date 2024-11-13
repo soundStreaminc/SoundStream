@@ -1,9 +1,8 @@
 import { utilService } from './util.service.js'
+import { showErrorMsg } from '../services/event-bus.service.js';
 
 const clientId = import.meta.env.VITE_CLIENT_ID
 const clientSecret = import.meta.env.VITE_CLIENT_SECRET
-// const clientId = 'd3fc38ce7f59434d9d1ee7e7c85205fd'; // Replace with your client ID
-// const clientSecret = '06fd876e23034893aa7f2f0af79a42ca'; // Replace with your client secret
 const STORAGE_KEY = 'station'
 
 //TODO getMostPlayed_SpotifiApi

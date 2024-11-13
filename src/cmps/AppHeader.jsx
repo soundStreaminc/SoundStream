@@ -1,17 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Link, Navigate, NavLink, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
-// import SearchIcon from '@mui/icons-material/Search';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '../assets/svgs/search.svg?react';
 import SpotifyIcon from '../assets/svgs/spotifyIcon.svg?react';
 import HomeIcon from '../assets/svgs/home.svg?react';
-// import  HomeIcon from '../assets/svgs/home.svg?react';
 import BrowseIcon from '../assets/svgs/browse.svg?react';
-import UserIcon from '../assets/svgs/user.svg?react';
 import { stationService } from '../services/station.service';
 import { searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
-import { getExistingProperties } from '../services/util.service';
+import { showErrorMsg } from '../services/event-bus.service.js';
 
 export function AppHeader() {
     const params = useParams()
