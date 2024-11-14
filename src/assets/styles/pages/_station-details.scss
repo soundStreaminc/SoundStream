@@ -1,0 +1,17 @@
+.station-sub-info{
+    display: flex;
+}
+
+.cover-station img{
+        height: 150px;
+        width: 150px;
+        padding: 20px;
+}
+
+.station-title2{
+    --min-column-width: 20px;
+    --row-count: 1;
+    display: grid;
+    row-gap: 20px;
+    grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
+}

@@ -1,37 +1,65 @@
 import { useParams } from "react-router"
 import { stationService } from "../services/station.service"
-import { useEffect, useState } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useEffect, useRef, useState } from "react"
 import { setCurrentlyPlaying } from "../store/song/song.actions"
+import { showSuccessMsg } from "../services/event-bus.service"
 
 export function StationDetails() {
     const params = useParams()
-    const [ station , setStation] = useState(null)
-    const [searchParams, setSearchParams] = useSearchParams()  
+    let station = useRef(null);
+    const [ tracks , setTracks] = useState(null)
 
     useEffect(() => {
         loadTracks()
     }, [])
 
     async function loadTracks(){
-        const station = await stationService.getPlaylistById_SpotifyApi( params.stationId )
-        const tracks = station.tracks.items
-        setStation(tracks)
+        station.current = await stationService.getPlaylistById_SpotifyApi( params.stationId ) 
+        setTracks(station.current.tracks.items) 
     }
 
-    function onPlayTrack ( track ){
+    async function onPlayTrack ( track ){
         try {            
-            var playCurrent = track ? setCurrentlyPlaying ( track ) : ''             
-        } catch (e) {
-        console.error(e);
+            var playCurrent = track ? await setCurrentlyPlaying ( track ) : ''  
+            console.log(`playing:`, playCurrent.title)
+            showSuccessMsg(`playing: ${playCurrent.title}`)           
+        } catch (err) {
+            console.error(err);
         }
     }
 
-    if(!station) return <span> loading in progress... </span>
+    function getPlaylistCover(){
+        if(station.current.images){
+            return station.current.images[0].url
+        }
+        console.log('error: no cover found for the playlist')
+    }
+    console.log('station2:', station)
+    if(!tracks || !station.current.images) return <span> loading in progress... </span>
     return (
         <section className="station-details">
+            <div className="station-info">
+                <div className="station-sub-info">
+                    <div className="cover-station">
+                        <img src={getPlaylistCover() || 'not found'} />
+                    </div>
+    
+                    <div className="station-title2">
+                        Playlist <h2> {station.current.name} </h2>
+                        <div className="station-sub-title">
+                            <b> {station.current.owner.display_name} </b> *                        
+                            {station.current.followers.total} save *
+                            {station.current.tracks.items.length} songs, 
+                            {/* TODO create a function to get the duration of the album. maybe api?*/}
+                            about 4 hr 30 min
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
             <div className="tracks-container">
-                { station.map( (track , i) =>{
+                { tracks.map( (track , i) =>{
                     return (
 
                         <div key={i}> 

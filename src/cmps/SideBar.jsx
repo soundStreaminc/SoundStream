@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-// import LikedSongsIcon from '../assets/svgs/likedSongs.svg';
-// import PlaylistIcon from '../assets/svgs/playlist.svg';
-// import ArtistIcon from '../assets/svgs/artist.svg';
 import LibraryIcon from '../assets/svgs/library.svg?react';
 import Add from '../assets/svgs/add.svg?react';
 import Arrow from '../assets/svgs/rightArrow.svg?react';
 import Search from '../assets/svgs/search.svg?react';
 import Recents from '../assets/svgs/recents.svg?react';
 import { stationService } from '../services/station.service';
-import PlaylistDetails from './PlaylistPreview';
 import PlaylistPreview from './PlaylistPreview';
 
 export function SideBar() {

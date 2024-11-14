@@ -6,25 +6,24 @@ import SpotifyIcon from '../assets/svgs/spotifyIcon.svg?react';
 import HomeIcon from '../assets/svgs/home.svg?react';
 import BrowseIcon from '../assets/svgs/browse.svg?react';
 import { stationService } from '../services/station.service';
-import { searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
-import { showErrorMsg } from '../services/event-bus.service.js';
 
 export function AppHeader() {
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const DISPLAYEDSONGSNUMBER = 4
 
     const [activeButton, setActiveButton] = useState(''); // Track which button is active
     const [searchTerm, setSearchTerm] = useState(stationService.getFilterFromSearchParams(params)); // Declare and initialize searchTerm
 
     const handleHomeClick = () => {
+        navigate("/")
         setActiveButton('home'); // Set home as the active button
     };
 
     const navigate = useNavigate()
 
     const handleBrowseClick = () => {
+        navigate("/search")
         setActiveButton('browse'); // Set home as the active button
     };
     const handleOtherButtonClick = () => {
@@ -42,39 +41,6 @@ export function AppHeader() {
         setSearchParams(searchTerm.size > 0 ? { filterText: searchTerm } : '')
 
     }, [searchTerm])
-
-    async function onClickSearch() {
-        const foundArtist = onSearchArtist(searchTerm.filterText)
-        const foundSongs = onSearchSongs(searchTerm.filterText)
-        const foundPlaylist = onSearchPlaylists(searchTerm.filterText)
-    }
-
-    async function onSearchArtist(artist = '') {
-        try {
-            var foundArtists = artist ? searchArtists(artist) : ''
-        } catch (err) {
-            console.log('err:', err)
-            showErrorMsg('problem searching for artist: ', err)
-        }
-    }
-
-    async function onSearchSongs(song = '') {
-        try {
-            var foundSongs = song ? searchSongs(song, DISPLAYEDSONGSNUMBER) : ''
-        } catch (err) {
-            console.log('err:', err)
-            showErrorMsg('problem searching for songs: ', err)
-        }
-    }
-
-    async function onSearchPlaylists(playlists = '') {
-        try {
-            var foundPlaylists = playlists ? searchPlaylists(playlists, DISPLAYEDSONGSNUMBER) : ''
-        } catch (err) {
-            console.log('err:', err)
-            showErrorMsg('problem searching for playlist: ', err)
-        }
-    }
 
     function handleSearchClick() {
         if (!searchTerm.filterText)
