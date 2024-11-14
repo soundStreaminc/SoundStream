@@ -5,6 +5,7 @@ import { setCurrentlyPlaying } from "../store/song/song.actions"
 import { showSuccessMsg } from "../services/event-bus.service"
 import Play from '../assets/svgs/play.svg?react'
 import Pause from '../assets/svgs/pause.svg?react'
+import { TracksList } from "../cmps/TracksList"
 
 export function StationDetails(  ) {
     const params = useParams()
@@ -87,7 +88,8 @@ export function StationDetails(  ) {
             </div>   
 
             <div className="tracks-container">
-                { tracks.map( (track , i) =>{
+                <TracksList trackList={tracks}/>
+                {/* { tracks.map( (track , i) =>{
                     return (
 
                         <div key={i}> 
@@ -98,7 +100,7 @@ export function StationDetails(  ) {
                         </div>
                     )
                 }
-                ) }
+                ) } */}
             </div> 
         </section >
     )
