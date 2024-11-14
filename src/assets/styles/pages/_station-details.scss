@@ -15,3 +15,28 @@
     row-gap: 20px;
     grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
 }
+
+.playerButton4{
+    background-color: #1ed760; /* green background*/
+    .action-btn4{
+        background-color: #1ed760;
+        cursor: pointer;
+    }
+}
+
+.action-btn4{
+    fill: black;
+    background-color: white;
+    width: 16px;
+    height: 16px;
+}
+
+.playerButton4 {
+    //background: white;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+  }

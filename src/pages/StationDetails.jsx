@@ -3,11 +3,14 @@ import { stationService } from "../services/station.service"
 import { useEffect, useRef, useState } from "react"
 import { setCurrentlyPlaying } from "../store/song/song.actions"
 import { showSuccessMsg } from "../services/event-bus.service"
+import Play from '../assets/svgs/play.svg?react'
+import Pause from '../assets/svgs/pause.svg?react'
 
-export function StationDetails() {
+export function StationDetails(  ) {
     const params = useParams()
     let station = useRef(null);
     const [ tracks , setTracks] = useState(null)
+    const [isPlaying, setIsPlaying] = useState( false );
 
     useEffect(() => {
         loadTracks()
@@ -34,6 +37,17 @@ export function StationDetails() {
         }
         console.log('error: no cover found for the playlist')
     }
+
+    function onPlayPauseClick(  ){
+        if (isPlaying) {
+            //audioRef.current.pause();// this will pause the audio
+            setIsPlaying(false)
+        } else {
+          //audioRef.current.play();
+          setIsPlaying(true)
+        }
+    };
+
     console.log('station2:', station)
     if(!tracks || !station.current.images) return <span> loading in progress... </span>
     return (
@@ -57,6 +71,20 @@ export function StationDetails() {
                     
                 </div>
             </div>
+
+            <div className='controll-btns2'>
+                {!isPlaying ? (
+                <button type="button" aria-label="Play" className="play playerButton4" onClick={() => onPlayPauseClick(false)}>
+                    <span aria-hidden="true" className="iconWrapper">         
+                        <Play className="action-btn4" />
+                    </span>
+                </button>
+                ) : (
+                <button type="button" aria-label="Pause" className="pause playerButton4" onClick={() => onPlayPauseClick(true)}>
+                    <Pause className="action-btn4" />
+                </button>
+                )}
+            </div>   
 
             <div className="tracks-container">
                 { tracks.map( (track , i) =>{
