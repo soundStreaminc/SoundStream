@@ -23,8 +23,8 @@ export function Resizable(){
             </div>
         </PanelResizeHandle>
 
-        <Panel className="flex h-full items-center bg-pink-100 p-6">
-                    <main className='container'>
+        <Panel className="flex h-full items-center bg-pink-100 p-6" id="main-page-id">
+                    <main className='main-page-container'>
                         <Routes>
                                 <Route path="" element={<HomePage />} />
                                 <Route path='/search' element={<StationFilter />} />

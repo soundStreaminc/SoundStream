@@ -49,7 +49,6 @@ export function StationDetails(  ) {
         }
     };
 
-    console.log('station2:', station)
     if(!tracks || !station.current.images) return <span> loading in progress... </span>
     return (
         <section className="station-details">

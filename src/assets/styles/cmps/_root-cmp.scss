@@ -40,12 +40,10 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    overflow: auto !important;
 }
 
-.container{
+.main-page-container{
     flex: 1; 
-    //overflow: scroll;
 }
 
 .gutter {

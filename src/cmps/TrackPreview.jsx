@@ -14,10 +14,28 @@ export function TrackPreview({track, index, isPlayingPlaylist=false }) {
           setIsPlaying(true)
         }
     };
-
+console.log('track:', track)
     return <section className="track-preview-container">
-        <div> {track.track.name} </div>
-        <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button>
+        <div className='track-number'>
+            {index}
+        </div>
+
+        <div className='track-name'> 
+            {track.track.name} 
+            {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+        </div>
+
+        <div className='track-album'> 
+            {track.track.album.name} 
+        </div>
+
+        <div className='track-date-added'> 
+            {track.added_at} 
+        </div>
+        
+        <div className='track-duration'>
+            {track.track.duration_ms} 
+        </div>
             {/* <div className="mini-details-container">
                 <div className="mini-details-sub-container">
                     <div className="musicCover-container">
