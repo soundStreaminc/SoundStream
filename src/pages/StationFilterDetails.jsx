@@ -6,12 +6,8 @@ import AddToLiked from '../assets/svgs/addToLiked.svg?react';
 import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
 import { showErrorMsg } from '../services/event-bus.service.js';
 import Play from '../assets/svgs/play.svg?react'
-export function StationFilterDetails() {
-    let foundArtists = useSelector(storeState => storeState.foundArtists)
-    let foundSongs = useSelector(storeState => storeState.foundSongs)
-    let foundPlaylists = useSelector(storeState => storeState.foundPlaylists)
-import { searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
 
+import { searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
 export function StationFilterDetails(){
     const [ foundArtists, setFoundArtists ] = useState ( [] )
     const [ foundSongs, setFoundSongs ] = useState ( [] )
@@ -22,12 +18,55 @@ export function StationFilterDetails(){
     // let foundPlaylists = useSelector ( storeState => storeState.foundPlaylists )
 
     const params = useParams()
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [urlParams, setUrlParams] = useState(params); // Declare and initialize urlParams
+    const [searchParams, setSearchParams] = useSearchParams()  
+    const [searchTerm, setSearchTerm] = useState(params); // Declare and initialize searchTerm
 
-    useEffect(() => {
-        setSearchParams(urlParams.size > 0 ? { filterText: urlParams } : '')
-    }, [urlParams])
+    const DISPLAYEDSONGSNUMBER = 4
+
+
+    useEffect( ()=>{      
+        loadFilterResults()
+        //TODO add the debounce
+    },  [params])
+
+    async function loadFilterResults() {
+        const foundArtist = await onSearchArtist(params.filterText)
+        setFoundArtists(foundArtist)
+        const foundSongs = await onSearchSongs(params.filterText)
+        setFoundSongs(foundSongs)
+        const foundPlaylist = await onSearchPlaylists(params.filterText)
+        setFoundPlaylists(foundPlaylist)
+    }
+
+    async function onSearchArtist(artist = '') {
+        try {
+            var foundArtists = artist ? await searchArtists(artist) : ''
+            return foundArtists
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('problem searching for artist: ', err)
+        }
+    }
+
+    async function onSearchSongs(song = '') {
+        try {
+            var foundSongs = song ? await searchSongs(song, DISPLAYEDSONGSNUMBER) : ''
+            return foundSongs
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('problem searching for songs: ', err)
+        }
+    }
+
+    async function onSearchPlaylists(playlists = '') {
+        try {
+            var foundPlaylists = playlists ? await searchPlaylists(playlists, DISPLAYEDSONGSNUMBER) : ''
+            return foundPlaylists
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('problem searching for playlist: ', err)
+        }
+    }
 
     async function onAddPlaylist(playlistId, playlistName, user = 'ohad') {
         try {
@@ -38,8 +77,7 @@ export function StationFilterDetails(){
             showErrorMsg('problem Adding Playlist: ', err)
         }
     }
-    console.log('foundArtists:', foundArtists)
-    if (!foundArtists[0]) return <span> station filter details page loading.. </span>
+    if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
             <div className="filter-menu-container">

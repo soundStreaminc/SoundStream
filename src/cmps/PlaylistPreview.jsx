@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { showErrorMsg } from '../services/event-bus.service.js';
 import { stationService } from "../services/station.service";
-import { useNavigate } from "react-router";
 
 export default function PlaylistPreview({ playlistInfo }) {
   const [ playlist, setPlaylist ]  = useState(null)
@@ -24,14 +23,23 @@ export default function PlaylistPreview({ playlistInfo }) {
 
   if (!playlist) return <span> playlist preview loading.. </span>
   return (
-    <li className="playlist-item" onClick={() => console.log('Clicked on playlist:', playlist.name)}>
+
+    <li className="playlist-item" onClick={() => window.location.href = (`/playlist/${playlistInfo.id}`)}>
       <div className="playlist-img-container">
         <img src={playlist.images[0].url} alt={playlist.name} className="playlist-img" />
         <div className="play-button-container">
           <button aria-label={`Play ${playlist.name}`} className="play-button">
-            <span aria-hidden="true" className="play-icon-wrapper">
-              {/* <img src={playPlaylist} alt="Play" /> */}
-            </span>
+          <span className="play-icon-wrapper">
+          <svg
+            data-encore-id="icon"
+            role="img"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="more-option-for"
+          >
+            <path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"></path>
+          </svg>
+        </span>
           </button>
         </div>
       </div>
