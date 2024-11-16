@@ -1,12 +1,21 @@
-.station-filter-container{
-    overflow: hidden;
+body, .station-filter-container {
+    background-color: #121212; /* Unified dark background */
+    color: white; /* Default text color for visibility */
+    margin: 0;
+    padding: 0;
 }
 
+.title{
+    background-color: #121212; /* Dark background consistent with the rest */
+    font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
+}
 .songs-container {
     max-height: 500px; // Limit the height of the container to allow scrolling
     overflow-y: auto; // Enable vertical scrolling
     padding-right: 10px; // Prevent scrollbar overlap
+    background-color: #121212; /* Dark background consistent with the rest */
 
+    //song
     .mini-details-container {
         display: flex;
         justify-content: space-between;
@@ -15,18 +24,29 @@
         padding: 5px 0; // Minor padding adjustment
         border: none; // Remove border between songs
         width: 100%;
+        position: relative; /* Ensure relative positioning for children */
+
         &:hover {
             background-color: #333; // Add hover effect to highlight the song
             border-radius: 8px; // Smooth edges when hovering
 
-            // .action-icon {
-            //     display: flex; /* Show icons on hover */
-            // }
+            .song-actions {
+                opacity: 1; /* Show icons when the song is hovered */
+            }
+            .song-actions .add-to-liked {
+                fill: #b3b3b3; /* Gray color when hovering over the song */
+                
+            }
+    
+            .song-actions .more-option-for {
+                fill: white; /* White color for MoreOptionFor when hovering */
+            }
         }
+
         .mini-details-sub-container {
             display: flex;
             align-items: center;
-            
+
 
             .musicCover-container {
                 width: 72px; // Increased image size
@@ -41,80 +61,180 @@
             }
 
             .mini-details {
+                display: flex;
+    flex-direction: column; /* Ensures title is above artist */
+    justify-content: center;
                 .song-title {
-                    font-weight: bold;
-                    font-size: 1rem;
-                    margin-bottom: 2px;
+                    
+                    font-weight: 700; /* Bold like the image */
+                    font-size: 16px; /* Slightly larger font size */
+                    margin-bottom: 4px; /* More spacing between title and artist */
+                    color: white; /* Bright title */
                 }
 
                 .artist {
-                    font-size: 0.9rem;
-                    color: #b3b3b3;
+                    font-size: 14px; /* Match the image for smaller, subtle text */
+                    font-weight: 400; /* Normal weight for the artist name */
+                    color: #a3a3a3; /* Slightly lighter gray for subtle contrast */
+                    line-height: 1.2; /* Adjust line height for better spacing */
                 }
             }
         }
 
-    //     .song-duration {
-    //         font-size: 1rem;
-    //         color: #b3b3b3;
-    //         margin-left: auto; // Align to the right
-    //         margin-right: 20px; // Add some spacing from the edge
+    
+
+        .song-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* Small gap between items */
+            margin-left: auto;
+            /* Push actions to the right */
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease; /* Smooth transition for visibility */
+            .action-icon {
+                align-items: center;
+                display: flex;
+                svg {
+                    width: 20px;
+                height: 20px;
+                transition: fill 0.3s ease;
+                    /* Ensure proper color */
+                }
+                .add-to-liked {
+                    fill:  #b3b3b3;
+                    &:hover {
+                        fill: white; /* White on hover over AddToLiked */
+                    }
+                }
+                .more-option-for {
+                    fill:  white;
+                    &:hover {
+                        fill: white; /* White on hover over MoreOptionFor */
+                    }
+                }
+            }
+
+            .song-duration {
+                font-size: 1rem;
+                color: #b3b3b3;
+                text-align: center;
+                flex: 1;
+            }
 
             
-        
-    //     .add-to-liked {
-    //         order: 1; // Position it to the left
-    //         margin-right: auto;
-    //     }
-
-    //     .song-duration {
-    //         font-size: 1rem;
-    //         color: #b3b3b3;
-    //         order: 2;
-    //     }
-
-    //     .more-option-for {
-    //         order: 3; // Position it to the far right
-    //     }
-    //    }
-
-    .song-actions {
-        display: flex;
-        align-items: center;
-        gap: 10px; /* Small gap between items */
-        margin-left: auto; /* Push actions to the right */
-
-        .action-icon {
-            align-items: center;
-            svg {
-                width: 20px; /* Control size of the icons */
-                height: 20px;
-                fill: white; /* Ensure proper color */
-            }
         }
-
-        .song-duration {
-            font-size: 1rem;
-            color: #b3b3b3;
-            text-align: center;
-            flex: 1;
-        }
-
-        // .add-to-liked {
-        //     margin-right: 5px; /* Slight spacing to the left of song-duration */
-        // }
-
-        // .more-option-for {
-        //     margin-left: 5px; /* Slight spacing to the right of song-duration */
-        // }
-    }
     }
 
-    .action-icon:hover {
-        visibility: visible;
-    }
+    // .action-icon:hover {
+    //     visibility: visible;
+    // }
 
-    .action-icon .iconWrapper{
-        //visibility: hidden;
-    }
+    // .action-icon .iconWrapper {
+    //     //visibility: hidden;
+    // }
 }
+
+//playlists
+.playlists-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #121212; // Dark background
+  }
+  
+  .playlists-mini-details-container {
+    text-decoration: none;
+    color: #fff;
+    background-color: #1c1c1c; // Card background color
+    border-radius: 8px;
+    overflow: hidden;
+    width: 180px; // Increased width for larger image
+    height: 250px; // Increased width for larger image
+    transition: transform 0.2s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.05);
+      background-color: #282828; // Slightly brighter on hover
+    }
+  
+    .playlists-add-playlist-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #1db954;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+  
+      &:hover {
+        background: #1ed760; // Slightly brighter green
+      }
+    }
+    
+    &:hover .playlists-add-playlist-btn {
+      opacity: 1;
+    }
+  
+    .playlists-mini-details-sub-container {
+      padding: 10px;
+  
+      .musicCover-container {
+        position: relative;
+       width: 170px; // Adjust to fit the container
+          height: 170px; // Increased height for better visibility
+        img {
+        //   width: 100%; // Adjust to fit the container
+        //   height: 220px; // Increased height for better visibility
+          object-fit: cover; // Ensures the image covers the area without distortion
+          border-radius: 8px 8px 0 0;
+        }
+
+
+        .iconWrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    
+            .action-btn3 {
+              font-size: 36px;
+              color: #fff;
+              background-color: #1db954;
+              border-radius: 50%;
+              padding: 10px;
+            }
+          }
+    
+          &:hover .iconWrapper {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      
+  
+      .playlists-mini-details {
+        .playlist-title {
+          font-size: 16px;
+          font-weight: bold;
+          margin: 5px 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+  
+        .playlist-subtitle {
+          font-size: 14px;
+          color: #b3b3b3;
+        }
+      }
+    }
+  }
+  

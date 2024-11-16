@@ -1,55 +1,68 @@
 .playlist-container {
-    color: #b3b3b3;
-    height: 100%;
-    overflow: hidden;
-  
-    ul {
-      list-style-type: none;
-      display: flex;
-      flex-direction: column;
-      padding: 0;
-      margin: 0;
-      height: 55vh;
-      max-height: 100%;
-      overflow: auto;
-  
-      &::-webkit-scrollbar {
-        width: 0.7rem;
-  
-        &-thumb {
-          background-color: rgba(255, 255, 255, 0.6);
-        }
+  color: #b3b3b3;
+  height: 100%;
+  overflow: hidden;
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    height: 55vh;
+    max-height: 100%;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 0.7rem;
+
+      &-thumb {
+        background-color: rgba(255, 255, 255, 0.6);
       }
-  
-      li {
-        display: flex;
-        align-items: center;
-        padding: 0.75rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease-in-out;
-  
-        &:hover {
-          background-color: #2a2a2a;
-          color: white;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+
+      &:hover {
+        background-color: #2a2a2a;
+        color: white;
+      }
+
+      .playlist-img-container {
+        position: relative;
+        width: 48px;
+        height: 48px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 4px;
         }
-  
-        .playlist-img-container {
-          position: relative;
-          width: 48px;
-          height: 48px;
-  
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 4px;
-          }
-  
-          .play-button-container {
+
+        .play-button-container {
+          // position: absolute;
+          // top: 0;
+          // right: 0;
+          // width: 100%;
+          // height: 100%;
+          // display: flex;
+          // justify-content: center;
+          // align-items: center;
+          // background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+          // border-radius: 4px;
+          // opacity: 0;
+          // transition: opacity 0.3s ease-in-out;
+          .play-button {
             position: absolute;
             top: 0;
-            right: 0; /* Align the play button to the right of the image */
-            width: 40%; /* Adjust the width of the overlay if needed */
+            right: 0;
+            width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
@@ -58,49 +71,56 @@
             border-radius: 4px;
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
-  
-            .play-button {
-              background: transparent;
-              border: none;
-              cursor: pointer;
-  
-              .play-icon-wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-  
-                img {
-                  width: 24px;
-                  height: 24px;
-                }
+
+            .play-icon-wrapper {
+              position: absolute;
+              top: 50%;
+              right: 100%; /* Move the icon to the left relative to the container */
+              transform: translate(-50%, -50%);
+              opacity: 0;
+              visibility: hidden;
+              transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            
+              svg {
+                margin-left: 10px;
+                width: 24px;
+                height: 24px;
+                fill: white; /* Ensure proper color for the icon */
+                margin-right: 8px; /* Adds space to the right side for balance */
               }
             }
-          }
-  
-          &:hover .play-button-container {
-            opacity: 1; /* Show the play button on hover */
-          }
+            
+            .playlist-img-container:hover .play-icon-wrapper {
+              opacity: 1;
+              visibility: visible;
+            }
+           }
         }
-  
-        .playlist-info {
-          margin-left: 10px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-  
-          h3 {
-            font-size: 1rem;
-            margin: 0;
-            color: white;
-          }
-  
-          p {
-            font-size: 0.85rem;
-            color: #b3b3b3;
-            margin: 0.3rem 0 0;
-          }
+
+        &:hover .play-button-container {
+          opacity: 1;
+          /* Show the play button on hover */
+        }
+      }
+
+      .playlist-info {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        h3 {
+          font-size: 1rem;
+          margin: 0;
+          color: white;
+        }
+
+        p {
+          font-size: 0.85rem;
+          color: #b3b3b3;
+          margin: 0.3rem 0 0;
         }
       }
     }
   }
-  
+}

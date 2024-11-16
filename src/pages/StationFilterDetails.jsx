@@ -6,31 +6,31 @@ import { stationService } from "../services/station.service";
 import AddToLiked from '../assets/svgs/addToLiked.svg?react';
 import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
 import { showErrorMsg } from '../services/event-bus.service.js';
-
-export function StationFilterDetails(){
-    let foundArtists = useSelector ( storeState => storeState.foundArtists )
-    let foundSongs = useSelector ( storeState => storeState.foundSongs )
-    let foundPlaylists = useSelector ( storeState => storeState.foundPlaylists )
+import Play from '../assets/svgs/play.svg?react'
+export function StationFilterDetails() {
+    let foundArtists = useSelector(storeState => storeState.foundArtists)
+    let foundSongs = useSelector(storeState => storeState.foundSongs)
+    let foundPlaylists = useSelector(storeState => storeState.foundPlaylists)
 
     const params = useParams()
-    const [searchParams, setSearchParams] = useSearchParams()  
-    const [urlParams, setUrlParams] = useState( params  ); // Declare and initialize urlParams
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [urlParams, setUrlParams] = useState(params); // Declare and initialize urlParams
 
-    useEffect( ()=>{   
-        setSearchParams(urlParams.size > 0 ? { filterText: urlParams }: '')
-    }, [ urlParams ])
+    useEffect(() => {
+        setSearchParams(urlParams.size > 0 ? { filterText: urlParams } : '')
+    }, [urlParams])
 
-    async function onAddPlaylist(playlistId, playlistName , user = 'ohad' ){
+    async function onAddPlaylist(playlistId, playlistName, user = 'ohad') {
         try {
-            if ( playlistId && playlistName) 
-                await stationService.addPlaylist ( playlistId, playlistName , user )
+            if (playlistId && playlistName)
+                await stationService.addPlaylist(playlistId, playlistName, user)
         } catch (err) {
             console.log('err:', err)
             showErrorMsg('problem Adding Playlist: ', err)
-        }  
+        }
     }
     console.log('foundArtists:', foundArtists)
-    if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
+    if (!foundArtists[0]) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
             <div className="filter-menu-container">
@@ -38,36 +38,36 @@ export function StationFilterDetails(){
                 <button className="filter-btn"> Artists </button>
                 <button className="filter-btn"> Songs </button>
             </div>
-                <div className="filter-top-result-container">
-                    <div className="title">
-                        <h2>
-                            <span> Top result </span>
-                        </h2>
-                    </div>
-                
-                    
-                    <div className="top-result-container">
-                        <div className="top-result-sub-container">
-                            <div className="artist-image-container" >
-                                <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : "not found"} />
-                            </div>
-                            <div className="artist-name">
-                                {foundArtists[0].name ? foundArtists[0].name : "not found"}
-                            </div>
-                            <span> Artist </span>
-                        </div>
-                    </div>  
+            <div className="filter-top-result-container">
+                <div className="title">
+                    <h2>
+                        <span> Top result </span>
+                    </h2>
                 </div>
 
-                <div className="filter-songs-container">
-                    <div className="title">
-                        <h2>
-                            <span> Songs </span>
-                        </h2>
+
+                <div className="top-result-container">
+                    <div className="top-result-sub-container">
+                        <div className="artist-image-container" >
+                            <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : "not found"} />
+                        </div>
+                        <div className="artist-name">
+                            {foundArtists[0].name ? foundArtists[0].name : "not found"}
+                        </div>
+                        <span> Artist </span>
                     </div>
-                
-                    
-                    <div className="songs-container">
+                </div>
+            </div>
+
+            <div className="filter-songs-container">
+                <div className="title">
+                    <h2>
+                        <span> Songs </span>
+                    </h2>
+                </div>
+
+
+                <div className="songs-container">
                     {foundSongs.map((song, i) => {
                         const durationInMinutes = Math.floor(song.duration_ms / 60000);
                         const durationInSeconds = Math.floor((song.duration_ms % 60000) / 1000).toString().padStart(2, '0');
@@ -94,62 +94,72 @@ export function StationFilterDetails(){
 
                                 <div className="song-actions">
                                     <div className="action-icon">
-                                        <span aria-hidden="true" className="iconWrapper">         
+                                        <span aria-hidden="true" className="iconWrapper">
                                             <AddToLiked className="add-to-liked" />
                                         </span>
                                     </div>
                                     <div className="song-duration">{durationInMinutes}:{durationInSeconds}</div>
                                     <div className="action-icon">
+                                    <span aria-hidden="true" className="iconWrapper">
                                         <MoreOptionFor className="more-option-for" />
+                                        </span>
                                     </div>
                                 </div>
 
-                           
+
                             </div>
                         )
                     }
                     )}
                 </div>
 
-                     
+
+            </div>
+
+            <div className="filter-songs-container">
+                <div className="title">
+                    <h2>
+                        <span> Playlists </span>
+                    </h2>
                 </div>
 
-                <div className="filter-songs-container">
-                    <div className="title">
-                        <h2>
-                            <span> Playlists </span>
-                        </h2>
-                    </div>
+                <div className="playlists-container">
+                    {foundPlaylists.map((playlist, i) => {
+                        return (
 
-                    <div className="playlists-container">
-                        { foundPlaylists.map( (playlist , i) =>{
-                            return (
+                            <a href={`/playlist/${playlist.id}`} className="playlists-mini-details-container" key={i}>
 
-                                <a href={`/playlist/${ playlist.id }`} className="mini-details-container" key={i}>
-                                    <div className="mini-details-sub-container" key={i + 'r'}>
-                                        <div className="musicCover-container" key={i + 'a'}>
-                                            <img
-                                            className="musicCover"
+                                <button key={i + 'y'} type="button" className="playlists-add-playlist-btn" onClick={() => onAddPlaylist(playlist.id, playlist.name)}></button>
+
+                                <div className="playlists-mini-details-sub-container" key={i + 'r'}>
+                                    <div className="musicCover-container" key={i + 'a'}>
+                                        <img
+                                            className="playlists-musicCover"
                                             src={playlist.images[0].url}
                                             alt={`track artwork for ${playlist.name}`}
                                             key={i + 'q'}
-                                            />
-                                        </div>
-                                        
-                                        <div className="mini-details" key={i + 's'}>
-                                            <p className="playlist-title" key={i + 'e'}> {playlist.name} </p>
-                                        </div> 
 
-                                        
+                                        />
+                                        <span aria-hidden="true" className="iconWrapper">
+                                            <Play className="action-btn3" />
+                                        </span>
                                     </div>
-                                    <button key={i + 'y'} type="button" className="add-playlist-btn" onClick={() => onAddPlaylist( playlist.id , playlist.name )}> Add Playlist </button>
-                                </a>
 
-                            )
-                        }
-                        ) }
-                    </div> 
+                                    <div className="playlists-mini-details" key={i + 's'}>
+                                        {/* <p className="playlist-title" key={i + 'e'}> {playlist.name} </p> */}
+                                        <p className="playlist-title">{playlist.name}</p>
+                                        <p className="playlist-subtitle">By {playlist.owner.display_name}</p>
+                                    </div>
+
+
+                                </div>
+                            </a>
+
+                        )
+                    }
+                    )}
                 </div>
+            </div>
         </section>
     )
 }
