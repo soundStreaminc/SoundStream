@@ -265,6 +265,7 @@ function _createStation() {
     utilService.saveToStorage(STORAGE_KEY, station)
 }
 
+//TODO feels like there is a bug in this function
 function getFilterFromSearchParams(searchParams){
     const filterBy = {
         filterText: searchParams.size > 0 ?  searchParams.filterText : ''

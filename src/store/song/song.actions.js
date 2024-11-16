@@ -34,6 +34,7 @@ export async function searchArtists ( artistName ){
     try {
         const artists = await stationService.getArtists_SpotifyApi ( artistName)
         store.dispatch( { type: SEARCH_ARTISTS , artists })
+        return artists
 
     } catch (err) {
         console.log('Having issues finding artists:', err)
@@ -47,7 +48,7 @@ export async function searchSongs ( songName , limit ){
     try {
         const songs = await stationService.getTracks_SpotifyApi ( songName, limit)
         store.dispatch( { type: SEARCH_SONGS , songs })
-
+        return songs
     } catch (err) {
         console.log('Having issues finding songs:', err)
         showErrorMsg( 'Having issues finding songs' )
@@ -60,6 +61,7 @@ export async function searchPlaylists ( playlistName , limit){
     try {
         const playlists = await stationService.getPlaylist_SpotifiApi ( playlistName, limit)
         store.dispatch( { type: SEARCH_PLAYLISTS , playlists })
+        return playlists
 
     } catch (err) {
         console.log('Having issues finding playlists:', err)
@@ -72,7 +74,8 @@ export async function searchPlaylists ( playlistName , limit){
 export async function setCurrentlyPlaying ( trackInfo ){
     try {
         const trackJson = setTrackJson( trackInfo )
-        store.dispatch( { type: SET_CURRENT_PLAYLIST , trackJson })
+        await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackJson })
+        return trackJson[0]
 
     } catch (err) {
         console.log('Having issues finding playlists:', err)

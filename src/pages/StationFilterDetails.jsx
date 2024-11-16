@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
-import { stationService } from "../services/station.service";
+import { stationService } from "../services/station.service.js";
 import AddToLiked from '../assets/svgs/addToLiked.svg?react';
 import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
 import { showErrorMsg } from '../services/event-bus.service.js';
@@ -11,6 +10,16 @@ export function StationFilterDetails() {
     let foundArtists = useSelector(storeState => storeState.foundArtists)
     let foundSongs = useSelector(storeState => storeState.foundSongs)
     let foundPlaylists = useSelector(storeState => storeState.foundPlaylists)
+import { searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
+
+export function StationFilterDetails(){
+    const [ foundArtists, setFoundArtists ] = useState ( [] )
+    const [ foundSongs, setFoundSongs ] = useState ( [] )
+    const [ foundPlaylists, setFoundPlaylists ] = useState ( [] )
+
+    // let foundArtists = useSelector ( storeState => storeState.foundArtists )
+    // let foundSongs = useSelector ( storeState => storeState.foundSongs )
+    // let foundPlaylists = useSelector ( storeState => storeState.foundPlaylists )
 
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
