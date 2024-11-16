@@ -1,13 +1,14 @@
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { Routes, Route } from 'react-router'
 
-import { StationDetails } from '../pages/StationDetails'
-import { HomePage } from "../pages/HomePage";
-import { StationFilter } from "../pages/StationFilter";
-import { StationFilterDetails } from "../pages/StationFilterDetails";
-import { TrackDetails } from "../pages/TrackDetails";
-import { SideBar } from "./SideBar";
+import { PlaylistDetails } from './PlaylistDetails'
+import { HomePage } from "./HomePage";
+import { StationFilter } from "./StationFilter";
+import { StationFilterDetails } from "./StationFilterDetails";
+import { TrackDetails } from "./TrackDetails";
+import { SideBar } from "../cmps/SideBar";
 import { DragHandleDots2Icon } from "@radix-ui/react-icons";
+import { AlbumDetails } from "./AlbumDetails";
 
 export function Resizable(){
     return (
@@ -29,8 +30,9 @@ export function Resizable(){
                                 <Route path="" element={<HomePage />} />
                                 <Route path='/search' element={<StationFilter />} />
                                 <Route path='/search/:filterText' element={<StationFilterDetails />} />
-                                <Route path="/playlist/:stationId" element={<StationDetails />} />
+                                <Route path="/playlist/:stationId" element={<PlaylistDetails />} />
                                 <Route path="/track/:trackId" element={<TrackDetails />} />
+                                <Route path="/album/:albumId" element={<AlbumDetails />} />
                         </Routes>
                     </main>
         </Panel>

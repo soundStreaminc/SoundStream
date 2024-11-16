@@ -66,15 +66,17 @@ export function StationFilterDetails(){
         }
     }
 
-    async function onAddPlaylist(playlistId, playlistName , user = 'ohad' ){
+    async function onAddPlaylist(playlistId, playlistName, playlistType, user = 'ohad' ){
         try {
             if ( playlistId && playlistName) 
-                await stationService.addPlaylist ( playlistId, playlistName , user )
+                await stationService.addPlaylist ( playlistId, playlistName , playlistType, user )
         } catch (err) {
             console.log('err:', err)
             showErrorMsg('problem Adding Playlist: ', err)
         }  
     }
+
+    console.log('foundPlaylists:', foundPlaylists)
     if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
@@ -168,17 +170,19 @@ export function StationFilterDetails(){
 
                     <div className="playlists-container">
                         { foundPlaylists.map( (playlist , i) =>{
+                            var imageFound = playlist.images.length > 0 ? true : false //some playlist don't have images
                             return (
 
                                 <a href={`/playlist/${ playlist.id }`} className="mini-details-container" key={i}>
                                     <div className="mini-details-sub-container" key={i + 'r'}>
                                         <div className="musicCover-container" key={i + 'a'}>
-                                            <img
+                                            {imageFound && <img
                                             className="musicCover"
                                             src={playlist.images[0].url}
                                             alt={`track artwork for ${playlist.name}`}
                                             key={i + 'q'}
-                                            />
+                                            />}
+                                            
                                         </div>
                                         
                                         <div className="mini-details" key={i + 's'}>
@@ -187,7 +191,7 @@ export function StationFilterDetails(){
 
                                         
                                     </div>
-                                    <button key={i + 'y'} type="button" className="add-playlist-btn" onClick={() => onAddPlaylist( playlist.id , playlist.name )}> Add Playlist </button>
+                                    <button key={i + 'y'} type="button" className="add-playlist-btn" onClick={() => onAddPlaylist( playlist.id, playlist.name, playlist.type)}> Add Playlist </button>
                                 </a>
 
                             )

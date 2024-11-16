@@ -117,7 +117,7 @@ fill:#b3b3b3;
         gap: 10px;
         flex-direction: row; // Keep the buttons inline but below the header
         padding: 0 10px; // Padding around the section
-        margin-bottom: 30px; // Add space between serch-recents and playlist-list
+        margin-bottom: 30px; // Add space between serch-recents and station-list
         padding: 0 10px; // Padding around the section
         .library-btn {
             background-color: #333;
@@ -133,7 +133,7 @@ fill:#b3b3b3;
         }
     }
 
-    .sidebar-playlists {
+    .sidebar-stations {
         flex-grow: 1;
         overflow-y: auto;
 
@@ -143,7 +143,7 @@ fill:#b3b3b3;
             justify-content: space-between; // Align search and recents to opposite ends
             align-items: center;
             padding: 0 10px; // Padding around the section
-            margin-bottom: 15px; // Add space between serch-recents and playlist-list
+            margin-bottom: 15px; // Add space between serch-recents and station-list
 
 
             .library-search-btn{
@@ -208,7 +208,7 @@ fill:#b3b3b3;
         }
     }
 
-        .playlist-list {
+        .station-list {
             list-style: none;
             padding: 0;
             margin-top: 20px; 
@@ -221,7 +221,7 @@ fill:#b3b3b3;
                     color: #b3b3b3;
                     text-decoration: none;
 
-                    .playlist-icon {
+                    .station-icon {
                         width: 30px;
                         height: 30px;
                         margin-right: 10px;

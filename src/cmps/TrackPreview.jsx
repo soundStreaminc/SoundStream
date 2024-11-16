@@ -14,7 +14,6 @@ export function TrackPreview({track, index, isPlayingPlaylist=false }) {
           setIsPlaying(true)
         }
     };
-console.log('track:', track)
     return <section className="track-preview-container">
         <div className='track-number'>
             {index}
