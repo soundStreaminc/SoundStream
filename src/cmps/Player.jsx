@@ -16,17 +16,17 @@ import { loadTracks } from "../store/song/song.actions";
 export function Player(){
     let tracks = useSelector ( storeState => storeState.currentPlaylist )
     const [audio, setAudio] = useState(  )
-    const [trackIndex, setTrackIndex] = useState(0);
-    const [trackProgress, setTrackProgress] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [ volume, setVolume ] = useState(0.5);
+    const [trackIndex, setTrackIndex] = useState(0)
+    const [trackProgress, setTrackProgress] = useState(0)
+    const [isPlaying, setIsPlaying] = useState(false)
+    const [ volume, setVolume ] = useState(0.5)
 
-    const intervalRef = useRef();
-    const isReady = useRef(false);
+    const intervalRef = useRef()
+    const isReady = useRef(false)
     const { title, artist, image, audioSrc } = tracks[trackIndex]
     
-    let audioRef = useRef(new Audio(audioSrc));
-    const [duration, setDuration] = useState(null);
+    let audioRef = useRef(new Audio(audioSrc))
+    const [duration, setDuration] = useState(null)
 
     const [currTime, setCurrTime] = useState({
         min: "00",

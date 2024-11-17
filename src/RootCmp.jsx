@@ -5,7 +5,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router'
 
 import { HomePage } from './pages/HomePage'
-import { StationDetails } from './pages/StationDetails'
+import { PlaylistDetails } from './pages/PlaylistDetails'
 
 import { AppHeader } from './cmps/AppHeader'
 import { AppFooter } from './cmps/AppFooter'
@@ -15,7 +15,7 @@ import { SideBar } from './cmps/SideBar'
 import { StationFilter } from './pages/StationFilter'
 import { TrackDetails } from './pages/TrackDetails'
 import { StationFilterDetails } from './pages/StationFilterDetails'
-import { Resizable } from './cmps/Resizable'
+import { Resizable } from './pages/Resizable'
 
 
 export function RootCmp() {

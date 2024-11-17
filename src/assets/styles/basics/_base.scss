@@ -45,6 +45,10 @@ body {
     position: relative;
 }
 
+.main-resize-container{
+    overflow: scroll !important;
+}
+
 // h1, h2, h3, h4, h5, h6 {
 //     font-family: caveat;
 //     margin: 0 0 0.6em;

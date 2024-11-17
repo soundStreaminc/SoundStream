@@ -68,15 +68,17 @@ export function StationFilterDetails(){
         }
     }
 
-    async function onAddPlaylist(playlistId, playlistName, user = 'ohad') {
+    async function onAddPlaylist(playlistId, playlistName, playlistType, user = 'ohad' ){
         try {
-            if (playlistId && playlistName)
-                await stationService.addPlaylist(playlistId, playlistName, user)
+            if ( playlistId && playlistName) 
+                await stationService.addPlaylist ( playlistId, playlistName , playlistType, user )
         } catch (err) {
             console.log('err:', err)
             showErrorMsg('problem Adding Playlist: ', err)
         }
     }
+
+    console.log('foundPlaylists:', foundPlaylists)
     if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
@@ -170,37 +172,31 @@ export function StationFilterDetails(){
                     </h2>
                 </div>
 
-                <div className="playlists-container">
-                    {foundPlaylists.map((playlist, i) => {
-                        return (
+                    <div className="playlists-container">
+                        { foundPlaylists.map( (playlist , i) =>{
+                            var imageFound = playlist.images.length > 0 ? true : false //some playlist don't have images
+                            return (
 
-                            <a href={`/playlist/${playlist.id}`} className="playlists-mini-details-container" key={i}>
-
-                                <button key={i + 'y'} type="button" className="playlists-add-playlist-btn" onClick={() => onAddPlaylist(playlist.id, playlist.name)}></button>
-
-                                <div className="playlists-mini-details-sub-container" key={i + 'r'}>
-                                    <div className="musicCover-container" key={i + 'a'}>
-                                        <img
-                                            className="playlists-musicCover"
+                                <a href={`/playlist/${ playlist.id }`} className="mini-details-container" key={i}>
+                                    <div className="mini-details-sub-container" key={i + 'r'}>
+                                        <div className="musicCover-container" key={i + 'a'}>
+                                            {imageFound && <img
+                                            className="musicCover"
                                             src={playlist.images[0].url}
                                             alt={`track artwork for ${playlist.name}`}
                                             key={i + 'q'}
+                                            />}
+                                            
+                                        </div>
+                                        
+                                        <div className="mini-details" key={i + 's'}>
+                                            <p className="playlist-title" key={i + 'e'}> {playlist.name} </p>
+                                        </div> 
 
-                                        />
-                                        <span aria-hidden="true" className="iconWrapper">
-                                            <Play className="action-btn3" />
-                                        </span>
+                                        
                                     </div>
-
-                                    <div className="playlists-mini-details" key={i + 's'}>
-                                        {/* <p className="playlist-title" key={i + 'e'}> {playlist.name} </p> */}
-                                        <p className="playlist-title">{playlist.name}</p>
-                                        <p className="playlist-subtitle">By {playlist.owner.display_name}</p>
-                                    </div>
-
-
-                                </div>
-                            </a>
+                                    <button key={i + 'y'} type="button" className="add-playlist-btn" onClick={() => onAddPlaylist( playlist.id, playlist.name, playlist.type)}> Add Playlist </button>
+                                </a>
 
                         )
                     }

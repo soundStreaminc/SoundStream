@@ -5,36 +5,20 @@ import Arrow from '../assets/svgs/rightArrow.svg?react';
 import Search from '../assets/svgs/search.svg?react';
 import Recents from '../assets/svgs/recents.svg?react';
 import { stationService } from '../services/station.service';
-// import PlaylistDetails from './PlaylistDetails';
-import PlaylistPreview from './PlaylistPreview';
+import StationMiniPreview from './StationMiniPreview';
 
 export function SideBar() {
-    const [ playlists , setPlaylists ] = useState([])
+    const [ stations , setPlaylists ] = useState([])
 
     useEffect( ()=> {
         loadPlaylist()
     }, [])
 
-
     async function loadPlaylist(){
-        //get playlists array from local storage (all the ids)
+        //get stations array from local storage (all the ids)
         const playlistsArray = await stationService.getPlaylistByUser("ohad")
         setPlaylists( playlistsArray )
     }
-
-    const samplePlaylists = [
-        {
-          image: 'https://link-to-image.com/image1.jpg',
-          name: 'Liked Songs',
-          owner: 'Spotify',
-        },
-        {
-          image: 'https://link-to-image.com/image2.jpg',
-          name: 'This Is ShrekDiMC',
-          owner: 'Spotify',
-        },
-        // Add more sample playlists here...
-      ];
 
     return (
         <div className="sidebar" >
@@ -54,25 +38,22 @@ export function SideBar() {
                     
                 </div>
                 <div className="library-options">
-                        <button className="library-btn">Playlists</button>
+                        <button className="library-btn">stations</button>
                         <button className="library-btn">Artists</button>
                     </div>
 
-                {/* Playlist Section */}
+                {/* Station Section */}
                 
-                <div className="sidebar-playlists">
+                <div className="sidebar-stations">
                     <div className="serch-recents">
                     <button className="library-search-btn"><Search className="search-icon"/></button>
                     <button className="library-recents-btn"><h3>Recents</h3><Recents className="recents-icon"/></button>
                     </div>
-                        <ul className="playlist-test">
-                            {playlists.map((playlist, index) => (
-                                <PlaylistPreview key={index} playlistInfo={playlist} />
+                        <ul className="station-test">
+                            {stations.map((station, index) => (
+                                <StationMiniPreview key={index} stationInfo={station} />
                             ))}
                         </ul>
-                    <ul className="playlist-list">
-                        
-                    </ul>
                 </div>
             </div>
 

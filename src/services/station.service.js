@@ -27,6 +27,7 @@ export const stationService = {
     getTracks_SpotifyApi,
     getTracksByAlbumId_SpotifyApi,
     getRecomended_SpotifyApi,  
+    getStationById_SpotifyApi,
     getPlaylistById_SpotifyApi,
     getPlaylist_SpotifiApi,
     getMadeForU_SpotifiApi,
@@ -48,8 +49,8 @@ async function query() {
     return res
 }
 
-async function addPlaylist ( id, name , user ){
-    const res = await setPLaylistByUser(user, { name, id })
+async function addPlaylist ( id, name, type, user ){
+    const res = await setPLaylistByUser(user, { name, id, type })
 }
 
 async function setPLaylistByUser ( userName , playlist ) {
@@ -223,6 +224,7 @@ function _createStation() {
                     {
                         "name": "רשימת השמעה המאוד מגניבה של שקד / shaked cool playlist",
                         "id": "2ezyaQ3apZRID1oOIBHfLz",
+                        'type': 'playlist',
                     } 
                 ]
                 },
@@ -232,6 +234,7 @@ function _createStation() {
                         {
                             "name": "the best playlist!!!!",
                             "id": "3cEYpjA9oz9GiPac4AsH4n",
+                            'type': 'playlist',
                         } 
                     ]
                 }        
@@ -383,6 +386,24 @@ async function getCategoryPlaylists( category ){
 /*
     Spotifi Api functions: connect to spotifi using the api key and get information about playlists and songs.
 */
+
+async function getStationById_SpotifyApi( stationType, stationId ){
+    var searchParameters = await setupHeader()
+    var stationTypeParam = ''
+
+    switch (stationType){
+        case 'playlist':
+            stationTypeParam = 'playlists'
+            break
+
+    }
+    var station = await fetch (`https://api.spotify.com/v1/${stationTypeParam}/${stationId}` , searchParameters )
+        .then( response => response.json())
+        .then( data => { 
+            return  data ? data : ' could not get station '}
+        )
+    return station
+}
 
 async function getPlaylistById_SpotifyApi( playlistId ){
     var searchParameters = await setupHeader()
