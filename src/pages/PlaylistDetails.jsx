@@ -8,8 +8,8 @@ import { GeneralObjectHeader } from "../cmps/GeneralObjectHeader"
 export function PlaylistDetails(  ) {
     const params = useParams()
     let station = useRef(null)
+    let miniStation = useRef(null)
     const [ tracks , setTracks] = useState(null)
-    let miniStation = useRef()
 
     useEffect(() => {
         loadTracks()
@@ -39,7 +39,7 @@ export function PlaylistDetails(  ) {
             <GeneralObjectHeader station={miniStation.current}/>
 
             <div className="tracks-container">
-                <TracksList trackList={tracks}/>
+                <TracksList trackList={tracks}  isPlaylist={true}/>
                 {/* { tracks.map( (track , i) =>{
                     return (
 

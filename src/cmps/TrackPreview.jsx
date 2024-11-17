@@ -2,7 +2,7 @@ import Play from '../assets/svgs/play.svg?react'
 import Pause from '../assets/svgs/pause.svg?react'
 import { useState } from 'react';
 
-export function TrackPreview({track, index, isPlayingPlaylist=false }) {
+export function TrackPreview({track, index, isPlaylist, isPlayingPlaylist=false }) {
     const [isPlaying, setIsPlaying] = useState(isPlayingPlaylist);
 
     function onPlayPauseClick(  ){
@@ -36,35 +36,39 @@ export function TrackPreview({track, index, isPlayingPlaylist=false }) {
             {index}
         </div>
 
-        <div className='track-title'> 
-            <div className='track-image'> 
+        <div className='track-title'>
+            {isPlaylist ? (
+                <div className='track-image'> 
                 <img src={track.track.album.images[0].url} className='album-cover-image'/>
                 {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
-            </div>
+                </div>
+            ):''}
+           
             <div className='name-artist-container'>
                 <div className='track-name'> 
-                    {track.track.name} 
+                    {track.track ? track.track.name: track.name} 
                     {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
                 </div>
                 <div className='track-artist'> 
-                    {track.track.artists[0].name} 
+                    {track.track ? track.track.artists[0].name: track.artists[0].name} 
                     {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
                 </div>
             </div>
             
         </div>
 
-
+        {isPlaylist ? (
         <div className='track-album'> 
             {track.track.album.name} 
-        </div>
+        </div>):''}
 
+        {isPlaylist ? (
         <div className='track-date-added'> 
             {getFormattedDate(track.added_at)} 
-        </div>
+        </div>):''}
         
         <div className='track-duration'>
-            {convertMsToMinutes(track.track.duration_ms)} 
+            {convertMsToMinutes(track.track ? track.track.duration_ms : track.duration_ms)} 
         </div>
             {/* <div className="mini-details-container">
                 <div className="mini-details-sub-container">
