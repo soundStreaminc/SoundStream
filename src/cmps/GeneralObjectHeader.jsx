@@ -31,7 +31,7 @@ export function GeneralObjectHeader({ station }){
             console.error(err);
         }
     }
-
+    console.log('station:', station)
     return(
         <section className="general-object-header">
             <div className="station-info">
@@ -41,7 +41,8 @@ export function GeneralObjectHeader({ station }){
                     </div>
     
                     <div className="station-title2">
-                        Playlist <h2> {station.name} </h2>
+                        {station.type} <h2> {station.name} </h2>
+                        {station.description}
                         <div className="station-sub-title">
                             <b> {station.owner} </b> *                        
                             {station.followers} save *

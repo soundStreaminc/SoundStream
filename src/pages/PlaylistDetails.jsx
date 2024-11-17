@@ -26,6 +26,7 @@ export function PlaylistDetails(  ) {
             followers: station.current.followers.total,
             count: station.current.tracks.items.length,
             length: "about 4 hr 30 min",
+            description: station.current.description
         }
 
         setTracks(station.current.tracks.items) 
