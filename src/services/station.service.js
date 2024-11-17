@@ -18,8 +18,8 @@ export const stationService = {
     getPlaylistById,
     getPlaylistByUser,
     getCurrentlyPlaying,
-    setPLaylistByUser,
     addPlaylist,
+    addAlbum,
     getCategoryPlaylists,
 
     getArtistId_SpotifyApi,
@@ -30,6 +30,7 @@ export const stationService = {
     getStationById_SpotifyApi,
     getPlaylistById_SpotifyApi,
     getPlaylist_SpotifiApi,
+    getAlbum_SpotifiApi,
     getMadeForU_SpotifiApi,
     getTopMixes_SpotifiApi,
     getYourFavoriteArtist_SpotifiApi,
@@ -50,22 +51,24 @@ async function query() {
 }
 
 async function addPlaylist ( id, name, type, user ){
-    const res = await setPLaylistByUser(user, { name, id, type })
+    const res = await _addStationToUser(user, { name, id, type })
 }
 
-async function setPLaylistByUser ( userName , playlist ) {
+async function addAlbum ( id, name, type, user ){
+    const res = await _addStationToUser(user, { name, id, type })
+}
+
+async function _addStationToUser ( userName , station ) {
     const res = await query(STORAGE_KEY).then(entity => {
 
         const idx = entity[0].users.find(entity => entity.userName === userName)
-        idx.playlists.push(playlist)
+        idx.playlists.push(station)
 
         
         if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${updatedEntity.id} in: ${entityType}`)
         return entity
         })
     utilService.saveToStorage(STORAGE_KEY, res)
-
-
 }
 
 // async function save(station) {
@@ -395,6 +398,9 @@ async function getStationById_SpotifyApi( stationType, stationId ){
         case 'playlist':
             stationTypeParam = 'playlists'
             break
+        case 'album':
+            stationTypeParam = 'albums'
+            break
 
     }
     var station = await fetch (`https://api.spotify.com/v1/${stationTypeParam}/${stationId}` , searchParameters )
@@ -438,6 +444,19 @@ async function getPlaylist_SpotifiApi ( playlistName, limit ){
 
         )
      return foundPlaylists
+}
+
+async function getAlbum_SpotifiApi ( albumName, limit ){
+    var searchParameters = await setupHeader()
+
+    var foundAlbums = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
+        albumName + '&type=album&limit=' + limit , searchParameters)
+        .then( response => response.json())
+        .then( data => { 
+            return  data.albums.items? data.albums.items : '' }
+
+        )
+     return foundAlbums
 }
 
 async function getArtistId_SpotifyApi( artistName){

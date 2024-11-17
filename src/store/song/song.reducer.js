@@ -20,12 +20,14 @@ const intialState = {
       ],
       foundArtists : [],
       foundSongs: [],
-      foundPlaylists: []
+      foundPlaylists: [],
+      foundAlbums: []
 }
 
 export const SEARCH_SONGS = 'SEARCH_SONGS'
 export const SEARCH_ARTISTS = 'SEARCH_ARTISTS'
 export const SEARCH_PLAYLISTS = 'SEARCH_PLAYLISTS'
+export const SEARCH_ALBUMS = 'SEARCH_ALBUMS'
 export const SET_CURRENT_PLAYLIST = 'SET_CURRENT_PLAYLIST'
 export const SET_STATION = 'SET_STATION'
 export const ADD_TRACK = 'ADD_TRACK'
@@ -50,6 +52,11 @@ export function stationReducer ( state = intialState, cmd = {}  ){
             return{
                 ...state,
                 foundPlaylists : cmd.playlists
+            } 
+        case SEARCH_ALBUMS :
+            return{
+                ...state,
+                foundAlbums : cmd.foundAlbums
             } 
         case SET_STATION :
             return{

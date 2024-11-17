@@ -14,12 +14,20 @@ export default function StationMiniPreview({ stationInfo }) {
     try {
         if (! stationInfo.id) throw new Error ('error: did not get stationInfo.id')
         const loadedStation = await stationService.getStationById_SpotifyApi ( stationInfo.type,  stationInfo.id )
+        console.log('loadedStation:', loadedStation)
         setStation( loadedStation )
       } catch (err) {
         console.log('err:', err)
         showErrorMsg('problem loading Station: ', err)
     }  
-}
+  }
+
+  function getStationOwnerArtist(stationType){
+    var res;
+    stationType === 'album' ? res = ( <h4> {stationType}*{station.artists[0].name} </h4> ) : res = ( <h4> {stationType}*{station.owner.display_name} </h4> ) 
+    return res
+  }
+
   if (!station ) return <span> station preview loading.. </span>
   return (
     <section className="station-mini-preview">
@@ -37,7 +45,7 @@ export default function StationMiniPreview({ stationInfo }) {
         
         <div className="station-info">
         <h3>{station.name || "station not found"}</h3>
-        <h4> {station.type}*{station.owner.display_name} </h4>
+        {getStationOwnerArtist(station.type)}
       </div>
     </li>
     </section>

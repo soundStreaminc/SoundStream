@@ -5,16 +5,13 @@ import { stationService } from "../services/station.service.js";
 import AddToLiked from '../assets/svgs/addToLiked.svg?react';
 import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
 import { showErrorMsg } from '../services/event-bus.service.js';
-import { searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
+import { searchAlbums, searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
 
 export function StationFilterDetails(){
     const [ foundArtists, setFoundArtists ] = useState ( [] )
     const [ foundSongs, setFoundSongs ] = useState ( [] )
     const [ foundPlaylists, setFoundPlaylists ] = useState ( [] )
-
-    // let foundArtists = useSelector ( storeState => storeState.foundArtists )
-    // let foundSongs = useSelector ( storeState => storeState.foundSongs )
-    // let foundPlaylists = useSelector ( storeState => storeState.foundPlaylists )
+    const [ foundAlbums, setFoundAlbums ] = useState ( [] )
 
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()  
@@ -34,6 +31,8 @@ export function StationFilterDetails(){
         setFoundSongs(foundSongs)
         const foundPlaylist = await onSearchPlaylists(params.filterText)
         setFoundPlaylists(foundPlaylist)
+        const foundAlbums = await onSearchAlbums(params.filterText)
+        setFoundAlbums(foundAlbums)
     }
 
     async function onSearchArtist(artist = '') {
@@ -66,6 +65,16 @@ export function StationFilterDetails(){
         }
     }
 
+    async function onSearchAlbums(albums = '') {
+        try {
+            var foundAlbums = albums ? await searchAlbums(albums, DISPLAYEDSONGSNUMBER) : ''
+            return foundAlbums
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('problem searching for albums: ', err)
+        }
+    }
+
     async function onAddPlaylist(playlistId, playlistName, playlistType, user = 'ohad' ){
         try {
             if ( playlistId && playlistName) 
@@ -76,7 +85,17 @@ export function StationFilterDetails(){
         }  
     }
 
-    console.log('foundPlaylists:', foundPlaylists)
+    async function onAddAlbum( albumId, albumName, albumType, user = 'ohad' ){
+        try {
+            if ( albumId && albumName) 
+                await stationService.addAlbum ( albumId, albumName , albumType, user )
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('problem Adding Album: ', err)
+        }  
+    }
+
+    console.log('foundAlbums:', foundAlbums)
     if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
@@ -159,6 +178,45 @@ export function StationFilterDetails(){
                 </div>
 
                      
+                </div>
+
+                <div className="filter-songs-container">
+                    <div className="title">
+                        <h2>
+                            <span> Albums </span>
+                        </h2>
+                    </div>
+
+                    <div className="albums-container">
+                        { foundAlbums.map( (album , i) =>{
+                            var imageFound = album.images.length > 0 ? true : false //some playlist don't have images
+                            return (
+
+                                <a href={`/album/${ album.id }`} className="mini-details-container" key={i}>
+                                    <div className="mini-details-sub-container" key={i + 'r'}>
+                                        <div className="musicCover-container" key={i + 'a'}>
+                                            {imageFound && <img
+                                            className="musicCover"
+                                            src={album.images[0].url}
+                                            alt={`track artwork for ${album.name}`}
+                                            key={i + 'q'}
+                                            />}
+                                            
+                                        </div>
+                                        
+                                        <div className="mini-details" key={i + 's'}>
+                                            <p className="album-title" key={i + 'e'}> {album.name} </p>
+                                        </div> 
+
+                                        
+                                    </div>
+                                    <button key={i + 'y'} type="button" className="add-album-btn" onClick={() => onAddAlbum( album.id, album.name, album.type)}> Add Album </button>
+                                </a>
+
+                            )
+                        }
+                        ) }
+                    </div> 
                 </div>
 
                 <div className="filter-songs-container">
