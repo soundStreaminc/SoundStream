@@ -8,26 +8,26 @@ import { showErrorMsg } from '../services/event-bus.service.js';
 import Play from '../assets/svgs/play.svg?react'
 
 import { searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
-export function StationFilterDetails(){
-    const [ foundArtists, setFoundArtists ] = useState ( [] )
-    const [ foundSongs, setFoundSongs ] = useState ( [] )
-    const [ foundPlaylists, setFoundPlaylists ] = useState ( [] )
+export function StationFilterDetails() {
+    const [foundArtists, setFoundArtists] = useState([])
+    const [foundSongs, setFoundSongs] = useState([])
+    const [foundPlaylists, setFoundPlaylists] = useState([])
 
     // let foundArtists = useSelector ( storeState => storeState.foundArtists )
     // let foundSongs = useSelector ( storeState => storeState.foundSongs )
     // let foundPlaylists = useSelector ( storeState => storeState.foundPlaylists )
 
     const params = useParams()
-    const [searchParams, setSearchParams] = useSearchParams()  
+    const [searchParams, setSearchParams] = useSearchParams()
     const [searchTerm, setSearchTerm] = useState(params); // Declare and initialize searchTerm
 
     const DISPLAYEDSONGSNUMBER = 4
 
 
-    useEffect( ()=>{      
+    useEffect(() => {
         loadFilterResults()
         //TODO add the debounce
-    },  [params])
+    }, [params])
 
     async function loadFilterResults() {
         const foundArtist = await onSearchArtist(params.filterText)
@@ -68,10 +68,10 @@ export function StationFilterDetails(){
         }
     }
 
-    async function onAddPlaylist(playlistId, playlistName, playlistType, user = 'ohad' ){
+    async function onAddPlaylist(playlistId, playlistName, playlistType, user = 'ohad') {
         try {
-            if ( playlistId && playlistName) 
-                await stationService.addPlaylist ( playlistId, playlistName , playlistType, user )
+            if (playlistId && playlistName)
+                await stationService.addPlaylist(playlistId, playlistName, playlistType, user)
         } catch (err) {
             console.log('err:', err)
             showErrorMsg('problem Adding Playlist: ', err)
@@ -79,7 +79,7 @@ export function StationFilterDetails(){
     }
 
     console.log('foundPlaylists:', foundPlaylists)
-    if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
+    if (!foundArtists[0]) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
             <div className="filter-menu-container">
@@ -149,8 +149,8 @@ export function StationFilterDetails(){
                                     </div>
                                     <div className="song-duration">{durationInMinutes}:{durationInSeconds}</div>
                                     <div className="action-icon">
-                                    <span aria-hidden="true" className="iconWrapper">
-                                        <MoreOptionFor className="more-option-for" />
+                                        <span aria-hidden="true" className="iconWrapper">
+                                            <MoreOptionFor className="more-option-for" />
                                         </span>
                                     </div>
                                 </div>
@@ -172,31 +172,42 @@ export function StationFilterDetails(){
                     </h2>
                 </div>
 
-                    <div className="playlists-container">
-                        { foundPlaylists.map( (playlist , i) =>{
-                            var imageFound = playlist.images.length > 0 ? true : false //some playlist don't have images
-                            return (
+                <div className="playlists-container">
+                    {foundPlaylists.map((playlist, i) => {
+                        var imageFound = playlist.images.length > 0 ? true : false //some playlist don't have images
+                        return (
 
-                                <a href={`/playlist/${ playlist.id }`} className="mini-details-container" key={i}>
-                                    <div className="mini-details-sub-container" key={i + 'r'}>
-                                        <div className="musicCover-container" key={i + 'a'}>
-                                            {imageFound && <img
-                                            className="musicCover"
-                                            src={playlist.images[0].url}
-                                            alt={`track artwork for ${playlist.name}`}
-                                            key={i + 'q'}
-                                            />}
-                                            
-                                        </div>
-                                        
-                                        <div className="mini-details" key={i + 's'}>
-                                            <p className="playlist-title" key={i + 'e'}> {playlist.name} </p>
-                                        </div> 
-
-                                        
-                                    </div>
-                                    <button key={i + 'y'} type="button" className="add-playlist-btn" onClick={() => onAddPlaylist( playlist.id, playlist.name, playlist.type)}> Add Playlist </button>
-                                </a>
+                            <a
+                            href={`/playlist/${playlist.id}`}
+                            className="playlists-mini-details-container"
+                            key={i}
+                          >
+                            <button
+                              key={i + 'y'}
+                              type="button"
+                              className="playlists-add-playlist-btn"
+                              onClick={() => onAddPlaylist(playlist.id, playlist.name)}
+                            ></button>
+                      
+                            <div className="playlists-mini-details-sub-container" key={i + 'r'}>
+                              <div className="musicCover-container" key={i + 'a'}>
+                                <img
+                                  className="playlists-musicCover"
+                                  src={playlist.images[0].url}
+                                  alt={`track artwork for ${playlist.name}`}
+                                  key={i + 'q'}
+                                />
+                                <span aria-hidden="true" className="iconWrapper">
+                                  <Play className="action-btn3" />
+                                </span>
+                              </div>
+                      
+                              <div className="playlists-mini-details" key={i + 's'}>
+                                <p className="playlist-title">{playlist.name}</p>
+                                <p className="playlist-subtitle">By {playlist.owner.display_name}</p>
+                              </div>
+                            </div>
+                          </a>
 
                         )
                     }

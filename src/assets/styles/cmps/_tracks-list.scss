@@ -2,7 +2,6 @@
     display: grid;
     grid-template-columns: 20px minmax(150px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) 40px;
 }
-
 .track-list{
     --grid-gap: 5px;
     --min-column-width: 20px;
@@ -10,7 +9,6 @@
     grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
     grid-gap: var(--grid-gap);
 }
-
 .track-list-container{
     padding: 20px;
 }
