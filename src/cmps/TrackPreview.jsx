@@ -13,7 +13,24 @@ export function TrackPreview({track, index, isPlayingPlaylist=false }) {
           //audioRef.current.play();
           setIsPlaying(true)
         }
-    };
+    }
+
+    function getFormattedDate(dateVar) {
+        let date = new Date(dateVar);
+        let year = date.getFullYear();
+        let month = date.toLocaleString("en-US", { month: "short" })
+        //let month = (1 + date.getMonth()).toString().padStart(2, '0');
+        let day = date.getDate().toString().padStart(2, '0');
+      
+        return month + ' ' + day + '/' + year;
+    }
+
+    function convertMsToMinutes( miliSeconds ){
+        const ms = miliSeconds 
+        const mmss = new Date(ms).toLocaleTimeString().substring(3, 7)
+        return mmss
+    }
+
     return <section className="track-preview-container">
         <div className='track-number'>
             {index}
@@ -29,11 +46,11 @@ export function TrackPreview({track, index, isPlayingPlaylist=false }) {
         </div>
 
         <div className='track-date-added'> 
-            {track.added_at} 
+            {getFormattedDate(track.added_at)} 
         </div>
         
         <div className='track-duration'>
-            {track.track.duration_ms} 
+            {convertMsToMinutes(track.track.duration_ms)} 
         </div>
             {/* <div className="mini-details-container">
                 <div className="mini-details-sub-container">

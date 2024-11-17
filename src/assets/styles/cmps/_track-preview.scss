@@ -4,12 +4,11 @@
     display: grid;
     grid-template-columns: 20px minmax(150px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) 40px;
     gap: var(--grid-gap);
-    text-overflow: ellipsis;
-    overflow: hidden;
     max-height: var(--grid-height);
     white-space:nowrap
 }
 
-.track-album{
-    overflow: inherit;
+.track-number, .track-name, .track-album, .track-date-added, .track-duration{
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
