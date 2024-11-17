@@ -36,10 +36,24 @@ export function TrackPreview({track, index, isPlayingPlaylist=false }) {
             {index}
         </div>
 
-        <div className='track-name'> 
-            {track.track.name} 
-            {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+        <div className='track-title'> 
+            <div className='track-image'> 
+                <img src={track.track.album.images[0].url} className='album-cover-image'/>
+                {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+            </div>
+            <div className='name-artist-container'>
+                <div className='track-name'> 
+                    {track.track.name} 
+                    {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                </div>
+                <div className='track-artist'> 
+                    {track.track.artists[0].name} 
+                    {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                </div>
+            </div>
+            
         </div>
+
 
         <div className='track-album'> 
             {track.track.album.name} 
