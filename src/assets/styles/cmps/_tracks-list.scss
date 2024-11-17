@@ -1,16 +1,29 @@
 .header-row{
+    --grid-gap: 5px;
     display: grid;
     grid-template-columns: 20px minmax(150px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) 40px;
+    gap: var(--grid-gap);
 }
 
 .track-list{
-    --grid-gap: 5px;
+    --grid-gap: 10px;
     --min-column-width: 20px;
     display: grid;
     grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
-    grid-gap: var(--grid-gap);
+    gap: var(--grid-gap);
 }
 
 .track-list-container{
-    padding: 20px;
+    padding: 30px;
+}
+
+.headerImage{
+  width: 15px;
+  height: 15px;
+  border: solid 1px white;
+}
+
+.duration{
+    fill: rgb(211, 209, 209);
+    border-color: #000;
 }
