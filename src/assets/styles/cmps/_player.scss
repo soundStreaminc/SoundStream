@@ -297,7 +297,10 @@ input[type="range"]:hover::-moz-range-thumb {
   position: relative;
   width: 32px;
   cursor: pointer;
-  fill: white;
+  fill: gray;
+  &:hover {
+    fill: white;
+  }
 }
 
 .player-settings-container{

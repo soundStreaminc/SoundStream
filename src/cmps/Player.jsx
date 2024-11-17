@@ -146,7 +146,7 @@ export function Player(){
                 setTrackProgress(audioRef.current.currentTime);
                 setCurrTime( {
                     sec: ('0'+  (Math.floor(audioRef.current.currentTime % 60))).slice(-2),
-                    min: ('0'+ (Math.floor(audioRef.current.currentTime / 60))).slice(-2)
+                    min: ('0'+ (Math.floor(audioRef.current.currentTime / 60))).slice(-1)
                 })
             }
         }, [1000]);
@@ -196,13 +196,13 @@ export function Player(){
 
     // Function to convert seconds to a "MM:SS" format
     const formatTime = (timeInSeconds) => {
-        if (timeInSeconds === null) return '00:00';  // Handle case if duration is not available yet
+        if (timeInSeconds === null) return '0:00';  // Handle case if duration is not available yet
 
         const minutes = Math.floor(timeInSeconds / 60);
         const seconds = Math.floor(timeInSeconds % 60);
 
         // Ensure two digits for seconds (e.g., "01" instead of "1")
-        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        return `${minutes.toString().padStart(1, '0')}:${seconds.toString().padStart(2, '0')}`;
     };
 
     // function setProgressBar( progressVal ){
@@ -287,7 +287,7 @@ export function Player(){
                         </div>
                         
                         <p className="time-duration">
-                            {duration !== null ? formatTime(duration) : '00:00'}
+                            {duration !== null ? formatTime(duration) : '0:00'}
                         </p>             
                     </div>
                 </div>

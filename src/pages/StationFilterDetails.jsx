@@ -6,6 +6,7 @@ import AddToLiked from '../assets/svgs/addToLiked.svg?react';
 import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
 import { showErrorMsg } from '../services/event-bus.service.js';
 import { searchAlbums, searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
+import Play from '../assets/svgs/play.svg?react'
 
 export function StationFilterDetails(){
     const [ foundArtists, setFoundArtists ] = useState ( [] )
@@ -14,15 +15,16 @@ export function StationFilterDetails(){
     const [ foundAlbums, setFoundAlbums ] = useState ( [] )
 
     const params = useParams()
-    const [searchParams, setSearchParams] = useSearchParams()  
+    const [searchParams, setSearchParams] = useSearchParams()
     const [searchTerm, setSearchTerm] = useState(params); // Declare and initialize searchTerm
 
     const DISPLAYEDSONGSNUMBER = 4
 
-    useEffect( ()=>{      
+
+    useEffect(() => {
         loadFilterResults()
         //TODO add the debounce
-    },  [params])
+    }, [params])
 
     async function loadFilterResults() {
         const foundArtist = await onSearchArtist(params.filterText)
@@ -77,12 +79,12 @@ export function StationFilterDetails(){
 
     async function onAddPlaylist(playlistId, playlistName, playlistType, user = 'ohad' ){
         try {
-            if ( playlistId && playlistName) 
-                await stationService.addPlaylist ( playlistId, playlistName , playlistType, user )
+            if (playlistId && playlistName)
+                await stationService.addPlaylist(playlistId, playlistName, playlistType, user)
         } catch (err) {
             console.log('err:', err)
             showErrorMsg('problem Adding Playlist: ', err)
-        }  
+        }
     }
 
     async function onAddAlbum( albumId, albumName, albumType, user = 'ohad' ){
@@ -104,36 +106,36 @@ export function StationFilterDetails(){
                 <button className="filter-btn"> Artists </button>
                 <button className="filter-btn"> Songs </button>
             </div>
-                <div className="filter-top-result-container">
-                    <div className="title">
-                        <h2>
-                            <span> Top result </span>
-                        </h2>
-                    </div>
-                
-                    
-                    <div className="top-result-container">
-                        <div className="top-result-sub-container">
-                            <div className="artist-image-container" >
-                                <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : "not found"} />
-                            </div>
-                            <div className="artist-name">
-                                {foundArtists[0].name ? foundArtists[0].name : "not found"}
-                            </div>
-                            <span> Artist </span>
-                        </div>
-                    </div>  
+            <div className="filter-top-result-container">
+                <div className="title">
+                    <h2>
+                        <span> Top result </span>
+                    </h2>
                 </div>
 
-                <div className="filter-songs-container">
-                    <div className="title">
-                        <h2>
-                            <span> Songs </span>
-                        </h2>
+
+                <div className="top-result-container">
+                    <div className="top-result-sub-container">
+                        <div className="artist-image-container" >
+                            <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : "not found"} />
+                        </div>
+                        <div className="artist-name">
+                            {foundArtists[0].name ? foundArtists[0].name : "not found"}
+                        </div>
+                        <span> Artist </span>
                     </div>
-                
-                    
-                    <div className="songs-container">
+                </div>
+            </div>
+
+            <div className="filter-songs-container">
+                <div className="title">
+                    <h2>
+                        <span> Songs </span>
+                    </h2>
+                </div>
+
+
+                <div className="songs-container">
                     {foundSongs.map((song, i) => {
                         const durationInMinutes = Math.floor(song.duration_ms / 60000);
                         const durationInSeconds = Math.floor((song.duration_ms % 60000) / 1000).toString().padStart(2, '0');
@@ -160,17 +162,19 @@ export function StationFilterDetails(){
 
                                 <div className="song-actions">
                                     <div className="action-icon">
-                                        <span aria-hidden="true" className="iconWrapper">         
+                                        <span aria-hidden="true" className="iconWrapper">
                                             <AddToLiked className="add-to-liked" />
                                         </span>
                                     </div>
                                     <div className="song-duration">{durationInMinutes}:{durationInSeconds}</div>
                                     <div className="action-icon">
-                                        <MoreOptionFor className="more-option-for" />
+                                        <span aria-hidden="true" className="iconWrapper">
+                                            <MoreOptionFor className="more-option-for" />
+                                        </span>
                                     </div>
                                 </div>
 
-                           
+
                             </div>
                         )
                     }
@@ -219,44 +223,55 @@ export function StationFilterDetails(){
                     </div> 
                 </div>
 
-                <div className="filter-songs-container">
-                    <div className="title">
-                        <h2>
-                            <span> Playlists </span>
-                        </h2>
-                    </div>
-
-                    <div className="playlists-container">
-                        { foundPlaylists.map( (playlist , i) =>{
-                            var imageFound = playlist.images.length > 0 ? true : false //some playlist don't have images
-                            return (
-
-                                <a href={`/playlist/${ playlist.id }`} className="mini-details-container" key={i}>
-                                    <div className="mini-details-sub-container" key={i + 'r'}>
-                                        <div className="musicCover-container" key={i + 'a'}>
-                                            {imageFound && <img
-                                            className="musicCover"
-                                            src={playlist.images[0].url}
-                                            alt={`track artwork for ${playlist.name}`}
-                                            key={i + 'q'}
-                                            />}
-                                            
-                                        </div>
-                                        
-                                        <div className="mini-details" key={i + 's'}>
-                                            <p className="playlist-title" key={i + 'e'}> {playlist.name} </p>
-                                        </div> 
-
-                                        
-                                    </div>
-                                    <button key={i + 'y'} type="button" className="add-playlist-btn" onClick={() => onAddPlaylist( playlist.id, playlist.name, playlist.type)}> Add Playlist </button>
-                                </a>
-
-                            )
-                        }
-                        ) }
-                    </div> 
+            <div className="filter-songs-container">
+                <div className="title">
+                    <h2>
+                        <span> Playlists </span>
+                    </h2>
                 </div>
+
+                <div className="playlists-container">
+                    {foundPlaylists.map((playlist, i) => {
+                        var imageFound = playlist.images.length > 0 ? true : false //some playlist don't have images
+                        return (
+
+                            <a
+                            href={`/playlist/${playlist.id}`}
+                            className="playlists-mini-details-container"
+                            key={i}
+                          >
+                            <button
+                              key={i + 'y'}
+                              type="button"
+                              className="playlists-add-playlist-btn"
+                              onClick={() => onAddPlaylist(playlist.id, playlist.name)}
+                            ></button>
+                      
+                            <div className="playlists-mini-details-sub-container" key={i + 'r'}>
+                              <div className="musicCover-container" key={i + 'a'}>
+                                <img
+                                  className="playlists-musicCover"
+                                  src={playlist.images[0].url}
+                                  alt={`track artwork for ${playlist.name}`}
+                                  key={i + 'q'}
+                                />
+                                <span aria-hidden="true" className="iconWrapper">
+                                  <Play className="action-btn3" />
+                                </span>
+                              </div>
+                      
+                              <div className="playlists-mini-details" key={i + 's'}>
+                                <p className="playlist-title">{playlist.name}</p>
+                                <p className="playlist-subtitle">By {playlist.owner.display_name}</p>
+                              </div>
+                            </div>
+                          </a>
+
+                        )
+                    }
+                    )}
+                </div>
+            </div>
         </section>
     )
 }

@@ -29,7 +29,7 @@ export function SideBar() {
                 <div className="sidebar-section">
                     <div className="library-header">
                         <LibraryIcon className='library-icon' />
-                        <h3>Your Library</h3>
+                        <h3 className='library'>Your Library</h3>
                     </div>
                     <div className="add-arrow">
                     <button className="library-add-btn"><Add className="Add-icon"/></button>
