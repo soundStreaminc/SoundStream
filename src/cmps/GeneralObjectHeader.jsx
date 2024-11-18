@@ -53,7 +53,6 @@ export function GeneralObjectHeader({ station , isAlreadyAdded = false}){
 
     async function onPlayTrack ( track ){
         try {      
-            console.log('station:', station)
             if (station.type !== 'track') return      
             var playCurrent = track ? await setCurrentlyPlaying ( track ) : ''  
             console.log(`playing:`, playCurrent.title)
@@ -63,7 +62,6 @@ export function GeneralObjectHeader({ station , isAlreadyAdded = false}){
         }
     }
 
-    console.log('station:', station)
     if (!station) return
     return(
         <section className="general-object-header">

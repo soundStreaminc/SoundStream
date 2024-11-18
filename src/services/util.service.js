@@ -74,7 +74,6 @@ export function getExistingProperties(obj){
 
 export function setTrackJson( trackInfo ){
     if(!trackInfo) return 'error, did not get track'
-    console.log('trackInfo:', trackInfo)
     const trackJson =   [     
     {
         id: trackInfo.id,

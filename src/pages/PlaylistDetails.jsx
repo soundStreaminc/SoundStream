@@ -29,7 +29,7 @@ export function PlaylistDetails(  ) {
         }
         setTracks(foundPlaylist.tracks.items) 
     }
-   
+    console.log('tracks:', tracks)
     if(!tracks || !miniStation.current.image) return <span> loading in progress... </span>
     return (
         <section className="station-details">
