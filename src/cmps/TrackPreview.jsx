@@ -1,5 +1,3 @@
-import Play from '../assets/svgs/play.svg?react'
-import Pause from '../assets/svgs/pause.svg?react'
 import { useState } from 'react';
 
 export function TrackPreview({track, index, isPlaylist, isPlayingPlaylist=false }) {
@@ -37,6 +35,7 @@ export function TrackPreview({track, index, isPlaylist, isPlayingPlaylist=false 
         </div>
 
         <div className='track-title'>
+            {console.log('track:', track)}
             {isPlaylist ? (
                 <div className='track-image'> 
                 <img src={track.track.album.images[0].url} className='album-cover-image'/>
@@ -45,14 +44,19 @@ export function TrackPreview({track, index, isPlaylist, isPlayingPlaylist=false 
             ):''}
            
             <div className='name-artist-container'>
-                <a href={`/track/${track.track ? track.track.id : track.id}`} className='track-name'> 
-                    {track.track ? track.track.name: track.name} 
-                    {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
-                </a>
-                <div className='track-artist'> 
-                    {track.track ? track.track.artists[0].name: track.artists[0].name} 
-                    {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                <div className='track-preview-name-container'>
+                    <a href={`/track/${track.track ? track.track.id : track.id}`} className='track-name'> 
+                        {track.track ? track.track.name: track.name} 
+                        {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                    </a>
                 </div>
+                <div className='track-preview-artist-container'>
+                    <a href={`/artist/${track.track ? track.track.artists[0].id : track.artists[0].id}`} className='track-artist'> 
+                        {track.track ? track.track.artists[0].name: track.artists[0].name} 
+                        {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                    </a>
+                </div>
+                
             </div>
             
         </div>

@@ -2,7 +2,7 @@ import { TrackPreview } from "./TrackPreview";
 import Duration from '../assets/svgs/duration.svg?react'
 
 export function TracksList({ trackList, isPlaylist=false }){
-    
+    console.log('trackList:', trackList)
     return (
         <section className="track-list-container">
             <div className='header-row'>
