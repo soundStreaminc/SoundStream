@@ -35,7 +35,6 @@ export function TrackPreview({track, index, isPlaylist, isPlayingPlaylist=false 
         </div>
 
         <div className='track-title'>
-            {console.log('track:', track)}
             {isPlaylist ? (
                 <div className='track-image'> 
                 <img src={track.track.album.images[0].url} className='album-cover-image'/>

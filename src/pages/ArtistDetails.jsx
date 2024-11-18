@@ -26,7 +26,6 @@ export function ArtistDetails(  ) {
         const getTopTracks = await stationService.getTopTracksByArtistId_SpotifiApi(foundArtist.id)
         setTracks(getTopTracks.tracks) 
     }
-    console.log('tracks:', tracks)
     if(!tracks || !miniStation.current.image) return <span> loading in progress... </span>
     return (
         <section className="station-details">
