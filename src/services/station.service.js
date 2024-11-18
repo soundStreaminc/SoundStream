@@ -20,6 +20,7 @@ export const stationService = {
     getCurrentlyPlaying,
     addPlaylist,
     addAlbum,
+    addTrackToLiked,
     getCategoryPlaylists,
 
     getArtistId_SpotifyApi,
@@ -55,6 +56,10 @@ async function addPlaylist ( id, name, type, user ){
 }
 
 async function addAlbum ( id, name, type, user ){
+    const res = await _addStationToUser(user, { name, id, type })
+}
+
+async function addTrackToLiked ( id, name, type, user ){
     const res = await _addStationToUser(user, { name, id, type })
 }
 
@@ -401,7 +406,9 @@ async function getStationById_SpotifyApi( stationType, stationId ){
         case 'album':
             stationTypeParam = 'albums'
             break
-
+        case 'tracks':
+            stationTypeParam = 'tracks'
+            break
     }
     var station = await fetch (`https://api.spotify.com/v1/${stationTypeParam}/${stationId}` , searchParameters )
         .then( response => response.json())

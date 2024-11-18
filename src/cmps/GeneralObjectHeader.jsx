@@ -3,10 +3,14 @@ import Play from '../assets/svgs/play.svg?react'
 import Pause from '../assets/svgs/pause.svg?react'
 import AddToLiked from '../assets/svgs/addToLiked.svg?react';
 import LikedSongAdded from '../assets/svgs/likedSongAdded.svg?react';
+import { stationService } from "../services/station.service";
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
+import { setCurrentlyPlaying } from "../store/song/song.actions";
 
-export function GeneralObjectHeader({ station }){
-    const [isAdded, setIsAdded] = useState( false )
+export function GeneralObjectHeader({ station , isAlreadyAdded = false}){
+    const [isAdded, setIsAdded] = useState( isAlreadyAdded )
     const [isPlaying, setIsPlaying] = useState( false );
+    const MYUSER = 'ohad'
 
     function getPlaylistCover(){
         if(station.image === 'not found'){
@@ -20,23 +24,37 @@ export function GeneralObjectHeader({ station }){
             //audioRef.current.pause();// this will pause the audio
             setIsPlaying(false)
         } else {
-          //audioRef.current.play();
-          setIsPlaying(true)
+            onPlayTrack(station)
+            setIsPlaying(true)
         }
     };
 
-    function onAddRemoveClick(  ){
+    async function onAddRemoveClick(  ){
         if (isAdded) {
             //audioRef.current.pause();// this will pause the audio
             setIsAdded(false)
         } else {
-          //audioRef.current.play();
-          setIsAdded(true)
+            try {    
+                if( station.type === 'album'){
+                    await stationService.addAlbum (station.id, station.name, station.type,  MYUSER)
+                }
+                else if (station.type === 'playlist'){
+                    await stationService.addPlaylist ( station.id, station.name, station.type,  MYUSER)
+                } else if (station.type === 'track'){
+                    await stationService.addTrackToLiked ( station.id, station.name, station.type,  MYUSER)
+                }
+                setIsAdded(true)
+            } catch (err) {
+                console.log('err:', err)
+                showErrorMsg('problem Adding station: ', err)
+            }            
         }
-    };
+    }
 
     async function onPlayTrack ( track ){
-        try {            
+        try {      
+            console.log('station:', station)
+            if (station.type !== 'track') return      
             var playCurrent = track ? await setCurrentlyPlaying ( track ) : ''  
             console.log(`playing:`, playCurrent.title)
             showSuccessMsg(`playing: ${playCurrent.title}`)           
@@ -44,7 +62,9 @@ export function GeneralObjectHeader({ station }){
             console.error(err);
         }
     }
+
     console.log('station:', station)
+    if (!station) return
     return(
         <section className="general-object-header">
             <div className="station-info">
@@ -77,6 +97,7 @@ export function GeneralObjectHeader({ station }){
                     
                 </div>
             </div>
+
             <div className="general-object-header-btns">
                 <div className='controll-btns2'>
                     {!isPlaying ? (
@@ -108,7 +129,6 @@ export function GeneralObjectHeader({ station }){
                     )}
                 </div>
             </div>
-            
         </section>
     )
 }
