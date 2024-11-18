@@ -3,7 +3,28 @@
     border-color: #000;
 }
 
+.add-station-btn:hover{
+    fill: white;
+    border-color: #000;
+}
+
+.remove-from-liked{
+    fill: rgb(42, 255, 124);
+    border-color: #000;
+}
+
 .add-station-btn{
+    background-color: transparent;
+    border: none;
+    color: hsla(0, 0%, 100%, .7);
+    height: 32px;
+    position: relative;
+    width: 42px;
+    cursor: pointer;
+    fill: #b3b3b3;
+  }
+
+  .remove-station-btn{
     background-color: transparent;
     border: none;
     color: hsla(0, 0%, 100%, .7);
@@ -20,4 +41,12 @@
     justify-items: center;
     align-items: center;
     padding: 5px;
+  }
+
+  .station-title3 h1{
+    visibility: visible;
+    width: 100%;
+    font-size: 6rem;
+    white-space: nowrap;
+    text-wrap-style: balance;
   }
