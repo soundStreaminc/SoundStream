@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Play from '../assets/svgs/play.svg?react'
 import Pause from '../assets/svgs/pause.svg?react'
+import AddToLiked from '../assets/svgs/addToLiked.svg?react';
 
 export function GeneralObjectHeader({ station }){
     const [isPlaying, setIsPlaying] = useState( false );
@@ -54,20 +55,27 @@ export function GeneralObjectHeader({ station }){
                     
                 </div>
             </div>
-
-            <div className='controll-btns2'>
-                {!isPlaying ? (
-                <button type="button" aria-label="Play" className="play playerButton4" onClick={() => onPlayPauseClick(false)}>
+            <div className="general-object-header-btns">
+                <div className='controll-btns2'>
+                    {!isPlaying ? (
+                    <button type="button" aria-label="Play" className="play playerButton4" onClick={() => onPlayPauseClick(false)}>
+                        <span aria-hidden="true" className="iconWrapper">         
+                            <Play className="action-btn4" />
+                        </span>
+                    </button>
+                    ) : (
+                    <button type="button" aria-label="Pause" className="pause playerButton4" onClick={() => onPlayPauseClick(true)}>
+                        <Pause className="action-btn4" />
+                    </button>
+                    )}
+                </div>  
+                <button className="add-station-btn">
                     <span aria-hidden="true" className="iconWrapper">         
-                        <Play className="action-btn4" />
+                        <AddToLiked className="add-to-liked" />
                     </span>
-                </button>
-                ) : (
-                <button type="button" aria-label="Pause" className="pause playerButton4" onClick={() => onPlayPauseClick(true)}>
-                    <Pause className="action-btn4" />
-                </button>
-                )}
-            </div>   
+                </button> 
+            </div>
+            
         </section>
     )
 }

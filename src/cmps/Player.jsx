@@ -246,8 +246,7 @@ export function Player(){
                         </div> 
 
                         <button className="add-to-liked-btn">
-                            <span aria-hidden="true" className="iconWrapper">
-                        
+                            <span aria-hidden="true" className="iconWrapper">                 
                                 <AddToLiked className="add-to-liked"/>
                             </span>
                         </button>

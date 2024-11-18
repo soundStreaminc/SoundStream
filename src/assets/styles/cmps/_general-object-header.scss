@@ -1,0 +1,23 @@
+.addToLiked{
+    fill: rgb(211, 209, 209);
+    border-color: #000;
+}
+
+.add-station-btn{
+    background-color: transparent;
+    border: none;
+    color: hsla(0, 0%, 100%, .7);
+    height: 32px;
+    position: relative;
+    width: 42px;
+    cursor: pointer;
+    fill: #b3b3b3;
+  }
+
+  .general-object-header-btns{
+    display: flex;
+    gap: 1em;
+    justify-items: center;
+    align-items: center;
+    padding: 5px;
+  }
