@@ -129,7 +129,7 @@ export function StationFilterDetails(){
                 <div className="top-result-container">
                     <div className="top-result-sub-container">
                         <div className="artist-image-container" >
-                            <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : "not found"} />
+                            <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : null} />
                         </div>
                         <div className="artist-name">
                             {foundArtists[0].name ? foundArtists[0].name : "not found"}
