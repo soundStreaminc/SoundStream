@@ -16,7 +16,38 @@ export function CategoryPreview({category, isPlayingCategory= false }) {
     };
 
     return <section className="category-preview-container">
-            <div className="category-details-container">
+        <a //href={`/${miniObject.type}/${miniObject.id}`}
+            className="category-mini-details-container">    
+            <div className="category-mini-details-sub-container">
+                <div className="category-music-cover-container">
+                    {category.image ? (
+                        <img className="category-cover" src={category.image}
+                            alt={`track artwork for ${category?.title || 'not found'}`}/>
+                    ): ''}
+                    {!isPlaying ? (
+                        <button type="button" aria-label="Play" className="play playerButton6" onClick={() => onPlayPauseClick(false)}>
+                            <span aria-hidden="true" className="category-play-wrapper">
+                                <Play className="action-btn6" />
+                            </span>
+                        </button>
+                        ) : (
+                        <button type="button" aria-label="Pause" className="pause playerButton6" onClick={() => onPlayPauseClick(true)}>
+                            <span aria-hidden="true" className="category-play-wrapper">
+                                <Pause className="action-btn6" />
+                            </span>
+                        </button>
+                    )}
+                    
+                </div>
+        
+                <div className="category-details">
+                    <div className="sub-category-details">
+                        <div className="category-title"> {category?.title || 'not found'} </div>      
+                    </div>
+                </div> 
+            </div>
+        </a>
+            {/* <div className="category-details-container">
                 <div className="category-details-sub-container">
                     <div className="category-cover-container">
                         <img
@@ -24,27 +55,26 @@ export function CategoryPreview({category, isPlayingCategory= false }) {
                         src={category?.image || ''}
                         alt={`track artwork for ${category?.title || 'not found'}`}
                         />
+                        <div className='category-controll-btns'>
+                            {!isPlaying ? (
+                            <button type="button" aria-label="Play" className="play playerButton6" onClick={() => onPlayPauseClick(false)}>
+                                <span aria-hidden="true" className="category-iconWrapper">         
+                                    <Play className="action-btn6" />
+                                </span>
+                            </button>
+                            ) : (
+                            <button type="button" aria-label="Pause" className="pause playerButton6" onClick={() => onPlayPauseClick(true)}>
+                                <Pause className="action-btn6" />
+                            </button>
+                            )}
+                        </div>   
                     </div>       
                 </div>     
                 <div className="category-details">
                     <div className="sub-category-details">
-                        <div className="category-title"> {category?.title || 'not found'} </div>
-                        
-                        <div className='category-controll-btns'>
-                            {!isPlaying ? (
-                            <button type="button" aria-label="Play" className="play playerButton3" onClick={() => onPlayPauseClick(false)}>
-                                <span aria-hidden="true" className="category-iconWrapper">         
-                                    <Play className="action-btn3" />
-                                </span>
-                            </button>
-                            ) : (
-                            <button type="button" aria-label="Pause" className="pause playerButton3" onClick={() => onPlayPauseClick(true)}>
-                                <Pause className="action-btn3" />
-                            </button>
-                            )}
-                        </div>         
+                        <div className="category-title"> {category?.title || 'not found'} </div>      
                     </div>
                 </div> 
-            </div>
+            </div> */}
         </section>
 }
