@@ -1,18 +1,18 @@
-.action-btn{
+.audio-controllers-action-btn{
     fill: black;
     background-color: white;
     width: 16px;
     height: 16px;
 }
 
-.action-btn2{
+.audio-controllers-action-btn2{
   fill: #b3b3b3;
   background-color: transparent;
   width: 16px;
   height: 16px;
 }
 
-.playerButton {
+.audio-controllers-playerButton {
     //background: white;
     border: none;
     align-items: center;
@@ -22,7 +22,7 @@
     border-radius: 50%;
   }
 
-  .playerButton2 {
+  .audio-controllers-playerButton2 {
     background: transparent;
     border: none;
     align-items: center;
@@ -32,7 +32,7 @@
     border-radius: 50%;
   }
 
-  .audio-controls{
+  .audio-controllers-audio-controls{
     // width: 100%;
     // flex-flow: row nowrap;
     gap: 16px;
@@ -44,7 +44,7 @@
   }
 
   
-.iconWrapper{
+.audio-controllers-audio-contollers-icon-wrapper{
     display: flex;
     justify-content: center;
   }

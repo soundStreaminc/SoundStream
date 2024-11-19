@@ -18,9 +18,9 @@ export function StationPreview({station, isPlayingPlaylist=false }) {
     return <section className="station-preview-container">
             <div className="mini-details-container">
                 <div className="mini-details-sub-container">
-                    <div className="musicCover-container">
+                    <div className="station-preview-musicCover-container">
                         <img
-                        className="musicCover"
+                        className="station-preview-musicCover"
                         src={station?.image || ''}
                         alt={`track artwork for ${station?.title || 'not found'}`}
                         />

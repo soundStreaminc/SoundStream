@@ -1,0 +1,103 @@
+.search-results-mini-details-container {
+    text-decoration: none;
+    color: #fff;
+    background-color: #1c1c1c; // Card background color
+    border-radius: 8px;
+    overflow: hidden;
+    width: 180px; // Increased width for larger image
+    height: 260px; // Increased width for larger image
+    transition: transform 0.2s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.05);
+      background-color: #282828; // Slightly brighter on hover
+    }
+   
+    &:hover .search-result-object-add-btn {
+      opacity: 1;
+    }
+}
+
+.search-result-object-add-btn {
+    position: absolute;
+    top:80%;
+    left: 70%;
+    background: #1db954;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+    &:hover {
+        background: #1ed760; // Slightly brighter green
+        
+    }
+}
+
+.search-result-object-mini-details-sub-container {
+    padding: 10px;
+
+    .search-result-object-music-cover-container {
+        
+      position: relative;
+     width: 170px; // Adjust to fit the container
+        height: 170px; // Increased height for better visibility
+      img {
+        width: 100%; // Adjust to fit the container
+        height: 160px; // Increased height for better visibility
+        object-fit: cover; // Ensures the image covers the area without distortion
+        border-radius: 8px 8px 0 0;
+      }
+
+      .search-result-object-play-wrapper {
+          position: absolute;
+          top:80%;
+          left: 70%;
+          transform: translate(-20%, -50%);
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  
+          .action-btn5 {
+            fill: black;
+            background-color: white;
+            width: 16px;
+            height: 16px;
+            font-size: 36px;
+            color: #fff;
+            background-color: #1db954;
+            border-radius: 50%;
+            padding: 10px;
+          }
+        }
+  
+        &:hover .search-result-object-play-wrapper {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    
+    .search-result-object-mini-details {
+      .search-result-object-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 5px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
+
+        
+      }
+
+      .search-result-object-subtitle {
+        font-size: 14px;
+        color: #b3b3b3;
+        font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
+
+      }
+    }
+}

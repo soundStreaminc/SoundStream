@@ -46,7 +46,7 @@
 }
 
 
-.musicCover-container{
+.media-player-musicCover-container{
   position: relative;
   flex-shrink: 0;
   margin-inline-end: 8px;
@@ -54,7 +54,7 @@
 
 }
 
-.musicCover {
+.media-player-musicCover {
   border-radius: 10%;
   background-color: #000;
   background-position: 50%;
@@ -351,3 +351,12 @@ input[type="range"]:hover::-moz-range-thumb {
     width: 50%;
   }
 } */
+
+.media-player-icon-wrapper{
+  display: flex;
+  width: 16px;
+  height: 16px;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
