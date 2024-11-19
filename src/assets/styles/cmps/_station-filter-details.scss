@@ -129,18 +129,17 @@ body, .station-filter-container {
             
         }
     }
-
-    // .action-icon:hover {
-    //     visibility: visible;
-    // }
-
-    // .action-icon .iconWrapper {
-    //     //visibility: hidden;
-    // }
 }
 
 //playlists
 .playlists-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #121212; // Dark background
+  }
+  
+  .albums-container{
     display: flex;
     gap: 20px;
     padding: 20px;

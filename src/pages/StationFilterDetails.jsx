@@ -206,31 +206,15 @@ export function StationFilterDetails(){
 
                     <div className="albums-container">
                         { foundAlbums.map( (album , i) =>{
-                            var imageFound = album.images.length > 0 ? true : false //some playlist don't have images
-                            return (
-
-                                <a href={`/album/${ album.id }`} className="mini-details-container" key={i}>
-                                    <div className="mini-details-sub-container" key={i + 'r'}>
-                                        <div className="musicCover-container" key={i + 'a'}>
-                                            {imageFound && <img
-                                            className="musicCover"
-                                            src={album.images[0].url}
-                                            alt={`track artwork for ${album.name}`}
-                                            key={i + 'q'}
-                                            />}
-                                            
-                                        </div>
-                                        
-                                        <div className="mini-details" key={i + 's'}>
-                                            <p className="album-title" key={i + 'e'}> {album.name} </p>
-                                        </div> 
-
-                                        
-                                    </div>
-                                    <button key={i + 'y'} type="button" className="add-album-btn" onClick={() => onAddAlbum( album.id, album.name, album.type)}> Add Album </button>
-                                </a>
-
-                            )
+                            const miniAlbum = {
+                                id: album.id, 
+                                type : album.type,
+                                name: album.name,
+                                image: album.images ? album.images[0].url : 'not found',
+                                artist: album.artists ? album.artists[0].name : 'not found',
+                                //followers: playlist.followers.total,
+                            }
+                            return <SearchResultsPreviewObject miniObject={miniAlbum} key={album.id}/>
                         }
                         ) }
                     </div> 
@@ -255,41 +239,6 @@ export function StationFilterDetails(){
                             //followers: playlist.followers.total,
                         }
                         return <SearchResultsPreviewObject miniObject={miniPlaylist} key={playlist.id}/>
-                        // return (
-
-                        //     <a
-                        //     href={`/playlist/${playlist.id}`}
-                        //     className="playlists-mini-details-container"
-                        //     key={i}
-                        //   >
-                        //     <button
-                        //       key={i + 'y'}
-                        //       type="button"
-                        //       className="playlists-add-playlist-btn"
-                        //       onClick={() => onAddPlaylist(playlist.id, playlist.name)}
-                        //     ></button>
-                      
-                        //     <div className="playlists-mini-details-sub-container" key={i + 'r'}>
-                        //       <div className="musicCover-container" key={i + 'a'}>
-                        //         <img
-                        //           className="playlists-musicCover"
-                        //           src={playlist.images[0].url}
-                        //           alt={`track artwork for ${playlist.name}`}
-                        //           key={i + 'q'}
-                        //         />
-                        //         <span aria-hidden="true" className="iconWrapper">
-                        //           <Play className="action-btn3" />
-                        //         </span>
-                        //       </div>
-                      
-                        //       <div className="playlists-mini-details" key={i + 's'}>
-                        //         <p className="playlist-title">{playlist.name}</p>
-                        //         <p className="playlist-subtitle">By {playlist.owner.display_name}</p>
-                        //       </div>
-                        //     </div>
-                        //   </a>
-
-                        // )
                     }
                     )}
                 </div>

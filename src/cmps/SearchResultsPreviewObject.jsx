@@ -21,7 +21,13 @@ export function SearchResultsPreviewObject({ miniObject }){
             
                     <div className="search-result-object-mini-details">
                         <p className="search-result-object-title">{miniObject.name}</p>
-                        <p className="search-result-object-subtitle">By {miniObject.owner}</p>
+                        {miniObject.type === 'playlist' ? (
+                            <p className="search-result-object-subtitle">By {miniObject.owner}</p>
+                        ): ''}
+                        {miniObject.type === 'album' ? (
+                            <p className="search-result-object-subtitle">By {miniObject.artist}</p>
+                        ): ''}
+                       
                     </div>
                 </div>
             </a>
