@@ -97,7 +97,6 @@ export function StationFilterDetails(){
         }  
     }
 
-    console.log('foundAlbums:', foundAlbums)
     if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
