@@ -16,7 +16,7 @@ export function StationPreview({station, isPlayingPlaylist=false }) {
     };
 
     return <section className="station-preview-container">
-            <div className="mini-details-container">
+            <div className="station-preview-mini-details-container">
                 <div className="mini-details-sub-container">
                     <div className="station-preview-music-cover-container">
                         <img
