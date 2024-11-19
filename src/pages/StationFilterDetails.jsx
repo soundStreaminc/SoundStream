@@ -210,7 +210,7 @@ export function StationFilterDetails(){
                                 id: album.id, 
                                 type : album.type,
                                 name: album.name,
-                                image: album.images ? album.images[0].url : 'not found',
+                                image: album.images ? album.images[0].url : null,
                                 artist: album.artists ? album.artists[0].name : 'not found',
                                 //followers: playlist.followers.total,
                             }
@@ -234,7 +234,7 @@ export function StationFilterDetails(){
                             id: playlist.id, 
                             type : playlist.type,
                             name: playlist.name,
-                            image: playlist.images[0] ? playlist.images[0].url : 'not found',
+                            image: playlist.images[0] ? playlist.images[0].url : null,
                             owner: playlist.owner.display_name,
                             //followers: playlist.followers.total,
                         }

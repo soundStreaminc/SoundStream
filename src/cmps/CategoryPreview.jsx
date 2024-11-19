@@ -13,8 +13,8 @@ export function CategoryPreview({category, isPlayingCategory= false }) {
           //audioRef.current.play();
           setIsPlaying(true)
         }
-    };
-
+    }
+    
     return <section className="category-preview-container">
         <a //href={`/${miniObject.type}/${miniObject.id}`}
             className="category-mini-details-container">    

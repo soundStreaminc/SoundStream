@@ -10,7 +10,8 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
         } else {
           setIsPlaying(true)
         }
-    };
+    }
+
     return (
         <section className="search-results-preview-object">
             <a href={`/${miniObject.type}/${miniObject.id}`}

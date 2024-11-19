@@ -13,8 +13,8 @@ export function StationPreview({station, isPlayingPlaylist=false }) {
           //audioRef.current.play();
           setIsPlaying(true)
         }
-    };
-
+    }
+    
     return <section className="station-preview-container">
             <div className="station-preview-mini-details-container">
                 <div className="mini-details-sub-container">
@@ -22,7 +22,7 @@ export function StationPreview({station, isPlayingPlaylist=false }) {
                         <img
                         className="station-preview-music-cover"
                         src={station?.image || ''}
-                        alt={`track artwork for ${station?.title || 'not found'}`}
+                        alt={`track artwork for ${station?.title || null}`}
                         />
                     </div>       
                 </div>     
