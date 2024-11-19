@@ -13,22 +13,22 @@ export function StationPreview({station, isPlayingPlaylist=false }) {
           //audioRef.current.play();
           setIsPlaying(true)
         }
-    };
-
+    }
+    
     return <section className="station-preview-container">
-            <div className="mini-details-container">
+            <div className="station-preview-mini-details-container">
                 <div className="mini-details-sub-container">
-                    <div className="musicCover-container">
+                    <div className="station-preview-music-cover-container">
                         <img
-                        className="musicCover"
+                        className="station-preview-music-cover"
                         src={station?.image || ''}
-                        alt={`track artwork for ${station?.title || 'not found'}`}
+                        alt={`track artwork for ${station?.title || null}`}
                         />
                     </div>       
                 </div>     
-                <div className="mini-details">
-                    <div className="sub-mini-details">
-                        <div className="station-title"> {station?.title || 'not found'} </div>
+                <div className="station-preview-mini-details">
+                    <div className="station-preview-sub-mini-details">
+                        <div className="station-preview-station-title"> {station?.title || 'not found'} </div>
                         
                         <div className='controll-btns'>
                             {!isPlaying ? (

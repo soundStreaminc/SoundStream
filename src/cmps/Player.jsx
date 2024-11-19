@@ -243,9 +243,9 @@ export function Player(){
             <div className="player-sub-container">
                 <div className="mini-details-player-container">
                     <div className="mini-details-sub-player-container">
-                        <div className="musicCover-container">
+                        <div className="media-player-musicCover-container">
                             <img
-                            className="musicCover"
+                            className="media-player-musicCover"
                             src={image}
                             alt={`track artwork for ${title} by ${artist}`}
                             />
@@ -257,7 +257,7 @@ export function Player(){
                         </div> 
 
                         <button className="add-to-liked-btn">
-                            <span aria-hidden="true" className="iconWrapper">                 
+                            <span aria-hidden="true" className="player-icon-wrapper">                 
                                 <AddToLiked className="add-to-liked"/>
                             </span>
                         </button>
@@ -307,28 +307,28 @@ export function Player(){
                 <div className="player-settings-container">
                     <div className="player-settings-sub-container">
                         <button className="now-playing-view-btn">
-                            <span aria-hidden="true" className="iconWrapper">
+                            <span aria-hidden="true" className="media-player-icon-wrapper">
                         
                                 <NowPlayingView className="now-playing-view smallImage"/>
                             </span>
                         </button>
 
                         <button className="lyrics-btn">
-                            <span aria-hidden="true" className="iconWrapper">
+                            <span aria-hidden="true" className="media-player-icon-wrapper">
                         
                                 <Lyrics className="lyrics smallImage"/>
                             </span>
                         </button>
 
                         <button className="queue-btn">
-                            <span aria-hidden="true" className="iconWrapper">
+                            <span aria-hidden="true" className="media-player-icon-wrapper">
                         
                                 <Queue className="queue smallImage"/>
                             </span>
                         </button>
 
                         <button className="connectToDevice-btn">
-                            <span aria-hidden="true" className="iconWrapper">
+                            <span aria-hidden="true" className="media-player-icon-wrapper">
                         
                                 <ConnectToDevice className="connectToDevice smallImage"/>
                             </span>
@@ -336,7 +336,7 @@ export function Player(){
 
                         <div className="volume-control">
                             <button className="mute-btn">
-                                <span aria-hidden="true" className="iconWrapper">
+                                <span aria-hidden="true" className="media-player-icon-wrapper">
                             
                                     <Mute className="mute smallImage"/>
                                 </span>
@@ -360,14 +360,14 @@ export function Player(){
                         
 
                         <button className="miniPlayer-btn">
-                            <span aria-hidden="true" className="iconWrapper">
+                            <span aria-hidden="true" className="media-player-icon-wrapper">
                         
                                 <MiniPlayer className="miniPlayer smallImage"/>
                             </span>
                         </button>
 
                         <button className="fullScreen-btn">
-                            <span aria-hidden="true" className="iconWrapper">
+                            <span aria-hidden="true" className="media-player-media-player-icon-wrapper">
                         
                                 <FullScreen className="fullScreen smallImage"/>
                             </span>

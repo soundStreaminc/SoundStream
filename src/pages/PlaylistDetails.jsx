@@ -3,7 +3,7 @@ import { stationService } from "../services/station.service"
 import { useEffect, useRef, useState } from "react"
 
 import { TracksList } from "../cmps/TracksList"
-import { GeneralObjectHeader } from "../cmps/GeneralObjectHeader"
+import { StationDetails_GeneralObjectHeader } from "../cmps/StationDetails_GeneralObjectHeader"
 
 export function PlaylistDetails(  ) {
     const params = useParams()
@@ -32,7 +32,7 @@ export function PlaylistDetails(  ) {
     if(!tracks || !miniStation.current.image) return <span> loading in progress... </span>
     return (
         <section className="station-details">
-            <GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/>
+            <StationDetails_GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/>
 
             <div className="tracks-container">
                 <TracksList trackList={tracks}  isPlaylist={true}/>
