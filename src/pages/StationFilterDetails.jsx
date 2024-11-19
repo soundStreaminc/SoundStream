@@ -110,7 +110,7 @@ export function StationFilterDetails(){
         }
     }
 
-    if (!foundArtists[0] ) return <span> station filter details page loading.. </span>
+    if (!foundArtists[0] | !foundPlaylists[0] ) return <span> station filter details page loading.. </span>
     return (
         <section className="station-filter-container">
             <div className="filter-menu-container">
@@ -234,7 +234,7 @@ export function StationFilterDetails(){
                             id: playlist.id, 
                             type : playlist.type,
                             name: playlist.name,
-                            image: playlist.images ? playlist.images[0].url : 'not found',
+                            image: playlist.images[0] ? playlist.images[0].url : 'not found',
                             owner: playlist.owner.display_name,
                             //followers: playlist.followers.total,
                         }
