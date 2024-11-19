@@ -18,9 +18,9 @@ export function CategoryPreview({category, isPlayingCategory= false }) {
     return <section className="category-preview-container">
             <div className="category-details-container">
                 <div className="category-details-sub-container">
-                    <div className="categoryCover-container">
+                    <div className="category-cover-container">
                         <img
-                        className="categoryCover"
+                        className="category-cover"
                         src={category?.image || ''}
                         alt={`track artwork for ${category?.title || 'not found'}`}
                         />
@@ -30,10 +30,10 @@ export function CategoryPreview({category, isPlayingCategory= false }) {
                     <div className="sub-category-details">
                         <div className="category-title"> {category?.title || 'not found'} </div>
                         
-                        <div className='controll-btns'>
+                        <div className='category-controll-btns'>
                             {!isPlaying ? (
                             <button type="button" aria-label="Play" className="play playerButton3" onClick={() => onPlayPauseClick(false)}>
-                                <span aria-hidden="true" className="iconWrapper">         
+                                <span aria-hidden="true" className="category-iconWrapper">         
                                     <Play className="action-btn3" />
                                 </span>
                             </button>
