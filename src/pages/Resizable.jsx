@@ -9,6 +9,7 @@ import { TrackDetails } from "./TrackDetails";
 import { SideBar } from "../cmps/SideBar";
 import { DragHandleDots2Icon } from "@radix-ui/react-icons";
 import { AlbumDetails } from "./AlbumDetails";
+import { ArtistDetails } from "./ArtistDetails";
 
 export function Resizable(){
     return (
@@ -33,6 +34,7 @@ export function Resizable(){
                                 <Route path="/playlist/:stationId" element={<PlaylistDetails />} />
                                 <Route path="/track/:trackId" element={<TrackDetails />} />
                                 <Route path="/album/:albumId" element={<AlbumDetails />} />
+                                <Route path="/artist/:artistId" element={<ArtistDetails />} />
                         </Routes>
                     </main>
         </Panel>

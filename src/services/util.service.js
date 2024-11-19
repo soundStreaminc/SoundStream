@@ -78,9 +78,9 @@ export function setTrackJson( trackInfo ){
     {
         id: trackInfo.id,
         title: trackInfo.name,
-        artist: trackInfo.artists[0].name,
-        audioSrc: trackInfo.preview_url,
-        image: trackInfo.album.images[0].url,
+        artist: trackInfo.artist,
+        audioSrc: trackInfo.audio,
+        image: trackInfo.image,
         color: Math.floor(Math.random()*16777215).toString(16)
         
     }]

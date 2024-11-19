@@ -94,7 +94,6 @@ export function Player(){
     useEffect(() => {
         // Set the source and volume whenever these props change
         if (audioRef.current) {
-            audioRef.current.src = audioSrc;
             audioRef.current.volume = volume;
 
         const rangeInput = document.getElementById('range2');
@@ -105,7 +104,6 @@ export function Player(){
         
         rangeInput.addEventListener('input', updateRangeProgress);
         updateRangeProgress(); // Initial call to set the progress
-        //setProgressBar(progress)
 
         // Event listener for loadedmetadata (when duration is available)
         const handleLoadedMetadata = () => {
@@ -113,9 +111,24 @@ export function Player(){
         console.log('The duration and dimensions of the media are now known.');
         setDuration(audioRef.current.duration);  // Store the duration
         };
+    }
+    }, [volume]);
+
+    useEffect(() => {
+        // Set the source and volume whenever these props change
+        // if (audioRef.current) {
+        //     audioRef.current.src = audioSrc
+
+        // Event listener for loadedmetadata (when duration is available)
+        const handleLoadedMetadata = () => {
+        //show('problem searching for artist: ', err)
+        console.log('The duration and dimensions of the media are now known.');
+        setDuration(audioRef.current.duration);  // Store the duration
+        }
 
         // Play the new track if it's already playing
         if (isPlaying) {
+            audioRef.current.volume = volume;
             audioRef.current.play();
         }
 
@@ -124,14 +137,12 @@ export function Player(){
 
         // Clean up the event listener when the component unmounts
         return () => {
-            rangeInput.removeEventListener('input', updateRangeProgress);
             audioRef.current.pause();
             if (audioRef.current) {
                 audioRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
             }
         };
-    }
-    }, [audioSrc, volume]);
+    }, [audioSrc]);
 
     const startTimer = () => {
         // Clear any timers already running
@@ -246,8 +257,7 @@ export function Player(){
                         </div> 
 
                         <button className="add-to-liked-btn">
-                            <span aria-hidden="true" className="iconWrapper">
-                        
+                            <span aria-hidden="true" className="iconWrapper">                 
                                 <AddToLiked className="add-to-liked"/>
                             </span>
                         </button>

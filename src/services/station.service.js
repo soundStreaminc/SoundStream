@@ -10,7 +10,6 @@ const STORAGE_KEY = 'station'
 export const stationService = {
     query,
     setAccessKey,
-    getAlbumsByArtistId,
     getEmptyStation,
     getEmptySong,
     getPlaylistData,
@@ -20,6 +19,7 @@ export const stationService = {
     getCurrentlyPlaying,
     addPlaylist,
     addAlbum,
+    addTrackToLiked,
     getCategoryPlaylists,
 
     getArtistId_SpotifyApi,
@@ -30,6 +30,8 @@ export const stationService = {
     getStationById_SpotifyApi,
     getPlaylistById_SpotifyApi,
     getPlaylist_SpotifiApi,
+    getAlbumsByArtistId_SpotifiApi,
+    getTopTracksByArtistId_SpotifiApi,
     getAlbum_SpotifiApi,
     getMadeForU_SpotifiApi,
     getTopMixes_SpotifiApi,
@@ -55,6 +57,10 @@ async function addPlaylist ( id, name, type, user ){
 }
 
 async function addAlbum ( id, name, type, user ){
+    const res = await _addStationToUser(user, { name, id, type })
+}
+
+async function addTrackToLiked ( id, name, type, user ){
     const res = await _addStationToUser(user, { name, id, type })
 }
 
@@ -325,17 +331,6 @@ async function setupHeader(){
     return searchParameters
 }
 
-async function getAlbumsByArtistId( artistId ){
-    var searchParameters = await setupHeader()
-
-    var albums = await fetch ('https://api.spotify.com/v1/artists/' + 
-        artistId + '/albums' + '?', searchParameters )
-        .then( response => response.json())
-        .then( data => { return  data.items }
-        )
-    return albums
-}
-
 async function _getHardCodedData(){
     return [              
         {
@@ -401,7 +396,12 @@ async function getStationById_SpotifyApi( stationType, stationId ){
         case 'album':
             stationTypeParam = 'albums'
             break
-
+        case 'tracks':
+            stationTypeParam = 'tracks'
+            break
+        case 'artists':
+            stationTypeParam = 'artists'
+            break
     }
     var station = await fetch (`https://api.spotify.com/v1/${stationTypeParam}/${stationId}` , searchParameters )
         .then( response => response.json())
@@ -497,6 +497,28 @@ async function getTracks_SpotifyApi ( tracktName, limit ){
         )
      return foundTracks
 
+}
+
+async function getAlbumsByArtistId_SpotifiApi( artistId ){
+    var searchParameters = await setupHeader()
+
+    var albums = await fetch ('https://api.spotify.com/v1/artists/' + 
+        artistId + '/albums' + '?', searchParameters )
+        .then( response => response.json())
+        .then( data => { return  data.items }
+        )
+    return albums
+}
+
+async function getTopTracksByArtistId_SpotifiApi( artistId ){
+    var searchParameters = await setupHeader()
+
+    var albums = await fetch ('https://api.spotify.com/v1/artists/' + 
+        artistId + '/top-tracks', searchParameters )
+        .then( response => response.json())
+        .then( data => { return  data }
+        )
+    return albums
 }
 
 async function getMostPlayed_SpotifiApi (){

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react"
 import { TracksList } from "../cmps/TracksList"
 import { GeneralObjectHeader } from "../cmps/GeneralObjectHeader"
 
-export function AlbumDetails(){
+export function ArtistDetails(  ) {
     const params = useParams()
     let miniStation = useRef(null)
     const [ tracks , setTracks] = useState(null)
@@ -15,27 +15,26 @@ export function AlbumDetails(){
     }, [])
 
     async function loadTracks(){
-        const foundAlbum = await stationService.getStationById_SpotifyApi( 'album', params.albumId ) 
+        const foundArtist = await stationService.getStationById_SpotifyApi( 'artists', params.artistId ) 
         miniStation.current = {
-            id: foundAlbum.id, 
-            type : foundAlbum.type,
-            name: foundAlbum.name,
-            image: foundAlbum.images ? foundAlbum.images[0].url : 'not found',
-            count: foundAlbum.total_tracks,
-            length: "about 4 hr 30 min",
-            artist: foundAlbum.artists[0].name
+            id: foundArtist.id, 
+            type : foundArtist.type,
+            name: foundArtist.name,
+            image: foundArtist.images ? foundArtist.images[0].url : 'not found',
+            followers: foundArtist.followers.total,
         }
-        setTracks(foundAlbum.tracks.items) 
+        const getTopTracks = await stationService.getTopTracksByArtistId_SpotifiApi(foundArtist.id)
+        setTracks(getTopTracks.tracks) 
     }
-   
     if(!tracks || !miniStation.current.image) return <span> loading in progress... </span>
     return (
-        <section className="album-details">
+        <section className="station-details">
             <GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/>
 
             <div className="tracks-container">
-                <TracksList trackList={tracks}/>
+                <TracksList trackList={tracks}  isPlaylist={false}/>
             </div> 
         </section >
     )
 }
+

@@ -1,8 +1,6 @@
-import Play from '../assets/svgs/play.svg?react'
-import Pause from '../assets/svgs/pause.svg?react'
 import { useState } from 'react';
 
-export function TrackPreview({track, index, isPlayingPlaylist=false }) {
+export function TrackPreview({track, index, isPlaylist, isPlayingPlaylist=false }) {
     const [isPlaying, setIsPlaying] = useState(isPlayingPlaylist);
 
     function onPlayPauseClick(  ){
@@ -36,65 +34,44 @@ export function TrackPreview({track, index, isPlayingPlaylist=false }) {
             {index}
         </div>
 
-        <div className='track-title'> 
-            <div className='track-image'> 
+        <div className='track-title'>
+            {isPlaylist ? (
+                <div className='track-image'> 
                 <img src={track.track.album.images[0].url} className='album-cover-image'/>
                 {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
-            </div>
+                </div>
+            ):''}
+           
             <div className='name-artist-container'>
-                <div className='track-name'> 
-                    {track.track.name} 
-                    {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                <div className='track-preview-name-container'>
+                    <a href={`/track/${track.track ? track.track.id : track.id}`} className='track-name'> 
+                        {track.track ? track.track.name: track.name} 
+                        {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                    </a>
                 </div>
-                <div className='track-artist'> 
-                    {track.track.artists[0].name} 
-                    {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                <div className='track-preview-artist-container'>
+                    <a href={`/artist/${track.track ? track.track.artists[0].id : track.artists[0].id}`} className='track-artist'> 
+                        {track.track ? track.track.artists[0].name: track.artists[0].name} 
+                        {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                    </a>
                 </div>
+                
             </div>
             
         </div>
 
-
+        {isPlaylist ? (
         <div className='track-album'> 
             {track.track.album.name} 
-        </div>
+        </div>):''}
 
+        {isPlaylist ? (
         <div className='track-date-added'> 
             {getFormattedDate(track.added_at)} 
-        </div>
+        </div>):''}
         
         <div className='track-duration'>
-            {convertMsToMinutes(track.track.duration_ms)} 
+            {convertMsToMinutes(track.track ? track.track.duration_ms : track.duration_ms)} 
         </div>
-            {/* <div className="mini-details-container">
-                <div className="mini-details-sub-container">
-                    <div className="musicCover-container">
-                        <img
-                        className="musicCover"
-                        src={station?.image || ''}
-                        alt={`track artwork for ${station?.title || 'not found'}`}
-                        />
-                    </div>       
-                </div>     
-                <div className="mini-details">
-                    <div className="sub-mini-details">
-                        <div className="station-title"> {station?.title || 'not found'} </div>
-                        
-                        <div className='controll-btns'>
-                            {!isPlaying ? (
-                            <button type="button" aria-label="Play" className="play playerButton3" onClick={() => onPlayPauseClick(false)}>
-                                <span aria-hidden="true" className="iconWrapper">         
-                                    <Play className="action-btn3" />
-                                </span>
-                            </button>
-                            ) : (
-                            <button type="button" aria-label="Pause" className="pause playerButton3" onClick={() => onPlayPauseClick(true)}>
-                                <Pause className="action-btn3" />
-                            </button>
-                            )}
-                        </div>         
-                    </div>
-                </div> 
-            </div> */}
-        </section>
+    </section>
 }
