@@ -153,7 +153,7 @@ body, .station-filter-container {
     border-radius: 8px;
     overflow: hidden;
     width: 180px; // Increased width for larger image
-    height: 250px; // Increased width for larger image
+    height: 260px; // Increased width for larger image
     transition: transform 0.2s ease-in-out;
   
     &:hover {
@@ -176,6 +176,7 @@ body, .station-filter-container {
   
       &:hover {
         background: #1ed760; // Slightly brighter green
+        
       }
     }
     
@@ -192,7 +193,7 @@ body, .station-filter-container {
           height: 170px; // Increased height for better visibility
         img {
           width: 100%; // Adjust to fit the container
-          height: 220px; // Increased height for better visibility
+          height: 160px; // Increased height for better visibility
           object-fit: cover; // Ensures the image covers the area without distortion
           border-radius: 8px 8px 0 0;
         }
@@ -200,9 +201,9 @@ body, .station-filter-container {
 
         .iconWrapper {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top:80%;
+            left: 70%;
+            transform: translate(-20%, -50%);
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
@@ -231,11 +232,16 @@ body, .station-filter-container {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
+
+          
         }
   
         .playlist-subtitle {
           font-size: 14px;
           color: #b3b3b3;
+          font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
+
         }
       }
     }
