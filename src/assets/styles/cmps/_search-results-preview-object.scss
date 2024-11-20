@@ -1,11 +1,11 @@
-.search-results-mini-details-container {
+.search-results-preview-object {
     text-decoration: none;
     color: #fff;
     background-color: #1c1c1c; // Card background color
     border-radius: 8px;
     overflow: hidden;
     width: 180px; // Increased width for larger image
-    height: 260px; // Increased width for larger image
+    max-height: 260px; // Increased width for larger image
     transition: transform 0.2s ease-in-out;
   
     &:hover {
