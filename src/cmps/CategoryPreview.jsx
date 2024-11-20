@@ -24,19 +24,22 @@ export function CategoryPreview({category, isPlayingCategory= false }) {
                         <img className="category-cover" src={category.image}
                             alt={`track artwork for ${category?.title || 'not found'}`}/>
                     ): ''}
-                    {!isPlaying ? (
-                        <button type="button" aria-label="Play" className="play playerButton6" onClick={() => onPlayPauseClick(false)}>
-                            <span aria-hidden="true" className="category-play-wrapper">
-                                <Play className="action-btn6" />
-                            </span>
-                        </button>
-                        ) : (
-                        <button type="button" aria-label="Pause" className="pause playerButton6" onClick={() => onPlayPauseClick(true)}>
-                            <span aria-hidden="true" className="category-play-wrapper">
-                                <Pause className="action-btn6" />
-                            </span>
-                        </button>
-                    )}
+                    <div className='category-btn-container'>
+                        {!isPlaying ? (
+                            <button type="button" aria-label="Play" className="category-btn" onClick={() => onPlayPauseClick(false)}>
+                                <span aria-hidden="true" className="category-svg-wrapper">
+                                    <Play />
+                                </span>
+                            </button>
+                            ) : (
+                            <button type="button" aria-label="Pause" className="category-btn" onClick={() => onPlayPauseClick(true)}>
+                                <span aria-hidden="true" className="category-svg-wrapper">
+                                    <Pause className="action-btn6" />
+                                </span>
+                            </button>
+                        )}
+                    </div>
+                    
                     
                 </div>
         

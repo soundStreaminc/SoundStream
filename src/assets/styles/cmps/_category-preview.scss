@@ -1,41 +1,38 @@
-.category-mini-details-container {
+.category-preview-container {
     text-decoration: none;
     color: #fff;
     background-color: #1c1c1c; // Card background color
     border-radius: 8px;
     overflow: hidden;
     width: 180px; // Increased width for larger image
-    height: 260px; // Increased width for larger image
+    max-height: 260px; // Increased width for larger image
     transition: transform 0.2s ease-in-out;
   
     &:hover {
       transform: scale(1.05);
       background-color: #282828; // Slightly brighter on hover
     }
-   
-    &:hover .search-result-object-add-btn {
-      opacity: 1;
-    }
 }
 
-.category-add-btn {
-    position: absolute;
-    top:20%;
-    left: 70%;
-    background: #1db954;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
 
-    &:hover {
-        background: #1ed760; // Slightly brighter green
+// .category-add-btn {
+//     position: absolute;
+//     top:20%;
+//     left: 70%;
+//     background: #1db954;
+//     border: none;
+//     border-radius: 50%;
+//     width: 40px;
+//     height: 40px;
+//     cursor: pointer;
+//     opacity: 0;
+//     transition: opacity 0.3s ease-in-out;
+
+//     &:hover {
+//         background: #1ed760; // Slightly brighter green
         
-    }
-}
+//     }
+// }
 
 .category-mini-details-sub-container {
     padding: 10px;
@@ -52,33 +49,33 @@
         border-radius: 8px 8px 0 0;
       }
 
-      .category-play-wrapper {
-          position: absolute;
-          top:80%;
-          left: 70%;
-          transform: translate(-20%, -50%);
-          opacity: 0;
-          visibility: hidden;
-          transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    //   .category-play-wrapper {
+    //       position: absolute;
+    //       top:80%;
+    //       left: 70%;
+    //       transform: translate(-20%, -50%);
+    //       opacity: 0;
+    //       visibility: hidden;
+    //       transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
   
-          .action-btn6 {
-            fill: black;
-            background-color: white;
-            width: 16px;
-            height: 16px;
-            font-size: 36px;
-            color: #fff;
-            background-color: #1db954;
-            border-radius: 50%;
-            padding: 10px;
-          }
-        }
+    //       .action-btn6 {
+    //         fill: black;
+    //         background-color: white;
+    //         width: 16px;
+    //         height: 16px;
+    //         font-size: 36px;
+    //         color: #fff;
+    //         background-color: #1db954;
+    //         border-radius: 50%;
+    //         padding: 10px;
+    //       }
+    //     }
   
-        &:hover .category-play-wrapper {
-          opacity: 1;
-          visibility: visible;
-        }
-      }
+    //     &:hover .category-play-wrapper {
+    //       opacity: 1;
+    //       visibility: visible;
+    //     }
+       }
     
     .category-mini-details {
       .category-title {
@@ -102,8 +99,46 @@
     }
 }
 
-.playerButton6{
+// .playerButton6{
     
-    visibility: hidden;
+//     visibility: hidden;
 
-}
+// }
+
+.category-mini-details-container {
+    .category-btn-container {
+        position: absolute;
+        top: 75%;
+        left: 80%;
+        transform: translate(-50%, -50%);
+        opacity: 0; /* Hidden by default */
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+        .category-btn {
+          background-color: #1db954;
+          border: none;
+          border-radius: 50%;
+          padding: 10px;
+          cursor: pointer;
+
+          .category-svg-wrapper {
+            svg {
+                fill: black;
+                width: 24px;
+                height: 24px;
+            }
+          }
+
+          &:hover {
+            background-color: #1ed760; /* Brighter green on hover */
+          }
+        }
+      }
+
+      &:hover .category-btn-container {
+        opacity: 1; /* Show play button on hover */
+        visibility: visible;
+      }
+  }
+  
