@@ -40,6 +40,7 @@ export const stationService = {
     getStayTuned_SpotifiApi,
     getRecentlyPlayed_SpotifiApi,
     getMostPlayed_SpotifiApi,
+    getBrowseCategories_SpotifiApi,
 }
 window.cs = stationService
 
@@ -339,6 +340,7 @@ async function _getHardCodedData(){
             artist: "Avril Lavigne",
             audioSrc: "https://p.scdn.co/mp3-preview/ddabbe456fde1ab1bef88c8022056f7d26f2f5ba?cid=426b1061c8be4e70babeec62bbcf0f08",
             image: "https://i.scdn.co/image/ab67616d0000b273ae6b206adcb3d283e9b327ca",
+            type: 'track',
             color: "blue",
         } ,
         {
@@ -347,30 +349,31 @@ async function _getHardCodedData(){
             artist: "Linkin Park",
             audioSrc: "https://p.scdn.co/mp3-preview/1e52f7874a0864d96c106a5ee93970dcee66b05f?cid=426b1061c8be4e70babeec62bbcf0f08",
             image: "https://i.scdn.co/image/ab67616d0000b273163d1c5eddd35473f030f2d4",
+            type: 'track',
             color: "green",
           }
     ]     
 }
 
-async function getCategoryPlaylists( category ){
+async function getCategoryPlaylists( category, limit ){
     switch (category){
         case 'Made For You':
-            const madeForU = await getMadeForU_SpotifiApi();
+            const madeForU = await getMadeForU_SpotifiApi(limit);
             return madeForU
         case 'Your Top Mixes':
-            const topMixes = await getTopMixes_SpotifiApi();
+            const topMixes = await getTopMixes_SpotifiApi(limit);
             return topMixes
         case 'Recently Played':
-            const recentlyPlayed = await getRecentlyPlayed_SpotifiApi();
+            const recentlyPlayed = await getRecentlyPlayed_SpotifiApi(limit);
             return recentlyPlayed
         case 'Your Favorite Artists':
-            const yourFavoriteArtist = await getYourFavoriteArtist_SpotifiApi();
+            const yourFavoriteArtist = await getYourFavoriteArtist_SpotifiApi(limit);
             return yourFavoriteArtist
         case 'Recommended Stations':
-            const recommended = await getRecommended_SpotifiApi();
+            const recommended = await getRecommended_SpotifiApi(limit);
             return recommended
         case 'Stay Tuned':
-            const stayTuned = await getStayTuned_SpotifiApi();
+            const stayTuned = await getStayTuned_SpotifiApi(limit);
             return stayTuned
         default:
             console.log('error: the category was not found')
@@ -526,32 +529,52 @@ async function getMostPlayed_SpotifiApi (){
     return await _getHardCodedData()
 }
 
-async function getMadeForU_SpotifiApi (){
+async function getMadeForU_SpotifiApi ( limit ){
+    var searchParameters = await setupHeader()
+    var albums = await fetch (`https://api.spotify.com/v1/search?q=dailymix&type=playlist&limit=${limit}` , searchParameters )
+        .then( response => response.json())
+        .then( data => {   return data.playlists.items }
+    )
+
+    return albums 
+}
+
+async function getTopMixes_SpotifiApi (limit){
+    var searchParameters = await setupHeader()
+    var albums = await fetch (`https://api.spotify.com/v1/search?q=mix&type=playlist&limit=${limit}` , searchParameters )
+        .then( response => response.json())
+        .then( data => {   return data.playlists.items }
+    )
+
+    return albums 
+}
+
+async function getYourFavoriteArtist_SpotifiApi (limit){
+    var searchParameters = await setupHeader()
+    var albums = await fetch (`https://api.spotify.com/v1/search?q=best&type=artist&limit=${limit}` , searchParameters )
+        .then( response => response.json())
+        .then( data => { return data.artists.items }
+    )
+
+    return albums 
+}
+
+async function getRecommended_SpotifiApi (limit){
+    var searchParameters = await setupHeader()
+    var albums = await fetch (`https://api.spotify.com/v1/search?q=station&type=playlist&limit=${limit}` , searchParameters )
+        .then( response => response.json())
+        .then( data => {   return data.playlists.items }
+    )
+
+    return albums 
+}
+
+async function getStayTuned_SpotifiApi (limit){
     //TODO create function, for now using some hard coded data.
     return await _getHardCodedData()
 }
 
-async function getTopMixes_SpotifiApi (){
-    //TODO create function, for now using some hard coded data.
-    return await _getHardCodedData()
-}
-
-async function getYourFavoriteArtist_SpotifiApi (){
-    //TODO create function, for now using some hard coded data.
-    return await _getHardCodedData()
-}
-
-async function getRecommended_SpotifiApi (){
-    //TODO create function, for now using some hard coded data.
-    return await _getHardCodedData()
-}
-
-async function getStayTuned_SpotifiApi (){
-    //TODO create function, for now using some hard coded data.
-    return await _getHardCodedData()
-}
-
-async function getRecentlyPlayed_SpotifiApi (){
+async function getRecentlyPlayed_SpotifiApi (limit){
     //TODO create function, for now using some hard coded data.
     return await _getHardCodedData()
 }
@@ -575,5 +598,22 @@ async function getRecomended_SpotifyApi ( seedTracksArray ){
      return foundPlaylists
 }
 
+async function getBrowseCategories_SpotifiApi(){
+    var searchParameters = await setupHeader()
+
+    var albums = await fetch ('https://api.spotify.com/v1/search?q=dailymix&type=playlist' , searchParameters )
+        .then( response => response.json())
+        .then( data => {   console.log('data:', data) }
+        )
+
+        // var foundTracks = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
+        //     tracktName + '&type=track&limit=' + limit , searchParameters)
+        //     .then( response => response.json())
+        //     .then( data => { 
+        //         return  data.tracks.items? data.tracks.items : '' }
+    
+        //     )
+    return albums
+}
 
 

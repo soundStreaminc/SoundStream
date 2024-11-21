@@ -8,6 +8,7 @@ import { showErrorMsg } from '../services/event-bus.service.js';
 import { searchAlbums, searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
 import { SearchResultsPreviewObject } from "../cmps/SearchResultsPreviewObject.jsx";
 import { utilService } from "../services/util.service.js";
+export const DISPLAYEDSONGSNUMBER = 4
 
 export function StationFilterDetails(){
     const DEBOUNCETIME = 300 //TODO should be in config
@@ -23,7 +24,6 @@ export function StationFilterDetails(){
     const [searchParams, setSearchParams] = useSearchParams()
     const [searchTerm, setSearchTerm] = useState(params); // Declare and initialize searchTerm
 
-    const DISPLAYEDSONGSNUMBER = 4
     var playlistsHeader = useRef('')
 
     useEffect(() => {

@@ -17,8 +17,16 @@ export function HomePage() {
     let foundArtists = useSelector ( storeState => storeState.foundArtists )
 
     useEffect( ()=>{           
-        stationService.setAccessKey()
+        
+        getMyPlaylistCategories()
+
     }, [])
+
+    async function getMyPlaylistCategories(){
+        await stationService.setAccessKey()
+        // const test = await stationService.getBrowseCategories_SpotifiApi()
+        // console.log('test:', test)
+    }
 
     return (
         <section className="spotify-homepage" >
