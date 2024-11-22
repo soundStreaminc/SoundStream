@@ -10,6 +10,7 @@ import { stationService } from '../services/station.service';
 export function AppHeader() {
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // Correctly declare and initialize isLoggedIn state
 
 
     const [activeButton, setActiveButton] = useState(''); // Track which button is active
@@ -23,7 +24,7 @@ export function AppHeader() {
     const navigate = useNavigate()
 
     const handleBrowseClick = () => {
-        navigate("/search")
+        // navigate("/search")
         setActiveButton('browse'); // Set home as the active button
     };
     const handleOtherButtonClick = () => {
@@ -46,6 +47,13 @@ export function AppHeader() {
         if (!searchTerm.filterText)
             navigate(`/search/${searchTerm.filterText}`)
     }
+    const handleLoginClick = () => {
+        navigate("/login");
+    };
+
+    const handleSignUpClick = () => {
+        navigate("/signup");
+    };
 
     return (
         <div className="app-header">
@@ -87,20 +95,24 @@ export function AppHeader() {
 
                         <div className='separator' />
                         <div className=' container-search-home'>
-                            <NavLink to="/search">
-                                <div exact="true"
-                                    to="/"
+
+                            <Tooltip title="Browse" arrow>
+                                <button
                                     className={`app-header-icon browse-icon ${activeButton === 'browse' ? 'active' : ''}`}
-
-
-                                    onClick={handleBrowseClick}>
-                                    <Tooltip title="Browse" arrow>
-                                        <div onClick={handleBrowseClick}>
-                                            <BrowseIcon className="border-icon-browse" />
-                                        </div>
-                                    </Tooltip>
-                                </div>
-                            </NavLink>
+                                    onClick={() => {
+                                        navigate("/browse");
+                                        setActiveButton("browse");
+                                    }}
+                                    style={{
+                                        background: 'none',
+                                        border: 'none',
+                                        padding: '0',
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    <BrowseIcon className="border-icon-browse" />
+                                </button>
+                            </Tooltip>
                         </div>
                     </div>
                 </div>
@@ -118,25 +130,31 @@ export function AppHeader() {
 
             {/* Right-side buttons */}
             <div className="app-header-right">
-{/* 
+                {/* 
                 <div className="notification-icon">
                     <i className="fas fa-bell"></i>
                 </div> */}
-
-                <button className="user-profile-btn" >
-                    <figure>
-                        <div className="user-profile-container" style={{ "borderRadius" : "50%" ,"width" : "32px" , "height" : "32px", "insetInlineStart" : "0px"}}>
-                            <img 
-                                src="https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10216273432443013&height=50&width=50&ext=1731476384&hash=Abb3U5-0-6bLM3quVOH_n7mU" 
-                                //alt="Yozik Personage"  TODO: ADD user name
-                                className="user-profile-img" />
-                        </div>
-                    </figure>
-                </button>
-{/* 
-                <div className="user-profile">
-                    <UserIcon />
-                </div> */}
+                {/* {isLoggedIn ? ( */}
+                    <button className="user-profile-btn" >
+                        <figure>
+                            <div className="user-profile-container" style={{ "borderRadius": "50%", "width": "32px", "height": "32px", "insetInlineStart": "0px" }}>
+                                <img
+                                    src="https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10216273432443013&height=50&width=50&ext=1731476384&hash=Abb3U5-0-6bLM3quVOH_n7mU"
+                                    //alt="Yozik Personage"  TODO: ADD user name
+                                    className="user-profile-img" />
+                            </div>
+                        </figure>
+                    </button>
+                {/* ) : (
+                    <div className="auth-buttons">
+                    <button className="signup-btn" onClick={handleSignUpClick}>
+                        Sign up
+                    </button>
+                    <button className="login-btn" onClick={handleLoginClick}>
+                        Log in
+                    </button>
+                </div>
+                )} */}
             </div>
         </div>
     );

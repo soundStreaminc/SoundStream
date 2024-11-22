@@ -40,6 +40,7 @@ export const stationService = {
     getStayTuned_SpotifiApi,
     getRecentlyPlayed_SpotifiApi,
     getMostPlayed_SpotifiApi,
+    getBrowseCategories
 }
 window.cs = stationService
 
@@ -519,6 +520,32 @@ async function getTopTracksByArtistId_SpotifiApi( artistId ){
         .then( data => { return  data }
         )
     return albums
+}
+
+export async function getBrowseCategories() {
+    console.log('getBrowseCategories: Starting...');
+    try {
+        var searchParameters = await setupHeader(); // Ensure headers with Authorization are correctly set
+
+        var response = await fetch('https://api.spotify.com/v1/browse/categories', searchParameters);
+
+        if (!response.ok) {
+            console.error('getBrowseCategories: Failed response', response.status, response.statusText);
+            return [];
+        }
+
+        var data = await response.json();
+
+        if (!data.categories || !data.categories.items) {
+            console.error('getBrowseCategories: No categories found in data', data);
+            return [];
+        }
+
+        return data.categories.items;
+    } catch (err) {
+        console.error('getBrowseCategories: Error occurred', err);
+        return [];
+    }
 }
 
 async function getMostPlayed_SpotifiApi (){
