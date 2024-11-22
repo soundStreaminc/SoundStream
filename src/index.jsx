@@ -1,18 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 // import { HashRouter as Router } from 'react-router-dom'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import { RootCmp } from './RootCmp'
 import './assets/styles/main.scss'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
+import { LoginPage } from './pages/LoginPage'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <Provider store={ store }>
       <Router>
-        <RootCmp />
+        <Routes>
+          <Route path="/*" element={ <RootCmp />} />
+          <Route path='/login' element={<LoginPage />} />
+        </Routes>      
       </Router>
     </Provider>
 )
