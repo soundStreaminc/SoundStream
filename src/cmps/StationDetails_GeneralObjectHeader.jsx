@@ -7,7 +7,7 @@ import { stationService } from "../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { setCurrentlyPlaying } from "../store/song/song.actions";
 
-export function GeneralObjectHeader({ station , isAlreadyAdded = false}){
+export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = false}){
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
     const [isPlaying, setIsPlaying] = useState( false );
     const MYUSER = 'ohad'

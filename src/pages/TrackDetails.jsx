@@ -1,7 +1,7 @@
 import { useParams } from "react-router"
 import { stationService } from "../services/station.service"
 import { useEffect, useRef, useState } from "react"
-import { GeneralObjectHeader } from "../cmps/GeneralObjectHeader"
+import { StationDetails_GeneralObjectHeader } from "../cmps/StationDetails_GeneralObjectHeader"
 
 export function TrackDetails(){
     const params = useParams()
@@ -27,7 +27,7 @@ export function TrackDetails(){
     if(!track) return <span> loading in progress... </span>
     return (
         <section className="track-details-container">
-                <GeneralObjectHeader station={track} isAlreadyAdded={false}/>
+                <StationDetails_GeneralObjectHeader station={track} isAlreadyAdded={false}/>
         </section >
     )
 }

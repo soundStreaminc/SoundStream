@@ -6,26 +6,26 @@ import Prev from '../assets/svgs/prev.svg?react'
 export function AudioControls ( { isPlaying, onPlayPauseClick, onPrevClick, onNextClick }){
 
     return (
-        <section className="audio-controls">
-            <button type="button" aria-label="Previous" className="prev playerButton2" onClick={onPrevClick}>
+        <section className="audio-controllers-audio-controls">
+            <button type="button" aria-label="Previous" className="prev audio-controllers-playerButton2" onClick={onPrevClick}>
            
-                <Prev className="action-btn2" />
+                <Prev className="audio-controllers-action-btn2" />
                     
             </button>
             {!isPlaying ? (
-            <button type="button" aria-label="Play" className="play playerButton" onClick={() => onPlayPauseClick(false)}>
-                <span aria-hidden="true" className="iconWrapper">
+            <button type="button" aria-label="Play" className="play audio-controllers-playerButton" onClick={() => onPlayPauseClick(false)}>
+                <span aria-hidden="true" className="audio-controllers-icon-wrapper">
                         
-                    <Play className="action-btn" />
+                    <Play className="audio-controllers-action-btn" />
                 </span>
             </button>
             ) : (
-            <button type="button" aria-label="Pause" className="pause playerButton" onClick={() => onPlayPauseClick(true)}>
-                <Pause className="action-btn" />
+            <button type="button" aria-label="Pause" className="pause audio-controllers-playerButton" onClick={() => onPlayPauseClick(true)}>
+                <Pause className="audio-controllers-action-btn" />
             </button>
             )}
-            <button type="button" aria-label="Next" className="next playerButton2" onClick={onNextClick}>
-                <Next className="action-btn2" />
+            <button type="button" aria-label="Next" className="next audio-controllers-playerButton2" onClick={onNextClick}>
+                <Next className="audio-controllers-action-btn2" />
             </button>
         </section>
     )

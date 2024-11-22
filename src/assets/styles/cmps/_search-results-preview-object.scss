@@ -1,4 +1,4 @@
-.category-mini-details-container {
+.search-results-mini-details-container {
     text-decoration: none;
     color: #fff;
     background-color: #1c1c1c; // Card background color
@@ -18,7 +18,7 @@
     }
 }
 
-.category-add-btn {
+.search-result-object-add-btn {
     position: absolute;
     top:20%;
     left: 70%;
@@ -37,10 +37,10 @@
     }
 }
 
-.category-mini-details-sub-container {
+.search-result-object-mini-details-sub-container {
     padding: 10px;
 
-    .category-music-cover-container {
+    .search-result-object-music-cover-container {
         
       position: relative;
      width: 170px; // Adjust to fit the container
@@ -52,7 +52,7 @@
         border-radius: 8px 8px 0 0;
       }
 
-      .category-play-wrapper {
+      .search-result-object-play-wrapper {
           position: absolute;
           top:80%;
           left: 70%;
@@ -61,7 +61,7 @@
           visibility: hidden;
           transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
   
-          .action-btn6 {
+          .action-btn5 {
             fill: black;
             background-color: white;
             width: 16px;
@@ -74,14 +74,14 @@
           }
         }
   
-        &:hover .category-play-wrapper {
+        &:hover .search-result-object-play-wrapper {
           opacity: 1;
           visibility: visible;
         }
       }
     
-    .category-mini-details {
-      .category-title {
+    .search-result-object-mini-details {
+      .search-result-object-title {
         font-size: 16px;
         font-weight: bold;
         margin: 5px 0;
@@ -93,7 +93,7 @@
         
       }
 
-      .category-subtitle {
+      .search-result-object-subtitle {
         font-size: 14px;
         color: #b3b3b3;
         font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
@@ -102,8 +102,6 @@
     }
 }
 
-.playerButton6{
-    
-    visibility: hidden;
-
+.playerButton7{
+  visibility: hidden;
 }
