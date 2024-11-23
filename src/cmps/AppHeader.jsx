@@ -10,7 +10,7 @@ import { stationService } from '../services/station.service';
 export function AppHeader() {
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Correctly declare and initialize isLoggedIn state
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // // TODO get the login token from the store
 
 
     const [activeButton, setActiveButton] = useState(''); // Track which button is active
@@ -48,11 +48,12 @@ export function AppHeader() {
             navigate(`/search/${searchTerm.filterText}`)
     }
     const handleLoginClick = () => {
-        navigate("/login");
+        setIsLoggedIn(true) // TODO add to store the login token
+        //navigate("/login");
     };
 
     const handleSignUpClick = () => {
-        navigate("/signup");
+        navigate("/login");
     };
 
     return (
@@ -134,7 +135,7 @@ export function AppHeader() {
                 <div className="notification-icon">
                     <i className="fas fa-bell"></i>
                 </div> */}
-                {/* {isLoggedIn ? ( */}
+                {isLoggedIn ? (
                     <button className="user-profile-btn" >
                         <figure>
                             <div className="user-profile-container" style={{ "borderRadius": "50%", "width": "32px", "height": "32px", "insetInlineStart": "0px" }}>
@@ -145,7 +146,7 @@ export function AppHeader() {
                             </div>
                         </figure>
                     </button>
-                {/* ) : (
+                 ) : (
                     <div className="auth-buttons">
                     <button className="signup-btn" onClick={handleSignUpClick}>
                         Sign up
@@ -154,7 +155,7 @@ export function AppHeader() {
                         Log in
                     </button>
                 </div>
-                )} */}
+                )} 
             </div>
         </div>
     );

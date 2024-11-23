@@ -7,7 +7,7 @@ import { RootCmp } from './RootCmp'
 import './assets/styles/main.scss'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
-import { LoginPage } from './pages/LoginPage'
+import { LoginSignup } from './pages/LoginSignup'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -15,7 +15,7 @@ root.render(
       <Router>
         <Routes>
           <Route path="/*" element={ <RootCmp />} />
-          <Route path='/login' element={<LoginPage />} />
+          <Route path='/login' element={<LoginSignup />} />
         </Routes>      
       </Router>
     </Provider>

@@ -444,6 +444,8 @@ async function getPlaylist_SpotifiApi ( playlistName, limit ){
         playlistName + '&type=playlist&limit=' + limit , searchParameters)
         .then( response => response.json())
         .then( data => { 
+            data.playlists.items = _removeNullFromItems(data.playlists.items)
+            console.log('data.playlists.items:', data.playlists.items)
             return  data.playlists.items? data.playlists.items : '' }
 
         )
@@ -454,9 +456,11 @@ async function getAlbum_SpotifiApi ( albumName, limit ){
     var searchParameters = await setupHeader()
 
     var foundAlbums = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
-        albumName + '&type=album&limit=' + limit , searchParameters)
+        albumName + '&type=album&limit=' + 8 , searchParameters)
         .then( response => response.json())
         .then( data => { 
+            data.albums.items = _removeNullFromItems(data.albums.items, limit)
+            console.log('data.albums.items:', data.albums.items)
             return  data.albums.items? data.albums.items : '' }
 
         )
@@ -469,7 +473,11 @@ async function getArtistId_SpotifyApi( artistName){
     var artistId = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
         artistName + '&type=artist' , searchParameters)
         .then( response => response.json())
-        .then( data => { return  data.artists.items[0].id }
+        .then( data => { 
+            data.artists.items = _removeNullFromItems(data.artists.items)
+            console.log('data.artists.items:', data.artists.items)
+            return  data.artists.items[0].id 
+        }
 
         )
      return artistId
@@ -643,4 +651,17 @@ async function getBrowseCategories_SpotifiApi(){
     return albums
 }
 
+function _removeNullFromItems(items, limit = 4){
+    var itemsWithoutNull = []
+    var counter = 0
+    items.forEach(element => {
+        if(counter === limit) return itemsWithoutNull
+        if (element) {
+            itemsWithoutNull.push(element)
+            counter++
+        }
+        
+    });
+    return itemsWithoutNull
+}
 
