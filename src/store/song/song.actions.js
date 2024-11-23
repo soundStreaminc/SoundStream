@@ -30,6 +30,7 @@ export async function searchArtists ( artistName ){
     try {
         const artists = await stationService.getArtists_SpotifyApi ( artistName)
         store.dispatch( { type: SEARCH_ARTISTS , artists })
+        if (!artists | artists.length === 0) throw new Error(`Having issues finding artists: ${artistName}`)
         return artists
     } catch (err) {
         console.log('Having issues finding artists:', err)

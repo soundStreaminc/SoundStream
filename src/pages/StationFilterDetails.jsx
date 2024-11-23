@@ -32,14 +32,15 @@ export function StationFilterDetails(){
 
     async function loadFilterResults(parameter) {
         // if(params.filterText) return
+        console.log('parameter:', parameter)
         const foundArtist = await onSearchArtist(parameter.filterText)
-        setFoundArtists(foundArtist)
+        setFoundArtists(foundArtist ? foundArtist : [])
         const foundSongs = await onSearchSongs(parameter.filterText)
-        setFoundSongs(foundSongs)
+        setFoundSongs(foundSongs ? foundSongs : [])
         const foundPlaylist = await onSearchPlaylists(parameter.filterText)
-        setFoundPlaylists(foundPlaylist)
+        setFoundPlaylists(foundPlaylist ? foundPlaylist : [])
         const foundAlbums = await onSearchAlbums(parameter.filterText)
-        setFoundAlbums(foundAlbums)
+        setFoundAlbums(foundAlbums ? foundAlbums : [])
 
         getHeader('playlist')
     }
@@ -110,7 +111,6 @@ export function StationFilterDetails(){
             case "playlist":
                 return 'Playlists'
             default: 
-                console.log('hrtr:')
                 return 'header not found'
         }
     }

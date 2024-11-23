@@ -483,13 +483,12 @@ async function getArtistId_SpotifyApi( artistName){
 
 async function getArtists_SpotifyApi( artistName){
     var searchParameters = await setupHeader()
-
     var foundArtists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
         artistName + '&type=artist' , searchParameters)
         .then( response => response.json())
-        .then( data => { return  data.artists? data.artists.items : '' }
-
-        )
+        .then( data => { 
+            return data.artists ? _removeNullFromItems(data.artists.items) : ''
+        })
      return foundArtists
 
 }
@@ -501,9 +500,8 @@ async function getTracks_SpotifyApi ( tracktName, limit ){
         tracktName + '&type=track&limit=' + limit , searchParameters)
         .then( response => response.json())
         .then( data => { 
-            return  data.tracks.items? data.tracks.items : '' }
-
-        )
+            return data.tracks ? _removeNullFromItems(data.tracks.items) : ''
+        })
      return foundTracks
 
 }
@@ -636,14 +634,6 @@ async function getBrowseCategories_SpotifiApi(){
         .then( response => response.json())
         .then( data => {   console.log('data:', data) }
         )
-
-        // var foundTracks = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
-        //     tracktName + '&type=track&limit=' + limit , searchParameters)
-        //     .then( response => response.json())
-        //     .then( data => { 
-        //         return  data.tracks.items? data.tracks.items : '' }
-    
-        //     )
     return albums
 }
 
