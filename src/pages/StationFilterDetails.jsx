@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { stationService } from "../services/station.service.js";
@@ -7,8 +7,14 @@ import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
 import { showErrorMsg } from '../services/event-bus.service.js';
 import { searchAlbums, searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
 import { SearchResultsPreviewObject } from "../cmps/SearchResultsPreviewObject.jsx";
+import { utilService } from "../services/util.service.js";
+export const DISPLAYEDSONGSNUMBER = 4
 
 export function StationFilterDetails(){
+    const DEBOUNCETIME = 300 //TODO should be in config
+    const debounceFilterBy = 
+        useCallback(utilService.debounce( loadFilterResults , DEBOUNCETIME) , [])
+  
     const [ foundArtists, setFoundArtists ] = useState ( [] )
     const [ foundSongs, setFoundSongs ] = useState ( [] )
     const [ foundPlaylists, setFoundPlaylists ] = useState ( [] )
@@ -18,22 +24,21 @@ export function StationFilterDetails(){
     const [searchParams, setSearchParams] = useSearchParams()
     const [searchTerm, setSearchTerm] = useState(params); // Declare and initialize searchTerm
 
-    const DISPLAYEDSONGSNUMBER = 4
     var playlistsHeader = useRef('')
 
     useEffect(() => {
-        loadFilterResults()
-        //TODO add the debounce
+        debounceFilterBy(params)
     }, [params])
 
-    async function loadFilterResults() {
-        const foundArtist = await onSearchArtist(params.filterText)
+    async function loadFilterResults(parameter) {
+        // if(params.filterText) return
+        const foundArtist = await onSearchArtist(parameter.filterText)
         setFoundArtists(foundArtist)
-        const foundSongs = await onSearchSongs(params.filterText)
+        const foundSongs = await onSearchSongs(parameter.filterText)
         setFoundSongs(foundSongs)
-        const foundPlaylist = await onSearchPlaylists(params.filterText)
+        const foundPlaylist = await onSearchPlaylists(parameter.filterText)
         setFoundPlaylists(foundPlaylist)
-        const foundAlbums = await onSearchAlbums(params.filterText)
+        const foundAlbums = await onSearchAlbums(parameter.filterText)
         setFoundAlbums(foundAlbums)
 
         getHeader('playlist')

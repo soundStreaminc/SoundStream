@@ -100,7 +100,7 @@ export function AppHeader() {
                                 <button
                                     className={`app-header-icon browse-icon ${activeButton === 'browse' ? 'active' : ''}`}
                                     onClick={() => {
-                                        navigate("/browse");
+                                        navigate("/search");
                                         setActiveButton("browse");
                                     }}
                                     style={{

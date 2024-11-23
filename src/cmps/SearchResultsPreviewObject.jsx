@@ -22,19 +22,22 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
                             <img className="search-result-object-music-cover" src={miniObject.image}
                             alt={`track artwork for ${miniObject.name}`}
                         />): ''}
-                         {!isPlaying ? (
-                        <button type="button" aria-label="Play" className="play playerButton7" onClick={() => onPlayPauseClick(false)}>
-                            <span aria-hidden="true" className="search-result-object-play-wrapper">
-                                <Play className="action-btn5" />
-                            </span>
-                        </button>
-                        ) : (
-                        <button type="button" aria-label="Pause" className="pause playerButton7" onClick={() => onPlayPauseClick(true)}>
-                            <span aria-hidden="true" className="search-result-object-play-wrapper">
-                                <Pause className="action-btn5" />
-                            </span>
-                        </button>
-                    )}
+                        
+                        <div className='search-results-item-btn-container'>
+                            {!isPlaying ? (
+                            <button type="button" aria-label="Play" className="search-results-item-btn" onClick={() => onPlayPauseClick(false)}>
+                                <span aria-hidden="true" className="search-results-item-svg-wrapper">         
+                                    <Play />
+                                </span>
+                            </button>
+                            ) : (
+                            <button type="button" aria-label="Pause" className="search-results-item-btn" onClick={() => onPlayPauseClick(true)}>
+                                <span aria-hidden="true" className="search-results-item-svg-wrapper">         
+                                    <Pause />
+                                </span>
+                            </button>
+                            )}
+                        </div> 
                     </div>
             
                     <div className="search-result-object-mini-details">

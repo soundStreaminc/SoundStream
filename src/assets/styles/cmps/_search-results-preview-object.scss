@@ -1,11 +1,11 @@
-.search-results-mini-details-container {
+.search-results-preview-object {
     text-decoration: none;
     color: #fff;
     background-color: #1c1c1c; // Card background color
     border-radius: 8px;
     overflow: hidden;
     width: 180px; // Increased width for larger image
-    height: 260px; // Increased width for larger image
+    max-height: 260px; // Increased width for larger image
     transition: transform 0.2s ease-in-out;
   
     &:hover {
@@ -18,24 +18,24 @@
     }
 }
 
-.search-result-object-add-btn {
-    position: absolute;
-    top:20%;
-    left: 70%;
-    background: #1db954;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+// .search-result-object-add-btn {
+//     position: absolute;
+//     top:20%;
+//     left: 70%;
+//     background: #1db954;
+//     border: none;
+//     border-radius: 50%;
+//     width: 40px;
+//     height: 40px;
+//     cursor: pointer;
+//     opacity: 0;
+//     transition: opacity 0.3s ease-in-out;
 
-    &:hover {
-        background: #1ed760; // Slightly brighter green
+//     &:hover {
+//         background: #1ed760; // Slightly brighter green
         
-    }
-}
+//     }
+// }
 
 .search-result-object-mini-details-sub-container {
     padding: 10px;
@@ -43,42 +43,15 @@
     .search-result-object-music-cover-container {
         
       position: relative;
-     width: 170px; // Adjust to fit the container
-        height: 170px; // Increased height for better visibility
+      width: 170px; // Adjust to fit the container
+      height: 170px; // Increased height for better visibility
       img {
         width: 100%; // Adjust to fit the container
         height: 160px; // Increased height for better visibility
         object-fit: cover; // Ensures the image covers the area without distortion
         border-radius: 8px 8px 0 0;
       }
-
-      .search-result-object-play-wrapper {
-          position: absolute;
-          top:80%;
-          left: 70%;
-          transform: translate(-20%, -50%);
-          opacity: 0;
-          visibility: hidden;
-          transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  
-          .action-btn5 {
-            fill: black;
-            background-color: white;
-            width: 16px;
-            height: 16px;
-            font-size: 36px;
-            color: #fff;
-            background-color: #1db954;
-            border-radius: 50%;
-            padding: 10px;
-          }
-        }
-  
-        &:hover .search-result-object-play-wrapper {
-          opacity: 1;
-          visibility: visible;
-        }
-      }
+    }
     
     .search-result-object-mini-details {
       .search-result-object-title {
@@ -102,6 +75,39 @@
     }
 }
 
-.playerButton7{
-  visibility: hidden;
+.search-results-preview-object {
+  .search-results-item-btn-container {
+      position: absolute;
+      top: 75%;
+      left: 80%;
+      transform: translate(-50%, -50%);
+      opacity: 0; /* Hidden by default */
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+      .search-results-item-btn {
+        background-color: #1db954;
+        border: none;
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+
+        .search-results-item-svg-wrapper {
+          svg {
+              fill: black;
+              width: 24px;
+              height: 24px;
+          }
+        }
+
+        &:hover {
+          background-color: #1ed760; /* Brighter green on hover */
+        }
+      }
+    }
+
+    &:hover .search-results-item-btn-container {
+      opacity: 1; /* Show play button on hover */
+      visibility: visible;
+    }
 }
