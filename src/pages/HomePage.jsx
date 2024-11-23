@@ -62,11 +62,6 @@ export function HomePage() {
                 <h2>Recommended Stations</h2>
                 <CategoryList categoryName='Recommended Stations' />
             </div>
-
-            <div className="stay-tuned-section">
-                <h2>Stay Tuned</h2>
-                <CategoryList categoryName='Stay Tuned' />
-            </div>  
         </section>
      
     )
