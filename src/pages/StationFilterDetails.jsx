@@ -25,6 +25,8 @@ export function StationFilterDetails(){
     const [searchTerm, setSearchTerm] = useState(params); // Declare and initialize searchTerm
 
     var playlistsHeader = useRef('')
+    var albumsHeader = useRef('')
+    var tracksHeader = useRef('')
 
     useEffect(() => {
         debounceFilterBy(params)
@@ -32,7 +34,6 @@ export function StationFilterDetails(){
 
     async function loadFilterResults(parameter) {
         // if(params.filterText) return
-        console.log('parameter:', parameter)
         const foundArtist = await onSearchArtist(parameter.filterText)
         setFoundArtists(foundArtist ? foundArtist : [])
         const foundSongs = await onSearchSongs(parameter.filterText)
@@ -43,6 +44,8 @@ export function StationFilterDetails(){
         setFoundAlbums(foundAlbums ? foundAlbums : [])
 
         getHeader('playlist')
+        getHeader('album')
+        getHeader('track')
     }
 
     async function onSearchArtist(artist = '') {
@@ -58,6 +61,7 @@ export function StationFilterDetails(){
     async function onSearchSongs(song = '') {
         try {
             var foundSongs = song ? await searchSongs(song, DISPLAYEDSONGSNUMBER) : ''
+            tracksHeader.current = getHeader('track')
             return foundSongs
         } catch (err) {
             console.log('err:', err)
@@ -79,6 +83,7 @@ export function StationFilterDetails(){
     async function onSearchAlbums(albums = '') {
         try {
             var foundAlbums = albums ? await searchAlbums(albums, DISPLAYEDSONGSNUMBER) : ''
+            albumsHeader.current = getHeader('album')
             return foundAlbums
         } catch (err) {
             console.log('err:', err)
@@ -110,6 +115,10 @@ export function StationFilterDetails(){
         switch (objectType){
             case "playlist":
                 return 'Playlists'
+            case "album":
+                return 'Albums'
+            case "track":
+                return 'Songs'
             default: 
                 return 'header not found'
         }
@@ -147,7 +156,7 @@ export function StationFilterDetails(){
             <div className="filter-songs-container">
                 <div className="title">
                     <h2>
-                        <span> Songs </span>
+                        <span> {tracksHeader.current} </span>
                     </h2>
                 </div>
 
@@ -205,7 +214,7 @@ export function StationFilterDetails(){
                 <div className="filter-songs-container">
                     <div className="title">
                         <h2>
-                            <span> Albums </span>
+                            <span> {albumsHeader.current} </span>
                         </h2>
                     </div>
 
