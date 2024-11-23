@@ -12,7 +12,6 @@ export function StationFilter(){
     async function loadCategories() {
         try {
             const fetchedCategories = await getBrowseCategories()
-            console.log('Fetched Categories:', fetchedCategories)
             miniCategories.current = fetchedCategories.map(category => ({
                 id: category.id,
                 name: category.name,

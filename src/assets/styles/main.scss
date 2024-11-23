@@ -9,6 +9,7 @@
 /* pages */
 @import "pages/homepage";
 @import "pages/station-details";
+@import "pages/main-display";
 
 /* Components */
 @import "cmps/root-cmp";
@@ -16,7 +17,6 @@
 
 @import "cmps/player";
 @import "cmps/audio-controlers";
-@import "cmps/app-footer";
 @import "cmps/app-header";
 @import "cmps/side-bar";
 @import"cmps/playlist";

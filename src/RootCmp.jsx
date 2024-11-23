@@ -1,25 +1,9 @@
-
-
-
 import React from 'react'
-import { Routes, Route } from 'react-router'
-
-import { HomePage } from './pages/HomePage'
-import { PlaylistDetails } from './pages/PlaylistDetails'
-
 import { AppHeader } from './cmps/AppHeader'
-import { AppFooter } from './cmps/AppFooter'
-import { RightSidebar } from './pages/RightSidebar'
-// import { LeftSidebar } from './pages/LeftSidebar'
-import { SideBar } from './cmps/SideBar'
-import { StationFilter } from './pages/StationFilter'
-import { TrackDetails } from './pages/TrackDetails'
-import { StationFilterDetails } from './pages/StationFilterDetails'
-import { Resizable } from './pages/Resizable'
+import { MainDisplaySpliPanel } from './pages/MainDisplaySpliPanel'
+import { Player } from "./cmps/Player"
 
-
-export function RootCmp() {
-
+export function RootCmp() {  
     const tracks = [
         {
           title: "Love It When You Hate Me (feat. blackbear) - Acoustic",
@@ -39,10 +23,11 @@ export function RootCmp() {
       
     return (
         <div className='main-app'>
+       
                 <AppHeader />               
-                <Resizable/>                   
+                <MainDisplaySpliPanel />                   
                 {/* <RightSidebar /> */}
-                <AppFooter tracks={ tracks  }/> 
+                <Player tracks= {tracks } />
         </div>
     )
 }

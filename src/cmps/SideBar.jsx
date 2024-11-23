@@ -22,7 +22,7 @@ export function SideBar() {
     }
 
     return (
-        <div className="sidebar" >
+        <div className="sidebar"  >
         {/* <div data-testid="LayoutResizer__resize-bar" className="LayoutResizer__resize-bar LayoutResizer__inline-end"><label className="hidden-visually">Resize main navigation<input className="LayoutResizer__input" type="range" min="72" max="1021" step="10" /></label></div> */}
             
             <div className="sidebar-content" >
@@ -50,7 +50,8 @@ export function SideBar() {
                     <button className="library-search-btn"><Search className="search-icon"/></button>
                     <button className="library-recents-btn"><h3>Recents</h3><Recents className="recents-icon"/></button>
                     </div>
-                        <ul className="station-test">
+                        <ul className="station-test" > 
+                            {/* //TODO : add scroll only on hover and disapear after some timeout */}
                             {stations.map((station, index) => (
                                 <StationMiniPreview key={index} stationInfo={station} />
                             ))}

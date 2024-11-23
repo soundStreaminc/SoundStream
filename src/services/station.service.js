@@ -445,7 +445,6 @@ async function getPlaylist_SpotifiApi ( playlistName, limit ){
         .then( response => response.json())
         .then( data => { 
             data.playlists.items = _removeNullFromItems(data.playlists.items)
-            console.log('data.playlists.items:', data.playlists.items)
             return  data.playlists.items? data.playlists.items : '' }
 
         )
@@ -460,7 +459,6 @@ async function getAlbum_SpotifiApi ( albumName, limit ){
         .then( response => response.json())
         .then( data => { 
             data.albums.items = _removeNullFromItems(data.albums.items, limit)
-            console.log('data.albums.items:', data.albums.items)
             return  data.albums.items? data.albums.items : '' }
 
         )
@@ -475,7 +473,6 @@ async function getArtistId_SpotifyApi( artistName){
         .then( response => response.json())
         .then( data => { 
             data.artists.items = _removeNullFromItems(data.artists.items)
-            console.log('data.artists.items:', data.artists.items)
             return  data.artists.items[0].id 
         }
 
@@ -534,7 +531,6 @@ async function getTopTracksByArtistId_SpotifiApi( artistId ){
 }
 
 export async function getBrowseCategories() {
-    console.log('getBrowseCategories: Starting...');
     try {
         var searchParameters = await setupHeader(); // Ensure headers with Authorization are correctly set
 
