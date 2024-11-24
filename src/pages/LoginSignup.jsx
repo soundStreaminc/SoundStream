@@ -166,7 +166,7 @@ export function LoginSignup(){
                     <form className='form-container'>
                         <div className={'mainContainer'}>
                     {!isSignup && <div className={'titleContainer'}>
-                        <div>Login</div>
+                        <div>Email or username</div>
                     </div>}
 
                     {isSignup && <div className={'titleContainer'}>
@@ -180,7 +180,12 @@ export function LoginSignup(){
                         onChange={(ev) => setUsername(ev.target.value)}
                         className={'inputBox'}
                         />
+
+                        {/* <ErrorIcon  className="ErrorIcon"/>            */}
                         <label className="errorLabel">{usernameError}</label>
+                    </div>
+                    <div className={'titleContainer'}>
+                        <div>Password</div>
                     </div>
                     <br />
                     <div className={'password-container'}>
@@ -230,10 +235,14 @@ export function LoginSignup(){
                     }
 
                     <br />
-                    <div className={'actions-btn'}>
+                    <div className={'actions-btn-login'}>
                         {!isSignup && <div className='login-btns-container'>
-                            <button className="button-19" role="button" onClick={onLogin} type="button"> Log in </button>
-                            <button className="button-19" role="button" onClick={onSignup} type="button"> Sign up </button>
+                            <button className="button-19" role="button" onClick={onLogin} type="button">
+                                <span className='btn-login-span'>
+                                    Log in 
+                                </span>
+                                 
+                            </button>
                         </div>
                         }
                         {isSignup&& <div className='login-btns-container'>
@@ -242,75 +251,13 @@ export function LoginSignup(){
                         </div>}
                         
                     </div>
-                </div>
-                <div data-testid="login-form" className="login-form-container" data-encore-id="formGroup">
-                    <div className="sc-kinYwB dONESo">
-                        <div className="form-group" data-encore-id="formGroup">
-                            <div className="label-group">
-                                <label htmlFor="login-username" className="login-username-label">
-                                    <span className="login-username-span-label">Email or username</span>
-                                </label>
-                            </div>
-                            
-                            <input aria-invalid="true" className="login-username-input" data-encore-id="formInput" id="login-username" 
-                                type="text" placeholder="Email or username" data-testid="login-username" autoCapitalize="off" autoComplete="username" 
-                                    spellCheck="false" autoCorrect="off" aria-describedby="username-error" value="eranis54321@gmail.com" />
-                            <div data-lastpass-icon-root=""  />
-                            <div data-testid="username-error" id="username-error" className="error-svg-container" data-encore-id="formHelpText" >
-                                
-                                <ErrorIcon  className="ErrorIcon"/>
-                            
-                                    
-                                <span className="login-username-span-input">Please enter your Spotify username or email address.</span>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                    <div className="Group-sc-u9bcx5-0 dTRcop sc-fpSrms bSfdyE" data-encore-id="formGroup">
-                        <div className="LabelGroup-sc-1ibddrg-0 ebSvva encore-text-body-small-bold">
-                            <label htmlFor="login-password" className="Label-sc-1c0cv3r-0 bGmVWE">
-                                <span className="LabelInner-sc-19pye2k-0 kuCWup">Password</span>
-                            </label>
-                        </div>
-                        
-                        <div data-encore-id="formInputIcon" className="InputContainer-sc-a5ofs0-0 cUEVVf">
-                            <input aria-invalid="true" className="Input-sc-1gbx9xe-0 ivEFDo encore-text-body-medium" data-encore-id="formInput" 
-                                id="login-password" type="password" placeholder="Password" data-testid="login-password" autoComplete="current-password" 
-                                    spellCheck="false" autoCorrect="off" aria-describedby="password-error" autoCapitalize="off" />
-                            
-                            {/* <div data-lastpass-icon-root=""  >
-                                <div className="IconContainer-sc-1oa4n9m-0 gyyaHh">
-                                    <button data-testid="login-password-preview" aria-label="show password" data-encore-id="buttonTertiary" className="Button-sc-1dqy6lx-0 bnvbjc">
-                                        <span aria-hidden="true" className="IconWrapper__Wrapper-sc-16usrgb-0 hKVcO">
-                                            <ErrorIcon  className="ErrorIcon"/>
-                                        </span>
-                                    </button>
-                                </div>
-                            </div> */}
-                            
-                            <div data-testid="password-error" id="password-error" className="error-svg-container" data-encore-id="formHelpText">
-                                
-                                <ErrorIcon  className="ErrorIcon"/>
-                                
-                                <span className="Text-sc-g5kv67-0 eZMwYi">Please enter your password.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="sc-gutikT sc-huvEkS fVbbtc leTZEG">
-                    
-                        <button id="login-button" data-testid="login-button" data-encore-id="buttonPrimary" className="Button-sc-qlcn5g-0 hFRjpO encore-text-body-medium-bold">
-                            <span className="ButtonInner-sc-14ud5tc-0 hvvTXU encore-bright-accent-set">
-                                <span className="encore-text encore-text-body-medium-bold sc-iKTcqh sc-gnpbhQ doOTMr cyUyia" data-encore-id="text">Log In</span>
-                            </span>
-                            <span className="ButtonFocus-sc-2hq6ey-0 gJnrqA"></span>
-                        </button>
-                    </div>
                     <div className="sc-ifyrTC sc-dENhDJ sc-eEPDDI dssuKg ilTmUK egGRlx">
                         <a href="#" id="reset-password-link" data-testid="reset-password-link" className="Link-sc-k8gsk-0 cgOuFc sc-euGpHm geXsAV" data-encore-id="textLink">
                             <p variant="bodyMedium" className="sc-czgmHJ kraIJY">Forgot your password?</p>
                         </a>
                     </div>
+                    <span className="encore-text encore-text-body-medium encore-internal-color-text-subdued" data-encore-id="text">Don't have an account?</span>
+                    <a href="#" id="sign-up-link" data-testid="signup-btn-link" className="Link-sc-k8gsk-0 cgOuFc sc-kTYLvb klSGTe" data-encore-id="textLink"><span className="encore-text encore-text-body-medium sc-dJDBYC ghuOx" data-encore-id="text">Sign up for Soundstream</span></a>
                 </div>
                 </form>
                 }
