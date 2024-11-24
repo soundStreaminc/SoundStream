@@ -1,7 +1,9 @@
-.track-preview-container{
+
+.track-preview-grid-container-playlist{
+    // display:  none;
     --grid-gap: 10px;
     --grid-height: 48px;
-    display: grid;
+    // display: grid;
     grid-template-columns: 20px minmax(150px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) 40px;
     gap: var(--grid-gap);
     max-height: var(--grid-height);
@@ -10,21 +12,57 @@
     margin-bottom: 10px; /* Create a gap between songs */
     border-radius: 8px; /* Smooth corners for each song */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
-    background-color: #121212; /* Default background color */
 
 
     &:hover {
         background-color: #333; /* Highlight the song on hover */
-        // border-radius: 15px; /* More rounded corners on hover */
+        border-radius: 15px; /* More rounded corners on hover */
         transform: scale(1.02); /* Slightly enlarge on hover */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow effect */
 
-        .track-actions {
+        .track-actions-playlist {
+            opacity: 1; /* Show actions on hover */
+            pointer-events: auto; /* Enable interaction */
+        }
+
+        .track-actions-album {
             opacity: 1; /* Show actions on hover */
             pointer-events: auto; /* Enable interaction */
         }
     }
-    
+}
+
+.track-preview-grid-container-album{
+    display:  none;
+    --grid-gap: 10px;
+    --grid-height: 48px;
+    display: grid;
+    grid-template-columns: 20px 450px minmax(40px, 1fr);
+    gap: var(--grid-gap);
+    max-height: var(--grid-height);
+    white-space:nowrap;
+    padding: 10px; /* Add padding around each song for spacing */
+    margin-bottom: 10px; /* Create a gap between songs */
+    border-radius: 8px; /* Smooth corners for each song */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+
+
+    &:hover {
+        background-color: #333; /* Highlight the song on hover */
+        border-radius: 15px; /* More rounded corners on hover */
+        transform: scale(1.02); /* Slightly enlarge on hover */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow effect */
+
+        .track-actions-playlist {
+            opacity: 1; /* Show actions on hover */
+            pointer-events: auto; /* Enable interaction */
+        }
+
+        .track-actions-album {
+            opacity: 1; /* Show actions on hover */
+            pointer-events: auto; /* Enable interaction */
+        }
+    }
 }
 
 .track-name{
@@ -43,9 +81,7 @@
     text-decoration: none; /* Ensure links within these elements also have no underline */
 
 }
-.track-image{
 
-}
 
 .album-cover-image{
     position: relative;
@@ -66,13 +102,12 @@
     
 }
 
-
-
-.track-actions {
+.track-actions-playlist {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-left: -20px;
+    // display: none;
     // transition: opacity 0.3s ease; /* Smooth transition for visibility */
 
     opacity: 0; /* Hidden by default */
@@ -101,9 +136,47 @@
 }
 }
 
+.track-actions-album {
+    display: none;
+    display: flex;
+    align-items:right;
+    // gap: 50px;
+    
+    margin-left: auto; /* Pushes the element to the right */
+gap: 10px;
+    // transition: opacity 0.3s ease; /* Smooth transition fghtor visibility */
+
+    opacity: 0; /* Hidden by default */
+
+    .action-icon {
+        //  margin-right: 60x;
+        align-items: center;
+        display: flex;
+        svg {
+            width: 20px;
+        height: 20px;
+        transition: fill 0.3s ease;
+            /* Ensure proper color */
+        }
+        .add-to-liked {
+            fill:  #b3b3b3;
+            &:hover {
+                fill: white; /* White on hover over AddToLiked */
+            }
+        }
+        .more-option-for {
+            fill:  white;
+            &:hover {
+                fill: white; /* White on hover over MoreOptionFor */
+            }
+        }
+}
+}
+
     .track-duration {
         font-size: 1rem;
         color: #b3b3b3;
         text-align: center;
         flex: 1;
+        
     }

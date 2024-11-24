@@ -62,7 +62,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
         font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
-
+        text-decoration: none; /* Remove underline */
+        color: inherit; /* Ensures it matches the parent color */
         
       }
 
@@ -70,11 +71,22 @@
         font-size: 14px;
         color: #b3b3b3;
         font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
+        text-decoration: none; /* Remove underline */
+
 
       }
+      
     }
 }
+.search-results-mini-details-container{
+  text-decoration: none; /* Removes underline */
+  color: inherit; /* Matches the parent's text color */
 
+}
+.search-results-preview-object a {
+  text-decoration: none; /* Removes underline */
+  color: inherit; /* Matches the parent's text color */
+}
 .search-results-preview-object {
   .search-results-item-btn-container {
       position: absolute;

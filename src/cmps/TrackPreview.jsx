@@ -31,6 +31,90 @@ export function TrackPreview({ track, index, isPlaylist, isPlayingPlaylist = fal
     }
 
     return <section className="track-preview-container">
+        <div className='track-preview-grid-container-playlist'>
+        <div className='track-number'>
+            {index}
+        </div>
+        <div className='track-title'>
+            {isPlaylist ? (
+                <div className='track-image'>
+                    <img src={track.track.album.images[0].url} className='album-cover-image' />
+                    {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                </div>
+            ) : ''}
+
+            <div className='name-artist-container'>
+                <div className='track-preview-name-container'>
+                    <a href={`/track/${track.track ? track.track.id : track.id}`} className='track-name'>
+                        {track.track ? track.track.name : track.name}
+                        {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                    </a>
+                </div>
+                <div className='track-preview-artist-container'>
+                    <a href={`/artist/${track.track ? track.track.artists[0].id : track.artists[0].id}`} className='track-artist'>
+                        {track.track ? track.track.artists[0].name : track.artists[0].name}
+                        {/* <button type="button" onClick={() => onPlayTrack(track.track)}> PLay Song </button> */}
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        {isPlaylist ? (
+            <div className='track-album'>
+                {track.track.album.name}
+            </div>) : ''}
+
+        {isPlaylist ? (
+            <div className='track-date-added'>
+                {getFormattedDate(track.added_at)}
+            </div>) : ''}
+
+        <div className="track-actions-playlist">
+
+            <div className="action-icon">
+                <span aria-hidden="true" className="iconWrapper">
+                    <AddToLiked className="add-to-liked" />
+                </span>
+            </div>
+
+            <div className='track-duration'>
+                {convertMsToMinutes(track.track ? track.track.duration_ms : track.duration_ms)}
+
+            </div>
+
+
+            <div className="action-icon">
+                <span aria-hidden="true" className="iconWrapper">
+                    <MoreOptionFor className="more-option-for" />
+                </span>
+            </div>
+        </div>
+
+        <div className="track-actions-album">
+
+            <div className="action-icon">
+                <span aria-hidden="true" className="iconWrapper">
+                    <AddToLiked className="add-to-liked" />
+                </span>
+            </div>
+
+            <div className='track-duration'>
+                {convertMsToMinutes(track.track ? track.track.duration_ms : track.duration_ms)}
+
+            </div>
+
+
+            <div className="action-icon">
+                <span aria-hidden="true" className="iconWrapper">
+                    <MoreOptionFor className="more-option-for" />
+                </span>
+            </div>
+        </div>
+
+        </div>
+        <div className='track-preview-grid-container-album'>
         <div className='track-number'>
             {index}
         </div>
@@ -71,7 +155,7 @@ export function TrackPreview({ track, index, isPlaylist, isPlayingPlaylist = fal
                 {getFormattedDate(track.added_at)}
             </div>) : ''}
 
-        <div className="track-actions">
+        <div className="track-actions-playlist">
 
             <div className="action-icon">
                 <span aria-hidden="true" className="iconWrapper">
@@ -91,5 +175,28 @@ export function TrackPreview({ track, index, isPlaylist, isPlayingPlaylist = fal
                 </span>
             </div>
         </div>
+
+        <div className="track-actions-album">
+
+            <div className="action-icon">
+                <span aria-hidden="true" className="iconWrapper">
+                    <AddToLiked className="add-to-liked" />
+                </span>
+            </div>
+
+            <div className='track-duration'>
+                {convertMsToMinutes(track.track ? track.track.duration_ms : track.duration_ms)}
+
+            </div>
+
+
+            <div className="action-icon">
+                <span aria-hidden="true" className="iconWrapper">
+                    <MoreOptionFor className="more-option-for" />
+                </span>
+            </div>
+        </div>
+        </div>
+
     </section>
 }

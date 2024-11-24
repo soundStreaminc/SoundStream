@@ -34,7 +34,7 @@ export function AlbumDetails(){
             <StationDetails_GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/>
 
             <div className="tracks-container">
-                <TracksList trackList={tracks}/>
+                <TracksList trackList={tracks} isAlbum={true}/>
             </div> 
         </section >
     )
