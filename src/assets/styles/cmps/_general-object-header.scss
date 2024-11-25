@@ -56,3 +56,24 @@
   .station-info-general-artist{
     background-color: rgb(65, 55, 55);
   }
+
+  .artist-icon-container{
+    width: 24px;
+    height: 24px;
+    inset-inline-start: 0px;
+  }
+
+  .artist-icon{
+    object-fit: cover;
+    -o-object-position: center center;
+    object-position: center center;
+    border-radius: 50%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .station-sub-title{
+    display: flex;
+  }

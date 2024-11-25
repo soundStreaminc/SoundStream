@@ -6,6 +6,7 @@ import LikedSongAdded from '../assets/svgs/likedSongAdded.svg?react';
 import { stationService } from "../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { setCurrentlyPlaying } from "../store/song/song.actions";
+import { StationDetails_GeneralObjectMiniTitle } from "./StationDetails_GeneralObjectMiniTitle";
 
 export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = false}){
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
@@ -78,18 +79,7 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
                             </span>
                         </div>
 
-                        <div className="station-title4">
-                            <span className="station-title4-container">
-                                {station.description}
-                            </span>
-                            <div className="station-sub-title">
-                                <b> {station.owner} </b> *                        
-                                {station.followers} save *
-                                {station.count} songs, 
-                                {/* TODO create a function to get the duration of the album. maybe api?*/}
-                                {station.length}
-                            </div>
-                        </div>  
+                        <StationDetails_GeneralObjectMiniTitle miniStation={station}/>
                     </div>
                     
                     

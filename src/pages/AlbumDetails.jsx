@@ -23,7 +23,9 @@ export function AlbumDetails(){
             image: foundAlbum.images ? foundAlbum.images[0].url : 'not found',
             count: foundAlbum.total_tracks,
             length: "about 4 hr 30 min",
-            artist: foundAlbum.artists[0].name
+            artist: foundAlbum.artists[0].name,
+            releaseDate: foundAlbum.release_date
+
         }
         setTracks(foundAlbum.tracks.items) 
     }
