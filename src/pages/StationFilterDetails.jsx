@@ -11,7 +11,7 @@ import { utilService } from "../services/util.service.js";
 export const DISPLAYEDSONGSNUMBER = 4
 
 export function StationFilterDetails(){
-    const DEBOUNCETIME = 3000 //TODO should be in config
+    const DEBOUNCETIME = 300 //TODO should be in config
     const debounceFilterBy = 
         useCallback(utilService.debounce( loadFilterResults , DEBOUNCETIME) , [])
   

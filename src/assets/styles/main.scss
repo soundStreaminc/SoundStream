@@ -11,7 +11,9 @@
 @import "pages/station-details";
 @import "pages/main-display";
 @import "pages/login-page";
-
+@import"pages/artist-details";
+@import"pages/playlist-details";
+@import"pages/album-details";
 /* Components */
 @import "cmps/root-cmp";
 
@@ -25,10 +27,6 @@
 
 @import"cmps/most-played";
 @import"cmps/category-list";
-@import"cmps/tracks-list";
-@import"cmps/playlist-details-list";
-@import"cmps/album-details-list";
-@import"cmps/artist-details-list";
 
 @import"cmps/station-preview";
 @import"cmps/category-preview";
