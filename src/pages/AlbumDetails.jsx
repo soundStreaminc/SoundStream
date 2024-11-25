@@ -1,9 +1,9 @@
 import { useParams } from "react-router"
 import { stationService } from "../services/station.service"
 import { useEffect, useRef, useState } from "react"
-
-import { TracksList } from "../cmps/TracksList"
+import Duration from '../assets/svgs/duration.svg?react'
 import { StationDetails_GeneralObjectHeader } from "../cmps/StationDetails_GeneralObjectHeader"
+import { TrackPreview } from "../cmps/TrackPreview"
 
 export function AlbumDetails(){
     const params = useParams()
@@ -33,8 +33,26 @@ export function AlbumDetails(){
         <section className="album-details">
             <StationDetails_GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/>
 
-            <div className="tracks-container">
-                <TracksList trackList={tracks} isAlbum={true}/>
+            <div className='header-row-album'>
+                <div className="header-index">
+                    <p> # </p> 
+                </div>
+                
+                <div className="header-title">
+                    <p> Title </p> 
+                </div>
+                
+                <div className="header-duration-album">
+                    <span aria-hidden="true" className="iconWrapper-album">         
+                        <Duration className="duration-headerImage-album"/>
+                    </span>
+                </div>
+            </div>
+            <br/>
+            <div className="track-list-album">
+                {tracks.map((track, index) => (
+                    <TrackPreview track={track} index={index} key={track.track? track.track.id: track.id} isPlaylist={false}/>       
+                ))}
             </div> 
         </section >
     )

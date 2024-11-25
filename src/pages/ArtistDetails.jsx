@@ -1,9 +1,8 @@
 import { useParams } from "react-router"
 import { stationService } from "../services/station.service"
 import { useEffect, useRef, useState } from "react"
-
-import { TracksList } from "../cmps/TracksList"
 import { StationDetails_GeneralObjectHeader } from "../cmps/StationDetails_GeneralObjectHeader"
+import { TrackPreview } from "../cmps/TrackPreview"
 
 export function ArtistDetails(  ) {
     const params = useParams()
@@ -33,7 +32,21 @@ export function ArtistDetails(  ) {
             <StationDetails_GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/>
 
             <div className="tracks-container">
-                <TracksList trackList={tracks}  isPlaylist={false}/>
+                <div className='header-row-artist'>
+                    <div className="header-index">
+                        <p> # </p> 
+                    </div>
+                    
+                    <div className="header-title">
+                        <p> Title </p> 
+                    </div>
+                </div>
+                <br/>
+                <div className="track-list-artist">
+                    {tracks.map((track, index) => (
+                        <TrackPreview track={track} index={index} key={track.track? track.track.id: track.id} isPlaylist={false}/>       
+                    ))}
+                </div> 
             </div> 
         </section >
     )
