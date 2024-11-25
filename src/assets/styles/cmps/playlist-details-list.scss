@@ -1,0 +1,29 @@
+.header-row-playlist{
+    --grid-gap: 5px;
+    display: grid;
+    grid-template-columns: 180px minmax(100px, 2fr) minmax(150px, 1.5fr) minmax(150px, 1.8fr) 0.5px 30px;
+    gap: var(--grid-gap);
+    // display: none;
+}
+
+.track-list-playlist{
+    --grid-gap: 10px;
+    --min-column-width: 20px;
+    display: grid;
+    grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
+    gap: var(--grid-gap);
+    // display: none;
+}
+
+
+.duration-headerImage-playlist{
+    fill: rgb(211, 209, 209);
+    width: 15px;
+    height: 15px;
+
+}
+
+.header-duration-playlist{
+    display:flex;
+    justify-content: right;   
+}

@@ -51,7 +51,8 @@ export function AlbumDetails(){
             <br/>
             <div className="track-list-album">
                 {tracks.map((track, index) => (
-                    <TrackPreview track={track} index={index} key={track.track? track.track.id: track.id} isPlaylist={false}/>       
+                    // <TrackPreview track={track} index={index} key={track.track? track.track.id: track.id} isPlaylist={false}/>    
+                    <TrackPreview track={track} index={index} key={track.id} isPlaylist={false} />   
                 ))}
             </div> 
         </section >

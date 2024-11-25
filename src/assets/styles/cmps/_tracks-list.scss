@@ -1,61 +1,61 @@
-.header-row-playlist{
-    --grid-gap: 5px;
-    display: grid;
-    grid-template-columns: 15px minmax(150px, 3fr) minmax(100px, 2fr) minmax(80px, 1fr) 40px;
-    gap: var(--grid-gap);
-    // display: none;
-}
+// .header-row-playlist{
+//     --grid-gap: 5px;
+//     display: grid;
+//     grid-template-columns: 15px minmax(150px, 3fr) minmax(100px, 2fr) minmax(80px, 1fr) 40px;
+//     gap: var(--grid-gap);
+//     // display: none;
+// }
 
-.header-row-album{
-    --grid-gap: 5px;
-    display: grid;
-    grid-template-columns: 250px 450px minmax(10px, 0.8fr);
-    gap: var(--grid-gap);
-    display: none;
-}
+// .header-row-album{
+//     --grid-gap: 5px;
+//     display: grid;
+//     grid-template-columns: 250px 450px minmax(10px, 0.8fr);
+//     gap: var(--grid-gap);
+//     display: none;
+// }
 
-.track-list-playlist{
-    --grid-gap: 10px;
-    --min-column-width: 20px;
-    display: grid;
-    grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
-    gap: var(--grid-gap);
-    // display: none;
-}
+// .track-list-playlist{
+//     --grid-gap: 10px;
+//     --min-column-width: 20px;
+//     display: grid;
+//     grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
+//     gap: var(--grid-gap);
+//     // display: none;
+// }
 
-.track-list-album{
-    --grid-gap: 10px;
-    --min-column-width: 20px;
-    display: grid;
-    grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
-    gap: var(--grid-gap);
-    display: none;
-}
-.track-list-container{
-    padding: 30px;
-}
+// .track-list-album{
+//     --grid-gap: 10px;
+//     --min-column-width: 20px;
+//     display: grid;
+//     grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
+//     gap: var(--grid-gap);
+//     display: none;
+// }
+// .track-list-container{
+//     padding: 30px;
+// }
 
 
-.duration-headerImage-playlist{
-    fill: rgb(211, 209, 209);
-    width: 15px;
-    height: 15px;
+// .duration-headerImage-playlist{
+//     fill: rgb(211, 209, 209);
+//     width: 15px;
+//     height: 15px;
 
-}
+// }
 
-.duration-headerImage-album{
+// .duration-headerImage-album{
     
-    fill: rgb(211, 209, 209);
-    width: 15px;
-    height: 15px;
-    display: none;
-}
-.header-duration-album{
-    display: none;
-    display:flex;
-    justify-content: right;
-}
-.header-duration-playlist{
-    display:flex;
-    justify-content: right;   
-}
+//     fill: rgb(211, 209, 209);
+//     width: 15px;
+//     height: 15px;
+//     display: none;
+// }
+// .header-duration-album{
+//     display: none;
+//     display:flex;
+//     justify-content: right;
+// }
+// .header-duration-playlist{
+//     display:flex;
+//     justify-content: right;   
+// }

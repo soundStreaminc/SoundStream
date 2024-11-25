@@ -1,10 +1,10 @@
 
 .track-preview-grid-container-playlist{
-    // display:  none;
+    display: grid;
     --grid-gap: 10px;
     --grid-height: 48px;
     // display: grid;
-    grid-template-columns: 20px minmax(150px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) 40px;
+    grid-template-columns: 20px minmax(270px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) 60px;
     gap: var(--grid-gap);
     max-height: var(--grid-height);
     white-space:nowrap;
@@ -25,15 +25,13 @@
             pointer-events: auto; /* Enable interaction */
         }
 
-        .track-actions-album {
-            opacity: 1; /* Show actions on hover */
-            pointer-events: auto; /* Enable interaction */
-        }
+       
     }
 }
 
 .track-preview-grid-container-album{
-    display:  none;
+    display: grid;
+    // display:  none;
     --grid-gap: 10px;
     --grid-height: 48px;
     display: grid;
@@ -53,11 +51,7 @@
         transform: scale(1.02); /* Slightly enlarge on hover */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow effect */
 
-        .track-actions-playlist {
-            opacity: 1; /* Show actions on hover */
-            pointer-events: auto; /* Enable interaction */
-        }
-
+       
         .track-actions-album {
             opacity: 1; /* Show actions on hover */
             pointer-events: auto; /* Enable interaction */
@@ -137,7 +131,7 @@
 }
 
 .track-actions-album {
-    display: none;
+    // display: none;
     display: flex;
     align-items:right;
     // gap: 50px;
