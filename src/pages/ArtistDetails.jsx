@@ -28,18 +28,19 @@ export function ArtistDetails(  ) {
 
     if(!tracks || !miniStation.current.image) return <span> loading in progress... </span>
     return (
-        <section className="station-details">
+        <section className="station-details-artist">
             <StationDetails_GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/>
 
-            <div className="tracks-container">
+            <div className="tracks-container-artist">
+                <h1>Popular</h1>
                 <div className='header-row-artist'>
-                    <div className="header-index">
+                    {/* <div className="header-index">
                         <p> # </p> 
-                    </div>
+                    </div> */}
                     
-                    <div className="header-title">
+                    {/* <div className="header-title">
                         <p> Title </p> 
-                    </div>
+                    </div> */}
                 </div>
                 <br/>
                 <div className="track-list-artist">

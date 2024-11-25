@@ -1,0 +1,30 @@
+.header-row-artist{
+    --grid-gap: 5px;
+    display: grid;
+    grid-template-columns: 250px 280px minmax(10px, 0.95fr);
+    gap: var(--grid-gap);
+    // display: none;
+    
+}
+.track-list-artist{
+    --grid-gap: 10px;
+    --min-column-width: 20px;
+    display: grid;
+    grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
+    gap: var(--grid-gap);
+    // display: none;
+}
+
+.duration-headerImage-artist{
+    
+    fill: rgb(211, 209, 209);
+    width: 15px;
+    height: 15px;
+    // display: none;
+}
+
+.header-duration-artist{
+    // display: none;
+    display:flex;
+    justify-content: right;
+}
