@@ -65,7 +65,7 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
     if (!station) return
     return(
         <section className="general-object-header">
-            <div className="station-info">
+            <div className="station-info-general">
                 <div className="station-sub-info">
                     <div className="cover-station">
                         <img src={getPlaylistCover() || 'not found'} />
