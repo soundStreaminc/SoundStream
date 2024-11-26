@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Play from '../assets/svgs/play.svg?react'
 import Pause from '../assets/svgs/pause.svg?react'
 import AddToLiked from '../assets/svgs/addToLiked.svg?react';
@@ -7,18 +7,14 @@ import { stationService } from "../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { setCurrentlyPlaying } from "../store/song/song.actions";
 import { StationDetails_GeneralObjectMiniTitle } from "./StationDetails_GeneralObjectMiniTitle";
+import { usePalette } from "react-palette";
 
 export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = false}){
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
     const [isPlaying, setIsPlaying] = useState( false );
     const MYUSER = 'ohad'
-
-    function getPlaylistCover(){
-        if(station.image === 'not found'){
-            console.log('error: no cover found for the playlist')     
-        }
-        return station.image   
-    }
+    const imgSrc = station.image 
+    const { data, loading, error } = usePalette(imgSrc)
 
     function onPlayPauseClick(  ){
         if (isPlaying) {
@@ -66,10 +62,10 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
     if (!station) return
     return(
         <section className="general-object-header">
-            <div className="station-info-general">
+            <div className="station-info-general"  style={{'backgroundImage': 'linear-gradient(' + data.vibrant + ', black)'}}>
                 <div className="station-sub-info">
                     <div className="cover-station">
-                        <img src={getPlaylistCover() || 'not found'} />
+                        <img src={imgSrc} />
                     </div>
                     <div className="station-titles-container">
                         <div className="station-title3">
