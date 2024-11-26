@@ -34,13 +34,18 @@ export function AlbumDetails(){
     return (
         <section className="album-details">
             <StationDetails_GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/>
-
+            <div className="os-scrollbar os-scrollbar-horizontal os-theme-spotify os-scrollbar-auto-hide os-scrollbar-handle-interactive os-scrollbar-track-interactive os-scrollbar-cornerless os-scrollbar-unusable os-scrollbar-auto-hide-hidden" >
+                <div className="os-scrollbar-track">
+                    <div className="os-scrollbar-handle">
+                    </div>
+                </div>
+            </div>
             <div className='header-row-album'>
-                <div className="header-index">
+                <div className="header-index-album">
                     <p> # </p> 
                 </div>
                 
-                <div className="header-title">
+                <div className="header-title-album">
                     <p> Title </p> 
                 </div>
                 
@@ -54,7 +59,7 @@ export function AlbumDetails(){
             <div className="track-list-album">
                 {tracks.map((track, index) => (
                     // <TrackPreview track={track} index={index} key={track.track? track.track.id: track.id} isPlaylist={false}/>    
-                    <TrackPreview track={track} index={index} key={track.id} isPlaylist={false} />   
+                    <TrackPreview track={track} index={index + 1} key={track.id} isPlaylist={false} />   
                 ))}
             </div> 
         </section >

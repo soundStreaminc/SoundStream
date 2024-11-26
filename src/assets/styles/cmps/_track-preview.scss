@@ -65,15 +65,22 @@
     text-align: center;
     flex: 1;
     text-decoration: none; /* Ensure links within these elements also have no underline */
-
+    font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);;
 }
-.track-number, .track-album, .track-date-added, .track-artist, .name-artist-container{
+.track-number, .track-album, .track-date-added, .track-artist{
     font-size: 1rem;
     color: #b3b3b3;
     text-align: center;
     flex: 1;
     text-decoration: none; /* Ensure links within these elements also have no underline */
+}
 
+.name-artist-container{
+    font-size: 1rem;
+    color: #b3b3b3;
+    text-align: left;
+    flex: 1;
+    text-decoration: none; /* Ensure links within these elements also have no underline */
 }
 
 
@@ -140,9 +147,8 @@
 gap: 10px;
     // transition: opacity 0.3s ease; /* Smooth transition fghtor visibility */
 
-    opacity: 0; /* Hidden by default */
-
     .action-icon {
+        opacity: 0; /* Hidden by default */
         //  margin-right: 60x;
         align-items: center;
         display: flex;
@@ -172,5 +178,4 @@ gap: 10px;
         color: #b3b3b3;
         text-align: center;
         flex: 1;
-        
     }

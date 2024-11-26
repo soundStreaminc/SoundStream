@@ -86,13 +86,19 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
                 <div className='controll-btns2'>
                     {!isPlaying ? (
                     <button type="button" aria-label="Play" className="play playerButton4" onClick={() => onPlayPauseClick(false)}>
-                        <span aria-hidden="true" className="iconWrapper">         
-                            <Play className="action-btn4" />
+                        <span className="button-inner">         
+                            <span aria-hidden="true" className="station-details-iconWrapper">         
+                                <Play className="action-btn4" />
+                            </span>
                         </span>
                     </button>
                     ) : (
                     <button type="button" aria-label="Pause" className="pause playerButton4" onClick={() => onPlayPauseClick(true)}>
-                        <Pause className="action-btn4" />
+                        <span className="button-inner">         
+                            <span aria-hidden="true" className="station-details-iconWrapper">         
+                                <Pause className="action-btn4" />
+                            </span>
+                        </span>            
                     </button>
                     )}
                 </div>  

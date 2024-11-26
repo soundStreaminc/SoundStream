@@ -28,7 +28,7 @@ export function StationDetails_GeneralObjectMiniTitle({miniStation}){
                     <div class='artist-icon-container'>
                         <img src=${miniStation.image} class='artist-icon'/>
                     </div> ${miniStation.artist}  *                  
-                    ${miniStation.releaseDate} *
+                    ${getYearFromDate(miniStation.releaseDate).year} *
                     ${miniStation.count} songs, 
                     ${miniStation.length}
                 </div>`
