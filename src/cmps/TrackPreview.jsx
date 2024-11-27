@@ -72,7 +72,7 @@ export function TrackPreview({ track, index, isPlaylist, isPlayingPlaylist = fal
             <div className="track-duration">
                 {convertMsToMinutes(track.track?.duration_ms || track.duration_ms)}
             </div>
-            <button className="track-preview-action-icon">
+            <button className="track-preview-action-icon-more">
                 <span aria-hidden="true" className="iconWrapper">
                     <MoreOptionFor className="more-option-for" />
                 </span>
