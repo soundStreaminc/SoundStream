@@ -13,11 +13,13 @@ export function CategoryList( {categoryName} ){
 
     async function loadCategoryPlayedList( categoryName){
         const categoryArray = await stationService.getCategoryPlaylists ( categoryName, DISPLAYEDSONGSNUMBER )
-        categoryType.current = categoryArray[0].type
+        if( !categoryArray | categoryArray.length === 0 ) return
+        console.log('categoryArray:', categoryArray)
+        categoryType.current = categoryArray ? categoryArray[0].type : null
         setPlaylists ( categoryArray )
     }
 
-    if( !playlists) return <div> loading, please wait. </div>
+    if( !playlists | !categoryType.current ) return <div> loading, please wait. </div>
     return (
         <section className="category-list-container">
             <div className="category-list">

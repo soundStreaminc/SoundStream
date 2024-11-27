@@ -27,7 +27,7 @@ export default function StationMiniPreview({ stationInfo }) {
     return res
   }
 
-  if (!station ) return <span> station preview loading.. </span>
+  if (!station || !station.images) return <span> station preview loading.. </span>
   return (
 <section className="station-mini-preview">
   <li

@@ -562,7 +562,10 @@ async function getMadeForU_SpotifiApi ( limit ){
     var searchParameters = await setupHeader()
     var albums = await fetch (`https://api.spotify.com/v1/search?q=dailymix&type=playlist&limit=${limit}` , searchParameters )
         .then( response => response.json())
-        .then( data => {   return data.playlists.items }
+        .then( data => {   
+            data.playlists.items = _removeNullFromItems(data.playlists.items)
+            return data.playlists.items 
+        }
     )
 
     return albums 
@@ -572,7 +575,10 @@ async function getTopMixes_SpotifiApi (limit){
     var searchParameters = await setupHeader()
     var albums = await fetch (`https://api.spotify.com/v1/search?q=mix&type=playlist&limit=${limit}` , searchParameters )
         .then( response => response.json())
-        .then( data => {   return data.playlists.items }
+        .then( data => {   
+            data.playlists.items = _removeNullFromItems(data.playlists.items)
+            return data.playlists.items 
+        }
     )
 
     return albums 
@@ -582,7 +588,10 @@ async function getYourFavoriteArtist_SpotifiApi (limit){
     var searchParameters = await setupHeader()
     var albums = await fetch (`https://api.spotify.com/v1/search?q=best&type=artist&limit=${limit}` , searchParameters )
         .then( response => response.json())
-        .then( data => { return data.artists.items }
+        .then( data => { 
+            data.artists.items = _removeNullFromItems(data.artists.items)
+            return data.artists.items 
+        }
     )
 
     return albums 
@@ -592,7 +601,10 @@ async function getRecommended_SpotifiApi (limit){
     var searchParameters = await setupHeader()
     var albums = await fetch (`https://api.spotify.com/v1/search?q=station&type=playlist&limit=${limit}` , searchParameters )
         .then( response => response.json())
-        .then( data => {   return data.playlists.items }
+        .then( data => {   
+            data.playlists.items = _removeNullFromItems(data.playlists.items)
+            return data.playlists.items 
+        }
     )
 
     return albums 
