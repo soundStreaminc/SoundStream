@@ -63,7 +63,9 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
     if (!station) return
     return(
         <section className="general-object-header">
-            <div className="station-info-general"  style={{'backgroundImage': 'linear-gradient(' + data.vibrant + ', black)'}}>
+            <div className="station-info-general"  style={{
+                'backgroundImage': 'linear-gradient(' + data.vibrant + ', oklch(from ' + data.vibrant + ' calc(l - .5) c h))'
+                }}>
                 <div className="station-sub-info">
                     <div className="cover-station">
                         <img src={imgSrc} />
@@ -83,7 +85,9 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
                 </div>
             </div>
 
-            <div className="general-object-header-btns">
+            <div className="general-object-header-btns" style={{
+                'backgroundImage': 'linear-gradient(oklch(from ' + data.vibrant + ' calc(l - .5) c h), black)'
+                }}>
                 <div className='controll-btns2'>
                     {!isPlaying ? (
                     <button type="button" aria-label="Play" className="play playerButton4" onClick={() => onPlayPauseClick(false)}>

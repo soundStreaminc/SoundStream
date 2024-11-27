@@ -64,7 +64,7 @@ export function TrackPreview({ track, index, isPlaylist, isPlayingPlaylist = fal
 
         {/* Track Duration and Actions */}
         <div className={isPlaylist ? "track-actions-playlist" : "track-actions-album"}>
-            <button className="action-icon">
+            <button className="track-preview-action-icon">
                 <span aria-hidden="true" className="iconWrapper">
                     <AddToLiked className="add-to-liked" />
                 </span>
@@ -72,11 +72,11 @@ export function TrackPreview({ track, index, isPlaylist, isPlayingPlaylist = fal
             <div className="track-duration">
                 {convertMsToMinutes(track.track?.duration_ms || track.duration_ms)}
             </div>
-            <div className="action-icon">
+            <button className="track-preview-action-icon">
                 <span aria-hidden="true" className="iconWrapper">
                     <MoreOptionFor className="more-option-for" />
                 </span>
-            </div>
+            </button>
         </div>
     </div>
 </section>
