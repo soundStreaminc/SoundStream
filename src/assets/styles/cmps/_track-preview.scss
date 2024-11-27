@@ -52,7 +52,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow effect */
 
        
-        .track-actions-album {
+        .action-icon, .action-icon {
             opacity: 1; /* Show actions on hover */
             pointer-events: auto; /* Enable interaction */
         }
@@ -138,10 +138,9 @@
 }
 
 .track-actions-album {
-    // display: none;
     display: flex;
     align-items:right;
-    // gap: 50px;
+    justify-content: flex-end;
     
     margin-left: auto; /* Pushes the element to the right */
 gap: 10px;
@@ -153,8 +152,8 @@ gap: 10px;
         align-items: center;
         display: flex;
         svg {
-            width: 20px;
-        height: 20px;
+            width: 16px;
+        height: 16px;
         transition: fill 0.3s ease;
             /* Ensure proper color */
         }

@@ -64,11 +64,11 @@ export function TrackPreview({ track, index, isPlaylist, isPlayingPlaylist = fal
 
         {/* Track Duration and Actions */}
         <div className={isPlaylist ? "track-actions-playlist" : "track-actions-album"}>
-            <div className="action-icon">
+            <button className="action-icon">
                 <span aria-hidden="true" className="iconWrapper">
                     <AddToLiked className="add-to-liked" />
                 </span>
-            </div>
+            </button>
             <div className="track-duration">
                 {convertMsToMinutes(track.track?.duration_ms || track.duration_ms)}
             </div>

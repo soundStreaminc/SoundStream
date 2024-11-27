@@ -15,14 +15,6 @@
     grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
 }
 
-.playerButton4{
-    background-color: #1ed760; /* green background*/
-    .action-btn4{
-        background-color: #1ed760;
-        cursor: pointer;
-    }
-}
-
 .action-btn4{
     fill: currentcolor;
     width: var(--encore-graphic-size-decorative-base, 24px);
@@ -62,7 +54,7 @@
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
     position: relative;
-    background-color: #1ed760;
+    background-color: #1db954;
     color:  #000000;
     display: flex;
     border-radius: var(--encore-button-corner-radius, 9999px);
@@ -78,6 +70,10 @@
     transition-duration: 33ms;
     width: 56px;
     height: 56px;
+
+    &:hover {
+        background-color: #1ed760; /* Brighter green on hover */
+      }
   }
 
   .station-details-iconWrapper{

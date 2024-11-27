@@ -8,6 +8,7 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { setCurrentlyPlaying } from "../store/song/song.actions";
 import { StationDetails_GeneralObjectMiniTitle } from "./StationDetails_GeneralObjectMiniTitle";
 import { usePalette } from "react-palette";
+import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
 
 export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = false}){
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
@@ -117,6 +118,12 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
                             </span>
                         </button> 
                     )}
+                </div>
+
+                <div className="general-object-header-icon">
+                    <span aria-hidden="true" className="general-object-header-iconWrapper">
+                        <MoreOptionFor className="more-option-for" />
+                    </span>
                 </div>
             </div>
         </section>
