@@ -63,7 +63,7 @@ export function PlaylistDetails(  ) {
             <br/>
             <div className="track-list-playlist">
                 {tracks.map((track, index) => (
-                    <TrackPreview track={track} index={index} key={track.track? track.track.id: track.id} isPlaylist={true}/>       
+                    <TrackPreview track={track + 1} index={index} key={track.track? track.track.id: track.id} isPlaylist={true}/>       
                 ))}
                 </div> 
             </div> 

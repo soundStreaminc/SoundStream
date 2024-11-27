@@ -45,7 +45,7 @@ export function ArtistDetails(  ) {
                 <br/>
                 <div className="track-list-artist">
                     {tracks.map((track, index) => (
-                        <TrackPreview track={track} index={index} key={track.track? track.track.id: track.id} isPlaylist={false}/>       
+                        <TrackPreview track={track} index={index + 1} key={track.track? track.track.id: track.id} isPlaylist={false}/>       
                     ))}
                 </div> 
             </div> 
