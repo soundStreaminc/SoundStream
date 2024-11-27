@@ -117,18 +117,18 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
                         </button> 
                     ) : (
                         <button className="remove-station-btn"  type="button" aria-label="Remove From Your Library" onClick={() => onAddRemoveClick(true)}>
-                            <span aria-hidden="true" className="iconWrapper">         
+                            <span aria-hidden="true" className="remove-station-btn-iconWrapper">         
                                 <LikedSongAdded className="remove-from-liked" />
                             </span>
                         </button> 
                     )}
                 </div>
 
-                <div className="general-object-header-icon">
+                <button className="general-object-header-icon">
                     <span aria-hidden="true" className="general-object-header-iconWrapper">
-                        <MoreOptionFor className="more-option-for" />
+                        <MoreOptionFor className="general-object-header-more-option-for" />
                     </span>
-                </div>
+                </button>
             </div>
         </section>
     )

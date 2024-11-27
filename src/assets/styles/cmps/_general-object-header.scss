@@ -70,4 +70,70 @@
 
   .station-sub-title{
     display: flex;
+    align-items: center;
+  }
+
+  .general-object-header-icon{
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    background-color: transparent;
+    border: 0px;
+    border-radius: var(--encore-button-corner-radius, 9999px);
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    touch-action: manipulation;
+    transition-duration: 33ms;
+    transition-property: background-color, border-color, color, box-shadow, filter, transform;
+    user-select: none;
+    vertical-align: middle;
+    transform: translate3d(0px, 0px, 0px);
+    color: var(--text-subdued, #656565);
+    min-inline-size: 0px;
+    min-block-size: var(--encore-control-size-larger, 56px);
+    padding-block: var(--encore-spacing-tighter, 12px);
+    padding-inline: 0px;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+  }
+
+  .general-object-header-iconWrapper{
+    display: flex;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+  }
+
+  .general-object-header-more-option-for{
+    fill: currentcolor;
+    width: var(--encore-graphic-size-decorative-larger, 32px);
+    height: var(--encore-graphic-size-decorative-larger, 32px);
+
+    &:hover{
+      fill: white;
+      border-color: #000;
+    }
+  }
+
+  .mini-title-artist-name{
+    font-weight: 700;
+    font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);
+    font-size: 0.875rem;
+  }
+
+  .mini-title-release-date, .mini-title-duration{
+    --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
+    font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);
+    font-size: 0.875rem;
+  }
+
+  .seperator-title{
+    font-weight: 400;
+    margin-inline: 4px;
   }

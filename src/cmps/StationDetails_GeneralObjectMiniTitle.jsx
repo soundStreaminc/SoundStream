@@ -16,8 +16,8 @@ export function StationDetails_GeneralObjectMiniTitle({miniStation}){
                     ${miniStation.description}
                 </span>
                 <div className="station-sub-title">
-                    <b> ${miniStation.owner} </b> *                        
-                    ${miniStation.followers} save *
+                    <b> ${miniStation.owner} </b> <span class='seperator-title'> • </span>                        
+                    ${miniStation.followers} save <span class='seperator-title'> • </span>
                     ${miniStation.count} songs, 
                     ${miniStation.length}
                 </div>`
@@ -27,8 +27,8 @@ export function StationDetails_GeneralObjectMiniTitle({miniStation}){
                 `<div class="station-sub-title">
                     <div class='artist-icon-container'>
                         <img src=${miniStation.image} class='artist-icon'/>
-                    </div> ${miniStation.artist}  *                  
-                    ${getYearFromDate(miniStation.releaseDate).year} *
+                    </div> ${miniStation.artist} <span class='seperator-title'> • </span>                  
+                    <div class='mini-title-release-date'> ${getYearFromDate(miniStation.releaseDate).year} </div> <span class='seperator-title'> • </span>
                     ${miniStation.count} songs, 
                     ${miniStation.length}
                 </div>`
@@ -38,10 +38,11 @@ export function StationDetails_GeneralObjectMiniTitle({miniStation}){
                 `<div class="station-sub-title">
                     <div class='artist-icon-container'>
                         <img src=${miniStation.image} class='artist-icon'/>
-                    </div> ${miniStation.artist}  *  
-                    ${miniStation.album} *    
-                    ${getYearFromDate(miniStation.releaseDate).year}                        
-                    ${convertMsToMinutes(miniStation.duration)}
+                    </div> 
+                    <div class='mini-title-artist-name'> ${miniStation.artist} </div> <div class='seperator-title'> • </div>  
+                    ${miniStation.album} <span class='seperator-title'> • </span>    
+                    <div class='mini-title-release-date'> ${getYearFromDate(miniStation.releaseDate).year} </div> <span class='seperator-title'> • </span>                       
+                    <div class='mini-title-duration'> ${convertMsToMinutes(miniStation.duration)}</div>
                 </div>`
                 break
             case 'artist':
@@ -75,8 +76,8 @@ export function StationDetails_GeneralObjectMiniTitle({miniStation}){
                 {miniStation.description}
             </span>
             <div className="station-sub-title">
-                <b> {miniStation.owner} </b> *                        
-                {miniStation.followers} save *
+                <b> {miniStation.owner} </b> <span class='seperator-title'> • </span>                        
+                {miniStation.followers} save <span class='seperator-title'> • </span>
                 {miniStation.count} songs, 
                 {/* TODO create a function to get the duration of the album. maybe api?*/}
                 {miniStation.length}
