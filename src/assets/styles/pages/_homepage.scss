@@ -33,7 +33,8 @@
     flex-direction: column;
     gap: 2em;
     color: #fff;
-    background-color: #181818;
+    background: linear-gradient(180deg, #121212 0%, #181818 100%); /* Add gradient effect */
+    
 }
 
 .content-filters {
@@ -143,21 +144,44 @@
     }
 }
 
-.filter-top-result-container{
-    display: grid;
-    //grid-gap: var(--grid-gap);
-    grid-auto-rows: -webkit-min-content;
-    grid-auto-rows: min-content;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+
+
+
+
+.filter-songs-container{
+    // --background-base: #121212;
+    //    backdrop-filter: blur(8px); /* Add a blur effect for modern look */
+    padding: 20px;
+    border-radius: 8px;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+}  
+
+.top-result-container {
+    // padding: 0 0 0 15px; /* Add padding to the right for spacing */
+    gap: 5px;
+
 }
 
-.top-result-container{
+.title {
+    padding: 0 0 0 15px; /* Add padding to the right for spacing */
+
     display: flex;
-    grid-column: 1 / -1 ;
+    justify-content: space-between; /* Push titles to opposite sides */
+    // margin-bottom: 16px;
+    // padding: 0 0 0 15px; /* Add padding to the right for spacing */
+
+}
+.title h2:first-child {
+
+    text-align: left; /* Ensure Top Result is on the left */
 }
 
-.title{
-    margin-bottom: 8px;
+.title h2:last-child {
+    padding: 0 0 0 15px; /* Add padding to the right for spacing */
+
+    text-align: right; /* Ensure Songs title is on the right */
+    // padding: 0 0 0 15px; /* Add padding to the right for spacing */
+
 }
 
 .top-result-sub-container{
@@ -171,11 +195,7 @@
     gap: 20px;
 }
 
-.artist-image{
-    border-radius: 50%;
-    width: 92px;
-    height: 92px;
-}
+
 
 .artist-name{
     font-family: SpotifyMixUITitle, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic, sans-serif;
@@ -184,56 +204,34 @@
     font-size: 32px;
 }
 
-.filter-menu-container {
-    padding-bottom: 12px;
-    padding-top: 12px;
-    display: flex;
-    gap: 10px;
-    flex-direction: row; // Keep the buttons inline but below the header
-    padding: 0 10px; // Padding around the section
-    margin-bottom: 30px; // Add space between serch-recents and playlist-list
-    padding: 0 10px; // Padding around the section
-    .filter-btn {
-        background-color: #333;
-        padding: 8px 16px;
-        border-radius: 20px;
-        color: white;
-        border: none;
-        cursor: pointer;
 
-        &:hover {
-            background-color: #444;
-        }
-    }
-}
 
 .filter-top-result-container{
     display: grid;
-    //grid-gap: var(--grid-gap);
-    grid-auto-rows: -webkit-min-content;
-    grid-auto-rows: min-content;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: 1fr 1fr; /* Allocate space: 1 part for Top Result, 2 parts for Songs */
+    // gap: 20px; /* Add spacing between the two sections */
+    align-items: start; /* Align items to the top */
+    width: 100%; /* Ensure the grid spans the full width */
 }
 
-.top-result-container{
-    display: flex;
-    grid-column: 1 / -1 ;
-}
-
-.title{
-    margin-bottom: 8px;
-}
-
-.top-result-sub-container{
-    background: #181818;
-    grid-column: span 2;
-    border-radius: 8px;
-    padding: 20px;
-    width: 100%;
+.filter-albums-container,
+.filter-playlists-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-top: 30px; /* Add spacing from the top result section */
+    width: 100%; /* Start from the left and span full width */
 }
+
+.albums-container,
+.playlists-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next row */
+    gap: 20px; /* Spacing between albums/playlists */
+}
+
+
+
 
 .artist-image-container{
 
@@ -248,10 +246,4 @@
     height: 92px;
 }
 
-.artist-name{
-    font-family: SpotifyMixUITitle, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic, sans-serif;
-    font-weight: 700;
-    text-wrap: balance;
-    font-size: 32px;
-}
 
