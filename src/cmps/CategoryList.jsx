@@ -14,7 +14,6 @@ export function CategoryList( {categoryName} ){
     async function loadCategoryPlayedList( categoryName){
         const categoryArray = await stationService.getCategoryPlaylists ( categoryName, DISPLAYEDSONGSNUMBER )
         if( !categoryArray | categoryArray.length === 0 ) return
-        console.log('categoryArray:', categoryArray)
         categoryType.current = categoryArray ? categoryArray[0].type : null
         setPlaylists ( categoryArray )
     }
