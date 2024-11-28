@@ -137,6 +137,15 @@ export function StationFilterDetails(){
                     <h2>
                         <span> Top result </span>
                     </h2>
+
+                    {/* <h2>
+                    <h2>  <span> Songs </span></h2>
+                        <span> {tracksHeader.current} </span>
+                    </h2> */}
+                </div>
+                <div className="title-Songs">
+                <h2>  <span> Songs </span></h2>
+
                 </div>
 
 
@@ -151,15 +160,10 @@ export function StationFilterDetails(){
                         <span> Artist </span>
                     </div>
                 </div>
-            </div>
+           
 
             <div className="filter-songs-container">
-                <div className="title">
-                    <h2>
-                        <span> {tracksHeader.current} </span>
-                    </h2>
-                </div>
-
+             
 
                 <div className="search-results-object-song-songs-container">
                     {foundSongs.map((song, i) => {
@@ -211,7 +215,9 @@ export function StationFilterDetails(){
                 </div>
 
                 
-                <div className="filter-songs-container">
+               
+                </div>  
+                <div className="filter-albums-container">
                     <div className="title">
                         <h2>
                             <span> {albumsHeader.current} </span>
@@ -234,7 +240,7 @@ export function StationFilterDetails(){
                     </div> 
                 </div>
 
-            <div className="filter-songs-container">
+            <div className="filter-playlists-container">
                 <div className="title">
                     <h2>
                         <span> {playlistsHeader.current} </span>

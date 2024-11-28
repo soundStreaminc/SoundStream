@@ -1,5 +1,5 @@
 .sidebar {
-    background-color: #121212;  // Dark background for the sidebar
+    background-color: #121212; // Dark background for the sidebar
     width: 39vh;
     //height: 72vh;  // Full viewport height
     display: flex;
@@ -7,36 +7,43 @@
     color: white;
     height: 100%;
     width: 100%;
+    border-radius: 2%;
 
     .sidebar-section {
         margin-bottom: 20px;
-        display: flex; 
+        display: flex;
         flex-direction: row; // Align header and add-arrow in a row
         justify-content: space-between;
         align-items: center; // Vertically center both items on the same linee
 
-           /* Styling for the library header (icon and text) */
-           .library-header {
+        /* Styling for the library header (icon and text) */
+        .library-header {
             display: flex;
             align-items: center;
-            color: #b3b3b3; /* Default color */
-            fill:#b3b3b3;
-            gap:5px;
+            color: #b3b3b3;
+            /* Default color */
+            fill: #b3b3b3;
+            gap: 5px;
+
             /* Apply hover to both the icon and text */
             &:hover {
-                color: white; /* Changes text and icon color to white */
-                fill:white;
+                color: white;
+                /* Changes text and icon color to white */
+                fill: white;
             }
 
             .library-icon {
+                padding: 0 0 0 15px; /* Add padding to the right for spacing */
+
                 width: 24px;
                 height: 24px;
-                margin-left: 8px;
+                // margin-left: 8px;
                 transition: fill 0.3s ease;
-                
+
 
                 svg {
-                    color: #b3b3b3;             }
+                    color: #b3b3b3;
+                }
             }
 
             h3 {
@@ -44,16 +51,19 @@
                 font-weight: bold;
                 margin-left: 6px;
                 transition: color 0.3s ease;
-                font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
+                font-family: 'Inter', sans-serif;
+                /* Example: Replace with your preferred font */
 
             }
         }
 
         .add-arrow {
             display: flex;
-            gap: 10px;
-            margin-top: 0; 
-            
+            gap: 15px;
+            // margin-top: 0; 
+            padding: 0 30px 0 0; /* Add padding to the right for spacing */
+
+
             /* Add Icon */
             .library-add-btn {
                 background-color: transparent;
@@ -78,7 +88,8 @@
                     transition: fill 0.3s ease;
 
                     &:hover {
-                        fill: white; /* Changes to white on hover */
+                        fill: white;
+                        /* Changes to white on hover */
                     }
                 }
             }
@@ -89,11 +100,13 @@
                 border: none;
                 display: flex;
                 align-items: center;
-                justify-content: center;
-                padding: 0;
+                justify-content: center; /* Keep the icon centered */
+                padding: 0; /* Reset padding */
                 cursor: pointer;
-                width: 24px;
-                height: 24px;
+                width: 24px; /* Keep the button circular */
+                height: 24px; /* Keep the button circular */
+                position: relative; /* Use relative positioning to add space */
+
 
                 &:hover {
                     border-radius: 50%;
@@ -107,13 +120,15 @@
                     transition: fill 0.3s ease;
 
                     &:hover {
-                        fill: white; /* Changes to white on hover */
+                        fill: white;
+                        /* Changes to white on hover */
                     }
                 }
             }
         }
 
     }
+
     .library-options {
         margin-top: 15px; // Add spacing from the library-header and add-arrow
         display: flex;
@@ -122,6 +137,7 @@
         padding: 0 10px; // Padding around the section
         margin-bottom: 30px; // Add space between serch-recents and station-list
         padding: 0 10px; // Padding around the section
+
         .library-btn {
             background-color: #333;
             padding: 8px 16px;
@@ -140,7 +156,7 @@
         flex-grow: 1;
         overflow-y: auto;
 
-        .serch-recents{
+        .serch-recents {
 
             display: flex;
             justify-content: space-between; // Align search and recents to opposite ends
@@ -149,83 +165,99 @@
             margin-bottom: 15px; // Add space between serch-recents and station-list
 
 
-            .library-search-btn{
-                display: flex;
-        align-items: center;
-        justify-content: center;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-
-           
-            .search-icon{
-                width: 24px; // Make the search icon smaller
-                height: 24px; // Adjust the size as needed
-                fill:#b3b3b3; // Ensure the search icon is white in color
-                transition: fill 0.2s, width 0.2s, height 0.2s ease; // Smooth transition for icon size and color changes
-                &:hover {
-                    fill: white; // Change to white on hover
-                }
-            }
-           }
-            .library-recents-btn{
+            .library-search-btn {
                 display: flex;
                 align-items: center;
-                color: #b3b3b3; /* Default color */
-                
+                justify-content: center;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+
+
+                .search-icon {
+                    width: 24px; // Make the search icon smaller
+                    height: 24px; // Adjust the size as needed
+                    fill: #b3b3b3; // Ensure the search icon is white in color
+                    transition: fill 0.2s, width 0.2s, height 0.2s ease; // Smooth transition for icon size and color changes
+
+                    &:hover {
+                        fill: white; // Change to white on hover
+                    }
+                }
+            }
+
+            .library-recents-btn {
+                display: flex;
+                align-items: center;
+                color: #b3b3b3;
+                /* Default color */
+
                 /* Apply hover to both the icon and text */
                 gap: 5px;
                 background: transparent;
                 border: none;
                 cursor: pointer;
-                padding: 0 10px; /* Add horizontal padding for proper spacing */
+                padding: 0 10px;
+                /* Add horizontal padding for proper spacing */
 
 
                 &:hover {
-                    color: white; /* Changes text and icon color to white */
-                    fill:white;
+                    color: white;
+                    /* Changes text and icon color to white */
+                    fill: white;
 
-        h3 {
-            color: white; /* Changes text color */
-            font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
+                    h3 {
+                        color: white;
+                        /* Changes text color */
+                        font-family: 'Inter', sans-serif;
+                        /* Example: Replace with your preferred font */
 
-        }
-        .recents-icon {
-            fill: white; /* Changes icon color */
-        }
+                    }
+
+                    .recents-icon {
+                        fill: white;
+                        /* Changes icon color */
+                    }
                 }
 
-                .h3{
+                .h3 {
                     font-size: 14px;
                     font-weight: 600;
-                    margin-bottom: 0; /* Align text with icon */
+                    margin-bottom: 0;
+                    /* Align text with icon */
                     transition: color 0.3s ease-in-out;
                     color: #b3b3b3;
-                 
+
                 }
 
-          
-            .recents-icon{
-                width: 16px; /* Match icon size in the image */
-                height: 16px; /* Match icon size in the image */
-                fill: #b3b3b3; /* Default icon color */
-                transition: fill 0.2s ease-in-out;
-                margin-left: 4px; /* Space between text and icon */
-                margin-right: 8px; /* Adds space to the right side for balance */
+
+                .recents-icon {
+                    width: 16px;
+                    /* Match icon size in the image */
+                    height: 16px;
+                    /* Match icon size in the image */
+                    fill: #b3b3b3;
+                    /* Default icon color */
+                    transition: fill 0.2s ease-in-out;
+                    margin-left: 4px;
+                    /* Space between text and icon */
+                    margin-right: 8px;
+                    /* Adds space to the right side for balance */
+
+                }
+
 
             }
-
-
         }
-    }
 
         .station-list {
             list-style: none;
             padding: 0;
-            margin-top: 20px; 
+            margin-top: 20px;
 
             li {
                 margin-bottom: 15px;
+
                 a {
                     display: flex;
                     align-items: center;
@@ -265,6 +297,6 @@
     }
 }
 
-.sidebar-content{
+.sidebar-content {
     width: 100%;
 }

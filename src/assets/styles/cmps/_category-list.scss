@@ -16,6 +16,9 @@
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     min-height: var(--shelf-min-height, 260px);
+    gap: 10px;
+    width: 100%; /* Ensures it spans the full width of the viewport */
+
 }
 
 .category-list{
@@ -26,4 +29,10 @@
     grid-auto-rows: -webkit-min-content;
     grid-auto-rows: min-content;
     grid-template-columns: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
+    --grid-gap: 5px; /* Increase gap for better spacing */
+    width: 100%; /* Ensures the grid spans the container */
+    justify-content: space-between; /* Distributes items evenly */
+    align-items: center; /* Vertically align items for better appearance */
+
+
 }

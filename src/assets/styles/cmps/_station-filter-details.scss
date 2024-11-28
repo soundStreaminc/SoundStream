@@ -4,19 +4,19 @@ body, .station-filter-container {
     margin: 0;
     padding: 0;
     
-    
+    font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);;
     
 }
 
 .search-results-object-song-title{
-    background-color: #121212; /* Dark background consistent with the rest */
+    // background-color: #121212; /* Dark background consistent with the rest */
     font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
 }
 .search-results-object-song-songs-container {
     max-height: 500px; // Limit the height of the container to allow scrolling
     overflow-y: auto; // Enable vertical scrolling
-    padding-right: 10px; // Prevent scrollbar overlap
-    background-color: #121212; /* Dark background consistent with the rest */
+    // padding-right: 10px; // Prevent scrollbar overlap
+    // background-color: #121212; /* Dark background consistent with the rest */
 
     //song
     .search-results-object-song-mini-details-container {
@@ -96,6 +96,8 @@ body, .station-filter-container {
             /* Push actions to the right */
             opacity: 0; /* Hidden by default */
             transition: opacity 0.3s ease; /* Smooth transition for visibility */
+            padding: 0 15px 0 0; /* Add padding to the right for spacing */
+
             .action-icon {
                 align-items: center;
                 display: flex;

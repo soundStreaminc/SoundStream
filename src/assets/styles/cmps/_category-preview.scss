@@ -1,4 +1,5 @@
 .category-preview-container {
+  gap: 10px;;
     text-decoration: none;
     color: #fff;
     background-color: #1c1c1c; // Card background color
@@ -9,7 +10,7 @@
     transition: transform 0.2s ease-in-out;
   
     &:hover {
-      transform: scale(1.05);
+      // transform: scale(1.05);
       background-color: #282828; // Slightly brighter on hover
     }
 }
@@ -43,7 +44,7 @@
      width: 170px; // Adjust to fit the container
         height: 170px; // Increased height for better visibility
       img {
-        width: 100%; // Adjust to fit the container
+        width: 95%; // Adjust to fit the container
         height: 160px; // Increased height for better visibility
         object-fit: cover; // Ensures the image covers the area without distortion
         border-radius: 8px 8px 0 0;
@@ -86,6 +87,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
         font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
+        text-decoration: none; /* Remove underline */
+        color: inherit; /* Ensures it matches the parent color */
 
         
       }
@@ -94,6 +97,7 @@
         font-size: 14px;
         color: #b3b3b3;
         font-family: 'Inter', sans-serif; /* Example: Replace with your preferred font */
+        text-decoration: none; /* Remove underline */
 
       }
     }
@@ -142,3 +146,11 @@
       }
   }
   
+  .favorite-artists-section .category-music-cover-container img {
+    border-radius: 50%; /* Makes the image circular */
+    // border: 4px solid #fff; /* Optional: Adds a white border inside */
+    object-fit: cover; /* Ensures proper fit */
+    width: 150px; /* Adjust size as needed */
+    height: 150px; /* Ensures a perfect circle */
+    margin: 0 auto; /* Centers the image if needed */
+}
