@@ -1,9 +1,11 @@
 .header-row-playlist{
-    --grid-gap: 5px;
     display: grid;
-    grid-template-columns: 180px minmax(100px, 2fr) minmax(150px, 1.5fr) minmax(150px, 1.8fr) 0.5px 30px;
-    gap: var(--grid-gap);
-    // display: none;
+    padding: 0 16px;
+    grid-gap: 16px;
+    grid-template-columns: [index] var(--tracklist-index-column-width, 16px) minmax(120px, 6fr) minmax(120px, 4fr) minmax(120px, 3fr) minmax(120px, 1fr);
+    border-bottom: 1px solid hsla(0, 0%, 100%, .1);
+    color: var(--text-subdued, #b3b3b3);
+    height: 36px;
 }
 
 .track-list-playlist{
@@ -26,4 +28,12 @@
 .header-duration-playlist{
     display:flex;
     justify-content: right;   
+}
+
+.header-index{
+    justify-self: end;
+}
+
+.content-spacing{
+    padding: 32px;
 }

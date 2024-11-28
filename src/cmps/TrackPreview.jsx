@@ -33,7 +33,11 @@ export function TrackPreview({ track, index, isPlaylist, isPlayingPlaylist = fal
     return  <section className={`track-preview-container ${isPlaylist ? "playlist" : "album"}`}>
     <div className={isPlaylist ? "track-preview-grid-container-playlist" : "track-preview-grid-container-album"}>
         {/* Track Number */}
-        <div className="track-number">{index}</div>
+        <div className="track-number">
+            <div className='track-number-container'>
+                <span class="encore-text encore-text-body-medium xNyTkXEncSjszLNI65Nq" data-encore-id="text"> {index} </span>
+            </div>    
+        </div>
 
         {/* Track Title and Artist */}
         <div className="track-title">

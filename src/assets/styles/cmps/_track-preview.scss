@@ -1,15 +1,14 @@
 
 .track-preview-grid-container-playlist{
     display: grid;
-    --grid-gap: 10px;
+    padding: 0 16px;
+    grid-gap: 16px;
+    grid-template-columns:  [index] var(--tracklist-index-column-width, 16px) minmax(120px, 6fr) minmax(120px, 4fr) minmax(120px, 3fr) minmax(120px, 1fr);
+    color: var(--text-subdued, #b3b3b3);
+    height: 56px;
     --grid-height: 48px;
-    // display: grid;
-    grid-template-columns: 20px minmax(270px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) 60px;
-    gap: var(--grid-gap);
     max-height: var(--grid-height);
     white-space:nowrap;
-    padding: 10px; /* Add padding around each song for spacing */
-    margin-bottom: 10px; /* Create a gap between songs */
     border-radius: 8px; /* Smooth corners for each song */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
 
@@ -20,7 +19,7 @@
         transform: scale(1.02); /* Slightly enlarge on hover */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow effect */
 
-        .track-actions-playlist {
+        .track-preview-action-icon, .track-preview-action-icon-more {
             opacity: 1; /* Show actions on hover */
             pointer-events: auto; /* Enable interaction */
         }
@@ -67,6 +66,30 @@
     text-decoration: none; /* Ensure links within these elements also have no underline */
     font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);;
 }
+
+.track-number{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.track-number-container{
+    color: var(--text-subdued, #b3b3b3);
+    display: inline-block;
+    height: 16px;
+    min-height: 16px;
+    min-width: 16px;
+    position: relative;
+    width: var(--tracklist-index-column-width, 16px);
+    --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
+    font-family: 'Bank Gothic', 'DIN Next', 'Eurostile';
+
+    font-size: 0.875rem;
+}
+
 .track-number, .track-album, .track-date-added, .track-artist{
     font-size: 1rem;
     color: #b3b3b3;
@@ -75,26 +98,38 @@
     text-decoration: none; /* Ensure links within these elements also have no underline */
 }
 
-.name-artist-container{
+.name-artist-container,  .track-album, .track-date-added, .track-duration {
     font-size: 1rem;
     color: #b3b3b3;
     text-align: left;
     flex: 1;
     text-decoration: none; /* Ensure links within these elements also have no underline */
+    align-self: center;
+    color: var(--text-subdued, #b3b3b3);
+    display: inline-block;
+    --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
+    font-family: 'Bank Gothic', 'DIN Next', 'Eurostile';
+
+    font-size: 0.875rem;
+
+    white-space: nowrap;
+    overflow-x: hidden !important;
+    text-overflow: ellipsis;
 }
 
+.track-duration {
+    text-align: center;
+    flex: 1;
+}
 
 .album-cover-image{
     position: relative;
-    width: 48px;
-    height: 48px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 4px;
-    }
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+    -o-object-position: center center;
+    object-position: center center;
 }
 
 .track-title{
@@ -111,7 +146,6 @@
     // display: none;
     // transition: opacity 0.3s ease; /* Smooth transition for visibility */
 
-    opacity: 0; /* Hidden by default */
 
     .track-preview-action-icon, .track-preview-action-icon-more {
         box-sizing: border-box;
@@ -160,7 +194,11 @@
                 fill: white; /* White on hover over MoreOptionFor */
             }
         }
-}
+    }
+    
+    .track-preview-action-icon-more, .track-preview-action-icon{
+        opacity: 0; /* Hidden by default */
+    }
 }
 
 .track-actions-album {
@@ -228,10 +266,11 @@
     }
 }
 
-.track-duration {
-    font-size: 1rem;
-    color: #b3b3b3;
-    text-align: center;
-    flex: 1;
+.track-image{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
-

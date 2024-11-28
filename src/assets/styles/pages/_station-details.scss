@@ -83,6 +83,10 @@
   }
 
   .controll-btns2{
+    // --content-spacing: clamp(16px, 16px +(100vw - var(--left-sidebar-width, 0)* 1px - var(--panel-width, 0)* 1px - 600px) / 424* 8, 24px);
     width: 56px;
     height: 56px;
+    padding-bottom: 16px;
+    padding-top: 16px;
+
   }

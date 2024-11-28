@@ -123,18 +123,8 @@ export function AppHeader() {
                 </div>
             </nav>
 
-            {/* <div className="tracks-container">
-                <pre> 
-                    found tracks: {JSON.stringify(foundTracks, null, "\t") }  
-                </pre>   
-            </div> */}
-
             {/* Right-side buttons */}
             <div className="app-header-right">
-                {/* 
-                <div className="notification-icon">
-                    <i className="fas fa-bell"></i>
-                </div> */}
                 {isLoggedIn ? (
                     <button className="user-profile-btn" >
                         <figure>
