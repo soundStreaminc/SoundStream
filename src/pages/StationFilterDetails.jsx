@@ -166,11 +166,7 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
                         <div className="artist-image-container" >
                             <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : null} />
 
-                            <button type="button" aria-label="Play" className="search-results-object-song-music-cover-playWithe" onClick={() => onPlayPauseClick(false)}>
-                                                <span aria-hidden="true" className="search-results-item-svg-playWithe">
-                                                    <PlayWithe />
-                                                </span>
-                                            </button>
+                            
                         </div>
                         <div className="artist-name">
                             {foundArtists[0].name ? foundArtists[0].name : "not found"}
@@ -223,7 +219,7 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
 
                                             <button type="button" aria-label="Play" className="search-results-object-song-music-cover-playWithe" onClick={() => onPlayPauseClick(false)}>
                                                 <span aria-hidden="true" className="search-results-item-svg-playWithe">
-                                                    <playWithe />
+                                                    <PlayWithe />
                                                 </span>
                                             </button>
                                         </div>
