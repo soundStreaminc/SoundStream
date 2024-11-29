@@ -10,7 +10,7 @@ import { SearchResultsPreviewObject } from "../cmps/SearchResultsPreviewObject.j
 import { utilService } from "../services/util.service.js";
 import Play from '../assets/svgs/play.svg?react'
 import Pause from '../assets/svgs/pause.svg?react'; // Import the Pause component
-import playWithe from '../assets/svgs/playWithe?react'; // Import the Pause component
+import PlayWithe from '../assets/svgs/playWithe.svg?react';
 export const DISPLAYEDSONGSNUMBER = 4
 
 export function StationFilterDetails(isPlayingSearchResult = false) {
@@ -165,6 +165,12 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
                     <div className="top-result-sub-container">
                         <div className="artist-image-container" >
                             <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : null} />
+
+                            <button type="button" aria-label="Play" className="search-results-object-song-music-cover-playWithe" onClick={() => onPlayPauseClick(false)}>
+                                                <span aria-hidden="true" className="search-results-item-svg-playWithe">
+                                                    <PlayWithe />
+                                                </span>
+                                            </button>
                         </div>
                         <div className="artist-name">
                             {foundArtists[0].name ? foundArtists[0].name : "not found"}
