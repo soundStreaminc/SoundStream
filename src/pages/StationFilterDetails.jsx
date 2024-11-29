@@ -10,7 +10,7 @@ import { SearchResultsPreviewObject } from "../cmps/SearchResultsPreviewObject.j
 import { utilService } from "../services/util.service.js";
 import Play from '../assets/svgs/play.svg?react'
 import Pause from '../assets/svgs/pause.svg?react'; // Import the Pause component
-// import playWithe from '../assets/svgs/playWithe?react'; // Import the Pause component
+import playWithe from '../assets/svgs/playWithe?react'; // Import the Pause component
 export const DISPLAYEDSONGSNUMBER = 4
 
 export function StationFilterDetails(isPlayingSearchResult = false) {
@@ -214,6 +214,12 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
                                                 alt={`track artwork for ${song.name} by ${song.artists[0].name}`}
                                                 key={i + 'q'}
                                             />
+
+                                            <button type="button" aria-label="Play" className="search-results-object-song-music-cover-playWithe" onClick={() => onPlayPauseClick(false)}>
+                                                <span aria-hidden="true" className="search-results-item-svg-playWithe">
+                                                    <playWithe />
+                                                </span>
+                                            </button>
                                         </div>
 
                                         <div className="search-results-object-song-mini-details" key={i + 's'}>
