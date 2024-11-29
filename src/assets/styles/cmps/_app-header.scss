@@ -39,7 +39,10 @@
 		// width: var(--encore-graphic-size-decorative-base, 24px);
 		// height: var(--encore-graphic-size-decorative-base, 24px);
 		stroke-width: 2px;
-		stroke: #fff;
+		stroke:  currentcolor;
+		&:hover {
+			stroke: #fff;
+		}
 	}
 
 	.container-mid-app-header {
@@ -209,13 +212,18 @@
 		height: 24px;
 		svg {
 			fill: #333;
-			background-color: #333;
+			// background-color: #333;
 			width: 24px;
 		height: 24px;
 		}
 		&.active svg {
 			fill: white;
 		}
+		// &:hover {
+		// 	fill: white;
+
+		// }
+		
 
 	}
 
