@@ -74,15 +74,26 @@ export function getExistingProperties(obj){
 
 export function setTrackJson( trackInfo ){
     if(!trackInfo) return 'error, did not get track'
+    const trackJson =      
+    {
+        id: trackInfo.id,
+        title: trackInfo.name,
+        artist: trackInfo.artist,
+        audioSrc: trackInfo.audio,
+        image: trackInfo.image        
+    }
+    return trackJson
+}
+
+export function setPlaylistJson( trackInfo ){
+    if(!trackInfo) return 'error, did not get track'
     const trackJson =   [     
     {
         id: trackInfo.id,
         title: trackInfo.name,
         artist: trackInfo.artist,
         audioSrc: trackInfo.audio,
-        image: trackInfo.image,
-        color: Math.floor(Math.random()*16777215).toString(16)
-        
+        image: trackInfo.image        
     }]
     return trackJson
 }

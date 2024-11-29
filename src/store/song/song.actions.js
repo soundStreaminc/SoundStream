@@ -1,7 +1,7 @@
 import { stationService } from "../../services/station.service";
-import { setTrackJson } from "../../services/util.service";
+import { setPlaylistJson } from "../../services/util.service";
 import { store } from "../store";
-import { REMOVE_TRACK, SEARCH_ALBUMS, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_STATION } from "./song.reducer";
+import { REMOVE_TRACK, SEARCH_ALBUMS, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_RECENT, SET_STATION } from "./song.reducer";
 import { showErrorMsg } from "../../services/event-bus.service.js"; 
 
 export async function loadTracks(){
@@ -22,6 +22,16 @@ export async function removeTrack( trackId ){
     } catch (err) {
         console.log('Having issues removing playlist:', err)
         showErrorMsg( 'Having issues removing playlist' )
+        throw err
+    }
+}
+
+export async function setRecentlyPlayed ( recentlyPlayedArray ){
+    try {
+        store.dispatch( { type: SET_RECENT , recentlyPlayedArray })
+    } catch (err) {
+        console.log('Having issues setting new recentlyPlayedArray:', err)
+        showErrorMsg( 'Recently Played issue' )
         throw err
     }
 }
@@ -77,7 +87,7 @@ export async function searchAlbums ( albumName , limit){
 
 export async function setCurrentlyPlaying ( trackInfo ){
     try {
-        const trackJson = setTrackJson( trackInfo )
+        const trackJson = setPlaylistJson( trackInfo )
         await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackJson })
         return trackJson[0]
     } catch (err) {

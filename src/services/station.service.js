@@ -21,6 +21,9 @@ export const stationService = {
     addAlbum,
     addTrackToLiked,
     getCategoryPlaylists,
+    insertIntoArray,
+    getRecentlyPlayedByUser,
+    addToRecentlyPlayedByUser,
 
     getArtistId_SpotifyApi,
     getArtists_SpotifyApi,
@@ -37,8 +40,6 @@ export const stationService = {
     getTopMixes_SpotifiApi,
     getYourFavoriteArtist_SpotifiApi,
     getRecommended_SpotifiApi,
-    getStayTuned_SpotifiApi,
-    getRecentlyPlayed_SpotifiApi,
     getMostPlayed_SpotifiApi,
     getBrowseCategories_SpotifiApi,
     getBrowseCategories
@@ -58,6 +59,40 @@ async function addPlaylist ( id, name, type, user ){
     const res = await _addStationToUser(user, { name, id, type })
 }
 
+async function getRecentlyPlayedByUser ( username = 'ohad' ){
+    const recentlyPlayed = await query()
+    .then( data => {  
+        return  (data[0].users.find( user => user.username === username )).recentlyPlayed
+    })
+    return recentlyPlayed
+}
+
+async function addToRecentlyPlayedByUser ( track, limit, user = 'ohad' ){
+    var newRecentlyPlayed = []
+    var recentlyPlayed = await getRecentlyPlayedByUser(user)
+
+    //if the song is already in recently played no need to insert.
+    if (_trackExistInArray(recentlyPlayed ,track)) return
+
+    if(recentlyPlayed.length < limit ){
+        recentlyPlayed.push(track) 
+        newRecentlyPlayed = recentlyPlayed
+    } else{
+        recentlyPlayed = recentlyPlayed.slice(0, -1); //removing oldest from recently played
+        newRecentlyPlayed = [track, ...recentlyPlayed] //adding new recently played song instead
+    }
+
+    const res = await query(STORAGE_KEY).then(entity => {
+
+        const idx = entity[0].users.find(entity => entity.username === user)
+        idx.recentlyPlayed = newRecentlyPlayed
+        
+        if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${updatedEntity.id} in: ${entityType}`)
+        return entity
+        })
+    utilService.saveToStorage(STORAGE_KEY, res)
+}
+
 async function addAlbum ( id, name, type, user ){
     const res = await _addStationToUser(user, { name, id, type })
 }
@@ -66,10 +101,10 @@ async function addTrackToLiked ( id, name, type, user ){
     const res = await _addStationToUser(user, { name, id, type })
 }
 
-async function _addStationToUser ( userName , station ) {
+async function _addStationToUser ( username , station ) {
     const res = await query(STORAGE_KEY).then(entity => {
 
-        const idx = entity[0].users.find(entity => entity.userName === userName)
+        const idx = entity[0].users.find(entity => entity.username === username)
         idx.playlists.push(station)
 
         
@@ -230,24 +265,26 @@ function _createStation() {
         {
             users: [
                 {
-                userName : "ohad",
-                playlists : [ 
-                    {
-                        "name": "רשימת השמעה המאוד מגניבה של שקד / shaked cool playlist",
-                        "id": "2ezyaQ3apZRID1oOIBHfLz",
-                        'type': 'playlist',
-                    } 
-                ]
+                    username : "ohad",
+                    playlists : [ 
+                        {
+                            "name": "רשימת השמעה המאוד מגניבה של שקד / shaked cool playlist",
+                            "id": "2ezyaQ3apZRID1oOIBHfLz",
+                            'type': 'playlist',
+                        } 
+                    ],
+                    recentlyPlayed : [ ] //save only 4 last recently played items.
                 },
                 {
-                    userName : "avinoam",
+                    username : "avinoam",
                     playlists : [ 
                         {
                             "name": "the best playlist!!!!",
                             "id": "3cEYpjA9oz9GiPac4AsH4n",
                             'type': 'playlist',
                         } 
-                    ]
+                    ],
+                    recentlyPlayed : [ ] //save only 4 last recently played items.
                 }        
             ]         
         },    
@@ -259,16 +296,14 @@ function _createStation() {
                         title: "Love It When You Hate Me (feat. blackbear) - Acoustic",
                         artist: "Avril Lavigne",
                         audioSrc: "https://p.scdn.co/mp3-preview/ddabbe456fde1ab1bef88c8022056f7d26f2f5ba?cid=426b1061c8be4e70babeec62bbcf0f08",
-                            image: "https://i.scdn.co/image/ab67616d0000b273ae6b206adcb3d283e9b327ca",
-                        color: "blue",
+                            image: "https://i.scdn.co/image/ab67616d0000b273ae6b206adcb3d283e9b327ca"
                     } ,
                     {
                         id: "c2",
                         title: "Waiting for the End",
                         artist: "Linkin Park",
                         audioSrc: "https://p.scdn.co/mp3-preview/1e52f7874a0864d96c106a5ee93970dcee66b05f?cid=426b1061c8be4e70babeec62bbcf0f08",
-                            image: "https://i.scdn.co/image/ab67616d0000b273163d1c5eddd35473f030f2d4",
-                        color: "green",
+                            image: "https://i.scdn.co/image/ab67616d0000b273163d1c5eddd35473f030f2d4"
                       }
                 
                    
@@ -299,10 +334,10 @@ async function getPlaylistById( playlistId ){
     return playlists
 }
 
-async function getPlaylistByUser ( userName ){
+async function getPlaylistByUser ( username ){
     const playlists = await query()
     .then( data => {   
-        return  (data[0].users.find( user => user.userName === userName )).playlists
+        return  (data[0].users.find( user => user.username === username )).playlists
     })
     return playlists
 }
@@ -341,8 +376,7 @@ async function _getHardCodedData(){
             artist: "Avril Lavigne",
             audioSrc: "https://p.scdn.co/mp3-preview/ddabbe456fde1ab1bef88c8022056f7d26f2f5ba?cid=426b1061c8be4e70babeec62bbcf0f08",
             image: "https://i.scdn.co/image/ab67616d0000b273ae6b206adcb3d283e9b327ca",
-            type: 'track',
-            color: "blue",
+            type: 'track'
         } ,
         {
             id: "c2",
@@ -350,8 +384,7 @@ async function _getHardCodedData(){
             artist: "Linkin Park",
             audioSrc: "https://p.scdn.co/mp3-preview/1e52f7874a0864d96c106a5ee93970dcee66b05f?cid=426b1061c8be4e70babeec62bbcf0f08",
             image: "https://i.scdn.co/image/ab67616d0000b273163d1c5eddd35473f030f2d4",
-            type: 'track',
-            color: "green",
+            type: 'track'
           }
     ]     
 }
@@ -364,9 +397,6 @@ async function getCategoryPlaylists( category, limit ){
         case 'Your Top Mixes':
             const topMixes = await getTopMixes_SpotifiApi(limit);
             return topMixes
-        case 'Recently Played':
-            const recentlyPlayed = await getRecentlyPlayed_SpotifiApi(limit);
-            return recentlyPlayed
         case 'Your Favorite Artists':
             const yourFavoriteArtist = await getYourFavoriteArtist_SpotifiApi(limit);
             return yourFavoriteArtist
@@ -610,16 +640,6 @@ async function getRecommended_SpotifiApi (limit){
     return albums 
 }
 
-async function getStayTuned_SpotifiApi (limit){
-    //TODO create function, for now using some hard coded data.
-    return await _getHardCodedData()
-}
-
-async function getRecentlyPlayed_SpotifiApi (limit){
-    //TODO create function, for now using some hard coded data.
-    return await _getHardCodedData()
-}
-
 /**
  * You can specify up to 5 seed values in total (any combination of tracks, artists, or genres).
  * @param {*} seedTracksArray 
@@ -663,3 +683,28 @@ function _removeNullFromItems(items, limit = 4){
     return itemsWithoutNull
 }
 
+function insertIntoArray(array ,lastPlayedCurrentObject, limit){
+    if(array.length < limit ){
+        if (!_trackExistInArray(array ,lastPlayedCurrentObject)){
+            array.push(lastPlayedCurrentObject) 
+        }
+            
+        return array
+    } else{
+        var res = []
+        res.push(lastPlayedCurrentObject);
+        console.log(`added the- ${lastPlayedCurrentObject}`)
+        res = {...array, lastPlayedCurrentObject}
+        return res
+    }
+    
+}
+
+function _trackExistInArray(array ,item){
+    for (const element of array){
+        if (element.id === item.id){
+            return true
+        }           
+    }
+    return false
+}

@@ -5,10 +5,12 @@ import AddToLiked from '../assets/svgs/addToLiked.svg?react';
 import LikedSongAdded from '../assets/svgs/likedSongAdded.svg?react';
 import { stationService } from "../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
-import { setCurrentlyPlaying } from "../store/song/song.actions";
+import { setCurrentlyPlaying, setRecentlyPlayed } from "../store/song/song.actions";
 import { StationDetails_GeneralObjectMiniTitle } from "./StationDetails_GeneralObjectMiniTitle";
 import { usePalette } from "react-palette";
 import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
+import { useSelector } from "react-redux";
+import { setTrackJson } from "../services/util.service";
 
 export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = false}){
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
@@ -16,14 +18,17 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
     const MYUSER = 'ohad'
     const imgSrc = station.image 
     const { data, loading, error } = usePalette(imgSrc)
+    var recentlyPlayedArray = useSelector ( storeState => storeState.recentlyPlayed )
+    const MAXRECENTPLAYED = 4
 
-    function onPlayPauseClick(  ){
+    async function onPlayPauseClick(  ){
         if (isPlaying) {
             //audioRef.current.pause();// this will pause the audio
             setIsPlaying(false)
         } else {
-            onPlayTrack(station)
+            await onPlayTrack(station)
             setIsPlaying(true)
+            await addToRecentlyPlayed(station)
         }
     };
 
@@ -51,10 +56,21 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
 
     async function onPlayTrack ( track ){
         try {      
-            if (station.type !== 'track') return      
+            if (station.type !== 'track') return    
+            if( !track.audio) console.log("this song has no preview url and will not be played")
             var playCurrent = track ? await setCurrentlyPlaying ( track ) : ''  
             console.log(`playing:`, playCurrent.title)
             showSuccessMsg(`playing: ${playCurrent.title}`)           
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async function addToRecentlyPlayed ( track ){
+        try {      
+            if (station.type !== 'track') return  
+            const trackJson = setTrackJson( track )
+            await stationService.addToRecentlyPlayedByUser( trackJson ,MAXRECENTPLAYED, 'ohad')     //TODO should be changed according to user    
         } catch (err) {
             console.error(err);
         }

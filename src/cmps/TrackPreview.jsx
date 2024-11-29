@@ -35,7 +35,7 @@ export function TrackPreview({ track, index, isPlaylist, isPlayingPlaylist = fal
         {/* Track Number */}
         <div className="track-number">
             <div className='track-number-container'>
-                <span class="encore-text encore-text-body-medium xNyTkXEncSjszLNI65Nq" data-encore-id="text"> {index} </span>
+                <span className="encore-text encore-text-body-medium xNyTkXEncSjszLNI65Nq" data-encore-id="text"> {index} </span>
             </div>    
         </div>
 

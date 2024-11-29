@@ -9,7 +9,6 @@ export function CategoryPreview({category, categoryType = 'track',  isPlayingCat
     useEffect( () =>{
         loadTrack()
     },[])
-    
     function loadTrack(){
         if( categoryType === 'track')
             setTrack(category)
