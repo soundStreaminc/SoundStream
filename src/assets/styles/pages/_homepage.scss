@@ -122,6 +122,7 @@
 }
 
 .filter-menu-container {
+    
     padding-bottom: 12px;
     padding-top: 12px;
     display: flex;
@@ -129,8 +130,10 @@
     flex-direction: row; // Keep the buttons inline but below the header
     padding: 0 10px; // Padding around the section
     margin-bottom: 30px; // Add space between serch-recents and playlist-list
-    padding: 0 10px; // Padding around the section
-    .filter-btn {
+    padding: 0 0 0 15px; /* Add padding to the right for spacing */
+    .filter-btn { 
+           margin-top: 20px; /* Adds space above the filter menu */
+
         background-color: #333;
         padding: 8px 16px;
         border-radius: 20px;
@@ -144,26 +147,29 @@
     }
 }
 
-
+// .artist-span{
+//     color: gray;
+// }
 
 
 
 .filter-songs-container{
-    // --background-base: #121212;
-    //    backdrop-filter: blur(8px); /* Add a blur effect for modern look */
-    padding: 20px;
+    // padding: 20px;
     border-radius: 8px;
-    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    // background: #181818;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: Add depth */
+    width: 100%;
+    
 }  
 
 .top-result-container {
-    // padding: 0 0 0 15px; /* Add padding to the right for spacing */
-    gap: 5px;
+    padding: 0 0 0 15px; /* Add padding to the right for spacing */
+    
 
 }
 
 .title {
-    padding: 0 0 0 15px; /* Add padding to the right for spacing */
+    padding: 0 0 0 5px; /* Add padding to the right for spacing */
 
     display: flex;
     justify-content: space-between; /* Push titles to opposite sides */
@@ -172,8 +178,10 @@
 
 }
 .title h2:first-child {
-
+    padding: 0 10px 0 0;
     text-align: left; /* Ensure Top Result is on the left */
+    margin-top: -5px; /* Move "Top result" title 10px higher */
+
 }
 
 .title h2:last-child {
@@ -181,6 +189,7 @@
 
     text-align: right; /* Ensure Songs title is on the right */
     // padding: 0 0 0 15px; /* Add padding to the right for spacing */
+    margin-top: -5px; /* Move "Top result" title 10px higher */
 
 }
 
@@ -188,11 +197,59 @@
     background: #181818;
     grid-column: span 2;
     border-radius: 8px;
-    padding: 20px;
-    width: 100%;
+    padding: 0 0 0 15px; /* Add padding to the right for spacing */
+    width: 90%;
+    gap: 15px; /* Add space between all child elements */
+    height: 242px;
+
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    // gap: 20px;
+
+    position: relative; /* Required for child absolute positioning */
+
+
+
+    
+}
+/* Change background and apply a subtle shadow on hover */
+.top-result-sub-container:hover {
+    background: #282828;
+    // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+.top-result-item-btn-container {
+    position: absolute;
+    top:75%; /* Center vertically */
+    left: 85%; /* Center horizontally */
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Hidden by default */
+    visibility: hidden; /* Ensure it's not visible */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Hover effect to show the button */
+.top-result-sub-container:hover .top-result-item-btn-container {
+    opacity: 1; /* Make it visible */
+    visibility: visible; /* Ensure visibility */
+}
+
+/* Style for the play button */
+.search-results-item-btn {
+    background-color: #1db954;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.search-results-item-btn:hover {
+    background-color: #1ed760; /* Brighter green on hover */
+}
+
+.search-results-item-svg-wrapper svg {
+    fill: black;
+    width: 24px;
+    height: 24px;
 }
 
 
@@ -212,6 +269,7 @@
     // gap: 20px; /* Add spacing between the two sections */
     align-items: start; /* Align items to the top */
     width: 100%; /* Ensure the grid spans the full width */
+
 }
 
 .filter-albums-container,
@@ -235,9 +293,13 @@
 
 .artist-image-container{
 
+    margin-top: 15px; /* Add spacing from the top border */
     width: 92px;
     height: 92px;
-    background-color: #181818;
+    // background-color: #181818;
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
 }
 
 .artist-image{
@@ -245,5 +307,8 @@
     width: 92px;
     height: 92px;
 }
+
+
+
 
 
