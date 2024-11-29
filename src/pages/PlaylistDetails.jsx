@@ -34,39 +34,40 @@ export function PlaylistDetails(  ) {
     return (
         <section className="station-details">
             <StationDetails_GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/> 
-            
+   
+            <div className="content-spacing">
+                <div className="tracks-container">
+                    <div className='header-row-playlist'>
+                    <div className="header-index">
+                        <p> # </p> 
+                    </div>
+                    
+                    <div className="header-title">
+                        <p> Title </p> 
+                    </div>
 
-            <div className="tracks-container">
-                <div className='header-row-playlist'>
-                <div className="header-index">
-                    <p> # </p> 
-                </div>
-                
-                <div className="header-title">
-                    <p> Title </p> 
+                    <div className="header-album">
+                        <p> Album </p> 
+                    </div>
+
+                    <div className="header-date-added">
+                        <p> Date added </p> 
+                    </div>
+                        
+                    <div className="header-duration-playlist">
+                        <span aria-hidden="true" className="iconWrapper-playlist">         
+                            <Duration className="duration-headerImage-playlist"/>
+                        </span>   
+                    </div>
                 </div>
 
-                <div className="header-album">
-                    <p> Album </p> 
-                </div>
-
-                <div className="header-date-added">
-                    <p> Date added </p> 
-                </div>
-                       
-                <div className="header-duration-playlist">
-                    <span aria-hidden="true" className="iconWrapper-playlist">         
-                        <Duration className="duration-headerImage-playlist"/>
-                    </span>   
-                </div>
-            </div>
-            <br/>
-            <div className="track-list-playlist">
-                {tracks.map((track, index) => (
-                    <TrackPreview track={track} index={index + 1} key={track.track? track.track.id: track.id} isPlaylist={true}/>       
-                ))}
+                <div className="track-list-playlist">
+                    {tracks.map((track, index) => (
+                        <TrackPreview track={track} index={index + 1} key={track.track? track.track.id: track.id} isPlaylist={true}/>       
+                    ))}
+                    </div> 
                 </div> 
-            </div> 
+            </div>       
         </section >
     )
 }
