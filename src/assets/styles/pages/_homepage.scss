@@ -34,6 +34,8 @@
     gap: 2em;
     color: #fff;
     background: linear-gradient(180deg, #121212 0%, #181818 100%); /* Add gradient effect */
+    border-radius: 10px; /* Match the sidebar's border-radius */
+    box-sizing: border-box;
     
 }
 
