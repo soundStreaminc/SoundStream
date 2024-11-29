@@ -52,15 +52,38 @@ body, .station-filter-container {
 
 
             .search-results-object-song-cover-container {
-              
+                position: relative; /* Required for positioning the play icon */
+
                 width: 40px; // Increased image size
                 height: 40px;
                 margin-right: 15px;
-
+                padding: 0 0 0 5px; /* Add padding to the right for spacing */
                 img {
                     width: 100%;
                     height: 100%;
                     border-radius: 6px;
+                }
+                .search-results-object-song-music-cover-playWithe {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: rgba(0, 0, 0, 0.5); /* Optional: dark overlay */
+                    border: none;
+                    border-radius: 50%;
+                    padding: 8px;
+                    cursor: pointer;
+                    display: none; /* Hidden by default */
+                    z-index: 10;
+        
+                    .search-results-item-svg-playWithe svg {
+                        width: 16px;
+                        height: 16px;
+                        fill: white;
+                    }
+                }
+                &:hover .search-results-object-song-music-cover-playWithe {
+                    display: block; /* Show the play button on hover */
                 }
             }
 
