@@ -114,21 +114,6 @@ async function _addStationToUser ( username , station ) {
     utilService.saveToStorage(STORAGE_KEY, res)
 }
 
-// async function save(station) {
-//     var savedStation
-//     if (station._id) {
-//         savedStation = await httpService.put(`station/${station._id}`, station)
-
-//     } else {
-//         savedStation = await httpService.post('station', station)
-//     }
-//     return savedStation
-// }
-
-// async function remove(stationId) {
-//     return httpService.delete(`station/${stationId}`)
-// }
-
 async function setAccessKey(){
     if (!clientId || !clientSecret) {
         console.error('Client ID or Secret not found');
@@ -603,7 +588,7 @@ async function getMadeForU_SpotifiApi ( limit ){
 
 async function getTopMixes_SpotifiApi (limit){
     var searchParameters = await setupHeader()
-    var albums = await fetch (`https://api.spotify.com/v1/search?q=mix&type=playlist&limit=${limit}` , searchParameters )
+    var albums = await fetch (`https://api.spotify.com/v1/search?q=mixes&type=playlist&limit=${20}` , searchParameters )
         .then( response => response.json())
         .then( data => {   
             data.playlists.items = _removeNullFromItems(data.playlists.items)
