@@ -33,17 +33,11 @@ body, .station-filter-container {
             background-color: #333; // Add hover effect to highlight the song
             border-radius: 8px; // Smooth edges when hovering
 
-            .song-actions {
-                opacity: 1; /* Show icons when the song is hovered */
+            .action-icon {
+                opacity: 1 !important; /* Force visibility to check */
+
             }
-            .song-actions .add-to-liked {
-                fill: #b3b3b3; /* Gray color when hovering over the song */
-                
-            }
-    
-            .song-actions .more-option-for {
-                fill: white; /* White color for MoreOptionFor when hovering */
-            }
+        
         }
 
         .search-results-object-song-mini-details-sub-container {
@@ -117,13 +111,14 @@ body, .station-filter-container {
             /* Small gap between items */
             margin-left: auto;
             /* Push actions to the right */
-            opacity: 0; /* Hidden by default */
-            transition: opacity 0.3s ease; /* Smooth transition for visibility */
+            // transition: opacity 0.3s ease; /* Smooth transition for visibility */
             padding: 0 15px 0 0; /* Add padding to the right for spacing */
 
             .action-icon {
-                align-items: center;
-                display: flex;
+                opacity: 0; /* Hidden by default */
+                transition: opacity 0.3s ease; /* Smooth transition */
+                z-index: 5; /* Ensure visibility */
+
                 svg {
                     width: 20px;
                 height: 20px;
