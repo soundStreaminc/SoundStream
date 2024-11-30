@@ -29,6 +29,7 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
     const [isPlaying, setIsPlaying] = useState(isPlayingSearchResult);
 
     var playlistsHeader = useRef('')
+    var artistHeader = useRef('')
     var albumsHeader = useRef('')
     var tracksHeader = useRef('')
 
@@ -55,14 +56,16 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
         const foundAlbums = await onSearchAlbums(parameter.filterText)
         setFoundAlbums(foundAlbums ? foundAlbums : [])
 
-        getHeader('playlist')
-        getHeader('album')
-        getHeader('track')
+        // getHeader('playlist')
+        // getHeader('artist')
+        // getHeader('album')
+        // getHeader('track')
     }
 
     async function onSearchArtist(artist = '') {
         try {
-            var foundArtists = artist ? await searchArtists(artist) : ''
+            var foundArtists = artist ? await searchArtists(artist, DISPLAYEDSONGSNUMBER) : ''
+            artistHeader.current = getHeader('artist')
             return foundArtists
         } catch (err) {
             console.log('err:', err)
@@ -127,6 +130,8 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
         switch (objectType) {
             case "playlist":
                 return 'Playlists'
+            case "artist":
+                return 'Artists'
             case "album":
                 return 'Albums'
             case "track":
@@ -149,32 +154,21 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
                     <h2>
                         <span> Top result </span>
                     </h2>
-
-                    {/* <h2>
-                    <h2>  <span> Songs </span></h2>
-                        <span> {tracksHeader.current} </span>
-                    </h2> */}
                 </div>
                 <div className="title-Songs">
                     <h2>  <span> Songs </span></h2>
-
                 </div>
-
 
                 <div className="top-result-container">
                     <div className="top-result-sub-container">
                         <div className="artist-image-container" >
-                            <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : null} />
-
-                            
+                            <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : null} />                           
                         </div>
                         <div className="artist-name">
                             {foundArtists[0].name ? foundArtists[0].name : "not found"}
                         </div>
 
                         <span> Artist </span>
-
-
                         <div className='top-result-item-btn-container'>
                             {!isPlaying ? (
                                 <button type="button" aria-label="Pause" className="search-results-item-btn" onClick={() => onPlayPauseClick(true)}>
@@ -183,8 +177,6 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
                                     </span>
                                 </button>
                             ) : (
-
-
                                 <button type="button" aria-label="Play" className="search-results-item-btn" onClick={() => onPlayPauseClick(false)}>
                                     <span aria-hidden="true" className="search-results-item-svg-wrapper">
                                         <Play />
@@ -193,21 +185,17 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
                             )}
                         </div>
                     </div>
-
-
                 </div>
 
 
                 <div className="filter-songs-container">
-
-
                     <div className="search-results-object-song-songs-container">
                         {foundSongs.map((song, i) => {
                             const durationInMinutes = Math.floor(song.duration_ms / 60000);
                             const durationInSeconds = Math.floor((song.duration_ms % 60000) / 1000).toString().padStart(2, '0');
                             return (
 
-                                <div className="search-results-object-song-mini-details-container" key={i}>
+                                <a href={`/${song.type}/${song.id}`} className="search-results-object-song-mini-details-container" key={i}>
                                     <div className="search-results-object-song-mini-details-sub-container" key={i + 'r'}>
                                         <div className="search-results-object-song-cover-container" key={i + 'a'}>
                                             <img
@@ -247,18 +235,36 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
                                     </div>
 
 
-                                </div>
+                                </a>
                             )
                         }
                         )}
                     </div>
+                </div>
+            </div>
 
-
+            <div className="filter-artists-container">
+                <div className="title">
+                    <h2>
+                        <span> {artistHeader.current} </span>
+                    </h2>
                 </div>
 
-
-
+                <div className="artists-container">
+                    {foundArtists.map((artist, i) => {
+                        const miniArtist = {
+                            id: artist.id,
+                            type: artist.type,
+                            name: artist.name,
+                            image: artist.images ? artist.images[0].url : null,
+                            followers: artist.followers.total,
+                        }
+                        return <SearchResultsPreviewObject miniObject={miniArtist} key={miniArtist.id} />
+                    }
+                    )}
+                </div>
             </div>
+
             <div className="filter-albums-container">
                 <div className="title">
                     <h2>
