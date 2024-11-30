@@ -16,6 +16,7 @@
     overflow: hidden;
     grid-template-rows: auto 1fr auto; /* Header is auto-sized, main takes remaining space, footer auto-sized */
     height: 100vh; /* Ensures the grid spans the full viewport height */
+
 }
 
 .leftSidebar-container{
