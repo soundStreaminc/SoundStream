@@ -75,7 +75,6 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
             console.error(err);
         }
     }
-
     if (!station) return
     return(
         <section className="general-object-header">
@@ -87,7 +86,7 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
                         <img src={imgSrc} />
                     </div>
                     <div className="station-titles-container">
-                        <div className="station-title3">
+                        <div className="station-title3"> {/* TODO: for song details should be song and not track- capital S, then name of song- name of artist */}
                             {station.type} 
                             <span className="station-title3-container">
                                 <h1> {station.name} </h1>

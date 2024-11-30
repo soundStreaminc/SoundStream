@@ -60,10 +60,9 @@ export function PlaylistDetails(  ) {
                         </span>   
                     </div>
                 </div>
-
                 <div className="track-list-playlist">
                     {tracks.map((track, index) => (
-                        <TrackPreview track={track} index={index + 1} key={track.track? track.track.id: track.id} isPlaylist={true}/>       
+                        <TrackPreview track={track.track} trackAddedAt={track.added_at} tracksDisplayType={miniStation.current.type} index={index + 1} key={track.track? track.track.id: track.id}/>       
                     ))}
                     </div> 
                 </div> 
