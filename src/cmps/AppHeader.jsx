@@ -87,7 +87,8 @@ export function AppHeader() {
                             </div>
                         </Tooltip>
                         <input
-                            type="text"
+                            type="text" 
+                            className='search-bar-input'
                             placeholder="What do you want to play?"
                             value={searchTerm.filterText}  // Bind searchTerm to input
                             onChange={handleSearchChange} // Handle input change

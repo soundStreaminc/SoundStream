@@ -1,5 +1,5 @@
 .app-header {
-	background-color:black; // Spotify's black shade
+	background-color: black; // Spotify's black shade
 	display: flex;
 	grid-area: header;
 	justify-content: space-between;
@@ -39,7 +39,8 @@
 		// width: var(--encore-graphic-size-decorative-base, 24px);
 		// height: var(--encore-graphic-size-decorative-base, 24px);
 		stroke-width: 2px;
-		stroke:  currentcolor;
+		stroke: currentcolor;
+
 		&:hover {
 			stroke: #fff;
 		}
@@ -48,7 +49,7 @@
 	.container-mid-app-header {
 
 
-		
+
 		align-items: center;
 
 		display: flex;
@@ -58,7 +59,7 @@
 
 		.app-header-icon.home-icon {
 
-			
+
 			display: -webkit-box;
 			display: -ms-flexbox;
 			display: flex;
@@ -94,7 +95,7 @@
 				fill: #333;
 				background-color: #333;
 				width: 24px;
-			height: 24px;
+				height: 24px;
 			}
 
 			// &.active {
@@ -105,7 +106,7 @@
 				fill: white;
 			}
 
-		
+
 		}
 
 
@@ -115,44 +116,57 @@
 			background-color: #333;
 			border-radius: 53px;
 			padding: 0.7rem;
-			width: 520px; /* Keep the width fixed */
+			width: 520px;
+			/* Keep the width fixed */
 			color: #b3b3b3;
-			transition: background-color 0.2s ease, color 0.2s ease; /* No width transition */
+			transition: background-color 0.2s ease, color 0.2s ease;
+			/* No width transition */
 			border: 2px solid transparent;
-		  
+			gap: 10px;
+
 			input {
-			  border: none;
-			  background: none;
-			  outline: none;
-			  color: #b3b3b3; /* Default color for placeholder and text */
-			  width: 100%; /* Ensure the input takes full width */
-			  transition: color 0.2s ease;
+				border: none;
+				background: none;
+				outline: none;
+				color: #b3b3b3;
+				/* Default color for placeholder and text */
+				width: 100%;
+				/* Ensure the input takes full width */
+				transition: color 0.2s ease;
 			}
-		  
+
 			&:hover {
-			  background-color: #444; /* Change background color on hover */
-			  input {
-				color: white; /* Change text color on hover */
-			  }
-		  
-			  .search-icon {
-				fill: white; /* Change icon color on hover */
-				transition: fill 0.2s ease;
-			  }
+				background-color: #444;
+
+				/* Change background color on hover */
+				input {
+					color: white;
+					/* Change text color on hover */
+				}
+
+				.search-icon {
+					fill: white;
+					/* Change icon color on hover */
+					transition: fill 0.2s ease;
+				}
 			}
-		  
+
 			input:focus {
-			  border-color: white; /* Change border color on focus */
-			  color: white; /* Change input text color on focus */
+				border-color: white;
+				/* Change border color on focus */
+				color: white;
+				/* Change input text color on focus */
 			}
-		  
-		  
-		  .search-icon {
-			width: 24px;
-			height: 24px;
-			fill: #b3b3b3; /* Default icon color */
-			transition: fill 0.2s ease; /* Smooth color change */
-		  }
+
+
+			.search-icon {
+				width: 24px;
+				height: 24px;
+				fill: #b3b3b3;
+				/* Default icon color */
+				transition: fill 0.2s ease;
+				/* Smooth color change */
+			}
 
 			/* Focus effect for the entire search-bar when input is focused */
 			input:focus+.separator,
@@ -166,6 +180,20 @@
 			&:has(input:focus) {
 				border-color: white;
 				/* White border when focused */
+			}
+
+			/* Placeholder style */
+			.search-bar-input {
+				&::placeholder {
+					border: none;
+					background: none;
+					outline: none;
+					color: #b3b3b3;
+					width: 100%;
+					transition: color 0.2s ease;
+					font-size: 16px; /* Optional: Adjust font size for placeholder */
+
+				}
 			}
 
 
@@ -187,9 +215,10 @@
 			color: white;
 		}
 	}
+
 	.app-header-icon.browse-icon {
 
-		
+
 		display: -webkit-box;
 		display: -ms-flexbox;
 		display: flex;
@@ -210,94 +239,98 @@
 	.browse-icon {
 		width: 24px;
 		height: 24px;
+
 		svg {
 			fill: #333;
 			// background-color: #333;
 			width: 24px;
-		height: 24px;
+			height: 24px;
 		}
+
 		&.active svg {
 			fill: white;
 		}
+
 		// &:hover {
 		// 	fill: white;
 
 		// }
-		
+
 
 	}
 
 	.app-header-right {
 		display: flex;
-		
-		
 
-	// 	.user-profile {
-	// 		display: flex;
-	// 		justify-content: center;
-	// 		align-items: center;
-	// 		border-radius: 50%;  // Makes the container circular
-	// 		background-color: #333;  // Background color for the circle
-	// 		width: 40px;  // Adjust the size of the circle
-	// 		height: 40px;  // Adjust the size of the circle
-	// 		padding: 5px;  // Add padding around the SVG
-	// 	}
-		
-	// 	.user-profile svg {
-	// 		width: 24px;  // Set the width of the icon
-	// 		height: 24px;  // Set the height of the icon
-	// 		fill: #fff;  // Set the icon color to white
-	// 	}
+
+
+		// 	.user-profile {
+		// 		display: flex;
+		// 		justify-content: center;
+		// 		align-items: center;
+		// 		border-radius: 50%;  // Makes the container circular
+		// 		background-color: #333;  // Background color for the circle
+		// 		width: 40px;  // Adjust the size of the circle
+		// 		height: 40px;  // Adjust the size of the circle
+		// 		padding: 5px;  // Add padding around the SVG
+		// 	}
+
+		// 	.user-profile svg {
+		// 		width: 24px;  // Set the width of the icon
+		// 		height: 24px;  // Set the height of the icon
+		// 		fill: #fff;  // Set the icon color to white
+		// 	}
 	}
 }
 
-.user-profile-btn{
+.user-profile-btn {
 	border-radius: 50%;
 	width: 48px;
 	height: 48px;
 	background-color: #1f1f1f;
 }
 
-.user-profile-container{
-	width : 32px;
-	height : 32px;
+.user-profile-container {
+	width: 32px;
+	height: 32px;
 }
 
-.user-profile-img{
+.user-profile-img {
 	border-radius: 50%;
-    height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    width: 100%;
+	height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+	width: 100%;
 }
+
 .auth-buttons {
-    display: flex;
-    gap: 10px;
+	display: flex;
+	gap: 10px;
 
-    .signup-btn {
-        background: none;
-        border: none;
-        color: gray;
-        font-size: 14px;
-        cursor: pointer;
+	.signup-btn {
+		background: none;
+		border: none;
+		color: gray;
+		font-size: 14px;
+		cursor: pointer;
 
-        &:hover {
-            text-decoration: underline;
-        }
-    }
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 
-    .login-btn {
-        background-color: #fff;
-        color: #000;
-        font-size: 14px;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 20px;
-        cursor: pointer;
-        font-weight: bold;
+	.login-btn {
+		background-color: #fff;
+		color: #000;
+		font-size: 14px;
+		padding: 8px 16px;
+		border: none;
+		border-radius: 20px;
+		cursor: pointer;
+		font-weight: bold;
 
-        &:hover {
-            background-color: #e0e0e0;
-        }
-    }
+		&:hover {
+			background-color: #e0e0e0;
+		}
+	}
 }
