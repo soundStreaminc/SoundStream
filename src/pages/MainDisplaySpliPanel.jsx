@@ -19,7 +19,7 @@ export function MainDisplaySpliPanel() {
 
   // State to store layout and loading status
   const [layout, setLayout] = useState(null);
-
+  console.log('layout:', layout)
   // Restore layout from cookie when the component mounts
   useEffect(() => {
     const cookieValue = document.cookie
@@ -40,14 +40,14 @@ export function MainDisplaySpliPanel() {
         console.error("Failed to parse layout cookie:", e);
       }
     }
+    //fallback
+    setLayout([25, 75])
 
-setLayout(25,75)
   }, []); // Empty dependency array to ensure this effect runs only once on mount
 
 
   // Save layout to cookies when it changes
   const saveLayout = (sizes, panelType) => {
-
     // Check if the panel has been mounted before saving the layout
     if (panelType === "left" && !isLeftPanelMounted.current) {
       isLeftPanelMounted.current = true; // Mark the left panel as mounted
