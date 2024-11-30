@@ -10,7 +10,7 @@ import StationMiniPreview from './StationMiniPreview';
 export function SideBar() {
     //TODO get logged in User, for now hard coded user is ohad
     const [ stations , setPlaylists ] = useState([])
-
+ 
     useEffect( ()=> {
         loadPlaylist()
     }, [])

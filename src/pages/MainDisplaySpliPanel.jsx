@@ -41,12 +41,13 @@ export function MainDisplaySpliPanel() {
       }
     }
 
-
+setLayout(25,75)
   }, []); // Empty dependency array to ensure this effect runs only once on mount
 
 
   // Save layout to cookies when it changes
   const saveLayout = (sizes, panelType) => {
+
     // Check if the panel has been mounted before saving the layout
     if (panelType === "left" && !isLeftPanelMounted.current) {
       isLeftPanelMounted.current = true; // Mark the left panel as mounted
