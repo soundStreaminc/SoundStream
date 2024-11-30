@@ -31,7 +31,7 @@
 		// width: var(--encore-graphic-size-decorative-base, 24px);
 		// height: var(--encore-graphic-size-decorative-base, 24px);
 		stroke-width: 1px;
-		stroke: #fff;
+		stroke:  currentcolor;
 	}
 
 	.border-icon-browse {
@@ -249,7 +249,7 @@
 
 		&.active svg {
 			fill: white;
-		}
+		
 
 		// &:hover {
 		// 	fill: white;
@@ -257,6 +257,12 @@
 		// }
 
 
+	}
+	
+    &.active .border-icon-browse {
+		stroke: #fff;
+		
+    }
 	}
 
 	.app-header-right {
