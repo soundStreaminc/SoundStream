@@ -36,9 +36,9 @@ export async function setRecentlyPlayed ( recentlyPlayedArray ){
     }
 }
 
-export async function searchArtists ( artistName ){
+export async function searchArtists ( artistName, limit  ){
     try {
-        const artists = await stationService.getArtists_SpotifyApi ( artistName)
+        const artists = await stationService.getArtists_SpotifyApi ( artistName, limit)
         store.dispatch( { type: SEARCH_ARTISTS , artists })
         if (!artists | artists.length === 0) throw new Error(`Having issues finding artists: ${artistName}`)
         return artists
