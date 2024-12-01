@@ -21,6 +21,7 @@ body, .station-filter-container {
 
     //song
     .search-results-object-song-mini-details-container {
+        text-decoration: none; /* no underline */
         display: flex;
         justify-content: space-between;
         align-items: center;
