@@ -11,8 +11,10 @@ import { usePalette } from "react-palette";
 import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
 import { useSelector } from "react-redux";
 import { setTrackJson } from "../services/util.service";
+import NoImageArtist from '../assets/svgs/noImageArtist.svg?react';
 
 export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = false}){
+    const isArtistImageExist= station.image ? true : false
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
     const [isPlaying, setIsPlaying] = useState( false );
     const MYUSER = 'ohad'
@@ -78,12 +80,20 @@ export function StationDetails_GeneralObjectHeader({ station , isAlreadyAdded = 
     if (!station) return
     return(
         <section className="general-object-header">
-            <div className="station-info-general"  style={{
-                'backgroundImage': 'linear-gradient(' + data.vibrant + ', oklch(from ' + data.vibrant + ' calc(l - .5) c h))'
+            <div className="station-info-general"  style={{ 
+                'backgroundImage': 'linear-gradient(' + data.vibrant + ', oklch(from ' + data.vibrant + ' calc(l - .5) c h))',
+                'backgroundColor' : '#282828'
                 }}>
                 <div className="station-sub-info">
                     <div className="cover-station">
-                        <img src={imgSrc} />
+                    {isArtistImageExist ? <img src={imgSrc} /> : 
+                    <div className="general-object-header-svg-container">
+                        <div className="general-object-header-svg-radius-container">
+                            <NoImageArtist />
+                        </div>
+                    </div>
+                   
+                    }
                     </div>
                     <div className="station-titles-container">
                         <div className="station-title3"> {/* TODO: for song details should be song and not track- capital S, then name of song- name of artist */}

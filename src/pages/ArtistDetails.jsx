@@ -19,14 +19,14 @@ export function ArtistDetails(  ) {
             id: foundArtist.id, 
             type : foundArtist.type,
             name: foundArtist.name,
-            image: foundArtist.images[0] ? foundArtist.images[0].url : 'not found',
+            image: foundArtist.images[0] ? foundArtist.images[0].url : null,
             followers: foundArtist.followers.total,
         }
         const getTopTracks = await stationService.getTopTracksByArtistId_SpotifiApi(foundArtist.id)
         setTracks(getTopTracks.tracks) 
     }
 
-    if(!tracks || !miniStation.current.image) return <span> loading in progress... </span>
+    if(!tracks) return <span> loading in progress... </span>
     return (
         <section className="station-details-artist">
             <StationDetails_GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/>
