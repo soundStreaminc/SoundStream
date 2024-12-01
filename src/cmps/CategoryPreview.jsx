@@ -29,6 +29,9 @@ export function CategoryPreview({category, categoryType = 'track',  isPlayingCat
           setIsPlaying(true)
         }
     }
+    function truncateText(text, maxLength) {
+        return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+    }
 
     if( !track) return <div> loading, please wait. </div>
     return (
@@ -62,7 +65,7 @@ export function CategoryPreview({category, categoryType = 'track',  isPlayingCat
             
                     <div className="category-details">
                         <div className="sub-category-details">
-                            <div className="category-title"> {track?.title || 'not found'} </div>      
+                            <div className="category-title"> {truncateText(track?.title || 'not found', 30)} </div>      
                         </div>
                     </div> 
                 </div>
