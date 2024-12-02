@@ -19,14 +19,14 @@ export function ArtistDetails(  ) {
             id: foundArtist.id, 
             type : foundArtist.type,
             name: foundArtist.name,
-            image: foundArtist.images ? foundArtist.images[0].url : 'not found',
+            image: foundArtist.images[0] ? foundArtist.images[0].url : null,
             followers: foundArtist.followers.total,
         }
         const getTopTracks = await stationService.getTopTracksByArtistId_SpotifiApi(foundArtist.id)
         setTracks(getTopTracks.tracks) 
     }
 
-    if(!tracks || !miniStation.current.image) return <span> loading in progress... </span>
+    if(!tracks) return <span> loading in progress... </span>
     return (
         <section className="station-details-artist">
             <StationDetails_GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/>
@@ -34,18 +34,11 @@ export function ArtistDetails(  ) {
             <div className="tracks-container-artist">
                 <h1>Popular</h1>
                 <div className='header-row-artist'>
-                    {/* <div className="header-index">
-                        <p> # </p> 
-                    </div> */}
-                    
-                    {/* <div className="header-title">
-                        <p> Title </p> 
-                    </div> */}
                 </div>
                 <br/>
                 <div className="track-list-artist">
                     {tracks.map((track, index) => (
-                        <TrackPreview track={track} index={index + 1} key={track.track? track.track.id: track.id} isPlaylist={false}/>       
+                        <TrackPreview track={track} trackAddedAt={track.added_at} tracksDisplayType={miniStation.current.type} index={index + 1} key={ track.id}/>       
                     ))}
                 </div> 
             </div> 

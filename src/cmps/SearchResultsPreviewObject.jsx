@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import Play from '../assets/svgs/play.svg?react'
+import NoImageArtist from '../assets/svgs/noImageArtist.svg?react';
 
 export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult = false}){
     const [isPlaying, setIsPlaying] = useState(isPlayingSearchResult);
+    const isArtistImageExist= miniObject.image ? true : false
 
     function onPlayPauseClick(  ){
         if (isPlaying) {
@@ -18,10 +20,10 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
                 className="search-results-mini-details-container">      
                 <div className="search-result-object-mini-details-sub-container">
                     <div className="search-result-object-music-cover-container">
-                        {miniObject.image ? (
+                        {isArtistImageExist ? (
                             <img className="search-result-object-music-cover" src={miniObject.image}
                             alt={`track artwork for ${miniObject.name}`}
-                        />): ''}
+                        />): <NoImageArtist />}
                         
                         <div className='search-results-item-btn-container'>
                             {!isPlaying ? (

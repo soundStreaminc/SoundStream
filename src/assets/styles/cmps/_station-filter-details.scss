@@ -21,6 +21,7 @@ body, .station-filter-container {
 
     //song
     .search-results-object-song-mini-details-container {
+        text-decoration: none; /* no underline */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -152,20 +153,11 @@ body, .station-filter-container {
     }
 }
 
-//playlists
-.playlists-container {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    background-color: #121212; // Dark background
-  }
-  
-  .albums-container{
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    background-color: #121212; // Dark background
-  }
+.albums-container, .artists-container, .playlists-container {
+    display: grid;
+    grid-template-columns: repeat(6,minmax(180px, 1fr));
+    gap: 20px; /* Spacing between albums/playlists */
+}
   
   
 

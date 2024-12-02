@@ -4,6 +4,7 @@ export function StationDetails_GeneralObjectMiniTitle({miniStation}){
     useEffect( () => {
         getMiniTitle()
     }, [])
+    
     function getMiniTitle(){
         var stationMiniHeader = ''
         var stationTitleEl = document.querySelector(".station-title4")

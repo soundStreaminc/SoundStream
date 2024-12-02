@@ -211,6 +211,7 @@
     // transition: opacity 0.3s ease; /* Smooth transition fghtor visibility */
 
     .track-preview-action-icon, .track-preview-action-icon-more{
+        opacity: 0; /* Hidden by default */
         box-sizing: border-box;
         -webkit-tap-highlight-color: transparent;
         background-color: transparent;
@@ -259,10 +260,6 @@
                 fill: white; /* White on hover over MoreOptionFor */
             }
         }
-    }
-
-    .track-preview-action-icon-more{
-        opacity: 0; /* Hidden by default */
     }
 }
 

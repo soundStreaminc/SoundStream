@@ -1,17 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
-import { stationService } from "../services/station.service.js";
-import AddToLiked from '../assets/svgs/addToLiked.svg?react';
-import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
 import { showErrorMsg } from '../services/event-bus.service.js';
 import { searchAlbums, searchArtists, searchPlaylists, searchSongs } from '../store/song/song.actions';
 import { SearchResultsPreviewObject } from "../cmps/SearchResultsPreviewObject.jsx";
-import { utilService } from "../services/util.service.js";
-import Play from '../assets/svgs/play.svg?react'
-import Pause from '../assets/svgs/pause.svg?react'; // Import the Pause component
-import PlayWithe from '../assets/svgs/playWithe.svg?react';
+import { getHeader, utilService } from "../services/util.service.js";
+import { StationFilterDetails_TopResult } from "../cmps/StationFilterDetails_TopResult.jsx";
+import { StationFilterDetails_SongsResults } from "../cmps/StationFilterDetails_SongsResults.jsx";
+
 export const DISPLAYEDSONGSNUMBER = 4
+export const DISPLAYEDCATEGORIESNUMBER = 6
 
 export function StationFilterDetails(isPlayingSearchResult = false) {
     const DEBOUNCETIME = 300 //TODO should be in config
@@ -37,7 +35,6 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
         debounceFilterBy(params)
     }, [params])
 
-
     function onPlayPauseClick() {
         if (isPlaying) {
             setIsPlaying(false)
@@ -45,6 +42,7 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
             setIsPlaying(true)
         }
     }
+
     async function loadFilterResults(parameter) {
         // if(params.filterText) return
         const foundArtist = await onSearchArtist(parameter.filterText)
@@ -55,22 +53,6 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
         setFoundPlaylists(foundPlaylist ? foundPlaylist : [])
         const foundAlbums = await onSearchAlbums(parameter.filterText)
         setFoundAlbums(foundAlbums ? foundAlbums : [])
-
-        // getHeader('playlist')
-        // getHeader('artist')
-        // getHeader('album')
-        // getHeader('track')
-    }
-
-    async function onSearchArtist(artist = '') {
-        try {
-            var foundArtists = artist ? await searchArtists(artist, DISPLAYEDSONGSNUMBER) : ''
-            artistHeader.current = getHeader('artist')
-            return foundArtists
-        } catch (err) {
-            console.log('err:', err)
-            showErrorMsg('problem searching for artist: ', err)
-        }
     }
 
     async function onSearchSongs(song = '') {
@@ -84,9 +66,20 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
         }
     }
 
+    async function onSearchArtist(artist = '') {
+        try {
+            var foundArtists = artist ? await searchArtists(artist, DISPLAYEDCATEGORIESNUMBER) : ''
+            artistHeader.current = getHeader('artist')
+            return foundArtists
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('problem searching for artist: ', err)
+        }
+    }
+
     async function onSearchPlaylists(playlists = '') {
         try {
-            var foundPlaylists = playlists ? await searchPlaylists(playlists, DISPLAYEDSONGSNUMBER) : ''
+            var foundPlaylists = playlists ? await searchPlaylists(playlists, DISPLAYEDCATEGORIESNUMBER) : ''
             playlistsHeader.current = getHeader('playlist')
             return foundPlaylists
         } catch (err) {
@@ -97,47 +90,12 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
 
     async function onSearchAlbums(albums = '') {
         try {
-            var foundAlbums = albums ? await searchAlbums(albums, DISPLAYEDSONGSNUMBER) : ''
+            var foundAlbums = albums ? await searchAlbums(albums, DISPLAYEDCATEGORIESNUMBER) : ''
             albumsHeader.current = getHeader('album')
             return foundAlbums
         } catch (err) {
             console.log('err:', err)
             showErrorMsg('problem searching for albums: ', err)
-        }
-    }
-
-    async function onAddPlaylist(playlistId, playlistName, playlistType, user = 'ohad') {
-        try {
-            if (playlistId && playlistName)
-                await stationService.addPlaylist(playlistId, playlistName, playlistType, user)
-        } catch (err) {
-            console.log('err:', err)
-            showErrorMsg('problem Adding Playlist: ', err)
-        }
-    }
-
-    async function onAddAlbum(albumId, albumName, albumType, user = 'ohad') {
-        try {
-            if (albumId && albumName)
-                await stationService.addAlbum(albumId, albumName, albumType, user)
-        } catch (err) {
-            console.log('err:', err)
-            showErrorMsg('problem Adding Album: ', err)
-        }
-    }
-
-    function getHeader(objectType) {
-        switch (objectType) {
-            case "playlist":
-                return 'Playlists'
-            case "artist":
-                return 'Artists'
-            case "album":
-                return 'Albums'
-            case "track":
-                return 'Songs'
-            default:
-                return 'header not found'
         }
     }
 
@@ -159,88 +117,9 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
                     <h2>  <span> Songs </span></h2>
                 </div>
 
-                <div className="top-result-container">
-                    <div className="top-result-sub-container">
-                        <div className="artist-image-container" >
-                            <img className="artist-image" src={foundArtists[0].images[0] ? foundArtists[0].images[0].url : null} />                           
-                        </div>
-                        <div className="artist-name">
-                            {foundArtists[0].name ? foundArtists[0].name : "not found"}
-                        </div>
+               <StationFilterDetails_TopResult topResult={foundArtists[0]}/>
 
-                        <span> Artist </span>
-                        <div className='top-result-item-btn-container'>
-                            {!isPlaying ? (
-                                <button type="button" aria-label="Pause" className="search-results-item-btn" onClick={() => onPlayPauseClick(true)}>
-                                    <span aria-hidden="true" className="search-results-item-svg-wrapper">
-                                        <Pause />
-                                    </span>
-                                </button>
-                            ) : (
-                                <button type="button" aria-label="Play" className="search-results-item-btn" onClick={() => onPlayPauseClick(false)}>
-                                    <span aria-hidden="true" className="search-results-item-svg-wrapper">
-                                        <Play />
-                                    </span>
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </div>
-
-
-                <div className="filter-songs-container">
-                    <div className="search-results-object-song-songs-container">
-                        {foundSongs.map((song, i) => {
-                            const durationInMinutes = Math.floor(song.duration_ms / 60000);
-                            const durationInSeconds = Math.floor((song.duration_ms % 60000) / 1000).toString().padStart(2, '0');
-                            return (
-
-                                <a href={`/${song.type}/${song.id}`} className="search-results-object-song-mini-details-container" key={i}>
-                                    <div className="search-results-object-song-mini-details-sub-container" key={i + 'r'}>
-                                        <div className="search-results-object-song-cover-container" key={i + 'a'}>
-                                            <img
-                                                className="search-results-object-song-music-cover"
-                                                src={song.album.images[0].url}
-                                                alt={`track artwork for ${song.name} by ${song.artists[0].name}`}
-                                                key={i + 'q'}
-                                            />
-
-                                            <button type="button" aria-label="Play" className="search-results-object-song-music-cover-playWithe" onClick={() => onPlayPauseClick(false)}>
-                                                <span aria-hidden="true" className="search-results-item-svg-playWithe">
-                                                    <PlayWithe />
-                                                </span>
-                                            </button>
-                                        </div>
-
-                                        <div className="search-results-object-song-mini-details" key={i + 's'}>
-                                            <p className="search-results-object-song-song-title" key={i + 'e'}> {song.name} </p>
-                                            <div className="search-results-object-song-artist" key={i + 'o'}> {song.artists[0].name}  </div> { /*//get the details from the song  */}
-                                        </div>
-
-
-                                    </div>
-
-                                    <div className="song-actions">
-                                        <div className="action-icon">
-                                            <span aria-hidden="true" className="iconWrapper">
-                                                <AddToLiked className="add-to-liked" />
-                                            </span>
-                                        </div>
-                                        <div className="song-duration">{durationInMinutes}:{durationInSeconds}</div>
-                                        <div className="action-icon">
-                                            <span aria-hidden="true" className="iconWrapper">
-                                                <MoreOptionFor className="more-option-for" />
-                                            </span>
-                                        </div>
-                                    </div>
-
-
-                                </a>
-                            )
-                        }
-                        )}
-                    </div>
-                </div>
+                <StationFilterDetails_SongsResults songs={foundSongs}/>
             </div>
 
             <div className="filter-artists-container">
@@ -256,7 +135,7 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
                             id: artist.id,
                             type: artist.type,
                             name: artist.name,
-                            image: artist.images ? artist.images[0].url : null,
+                            image: artist.images[0] ? artist.images[0].url : null,
                             followers: artist.followers.total,
                         }
                         return <SearchResultsPreviewObject miniObject={miniArtist} key={miniArtist.id} />

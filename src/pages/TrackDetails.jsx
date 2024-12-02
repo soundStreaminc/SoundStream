@@ -6,6 +6,7 @@ import { duration } from "@mui/material"
 
 export function TrackDetails(){
     const params = useParams()
+    let miniStation = useRef(null)
     const [track, setTrack] = useState( null)
 
     useEffect(() => {
@@ -14,9 +15,8 @@ export function TrackDetails(){
 
     async function loadTracks(){
         const foundTrack = await stationService.getStationById_SpotifyApi( 'tracks', params.trackId ) 
-        console.log('foundTrack:', foundTrack)
 
-        const miniStation = {
+        miniStation.current = {
             id: foundTrack.id, 
             type : foundTrack.type,
             name: foundTrack.name,
@@ -28,7 +28,7 @@ export function TrackDetails(){
             releaseDate: foundTrack.album.release_date,
             duration: foundTrack.duration_ms
         }
-        setTrack(miniStation)
+        setTrack(miniStation.current)
     }
     if(!track) return <span> loading in progress... </span>
     return (

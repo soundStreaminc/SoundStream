@@ -5,8 +5,6 @@ const clientId = import.meta.env.VITE_CLIENT_ID
 const clientSecret = import.meta.env.VITE_CLIENT_SECRET
 const STORAGE_KEY = 'station'
 
-//TODO getMostPlayed_SpotifiApi
-
 export const stationService = {
     query,
     setAccessKey,
@@ -47,6 +45,7 @@ export const stationService = {
 window.cs = stationService
 
 let gAccesskey = ''
+const spotifyResultsLimit = 20
 
 _createStation()
 
@@ -456,10 +455,10 @@ async function getPlaylist_SpotifiApi ( playlistName, limit ){
     var searchParameters = await setupHeader()
 
     var foundPlaylists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
-        playlistName + '&type=playlist&limit=' + limit , searchParameters)
+        playlistName + '&type=playlist&limit=' + spotifyResultsLimit , searchParameters)
         .then( response => response.json())
         .then( data => { 
-            data.playlists.items = _removeNullFromItems(data.playlists.items)
+            data.playlists.items = _removeNullFromItems(data.playlists.items, limit)
             return  data.playlists.items? data.playlists.items : '' }
 
         )
@@ -470,7 +469,7 @@ async function getAlbum_SpotifiApi ( albumName, limit ){
     var searchParameters = await setupHeader()
 
     var foundAlbums = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
-        albumName + '&type=album&limit=' + 8 , searchParameters)
+        albumName + '&type=album&limit=' + spotifyResultsLimit , searchParameters)
         .then( response => response.json())
         .then( data => { 
             data.albums.items = _removeNullFromItems(data.albums.items, limit)
@@ -496,13 +495,13 @@ async function getArtistId_SpotifyApi( artistName){
 
 }
 
-async function getArtists_SpotifyApi( artistName){
+async function getArtists_SpotifyApi( artistName, limit){
     var searchParameters = await setupHeader()
     var foundArtists = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
-        artistName + '&type=artist' , searchParameters)
+        artistName + '&type=artist&limit=' + spotifyResultsLimit , searchParameters)
         .then( response => response.json())
         .then( data => { 
-            return data.artists ? _removeNullFromItems(data.artists.items) : ''
+            return data.artists ? _removeNullFromItems(data.artists.items, limit) : ''
         })
      return foundArtists
 
@@ -512,10 +511,10 @@ async function getTracks_SpotifyApi ( tracktName, limit ){
     var searchParameters = await setupHeader()
 
     var foundTracks = await fetch ( 'https://api.spotify.com/v1/search?q=' + 
-        tracktName + '&type=track&limit=' + limit , searchParameters)
+        tracktName + '&type=track&limit=' + spotifyResultsLimit , searchParameters)
         .then( response => response.json())
         .then( data => { 
-            return data.tracks ? _removeNullFromItems(data.tracks.items) : ''
+            return data.tracks ? _removeNullFromItems(data.tracks.items, limit) : ''
         })
      return foundTracks
 

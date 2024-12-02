@@ -20,7 +20,7 @@ export function MainDisplaySpliPanel() {
 
   // State to store layout and loading status
   const [layout, setLayout] = useState(null);
-  console.log('layout:', layout)
+  
   // Restore layout from cookie when the component mounts
   useEffect(() => {
     const cookieValue = document.cookie

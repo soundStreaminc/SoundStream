@@ -97,3 +97,18 @@ export function setPlaylistJson( trackInfo ){
     }]
     return trackJson
 }
+
+export function getHeader(objectType) {
+    switch (objectType) {
+        case "playlist":
+            return 'Playlists'
+        case "artist":
+            return 'Artists'
+        case "album":
+            return 'Albums'
+        case "track":
+            return 'Songs'
+        default:
+            return 'header not found'
+    }
+}
