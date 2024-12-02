@@ -2,8 +2,9 @@ import { useParams } from "react-router"
 import { stationService } from "../services/station.service"
 import { useEffect, useRef, useState } from "react"
 import Duration from '../assets/svgs/duration.svg?react'
-import { StationDetails_GeneralObjectHeader } from "../cmps/StationDetails_GeneralObjectHeader"
 import { TrackPreview } from "../cmps/TrackPreview"
+import { StationDetails_GeneralObjectActionButtons } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectActionButtons"
+import { StationDetails_GeneralObjectHeader } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectHeader"
 
 export function AlbumDetails(){
     const params = useParams()
@@ -25,7 +26,6 @@ export function AlbumDetails(){
             length: "about 4 hr 30 min",
             artist: foundAlbum.artists[0].name,
             releaseDate: foundAlbum.release_date
-
         }
         setTracks(foundAlbum.tracks.items) 
     }
@@ -33,7 +33,9 @@ export function AlbumDetails(){
     if(!tracks || !miniStation.current.image) return <span> loading in progress... </span>
     return (
         <section className="album-details">
-            <StationDetails_GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/>
+            <StationDetails_GeneralObjectHeader station={miniStation.current} />
+            <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false}  imgSrc={miniStation.current.image} />
+
             <div className="os-scrollbar os-scrollbar-horizontal os-theme-spotify os-scrollbar-auto-hide os-scrollbar-handle-interactive os-scrollbar-track-interactive os-scrollbar-cornerless os-scrollbar-unusable os-scrollbar-auto-hide-hidden" >
                 <div className="os-scrollbar-track">
                     <div className="os-scrollbar-handle">

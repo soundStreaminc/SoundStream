@@ -3,7 +3,8 @@ import { stationService } from "../services/station.service"
 import { useEffect, useRef, useState } from "react"
 import Duration from '../assets/svgs/duration.svg?react'
 import { TrackPreview } from "../cmps/TrackPreview"
-import { StationDetails_GeneralObjectHeader } from "../cmps/StationDetails_GeneralObjectHeader"
+import { StationDetails_GeneralObjectActionButtons } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectActionButtons"
+import { StationDetails_GeneralObjectHeader } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectHeader"
 
 export function PlaylistDetails(  ) {
     const params = useParams()
@@ -33,7 +34,8 @@ export function PlaylistDetails(  ) {
     if(!tracks || !miniStation.current.image) return <span> loading in progress... </span>
     return (
         <section className="station-details">
-            <StationDetails_GeneralObjectHeader station={miniStation.current} isAlreadyAdded={false}/> 
+            <StationDetails_GeneralObjectHeader station={miniStation.current} /> 
+            <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false} imgSrc={miniStation.current.image} />
    
             <div className="content-spacing">
                 <div className="tracks-container">
