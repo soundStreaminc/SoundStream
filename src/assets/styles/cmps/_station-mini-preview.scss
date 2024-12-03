@@ -1,75 +1,89 @@
 .station-mini-preview {
-  background-color: #121212; /* Match the dark background theme */
-  color: white; /* Ensure text contrast */
-  list-style-type: none; /* Remove default list styling */
+  background-color: #121212;
+  /* Match the dark background theme */
+  color: white;
+  /* Ensure text contrast */
+  list-style-type: none;
+  /* Remove default list styling */
   padding: 10px;
-  border-radius: 8px; /* Smooth rounded corners */
+  border-radius: 8px;
+  /* Smooth rounded corners */
   transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-
+}
   .station-item {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 15px; /* Space between image and text */
+    gap: 15px;
     cursor: pointer;
     padding: 10px;
     border-radius: 8px;
     transition: background-color 0.3s ease-in-out;
-
-    &:hover {
-      background-color: #333; /* Highlight station on hover */
-      transform: scale(1.03); /* Slight zoom on hover */
-    }
-
-    
-
-    .station-img-container {
-      position: relative;
-      width: 48px; /* Set fixed size for station image */
-      height: 48px;
-      flex-shrink: 0; /* Prevent shrinking of the image container */
-
-      img {
-        width: 100%;
-        height: 100%;
-        border-radius: 6px; /* Smooth edges */
-        object-fit: cover;
-      }
-
-      .station-song-music-cover-playWithe {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.5); /* Optional: dark overlay */
-        border: none;
-        border-radius: 50%;
-        padding: 8px;
-        cursor: pointer;
-        display: none; /* Hidden by default */
-        z-index: 10;
-        width: 48px;
-        height: 48px;
-
-        .station-item-svg-playWithe {
-          width: 24px; /* Adjust size as needed */
-          height: 24px;
-          fill: white; /* Ensure proper fill color */
-        }
-    }
-    &:hover .station-song-music-cover-playWithe {
-        display: block; /* Show the play button on hover */
-        
-    }
-    }
+  }
+  
+  .station-item:hover {
+    background-color: #333;
+    transform: scale(1.03);
+  }
+  
+  .station-item:hover .station-song-music-cover-playWithe {
+    display: block; /* Show the play button on hover */
+  }
+  
+  .station-img-container {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+  
+  .station-img-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+  
+  .station-song-music-cover-playWithe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(33, 33, 33, 0.5);
+    border: none;
+    // border-radius: 100%;
+    border: 100%;
+    padding: 8px;
+    cursor: pointer;
+    display: none;
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    color: var(--text-base, #000000);
+  }
+  
+  .station-item-svg-playWithe {
+    width: 24px;
+    height: 24px;
+    fill: white;
+  }
+  .station-song-music-cover-playWithe:hover {
+    width: 50px;
+    height: 50px;
+    fill: white;
+}
 
     .station-info {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      overflow: hidden; /* Ensure text truncation */
-      text-overflow: ellipsis; /* Enable truncation */
-      white-space: nowrap; /* Prevent text wrapping */
+      overflow: hidden;
+      /* Ensure text truncation */
+      text-overflow: ellipsis;
+      /* Enable truncation */
+      white-space: nowrap;
+      /* Prevent text wrapping */
 
       h3 {
         font-size: 16px;
@@ -85,5 +99,4 @@
         margin-top: 4px;
       }
     }
-  }
-}
+  

@@ -9,6 +9,7 @@ import { PlaylistDetails } from './PlaylistDetails';
 import { TrackDetails } from './TrackDetails';
 import { AlbumDetails } from './AlbumDetails';
 import { ArtistDetails } from './ArtistDetails';
+import  PageYoutube  from './PageYoutube';
 
 export function MainDisplaySpliPanel() {
   const COOKIE_KEY = "react-resizable-panels:layout";
@@ -109,6 +110,7 @@ export function MainDisplaySpliPanel() {
                 <Route path="/track/:trackId" element={<TrackDetails />} />
                 <Route path="/album/:albumId" element={<AlbumDetails />} />
                 <Route path="/artist/:artistId" element={<ArtistDetails />} />
+                <Route path="/PageYoutube" element={<PageYoutube />} />
               </Routes>
             </main>
           </div>

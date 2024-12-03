@@ -279,7 +279,7 @@ function _createStation() {
                         id: "c1",
                         title: "Love It When You Hate Me (feat. blackbear) - Acoustic",
                         artist: "Avril Lavigne",
-                        audioSrc: "https://p.scdn.co/mp3-preview/ddabbe456fde1ab1bef88c8022056f7d26f2f5ba?cid=426b1061c8be4e70babeec62bbcf0f08",
+                        audioSrc: "https://www.youtube.com/watch?v=R4-be7fb140",
                             image: "https://i.scdn.co/image/ab67616d0000b273ae6b206adcb3d283e9b327ca"
                     } ,
                     {
