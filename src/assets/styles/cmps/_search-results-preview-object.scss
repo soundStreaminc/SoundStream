@@ -78,15 +78,13 @@
       
     }
 }
-.search-results-mini-details-container{
-  text-decoration: none; /* Removes underline */
-  color: inherit; /* Matches the parent's text color */
 
-}
-.search-results-preview-object a {
+.search-results-mini-details-container {
   text-decoration: none; /* Removes underline */
   color: inherit; /* Matches the parent's text color */
+  cursor: pointer;
 }
+
 .search-results-preview-object {
   .search-results-item-btn-container {
       position: absolute;

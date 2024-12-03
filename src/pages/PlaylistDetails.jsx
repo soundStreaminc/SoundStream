@@ -10,10 +10,29 @@ export function PlaylistDetails(  ) {
     const params = useParams()
     let miniStation = useRef(null)
     const [ tracks , setTracks] = useState(null)
+    const [ fix , setFix] = useState(false)
 
     useEffect(() => {
         loadTracks()
     }, [])
+
+    useEffect(() => {
+        console.log('hrereree2:')
+             
+        window.addEventListener("scroll", setFixed, true);
+        return () => window.removeEventListener("scroll", setFixed, true);  
+    },[])
+
+    function setFixed(){
+        const y = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+        console.log('y:', y)
+        if( window.scrollY >= 1392){
+            console.log('hrereree:', window.scrollY)
+            setFix(true)
+        } else{
+            setFix(false)
+        }
+    } 
 
     async function loadTracks(){
         const foundPlaylist = await stationService.getStationById_SpotifyApi( 'playlist', params.stationId ) 
@@ -35,9 +54,9 @@ export function PlaylistDetails(  ) {
     return (
         <section className="station-details">
             <StationDetails_GeneralObjectHeader station={miniStation.current} /> 
-            <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false} imgSrc={miniStation.current.image} />
-   
-            <div className="content-spacing">
+
+            <div className={ fix ? 'sticky-header-general-object-fix' : 'sticky-header-general-object'}>
+            <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false} imgSrc={miniStation.current.image} /> 
                 <div className="tracks-container">
                     <div className='header-row-playlist'>
                     <div className="header-index">
@@ -68,7 +87,7 @@ export function PlaylistDetails(  ) {
                     ))}
                     </div> 
                 </div> 
-            </div>       
+            </div>     
         </section >
     )
 }

@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import Play from '../assets/svgs/play.svg?react'
+import Pause from '../assets/svgs/pause.svg?react'
 import NoImageArtist from '../assets/svgs/noImageArtist.svg?react';
 
 export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult = false}){
     const [isPlaying, setIsPlaying] = useState(isPlayingSearchResult);
     const isArtistImageExist= miniObject.image ? true : false
 
-    function onPlayPauseClick(  ){
+    function onPlayPauseClick( event ){
+        event.preventDefault();
+        event.stopPropagation();
         if (isPlaying) {
             setIsPlaying(false)
         } else {
@@ -14,9 +17,13 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
         }
     }
 
+    function onButtonClickHandler (  ) {
+        window.location.href = (`/${miniObject.type}/${miniObject.id}`)
+    }
+
     return (
         <section className="search-results-preview-object">
-            <a href={`/${miniObject.type}/${miniObject.id}`}
+            <div onClick={onButtonClickHandler}
                 className="search-results-mini-details-container">      
                 <div className="search-result-object-mini-details-sub-container">
                     <div className="search-result-object-music-cover-container">
@@ -27,13 +34,13 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
                         
                         <div className='search-results-item-btn-container'>
                             {!isPlaying ? (
-                            <button type="button" aria-label="Play" className="search-results-item-btn" onClick={() => onPlayPauseClick(false)}>
+                            <button type="button" aria-label="Play" className="search-results-item-btn" onClick={(e) => onPlayPauseClick(e)}>
                                 <span aria-hidden="true" className="search-results-item-svg-wrapper">         
                                     <Play />
                                 </span>
                             </button>
                             ) : (
-                            <button type="button" aria-label="Pause" className="search-results-item-btn" onClick={() => onPlayPauseClick(true)}>
+                            <button type="button" aria-label="Pause" className="search-results-item-btn" onClick={(e) => onPlayPauseClick(e)}>
                                 <span aria-hidden="true" className="search-results-item-svg-wrapper">         
                                     <Pause />
                                 </span>
@@ -53,7 +60,7 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
                        
                     </div>
                 </div>
-            </a>
+            </div>
                 
         </section>
     )
