@@ -46,7 +46,7 @@ export function Player(){
     // Handle setup when changing tracks
     useEffect(() => {
         audioRef.current.pause();
-    
+
         audioRef.current = new Audio(audioSrc);
         setTrackProgress(audioRef.current.currentTime);
     
@@ -115,9 +115,12 @@ export function Player(){
     }, [volume]);
 
     useEffect(() => {
+        console.log('tracks[trackIndex]:', tracks[trackIndex].youtubeId)
+
         // Set the source and volume whenever these props change
-        // if (audioRef.current) {
-        //     audioRef.current.src = audioSrc
+        if (audioRef.current) {
+            audioRef.current.src = audioSrc
+        }
 
         // Event listener for loadedmetadata (when duration is available)
         const handleLoadedMetadata = () => {

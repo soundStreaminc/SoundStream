@@ -34,7 +34,7 @@ export function AlbumDetails(){
     return (
         <section className="album-details">
             <StationDetails_GeneralObjectHeader station={miniStation.current} />
-            <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false}  imgSrc={miniStation.current.image} />
+            <StationDetails_GeneralObjectActionButtons station={miniStation.current} isAlreadyAdded={false}  imgSrc={miniStation.current.image} />
 
             <div className="os-scrollbar os-scrollbar-horizontal os-theme-spotify os-scrollbar-auto-hide os-scrollbar-handle-interactive os-scrollbar-track-interactive os-scrollbar-cornerless os-scrollbar-unusable os-scrollbar-auto-hide-hidden" >
                 <div className="os-scrollbar-track">

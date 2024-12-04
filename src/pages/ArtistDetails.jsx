@@ -31,7 +31,7 @@ export function ArtistDetails(  ) {
     return (
         <section className="station-details-artist">
             <StationDetails_GeneralObjectHeader station={miniStation.current} />
-            <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false}  imgSrc={miniStation.current.image} />
+            <StationDetails_GeneralObjectActionButtons station={miniStation.current} isAlreadyAdded={false}  imgSrc={miniStation.current.image} />
 
             <div className="tracks-container-artist">
                 <h1>Popular</h1>

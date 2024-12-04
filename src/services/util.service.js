@@ -85,7 +85,7 @@ export function setTrackJson( trackInfo ){
     return trackJson
 }
 
-export function setPlaylistJson( trackInfo ){
+export function setPlaylistJson( trackInfo, youtubeId){
     if(!trackInfo) return 'error, did not get track'
     const trackJson =   [     
     {
@@ -93,7 +93,8 @@ export function setPlaylistJson( trackInfo ){
         title: trackInfo.name,
         artist: trackInfo.artist,
         audioSrc: trackInfo.audio,
-        image: trackInfo.image        
+        image: trackInfo.image,
+        youtubeId: youtubeId       
     }]
     return trackJson
 }

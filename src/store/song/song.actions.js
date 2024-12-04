@@ -85,9 +85,9 @@ export async function searchAlbums ( albumName , limit){
     }
 }
 
-export async function setCurrentlyPlaying ( trackInfo ){
+export async function setCurrentlyPlaying ( trackInfo , youtubeId){
     try {
-        const trackJson = setPlaylistJson( trackInfo )
+        const trackJson = setPlaylistJson( trackInfo, youtubeId )
         await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackJson })
         return trackJson[0]
     } catch (err) {

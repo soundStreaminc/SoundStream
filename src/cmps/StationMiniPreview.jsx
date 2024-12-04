@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { showErrorMsg } from '../services/event-bus.service.js';
 import { stationService } from "../services/station.service.js";
 import PlayWitheStation from '../assets/svgs/playWitheStation.svg?react';
+import { userService } from "../services/user.service.js";
 export default function StationMiniPreview({ stationInfo }) {
   const [station, setStation] = useState(null)
 
@@ -14,6 +15,8 @@ export default function StationMiniPreview({ stationInfo }) {
     try {
       if (!stationInfo.id) throw new Error('error: did not get stationInfo.id')
       const loadedStation = await stationService.getStationById_SpotifyApi(stationInfo.type, stationInfo.id)
+      const loadedUser = await userService.getUsers()
+      console.log('loadedUser:', loadedUser)
       setStation(loadedStation)
     } catch (err) {
       console.log('err:', err)

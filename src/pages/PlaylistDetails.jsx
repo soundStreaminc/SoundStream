@@ -56,7 +56,7 @@ export function PlaylistDetails(  ) {
             <StationDetails_GeneralObjectHeader station={miniStation.current} /> 
 
             <div className={ fix ? 'sticky-header-general-object-fix' : 'sticky-header-general-object'}>
-            <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false} imgSrc={miniStation.current.image} /> 
+            <StationDetails_GeneralObjectActionButtons station={miniStation.current} isAlreadyAdded={false} imgSrc={miniStation.current.image} /> 
                 <div className="tracks-container">
                     <div className='header-row-playlist'>
                     <div className="header-index">
