@@ -26,7 +26,6 @@ async function getSongByName(songName) {
         }
 
         const data = await response.json();
-        console.log('data:', data);
         return data.items ? data.items[0]?.id?.videoId : 'No results found';
     } catch (error) {
         console.error('Error fetching data:', error);

@@ -60,9 +60,28 @@ export function Appfooter() {
         }, 1000); // Update every second
     }
 
-    // Stop tracking when the component unmounts
+     // Stop progress tracking
+    function stopTrackingProgress() {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+    }
+
+    // Handle track switching
     useEffect(() => {
-        return () => clearInterval(intervalRef.current);
+        // Stop listeners and reset states when the track changes
+        stopTrackingProgress();
+        setCurrentTime(0);
+        setDuration(0);
+        setIsPlaying(false);
+
+        if (player) {
+        player.stopVideo(); // Stop the current video
+        }
+    }, [youtubeId]); // Run only when youtubeId changes
+
+     // Cleanup when the component unmounts
+    useEffect(() => {
+        return () => stopTrackingProgress();
     }, []);
   
     // Update the current time in the state

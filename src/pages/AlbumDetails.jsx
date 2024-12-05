@@ -29,7 +29,6 @@ export function AlbumDetails(){
         }
         setTracks(foundAlbum.tracks.items) 
     }
-   
     if(!tracks || !miniStation.current.image) return <span> loading in progress... </span>
     return (
         <section className="album-details">

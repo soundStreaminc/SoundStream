@@ -23,9 +23,9 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
             //audioRef.current.pause();// this will pause the audio
             setIsPlaying(false)
         } else {
-            const youtubeObj = await onPlayTrack(station)
+            const youtubeId = await onPlayTrack(station)
             setIsPlaying(true)
-            await addToRecentlyPlayed(station, youtubeObj.youtubeId)
+            await addToRecentlyPlayed(station, youtubeId)
         }
     };
 
@@ -59,13 +59,11 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
                 youtubeId: '',
                 audio: ''
             }
-            youtubeObj.youtubeId = await youtubeService.getSongByName(track.artist + ' ' + track.name);
-            //youtubeObj.youtubeAudio = await youtubeService.getAudioById(youtubeObj.youtubeId);
-            //console.log('youtubeObj.youtubeAudio :', youtubeObj.youtubeAudio )
-            var playCurrent = track ? await setCurrentlyPlaying ( track , youtubeObj) : ''  
+            const youtubeId = await youtubeService.getSongByName(track.artist + ' ' + track.name);
+            var playCurrent = track ? await setCurrentlyPlaying ( track , youtubeId) : ''  
             console.log(`playing:`, playCurrent)
             showSuccessMsg(`playing: ${playCurrent.title}`)  
-            return youtubeObj         
+            return youtubeId         
         } catch (err) {
             console.error(err);
         }

@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router";
+
 export function TrackPreview_Title({track, tracksDisplayType}){
     const isPlaylist = tracksDisplayType === 'playlist'
     const isArtist = tracksDisplayType === 'artist'
+    const navigate = useNavigate()
+
+    function navigateTo(path){
+        navigate(path)
+    }
 
     return (
         <div className="track-title">
@@ -11,14 +18,14 @@ export function TrackPreview_Title({track, tracksDisplayType}){
             )}
             <div className="name-artist-container">
                 <div className="track-preview-name-container">
-                    <a href={`/track/${track?.id || track.id}`} className="track-name">
+                    <div onClick={() => navigateTo(`track/${track.id}`)} className="track-name">
                         {track?.name || track.name}
-                    </a>
+                    </div>
                 </div>
                 {(!isArtist) && (<div className="track-preview-artist-container">
-                    <a href={`/artist/${track?.artists[0]?.id || track.artists[0]?.id}`} className="track-artist">
-                        {track?.artists[0]?.name || track.artists[0]?.name}
-                    </a>
+                    <div onClick={() => navigateTo(`/artist/${track.artists[0].id}`)} className="track-artist">
+                        {track.artists[0].name}
+                    </div>
                 </div>)
                 }
             </div>
