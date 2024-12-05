@@ -1,0 +1,12 @@
+.app-footer-container{
+    display: flex;
+    min-width: 620px;
+    flex-direction: column;
+    height: auto;
+    background-color: black;
+    grid-area: footer;
+}
+
+.youtube-player{
+    display: none;
+}

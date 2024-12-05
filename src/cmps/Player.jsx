@@ -13,6 +13,7 @@ import { AudioControls } from "./AudioControls";
 import { useSelector } from "react-redux";
 import { setCurrentlyPlayingInitial } from "../store/song/song.actions";
 import { stationService } from "../services/station.service.js";
+import YouTube from 'react-youtube';
 
 export function Player(){
     var tracks = useSelector ( storeState => storeState.currentPlaylist )
@@ -256,8 +257,26 @@ export function Player(){
           }
     }
 
+    const opts = {
+        height: '0',
+        width: '0',
+        playerVars: {
+          // https://developers.google.com/youtube/player_parameters
+          autoplay: 1,
+        },
+      };
+
+    function _onReady(event) {
+        // access to player in all event handlers via event.target
+        event.target.pauseVideo();
+      }
+
     return (
         <div className="player-container">
+                        
+            <div className="test">
+                <YouTube videoId="2g811Eo7K8U" opts={opts} onReady={_onReady} />
+            </div>
             <div className="player-sub-container">
                 <div className="mini-details-player-container">
                     <div className="mini-details-sub-player-container">
@@ -395,7 +414,6 @@ export function Player(){
                     
                 </div>
             </div>
-            
         </div>
     );
 }
