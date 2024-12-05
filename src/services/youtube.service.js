@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { httpService } from './http.service.js';
 const youtubekey = import.meta.env.VITE_YOUTUBE_KEY
 const KEY = youtubekey; // mention your youtube API key here
 
@@ -33,39 +34,7 @@ async function getSongByName(songName) {
     }
 }
  
-async function getAudioById( id ){
-    // YouTube video ID
-    var videoID = id;
-
-    // Fetch video info (using a proxy to avoid CORS errors)
-    const res = await fetch('https://cors-anywhere.herokuapp.com/' + "https://www.youtube.com/get_video_info?video_id=" + videoID).then(response => {
-        if (response.ok) {
-            response.text().then(ytData => {
-            
-            // parse response to find audio info
-            var ytData = _parse_str(ytData);
-            var getAdaptiveFormats = JSON.parse(ytData.player_response).streamingData.adaptiveFormats;
-            var findAudioInfo = getAdaptiveFormats.findIndex(obj => obj.audioQuality);
-            
-            // get the URL for the audio file
-            return getAdaptiveFormats[findAudioInfo].url;
-                    
-            });
-        }
-    })
-    console.log('getAudioById res:', res)
-    return res
-
+async function getAudioById( playingId ){
+    return httpService.get(`playing/getAudio/${playingId}` )
 }
-
-function _parse_str(str) {
-    return str.split('&').reduce(function(params, param) {
-      var paramSplit = param.split('=').map(function(value) {
-        return decodeURIComponent(value.replace('+', ' '));
-      });
-      params[paramSplit[0]] = paramSplit[1];
-      return params;
-    }, {});
-  }
-
 

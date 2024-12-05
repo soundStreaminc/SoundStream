@@ -85,11 +85,22 @@ export async function searchAlbums ( albumName , limit){
     }
 }
 
-export async function setCurrentlyPlaying ( trackInfo , youtubeId){
+export async function setCurrentlyPlaying ( trackInfo , youtubeObj){
     try {
-        const trackJson = setPlaylistJson( trackInfo, youtubeId )
-        await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackJson })
-        return trackJson[0]
+        trackInfo = setPlaylistJson( trackInfo, youtubeObj )
+        await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackInfo })
+        return trackInfo
+    } catch (err) {
+        console.log('Having issues finding playlists:', err)
+        showErrorMsg( 'Having issues finding playlists:' )
+        throw err
+    }
+}
+
+export async function setCurrentlyPlayingInitial ( trackInfo , youtubeId){
+    try {
+        await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackInfo })
+        return trackInfo
     } catch (err) {
         console.log('Having issues finding playlists:', err)
         showErrorMsg( 'Having issues finding playlists:' )

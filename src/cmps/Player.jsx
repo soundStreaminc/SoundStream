@@ -11,7 +11,8 @@ import FullScreen from '../assets/svgs/fullScreen.svg?react'
 import AddToLiked from '../assets/svgs/addToLiked.svg?react'
 import { AudioControls } from "./AudioControls";
 import { useSelector } from "react-redux";
-import { loadTracks } from "../store/song/song.actions";
+import { setCurrentlyPlayingInitial } from "../store/song/song.actions";
+import { stationService } from "../services/station.service.js";
 
 export function Player(){
     var tracks = useSelector ( storeState => storeState.currentPlaylist )
@@ -34,6 +35,7 @@ export function Player(){
     }); // current position of the audio in minutes and seconds
     
     useEffect(() => {
+        loadNowPlaying()
         setAudio(audioRef.current)
 
         // Pause and clean up on unmount
@@ -42,6 +44,15 @@ export function Player(){
             clearInterval(intervalRef.current);
         }
     }, []);
+
+    async function loadNowPlaying(){
+        console.log('load Now Playing')
+        const nowPlaying = await stationService.loadNowPlaying()
+        var playCurrent = nowPlaying[0] ? await setCurrentlyPlayingInitial ( nowPlaying , "CMNry4PE93Y") : ''  
+        console.log('playCurrent:', playCurrent)
+        audioRef = (new Audio(playCurrent.audioSrc))
+        setAudio(audioRef.current)
+    }
 
     // Handle setup when changing tracks
     useEffect(() => {
@@ -115,13 +126,17 @@ export function Player(){
     }, [volume]);
 
     useEffect(() => {
-        console.log('tracks[trackIndex]:', tracks[trackIndex].youtubeId)
-
+        console.log('tracks[trackIndex].youtubeAudio.audioURL:', tracks[trackIndex].youtubeAudio ? tracks[trackIndex].youtubeAudio.audioURL: "intianrllal")
         // Set the source and volume whenever these props change
         if (audioRef.current) {
-            audioRef.current.src = audioSrc
+            if(tracks[trackIndex].youtubeAudio){
+                audioRef.current = new Audio(tracks[trackIndex].youtubeAudio.audioURL)
+                setAudio(audioRef.current)
+            } else{
+                audioRef.current.src = audioSrc
+            }    
         }
-
+        console.log('audioRef:', audioRef , audioRef.current)
         // Event listener for loadedmetadata (when duration is available)
         const handleLoadedMetadata = () => {
         //show('problem searching for artist: ', err)

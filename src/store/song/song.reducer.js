@@ -71,7 +71,7 @@ export function stationReducer ( state = intialState, cmd = {}  ){
         case SET_CURRENT_PLAYLIST :
             return{
                 ...state,
-                currentPlaylist : cmd.trackJson
+                currentPlaylist : cmd.trackInfo
             }  
         case REMOVE_TRACK :
             return{

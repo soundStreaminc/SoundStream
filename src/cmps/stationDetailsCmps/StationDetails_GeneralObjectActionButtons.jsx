@@ -61,8 +61,9 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
             }
             youtubeObj.youtubeId = await youtubeService.getSongByName(track.artist + ' ' + track.name);
             youtubeObj.youtubeAudio = await youtubeService.getAudioById(youtubeObj.youtubeId);
-            var playCurrent = track ? await setCurrentlyPlaying ( track , youtubeObj.youtubeId) : ''  
-            console.log(`playing:`, playCurrent.title)
+            console.log('youtubeObj.youtubeAudio :', youtubeObj.youtubeAudio )
+            var playCurrent = track ? await setCurrentlyPlaying ( track , youtubeObj) : ''  
+            console.log(`playing:`, playCurrent)
             showSuccessMsg(`playing: ${playCurrent.title}`)  
             return youtubeObj         
         } catch (err) {

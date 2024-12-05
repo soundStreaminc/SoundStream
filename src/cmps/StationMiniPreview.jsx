@@ -16,7 +16,7 @@ export default function StationMiniPreview({ stationInfo }) {
       if (!stationInfo.id) throw new Error('error: did not get stationInfo.id')
       const loadedStation = await stationService.getStationById_SpotifyApi(stationInfo.type, stationInfo.id)
       const loadedUser = await userService.getUsers()
-      console.log('loadedUser:', loadedUser)
+      //console.log('loadedUser:', loadedUser)
       setStation(loadedStation)
     } catch (err) {
       console.log('err:', err)
