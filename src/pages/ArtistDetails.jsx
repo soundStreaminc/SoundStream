@@ -23,6 +23,7 @@ export function ArtistDetails(  ) {
             image: foundArtist.images[0] ? foundArtist.images[0].url : null,
             followers: foundArtist.followers.total,
         }
+        
         const getTopTracks = await stationService.getTopTracksByArtistId_SpotifiApi(foundArtist.id)
         setTracks(getTopTracks.tracks) 
     }

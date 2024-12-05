@@ -7,17 +7,19 @@ export function TrackPreview({ track, trackAddedAt, tracksDisplayType, index, is
     const [isPlaying, setIsPlaying] = useState(isPlayingPlaylist);
     const isPlaylist = tracksDisplayType === 'playlist'
     const isArtist = tracksDisplayType === 'artist'
-
-    function onPlayPauseClick() {
-        if (isPlaying) {
-            //audioRef.current.pause();// this will pause the audio
-            setIsPlaying(false)
-        } else {
-            //audioRef.current.play();
-            setIsPlaying(true)
-        }
-    }
-
+    
+    // function onPlayPauseClick(event) {
+    //     event.preventDefault();
+    //     event.stopPropagation();
+    //     if (isPlaying) {
+    //         //audioRef.current.pause();// this will pause the audio
+    //         setIsPlaying(false)
+    //     } else {
+    //         //audioRef.current.play();
+    //         setIsPlaying(true)
+    //     }
+    // }
+    
     return  (
         <section className={`track-preview-container ${isPlaylist ? "playlist" : "album"}`}>
             <div className={isPlaylist ? "track-preview-grid-container-playlist" : "track-preview-grid-container-album"}>

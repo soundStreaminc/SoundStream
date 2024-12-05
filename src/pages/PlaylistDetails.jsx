@@ -16,23 +16,19 @@ export function PlaylistDetails(  ) {
         loadTracks()
     }, [])
 
-    useEffect(() => {
-        console.log('hrereree2:')
-             
-        window.addEventListener("scroll", setFixed, true);
-        return () => window.removeEventListener("scroll", setFixed, true);  
-    },[])
+    // useEffect(() => {        
+    //     window.addEventListener("scroll", setFixed, true);
+    //     return () => window.removeEventListener("scroll", setFixed, true);  
+    // },[])
 
-    function setFixed(){
-        const y = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
-        console.log('y:', y)
-        if( window.scrollY >= 1392){
-            console.log('hrereree:', window.scrollY)
-            setFix(true)
-        } else{
-            setFix(false)
-        }
-    } 
+    // function setFixed(){
+    //     const y = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+    //     if( window.scrollY >= 1392){
+    //         setFix(true)
+    //     } else{
+    //         setFix(false)
+    //     }
+    // } 
 
     async function loadTracks(){
         const foundPlaylist = await stationService.getStationById_SpotifyApi( 'playlist', params.stationId ) 
@@ -55,7 +51,7 @@ export function PlaylistDetails(  ) {
         <section className="station-details">
             <StationDetails_GeneralObjectHeader station={miniStation.current} /> 
 
-            <div className={ fix ? 'sticky-header-general-object-fix' : 'sticky-header-general-object'}>
+
             <StationDetails_GeneralObjectActionButtons station={miniStation.current} isAlreadyAdded={false} imgSrc={miniStation.current.image} /> 
                 <div className="tracks-container">
                     <div className='header-row-playlist'>
@@ -86,8 +82,7 @@ export function PlaylistDetails(  ) {
                         <TrackPreview track={track.track} trackAddedAt={track.added_at} tracksDisplayType={miniStation.current.type} index={index + 1} key={track.track? track.track.id: track.id}/>       
                     ))}
                     </div> 
-                </div> 
-            </div>     
+                </div>     
         </section >
     )
 }

@@ -1,14 +1,17 @@
 import Play from '../assets/svgs/play.svg?react'
 import Pause from '../assets/svgs/pause.svg?react'
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 export function CategoryPreview({category, categoryType = 'track',  isPlayingCategory= false }) {
     const [isPlaying, setIsPlaying] = useState(isPlayingCategory)
     const [track, setTrack] = useState(null)
+    const navigate = useNavigate()
 
     useEffect( () =>{
         loadTrack()
     },[])
+
     function loadTrack(){
         if( categoryType === 'track')
             setTrack(category)
@@ -20,7 +23,9 @@ export function CategoryPreview({category, categoryType = 'track',  isPlayingCat
             })
     }
 
-    function onPlayPauseClick(  ){
+    function onPlayPauseClick( event ){
+        event.preventDefault();
+        event.stopPropagation();
         if (isPlaying) {
             //audioRef.current.pause();// this will pause the audio
             setIsPlaying(false)
@@ -29,14 +34,19 @@ export function CategoryPreview({category, categoryType = 'track',  isPlayingCat
           setIsPlaying(true)
         }
     }
+
     function truncateText(text, maxLength) {
         return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+    }
+
+    function onButtonClickHandler (  ) {
+        navigate(`/${categoryType}/${track.id}`);
     }
 
     if( !track) return <div> loading, please wait. </div>
     return (
         <section className="category-preview-container">
-            <a //href={`/${miniObject.type}/${miniObject.id}`}
+            <div onClick={onButtonClickHandler}
                 className="category-mini-details-container">    
                 <div className="category-mini-details-sub-container">
                     <div className="category-music-cover-container">
@@ -46,13 +56,13 @@ export function CategoryPreview({category, categoryType = 'track',  isPlayingCat
                         ): ''}
                         <div className='category-btn-container'>
                             {!isPlaying ? (
-                                <button type="button" aria-label="Play" className="category-btn" onClick={() => onPlayPauseClick(false)}>
+                                <button type="button" aria-label="Play" className="category-btn" onClick={(e) => onPlayPauseClick(false)}>
                                     <span aria-hidden="true" className="category-svg-wrapper">
                                         <Play />
                                     </span>
                                 </button>
                                 ) : (
-                                <button type="button" aria-label="Pause" className="category-btn" onClick={() => onPlayPauseClick(true)}>
+                                <button type="button" aria-label="Pause" className="category-btn" onClick={(e) => onPlayPauseClick(true)}>
                                     <span aria-hidden="true" className="category-svg-wrapper">
                                         <Pause className="action-btn6" />
                                     </span>
@@ -69,7 +79,7 @@ export function CategoryPreview({category, categoryType = 'track',  isPlayingCat
                         </div>
                     </div> 
                 </div>
-            </a>
+            </div>
         </section>
     )
 }

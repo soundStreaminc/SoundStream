@@ -5,8 +5,12 @@ export function TrackPreview_Title({track, tracksDisplayType}){
     const isArtist = tracksDisplayType === 'artist'
     const navigate = useNavigate()
 
-    function navigateTo(path){
-        navigate(path)
+    function onButtonClickHandler (  ) {
+        navigate(`/track/${track.id}`);
+    }
+
+    function onArtistButtonClickHandler (  ) {
+        navigate(`/artist/${track.artists[0].id}`);
     }
 
     return (
@@ -18,12 +22,12 @@ export function TrackPreview_Title({track, tracksDisplayType}){
             )}
             <div className="name-artist-container">
                 <div className="track-preview-name-container">
-                    <div onClick={() => navigateTo(`track/${track.id}`)} className="track-name">
+                    <div onClick={onButtonClickHandler} className="track-name">
                         {track?.name || track.name}
                     </div>
                 </div>
                 {(!isArtist) && (<div className="track-preview-artist-container">
-                    <div onClick={() => navigateTo(`/artist/${track.artists[0].id}`)} className="track-artist">
+                    <div onClick={onArtistButtonClickHandler} className="track-artist">
                         {track.artists[0].name}
                     </div>
                 </div>)

@@ -55,10 +55,6 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
         try {      
             if (station.type !== 'track') return    
 
-            const youtubeObj = {
-                youtubeId: '',
-                audio: ''
-            }
             const youtubeId = await youtubeService.getSongByName(track.artist + ' ' + track.name);
             var playCurrent = track ? await setCurrentlyPlaying ( track , youtubeId) : ''  
             console.log(`playing:`, playCurrent)
