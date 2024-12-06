@@ -27,8 +27,11 @@ export function StationDetails_GeneralObjectHeader({ station }){
                     </div>
                     <div className="station-titles-container">
                         <div className="station-title3"> {/* TODO: for song details should be song and not track- capital S, then name of song- name of artist */}
-                            {station.type} 
+                       
+
+
                             <span className="station-title3-container">
+                            <span className="station-title3-type">{station.type}</span>
                                 <h1> {station.name} </h1>
                             </span>
                         </div>

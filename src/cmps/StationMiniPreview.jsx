@@ -26,7 +26,7 @@ export default function StationMiniPreview({ stationInfo }) {
 
   function getStationOwnerArtist(stationType) {
     var res;
-    stationType === 'album' ? res = (<h4> {stationType}*{station.artists[0].name} </h4>) : res = (<h4> {stationType}*{station.owner.display_name} </h4>)
+    stationType === 'album' ? res = (<h4> {stationType}•{station.artists[0].name} </h4>) : res = (<h4> {stationType}•{station.owner.display_name} </h4>)
     return res
   }
 
