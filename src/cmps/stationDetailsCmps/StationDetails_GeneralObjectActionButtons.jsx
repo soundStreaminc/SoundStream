@@ -7,11 +7,11 @@ import AddToLiked from '../../assets/svgs/addToLiked.svg?react';
 import LikedSongAdded from '../../assets/svgs/likedSongAdded.svg?react';
 import { stationService } from "../../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service";
-import { setCurrentlyPlaying } from "../../store/song/song.actions";
+import { setCurrentlyPlayingTrack } from "../../store/song/song.actions";
 import { usePalette } from 'react-palette';
 import { youtubeService } from '../../services/youtube.service';
 
-export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, station, imgSrc = null}){
+export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, station, imgSrc = null, playlistTrack = null}){
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
     const [isPlaying, setIsPlaying] = useState( false );
     const MYUSER = 'ohad'
@@ -23,9 +23,9 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
             //audioRef.current.pause();// this will pause the audio
             setIsPlaying(false)
         } else {
-            const youtubeId = await onPlayTrack(station)
+            await onPlayStation(station)
             setIsPlaying(true)
-            await addToRecentlyPlayed(station, youtubeId)
+            await addToRecentlyPlayed(station)
         }
     };
 
@@ -51,12 +51,36 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
         }
     }
 
-    async function onPlayTrack ( track ){
+    async function onPlayStation ( station ){
         try {      
-            if (station.type !== 'track') return    
+            switch (station.type){
+                case 'track':
+                    onPlayTrack(station)
+                    break;
+                case 'playlist':
+                    onPlayPlaylist(playlistTrack)
+                    break;
+                default: 
+                    console.log('error with the station type: ', station.type)
+                    showErrorMsg('should not be here')
+            }
+            //TODO if playlist set store to playlist
+            return          
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
-            const youtubeId = await youtubeService.getSongByName(track.artist + ' ' + track.name);
-            var playCurrent = track ? await setCurrentlyPlaying ( track , youtubeId) : ''  
+    async function onPlayPlaylist ( playlistTrack ){
+        try {      
+            const songToPlay = { 
+                name : playlistTrack[0].track.name, 
+                artist : playlistTrack[0].track.artists[0].name, 
+                image : playlistTrack[0].track.album.images[0].url
+            } 
+
+            const youtubeId = await youtubeService.getSongByName(songToPlay.artist + ' ' + songToPlay.name);
+            var playCurrent = songToPlay ? await setCurrentlyPlayingTrack ( songToPlay , youtubeId) : ''  
             console.log(`playing:`, playCurrent)
             showSuccessMsg(`playing: ${playCurrent.title}`)  
             return youtubeId         
@@ -65,10 +89,24 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
         }
     }
 
-    async function addToRecentlyPlayed ( track, youtubeId ){
+    async function onPlayTrack ( track ){
+        try {      
+            const songToPlay = station.type === 'track' ? track : playlistTrack[0].track
+            //TODO if playlist set store to playlist
+            const youtubeId = await youtubeService.getSongByName(songToPlay.artist + ' ' + songToPlay.name);
+            var playCurrent = songToPlay ? await setCurrentlyPlayingTrack ( songToPlay , youtubeId) : ''  
+            console.log(`playing:`, playCurrent)
+            showSuccessMsg(`playing: ${playCurrent.title}`)  
+            return youtubeId         
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async function addToRecentlyPlayed ( track ){
         try {      
             if (station.type !== 'track') return  
-            const trackJson = setTrackJson( track , youtubeId)
+            const trackJson = setTrackJson( track )
             await stationService.addToRecentlyPlayedByUser( trackJson ,MAXRECENTPLAYED, 'ohad')     //TODO should be changed according to user    
         } catch (err) {
             console.error(err);
