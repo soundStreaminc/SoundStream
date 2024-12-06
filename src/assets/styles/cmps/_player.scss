@@ -113,12 +113,16 @@
   gap: 8px;
   color: #b3b3b3;
   width: 100%;
+
 }
 
 .current-time {
-  
+  top: 2px; /* Adjust this value to center align with the timeline */
+
   min-width: 40px;
   text-align: right;
+  position: relative;
+
 }
 
 :root {
@@ -236,6 +240,8 @@ input[type="range"]:hover::-moz-range-thumb {
 .time-duration{
   min-width: 40px;
   text-align: left;
+  position: relative;
+  top: 2px;
 }
 
 .smallImage{

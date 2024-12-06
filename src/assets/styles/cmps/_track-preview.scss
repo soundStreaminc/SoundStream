@@ -16,7 +16,7 @@
     &:hover {
         background-color: #333; /* Highlight the song on hover */
         border-radius: 15px; /* More rounded corners on hover */
-        transform: scale(1.02); /* Slightly enlarge on hover */
+        // transform: scale(1.02); /* Slightly enlarge on hover */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow effect */
 
         .track-preview-action-icon, .track-preview-action-icon-more {
@@ -84,8 +84,8 @@
     min-width: 16px;
     position: relative;
     width: var(--tracklist-index-column-width, 16px);
-    --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
-    font-family: 'Bank Gothic', 'DIN Next', 'Eurostile';
+    // --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
+    // font-family: 'Bank Gothic', 'DIN Next', 'Eurostile';
 
     font-size: 0.875rem;
 }
@@ -107,8 +107,8 @@
     align-self: center;
     color: var(--text-subdued, #b3b3b3);
     display: inline-block;
-    --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
-    font-family: 'Bank Gothic', 'DIN Next', 'Eurostile';
+    // --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
+    // font-family: 'Bank Gothic', 'DIN Next', 'Eurostile';
 
     font-size: 0.875rem;
 

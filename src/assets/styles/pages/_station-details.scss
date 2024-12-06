@@ -1,14 +1,14 @@
-.station-sub-info{
-    display: flex;
+.station-sub-info {
+  display: flex;
 }
 
-.cover-station img{
-        height: 150px;
-        width: 150px;
-        padding: 20px;
+.cover-station img {
+  height: 150px;
+  width: 150px;
+  padding: 20px;
 }
 
-.general-object-header-svg-container{
+.general-object-header-svg-container {
   height: 150px;
   width: 150px;
   padding: 20px;
@@ -16,7 +16,7 @@
   color: #7f7f7f;
 }
 
-.general-object-header-svg-radius-container{
+.general-object-header-svg-radius-container {
   border-radius: 50%;
   display: flex;
   -webkit-box-align: center;
@@ -32,91 +32,121 @@
   width: 100%;
 }
 
-.cover-station svg{
+.cover-station svg {
   height: 48px;
   width: 48px;
-  fill: #7f7f7f;;
+  fill: #7f7f7f;
+  ;
   ;
 }
 
-.station-title3{
-    --min-column-width: 20px;
-    display: grid;
-    row-gap: 20px;
-    grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
+.station-title3-container {
+  display: block;
+  /* Adjust display to control text behavior */
+  font-size: 3rem;
+  /* Set an appropriate font size */
+  white-space: nowrap;
+  /* Prevent line breaks */
+  overflow: hidden;
+  /* Hide overflowing text */
+  text-overflow: ellipsis;
+  /* Show ellipsis for overflowing text */
+  max-width: 100%;
+  /* Prevent it from exceeding container width */
+  width: fit-content;
+  /* Adjust to content size */
 }
 
-.action-btn4{
-    fill: currentcolor;
-    width: var(--encore-graphic-size-decorative-base, 24px);
-    height: var(--encore-graphic-size-decorative-base, 24px);
+.station-title3-type {
+  align-self: end;
+  /* Aligns the type flush to the bottom */
+  font-size: 14px;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.station-title3 {
+  --min-column-width: 20px;
+  display: grid;
+  row-gap: 20px;
+  grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
+}
+
+.action-btn4 {
+  fill: currentcolor;
+  width: var(--encore-graphic-size-decorative-base, 24px);
+  height: var(--encore-graphic-size-decorative-base, 24px);
 }
 
 .playerButton4 {
-    //background: white;
-    border: none;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    background-color: transparent;
-    border: 0px;
-    border-radius: var(--encore-button-corner-radius, 9999px);
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    text-transform: none;
-    touch-action: manipulation;
-    transition-duration: 33ms;
-    transition-property: background-color, border-color, color, box-shadow, filter, transform;
-    user-select: none;
-    vertical-align: middle;
-    transform: translate3d(0px, 0px, 0px);
-    padding: 0px;
-    min-inline-size: 0px;
+  //background: white;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  border: 0px;
+  border-radius: var(--encore-button-corner-radius, 9999px);
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  touch-action: manipulation;
+  transition-duration: 33ms;
+  transition-property: background-color, border-color, color, box-shadow, filter, transform;
+  user-select: none;
+  vertical-align: middle;
+  transform: translate3d(0px, 0px, 0px);
+  padding: 0px;
+  min-inline-size: 0px;
+}
+
+.button-inner {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  background-color: #1db954;
+  color: #000000;
+  display: flex;
+  border-radius: var(--encore-button-corner-radius, 9999px);
+  font-size: inherit;
+  min-block-size: var(56px, 56px);
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  inline-size: var(56px, 56px);
+  block-size: var(56px, 56px);
+  transition-property: background-color, transform;
+  transition-duration: 33ms;
+  width: 56px;
+  height: 56px;
+
+  &:hover {
+    background-color: #1ed760;
+    /* Brighter green on hover */
   }
+}
 
-  .button-inner{
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    position: relative;
-    background-color: #1db954;
-    color:  #000000;
-    display: flex;
-    border-radius: var(--encore-button-corner-radius, 9999px);
-    font-size: inherit;
-    min-block-size: var(56px, 56px);
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    inline-size: var(56px, 56px);
-    block-size: var(56px, 56px);
-    transition-property: background-color, transform;
-    transition-duration: 33ms;
-    width: 56px;
-    height: 56px;
+.station-details-iconWrapper {
+  display: flex;
+  position: absolute;
+  box-sizing: border-box;
+}
 
-    &:hover {
-        background-color: #1ed760; /* Brighter green on hover */
-      }
-  }
 
-  .station-details-iconWrapper{
-    display: flex;
-    position: absolute;
-    box-sizing: border-box;
-  }
 
-  .controll-btns2{
-    width: 56px;
-    height: 56px;
-    padding-bottom: 16px;
-    padding-top: 16px;
+.controll-btns2 {
+  width: 56px;
+  height: 56px;
+  padding-bottom: 16px;
+  padding-top: 16px;
 
-  }
+}

@@ -44,11 +44,10 @@
   }
 
   .station-title3 h1{
-    visibility: visible;
-    width: 100%;
-    font-size: 6rem;
-    white-space: nowrap;
-    text-wrap-style: balance;
+    
+    margin: 0;
+    font-size: 4rem; /* Reduce font size slightly for longer text */
+    color: #ffffff;
   }
 
   .artist-icon-container{
@@ -71,7 +70,26 @@
   .station-sub-title{
     display: flex;
     align-items: center;
+    color: gray !important; /* Force white color if overridden elsewhere */
+
   }
+//   .station-title4 {
+//     color: gray; /* Ensure the entire container has a gray color */
+// }
+
+  
+.station-title4 .owner-name {
+  color: white !important; /* Explicitly override the gray color of the parent */
+  font-weight: bold; /* Optional: Make the text bold */
+}
+  .station-title4-container{
+    color: gray !important; /* Force white color if overridden elsewhere */
+    font-size: 0.875rem; /* Optional: Adjust font size */
+
+  }
+  // .station-title4{
+  //   color: gray
+  // }
 
   .general-object-header-icon{
     box-sizing: border-box;
@@ -123,18 +141,23 @@
 
   .mini-title-artist-name{
     font-weight: 700;
-    --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
+    // --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
     font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);
     font-size: 0.875rem;
   }
 
   .mini-title-release-date, .mini-title-duration{
-    --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
+    // --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
     font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);
     font-size: 0.875rem;
   }
 
-  .seperator-title{
-    font-weight: 400;
+  .station-title4 .seperator-title-p {
+  
     margin-inline: 4px;
+    font-weight: 400; /* Optional: Adjust font weight */
+    color: gray !important; /* Force white color if overridden elsewhere */
   }
+  .seperator-title-p {
+    color: gray !important;
+}

@@ -168,7 +168,7 @@ export function Player(){
             setDuration(audioRef.current.duration)
 
             const min = ('0'+ (Math.floor(duration / 60))).slice(-2);
-            const secRemain = ('0'+  (Math.floor(duration % 60))).slice(-2);
+            const secRemain = ('0'+  (Math.floor(duration % 60))).slice(-1);
             setTime({
                 min: min,
                 sec: secRemain

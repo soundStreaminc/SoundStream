@@ -77,8 +77,10 @@ export function StationDetails_GeneralObjectMiniTitle({miniStation}){
                 {miniStation.description}
             </span>
             <div className="station-sub-title">
-                <b> {miniStation.owner} </b> <span className='seperator-title'> • </span>                        
-                {miniStation.followers} save <span className='seperator-title'> • </span>
+                
+                <b className="owner-name"> {miniStation.owner} </b> 
+                <span className="seperator-title-p"> • </span>                        
+                {miniStation.followers} save <span className="seperator-title-p"> • </span>
                 {miniStation.count} songs, 
                 {/* TODO create a function to get the duration of the album. maybe api?*/}
                 {miniStation.length}

@@ -1,20 +1,41 @@
+.tracks-container {
+    position: relative;
+    
+}
+.sticky-container {
+    position: sticky;
+    top: 0; /* Adjust as needed */
+    z-index: 20; /* Ensures it stays on top */
+    background-color: #121212; /* Consistent background */
+    
+}
+.sticky-header-general-object {
+    transition: all 0.3s ease; // Smooth transition for UI changes
+}
+
 .header-row-playlist{
+    margin: 0; /* Remove any margin that could cause gaps */
+
     display: grid;
     padding: 0 16px;
     grid-gap: 16px;
     grid-template-columns: [index] var(--tracklist-index-column-width, 16px) minmax(120px, 6fr) minmax(120px, 4fr) minmax(120px, 3fr) minmax(120px, 1fr);
-    border-bottom: 1px solid hsla(0, 0%, 100%, .1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--text-subdued, #b3b3b3);
     height: 36px;
+    background-color: #121212; /* Consistent with container */
 }
 
 .track-list-playlist{
+    
     --grid-gap: 10px;
     --min-column-width: 20px;
     display: grid;
     grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
     gap: var(--grid-gap);
     // display: none;
+    margin-top: 20px; /* Adjust the value to your preference */
+
 }
 
 
