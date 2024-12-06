@@ -16,33 +16,19 @@ export function PlaylistDetails() {
         loadTracks()
     }, [])
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const stickyOffset = 200; // Replace with your desired pixel value
-            const y = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
-            console.log("y",y)
+    // useEffect(() => {        
+    //     window.addEventListener("scroll", setFixed, true);
+    //     return () => window.removeEventListener("scroll", setFixed, true);  
+    // },[])
 
-            if (y >= stickyOffset) {
-                setFix(true);
-            } else {
-                setFix(false);
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll, true);
-        return () => window.removeEventListener("scroll", handleScroll, true);
-    }, []);
-
-    // function setFixed() {
+    // function setFixed(){
     //     const y = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
-    //     console.log('y:', y)
-    //     if (window.scrollY >= 1392) {
-    //         console.log('hrereree:', window.scrollY)
+    //     if( window.scrollY >= 1392){
     //         setFix(true)
-    //     } else {
+    //     } else{
     //         setFix(false)
     //     }
-    // }
+    // } 
 
     async function loadTracks() {
         const foundPlaylist = await stationService.getStationById_SpotifyApi('playlist', params.stationId)
@@ -63,18 +49,12 @@ export function PlaylistDetails() {
     if (!tracks || !miniStation.current.image) return <span> loading in progress... </span>
     return (
         <section className="station-details">
-            <StationDetails_GeneralObjectHeader station={miniStation.current} />
-            <div className="sticky-container">
-                <div className="sticky-header-general-object">
-                {fix ? (<StationDetails_GeneralObjectActionButtons
-                        isAlreadyAdded={false}
-                        imgSrc={miniStation.current.image}
-                    />):(  <StationDetails_GeneralObjectActionButtons
-                        isAlreadyAdded={false}
-                        imgSrc={miniStation.current.image}
-                    />)}
-                </div>
-                <div className="header-row-playlist">
+            <StationDetails_GeneralObjectHeader station={miniStation.current} /> 
+
+
+            <StationDetails_GeneralObjectActionButtons station={miniStation.current} isAlreadyAdded={false} imgSrc={miniStation.current.image} /> 
+                <div className="tracks-container">
+                    <div className='header-row-playlist'>
                     <div className="header-index">
                         <p>#</p>
                     </div>
@@ -97,16 +77,10 @@ export function PlaylistDetails() {
             <div className="tracks-container">
                 <div className="track-list-playlist">
                     {tracks.map((track, index) => (
-                        <TrackPreview
-                            track={track.track}
-                            trackAddedAt={track.added_at}
-                            tracksDisplayType={miniStation.current.type}
-                            index={index + 1}
-                            key={track.track ? track.track.id : track.id}
-                        />
+                        <TrackPreview track={track.track} trackAddedAt={track.added_at} tracksDisplayType={miniStation.current.type} index={index + 1} key={track.track? track.track.id: track.id}/>       
                     ))}
-                </div>
-            </div>
+                    </div> 
+                </div>     
         </section >
     )
 }

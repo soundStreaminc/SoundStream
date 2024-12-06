@@ -9,8 +9,9 @@ import { stationService } from "../../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service";
 import { setCurrentlyPlaying } from "../../store/song/song.actions";
 import { usePalette } from 'react-palette';
+import { youtubeService } from '../../services/youtube.service';
 
-export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded , imgSrc = null}){
+export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, station, imgSrc = null}){
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
     const [isPlaying, setIsPlaying] = useState( false );
     const MYUSER = 'ohad'
@@ -22,9 +23,9 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded , img
             //audioRef.current.pause();// this will pause the audio
             setIsPlaying(false)
         } else {
-            await onPlayTrack(station)
+            const youtubeId = await onPlayTrack(station)
             setIsPlaying(true)
-            await addToRecentlyPlayed(station)
+            await addToRecentlyPlayed(station, youtubeId)
         }
     };
 
@@ -53,19 +54,21 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded , img
     async function onPlayTrack ( track ){
         try {      
             if (station.type !== 'track') return    
-            if( !track.audio) console.log("this song has no preview url and will not be played")
-            var playCurrent = track ? await setCurrentlyPlaying ( track ) : ''  
-            console.log(`playing:`, playCurrent.title)
-            showSuccessMsg(`playing: ${playCurrent.title}`)           
+
+            const youtubeId = await youtubeService.getSongByName(track.artist + ' ' + track.name);
+            var playCurrent = track ? await setCurrentlyPlaying ( track , youtubeId) : ''  
+            console.log(`playing:`, playCurrent)
+            showSuccessMsg(`playing: ${playCurrent.title}`)  
+            return youtubeId         
         } catch (err) {
             console.error(err);
         }
     }
 
-    async function addToRecentlyPlayed ( track ){
+    async function addToRecentlyPlayed ( track, youtubeId ){
         try {      
             if (station.type !== 'track') return  
-            const trackJson = setTrackJson( track )
+            const trackJson = setTrackJson( track , youtubeId)
             await stationService.addToRecentlyPlayedByUser( trackJson ,MAXRECENTPLAYED, 'ohad')     //TODO should be changed according to user    
         } catch (err) {
             console.error(err);

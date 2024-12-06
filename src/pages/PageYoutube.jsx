@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SearchbarYoutube from './SearchbarYoutube';
 import VideoListYoutube from './VideoListYoutube';
 import VideoDetailYoutube from './VideoDetailYoutube';
-import youtube from '../services/youtube';
+import { youtubeService } from '../services/youtube.service.js';
 
 const PageYoutube = () => {
     // State using hooks
@@ -10,18 +10,21 @@ const PageYoutube = () => {
     const [selectedVideo, setSelectedVideo] = useState(null);
 
     // Handle search form submission
+
     const handleSubmit = async (termFromSearchBar) => {
         try {
-            const response = await youtube.get('/search', {
-                params: {
-                    q: termFromSearchBar,
-                    maxResults: 1, // Limit results to one
+            const videoId = await youtubeService.getSongByName(termFromSearchBar);
+            console.log('videoId:', videoId)
+            // const response = await youtube.get('/search', {
+            //     params: {
+            //         q: termFromSearchBar,
+            //         maxResults: 1, // Limit results to one
 
-                }
-            });
-
-            setVideos(response.data.items); // Update videos state
-            console.log('This is response:', response);
+            //     }
+            // });
+            // console.log('response.data.items:', response.data.items[0].id.videoId)
+            // setVideos(response.data.items); // Update videos state
+            // console.log('This is response:', response);
         } catch (error) {
             console.error('Error fetching data:', error);
         }

@@ -2,10 +2,12 @@ import { useState } from 'react';
 import Play from '../assets/svgs/play.svg?react'
 import Pause from '../assets/svgs/pause.svg?react'
 import NoImageArtist from '../assets/svgs/noImageArtist.svg?react';
+import { useNavigate } from 'react-router';
 
 export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult = false}){
     const [isPlaying, setIsPlaying] = useState(isPlayingSearchResult);
     const isArtistImageExist= miniObject.image ? true : false
+    const navigate = useNavigate();
 
     function onPlayPauseClick( event ){
         event.preventDefault();
@@ -18,7 +20,7 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
     }
 
     function onButtonClickHandler (  ) {
-        window.location.href = (`/${miniObject.type}/${miniObject.id}`)
+        navigate(`/${miniObject.type}/${miniObject.id}`);
     }
 
     return (

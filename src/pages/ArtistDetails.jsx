@@ -23,6 +23,7 @@ export function ArtistDetails(  ) {
             image: foundArtist.images[0] ? foundArtist.images[0].url : null,
             followers: foundArtist.followers.total,
         }
+        
         const getTopTracks = await stationService.getTopTracksByArtistId_SpotifiApi(foundArtist.id)
         setTracks(getTopTracks.tracks) 
     }
@@ -31,7 +32,7 @@ export function ArtistDetails(  ) {
     return (
         <section className="station-details-artist">
             <StationDetails_GeneralObjectHeader station={miniStation.current} />
-            <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false}  imgSrc={miniStation.current.image} />
+            <StationDetails_GeneralObjectActionButtons station={miniStation.current} isAlreadyAdded={false}  imgSrc={miniStation.current.image} />
 
             <div className="tracks-container-artist">
                 <h1>Popular</h1>

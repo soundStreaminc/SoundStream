@@ -35,7 +35,7 @@ export function TrackDetails(){
     return (
         <section className="track-details-container">
                 <StationDetails_GeneralObjectHeader station={track} />
-                <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false}  imgSrc={miniStation.current.image} />
+                <StationDetails_GeneralObjectActionButtons station={miniStation.current} isAlreadyAdded={false}  imgSrc={miniStation.current.image} />
 
         </section >
     )

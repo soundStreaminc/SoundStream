@@ -9,6 +9,7 @@ export const userService = {
     signup,
     getLoggedinUser,
     saveLocalUser,
+
     getUsers,
     getById,
     remove,
@@ -20,8 +21,8 @@ window.userService = userService
 
 
 function getUsers() {
-    return storageService.query('user')
-    // return httpService.get(`user`)
+    //return storageService.query('user')
+    return httpService.get(`user`)
 }
 
 

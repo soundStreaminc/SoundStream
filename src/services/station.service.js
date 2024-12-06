@@ -1,5 +1,6 @@
 import { utilService } from './util.service.js'
 import { showErrorMsg } from '../services/event-bus.service.js';
+import { httpService } from './http.service.js';
 
 const clientId = import.meta.env.VITE_CLIENT_ID
 const clientSecret = import.meta.env.VITE_CLIENT_SECRET
@@ -22,6 +23,7 @@ export const stationService = {
     insertIntoArray,
     getRecentlyPlayedByUser,
     addToRecentlyPlayedByUser,
+    loadNowPlaying,
 
     getArtistId_SpotifyApi,
     getArtists_SpotifyApi,
@@ -395,6 +397,10 @@ async function getCategoryPlaylists( category, limit ){
             showErrorMsg('error: the category was not found')
             return []
     }
+}
+
+async function loadNowPlaying( filterBy ){
+    return httpService.get(`playing`, filterBy)
 }
 
 //TODO add get empy msgs?

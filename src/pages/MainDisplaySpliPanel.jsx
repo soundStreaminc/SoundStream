@@ -110,7 +110,7 @@ export function MainDisplaySpliPanel() {
                 <Route path="/track/:trackId" element={<TrackDetails />} />
                 <Route path="/album/:albumId" element={<AlbumDetails />} />
                 <Route path="/artist/:artistId" element={<ArtistDetails />} />
-                <Route path="/PageYoutube" element={<PageYoutube />} />
+                <Route path="/youtube" element={<PageYoutube />} />
               </Routes>
             </main>
           </div>
