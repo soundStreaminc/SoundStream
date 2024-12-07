@@ -3,7 +3,8 @@
     --grid-gap: 10px;
     --grid-height: 48px;
     display: grid;
-    grid-template-columns: 20px 450px minmax(40px, 1fr);
+    grid-template-columns: 20px 3fr 1fr; /* Keep the grid layout */
+
     gap: var(--grid-gap);
     max-height: var(--grid-height);
     white-space: nowrap;
@@ -11,6 +12,9 @@
     margin-bottom: 10px;
     border-radius: 8px;
     transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.header-row-album > :nth-child(2) { /* Target the second column */
+    padding-left:200px; /* Add padding to move it to the right */
 }
 .track-list-album{
     --grid-gap: 10px;
