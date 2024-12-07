@@ -52,7 +52,7 @@ export function PlaylistDetails() {
             <StationDetails_GeneralObjectHeader station={miniStation.current} /> 
 
 
-            <StationDetails_GeneralObjectActionButtons station={miniStation.current} isAlreadyAdded={false} imgSrc={miniStation.current.image} /> 
+            <StationDetails_GeneralObjectActionButtons station={miniStation.current} isAlreadyAdded={false} imgSrc={miniStation.current.image} playlistTrack={tracks}/> 
                 <div className="tracks-container">
                     <div className='header-row-playlist'>
                     <div className="header-index">
