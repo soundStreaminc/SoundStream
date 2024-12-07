@@ -251,3 +251,13 @@
 .station-sub-title-album .mini-title-duration-album {
   margin-left: 4px; /* Add slight spacing before duration */
 }
+.station-title3-container-stcky {
+    display: flex; /* Align type and name in a single row */
+    align-items: center; /* Center the text vertically */
+    gap: 8px; /* Add space between type and title */
+    font-size: 16px; /* Adjust text size */
+    color: white; /* Ensure visibility */
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Prevent overflowing */
+    text-overflow: ellipsis; /* Add ellipsis if text is too long */
+}
