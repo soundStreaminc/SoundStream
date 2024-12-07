@@ -36,7 +36,6 @@ export function PlaylistDetails({ scrollableContainerRef }) {
         const scrollableElement = scrollableContainerRef?.current || document.documentElement;
         const y = scrollableElement.scrollTop || 0;
 
-        console.log("Scroll position (y):", y);
         if (y >= 200) {
             setFix(true);
 
@@ -69,7 +68,7 @@ export function PlaylistDetails({ scrollableContainerRef }) {
         };
         setTracks(foundPlaylist.tracks.items);
     }
-    console.log("fix", fix);
+  
     if (!tracks || !miniStation.current.image) return <span>Loading in progress...</span>
 
     return (

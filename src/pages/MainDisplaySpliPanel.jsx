@@ -110,7 +110,7 @@ export function MainDisplaySpliPanel() {
                 <Route path='/search/:filterText' element={<StationFilterDetails />} />
                 <Route path="/playlist/:stationId" element={<PlaylistDetails scrollableContainerRef={scrollableContainerRef} />} />
                 <Route path="/track/:trackId" element={<TrackDetails />} />
-                <Route path="/album/:albumId" element={<AlbumDetails />} />
+                <Route path="/album/:albumId" element={<AlbumDetails scrollableContainerRef={scrollableContainerRef} />} />
                 <Route path="/artist/:artistId" element={<ArtistDetails />} />
                 <Route path="/youtube" element={<PageYoutube />} />
               </Routes>
