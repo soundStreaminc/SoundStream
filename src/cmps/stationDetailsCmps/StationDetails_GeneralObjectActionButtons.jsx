@@ -85,6 +85,7 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
             console.log('songToPlay:', songToPlay)
             console.log("songToPlay.artist + ' ' + songToPlay.name:", songToPlay.artist + ' ' + songToPlay.name)
             const youtubeId = await youtubeService.getSongByName(songToPlay.artist + ' ' + songToPlay.name);
+            console.log('youtubeId:', youtubeId)
             var playCurrent = songToPlay ? await setCurrentlyPlayingTrack ( songToPlay , youtubeId) : ''  
             console.log(`playing:`, playCurrent)
             showSuccessMsg(`playing: ${playCurrent.title}`)  

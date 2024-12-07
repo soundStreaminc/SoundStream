@@ -1,15 +1,37 @@
-import axios from 'axios';
-import { httpService } from './http.service.js';
+import { storageService } from './async-storage.service.js';
 const youtubekey = import.meta.env.VITE_YOUTUBE_KEY
 const KEY = youtubekey; // mention your youtube API key here
+const STORAGE_KEY = 'cache'
 
 export const youtubeService = {
     getSongByName,
-    getAudioById
+    query,
+    getSearchesByFullNameFromCache,
+    save
 }
 window.cs = youtubeService
 
+async function query() {
+    var cache = await storageService.query(STORAGE_KEY)
+    return cache
+}
+
+function getSearchesByFullNameFromCache(fullname) {
+    return storageService.getByName(STORAGE_KEY, fullname)
+}
+
+async function save(youtubeSearch) {
+    const savedSearch = {
+        name: youtubeSearch.name,
+        youtubeId : youtubeSearch.youtubeId
+    }
+    savedSearch = await storageService.postNoId(STORAGE_KEY, savedSearch)
+    return savedSearch
+}
+
 async function getSongByName(songName) {
+    const youtubeId = getSearchesByFullNameFromCache(songName)
+    if(youtubeId) return youtubeId
     try {
         const params = {
             key: KEY,
@@ -30,9 +52,5 @@ async function getSongByName(songName) {
         console.error('Error fetching data:', error);
         return 'Could not fetch data';
     }
-}
- 
-async function getAudioById( playingId ){
-    return httpService.get(`playing/getAudio/${playingId}` )
 }
 

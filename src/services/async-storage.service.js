@@ -1,7 +1,9 @@
 export const storageService = {
     query,
     get,
+    getByName,
     post,
+    postNoId,
     put,
     remove,
 }
@@ -19,8 +21,24 @@ function get(entityType, entityId) {
     })
 }
 
+function getByName(entityType, entityName) {
+    return query(entityType).then(entities => {
+        const entity = entities.find(entity => entity.name === entityName)
+        if (!entity) return null
+        return entity
+    })
+}
+
 function post(entityType, newEntity) {
     newEntity._id = _makeId()
+    return query(entityType).then(entities => {
+        entities.push(newEntity)
+        _save(entityType, entities)
+        return newEntity
+    })
+}
+
+function postNoId(entityType, newEntity) {
     return query(entityType).then(entities => {
         entities.push(newEntity)
         _save(entityType, entities)
