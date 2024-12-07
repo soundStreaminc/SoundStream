@@ -1,163 +1,184 @@
-.addToLiked{
-    fill: rgb(211, 209, 209);
-    border-color: #000;
+.addToLiked {
+  fill: rgb(211, 209, 209);
+  border-color: #000;
 }
 
-.add-station-btn:hover{
-    fill: white;
-    border-color: #000;
+.add-station-btn:hover {
+  fill: white;
+  border-color: #000;
 }
 
-.remove-from-liked{
-    fill: rgb(42, 255, 124);
-    border-color: #000;
+.remove-from-liked {
+  fill: rgb(42, 255, 124);
+  border-color: #000;
 }
 
-.add-station-btn{
-    background-color: transparent;
-    border: none;
-    color: hsla(0, 0%, 100%, .7);
-    height: 32px;
-    position: relative;
-    width: 42px;
-    cursor: pointer;
-    fill: #b3b3b3;
-  }
+.add-station-btn {
+  background-color: transparent;
+  border: none;
+  color: hsla(0, 0%, 100%, .7);
+  height: 32px;
+  position: relative;
+  width: 42px;
+  cursor: pointer;
+  fill: #b3b3b3;
+}
 
-  .remove-station-btn{
-    background-color: transparent;
-    border: none;
-    color: hsla(0, 0%, 100%, .7);
-    height: 32px;
-    position: relative;
-    width: 42px;
-    cursor: pointer;
-    fill: #b3b3b3;
-  }
+.remove-station-btn {
+  background-color: transparent;
+  border: none;
+  color: hsla(0, 0%, 100%, .7);
+  height: 32px;
+  position: relative;
+  width: 42px;
+  cursor: pointer;
+  fill: #b3b3b3;
+}
 
-  .general-object-header-btns{
-    display: flex;
-    gap: 1em;
-    justify-items: center;
-    align-items: center;
-    padding: 5px;
-  }
+.general-object-header-btns {
+  display: flex;
+  gap: 1em;
+  justify-items: center;
+  align-items: center;
+  padding: 5px;
+}
 
-  .station-title3 h1{
-    
-    margin: 0;
-    font-size: 4rem; /* Reduce font size slightly for longer text */
-    color: #ffffff;
-  }
+.station-title3 h1 {
 
-  .artist-icon-container{
-    width: 24px;
-    height: 24px;
-    inset-inline-start: 0px;
-  }
+  margin: 0;
+  font-size: 4rem;
+  /* Reduce font size slightly for longer text */
+  color: #ffffff;
+}
 
-  .artist-icon{
-    object-fit: cover;
-    -o-object-position: center center;
-    object-position: center center;
-    border-radius: 50%;
-    height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    width: 100%;
-  }
+.artist-icon-container {
+  width: 24px;
+  height: 24px;
+  inset-inline-start: 0px;
+}
 
-  .station-sub-title{
-    display: flex;
-    align-items: center;
-    color: gray !important; /* Force white color if overridden elsewhere */
+.artist-icon {
+  object-fit: cover;
+  -o-object-position: center center;
+  object-position: center center;
+  border-radius: 50%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+}
 
-  }
+.station-sub-title {
+  display: flex;
+  align-items: center;
+  color: gray !important;
+  /* Force white color if overridden elsewhere */
+
+}
+
 //   .station-title4 {
 //     color: gray; /* Ensure the entire container has a gray color */
 // }
 
-  
+
 .station-title4 .owner-name {
-  color: white !important; /* Explicitly override the gray color of the parent */
-  font-weight: bold; /* Optional: Make the text bold */
+  color: white !important;
+  /* Explicitly override the gray color of the parent */
+  font-weight: bold;
+  /* Optional: Make the text bold */
 }
-  .station-title4-container{
-    color: gray !important; /* Force white color if overridden elsewhere */
-    font-size: 0.875rem; /* Optional: Adjust font size */
 
+.station-title4-container {
+  color: gray !important;
+  /* Force white color if overridden elsewhere */
+  font-size: 0.875rem;
+  /* Optional: Adjust font size */
+
+}
+.station-title4-container-miniobject-title{
+  color: gray !important;
+  /* Force white color if overridden elsewhere */
+  font-size: 0.875rem;
+  /* Optional: Adjust font size */
+}
+
+// .station-title4{
+//   color: gray
+// }
+
+.general-object-header-icon {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  border: 0px;
+  border-radius: var(--encore-button-corner-radius, 9999px);
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  touch-action: manipulation;
+  transition-duration: 33ms;
+  transition-property: background-color, border-color, color, box-shadow, filter, transform;
+  user-select: none;
+  vertical-align: middle;
+  transform: translate3d(0px, 0px, 0px);
+  color: var(--text-subdued, #656565);
+  min-inline-size: 0px;
+  min-block-size: var(--encore-control-size-larger, 56px);
+  padding-block: var(--encore-spacing-tighter, 12px);
+  padding-inline: 0px;
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.general-object-header-iconWrapper {
+  display: flex;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+.general-object-header-more-option-for {
+  fill: currentcolor;
+  width: var(--encore-graphic-size-decorative-larger, 32px);
+  height: var(--encore-graphic-size-decorative-larger, 32px);
+
+  &:hover {
+    fill: white;
+    border-color: #000;
   }
-  // .station-title4{
-  //   color: gray
-  // }
+}
 
-  .general-object-header-icon{
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    background-color: transparent;
-    border: 0px;
-    border-radius: var(--encore-button-corner-radius, 9999px);
-    cursor: pointer;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    text-transform: none;
-    touch-action: manipulation;
-    transition-duration: 33ms;
-    transition-property: background-color, border-color, color, box-shadow, filter, transform;
-    user-select: none;
-    vertical-align: middle;
-    transform: translate3d(0px, 0px, 0px);
-    color: var(--text-subdued, #656565);
-    min-inline-size: 0px;
-    min-block-size: var(--encore-control-size-larger, 56px);
-    padding-block: var(--encore-spacing-tighter, 12px);
-    padding-inline: 0px;
-    display: inline-flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-  }
+.mini-title-artist-name {
+  font-weight: 700;
+  // --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
+  font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);
+  font-size: 0.875rem;
+}
 
-  .general-object-header-iconWrapper{
-    display: flex;
-    border: 0;
-    margin: 0;
-    padding: 0;
-    vertical-align: baseline;
-  }
+.mini-title-release-date,
+.mini-title-duration {
+  // --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
+  font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);
+  font-size: 0.875rem;
+}
+.seperator-title{
+  color: gray !important;
+}
+.station-title4 .seperator-title-p {
 
-  .general-object-header-more-option-for{
-    fill: currentcolor;
-    width: var(--encore-graphic-size-decorative-larger, 32px);
-    height: var(--encore-graphic-size-decorative-larger, 32px);
+  margin-inline: 4px;
+  font-weight: 400;
+  /* Optional: Adjust font weight */
+  color: gray !important;
+  /* Force white color if overridden elsewhere */
+}
 
-    &:hover{
-      fill: white;
-      border-color: #000;
-    }
-  }
-
-  .mini-title-artist-name{
-    font-weight: 700;
-    // --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
-    font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);
-    font-size: 0.875rem;
-  }
-
-  .mini-title-release-date, .mini-title-duration{
-    // --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
-    font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);
-    font-size: 0.875rem;
-  }
-
-  .station-title4 .seperator-title-p {
-  
-    margin-inline: 4px;
-    font-weight: 400; /* Optional: Adjust font weight */
-    color: gray !important; /* Force white color if overridden elsewhere */
-  }
-  .seperator-title-p {
-    color: gray !important;
+.seperator-title-p {
+  color: gray !important;
 }
