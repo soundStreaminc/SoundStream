@@ -11,6 +11,8 @@ import FullScreen from '../assets/svgs/fullScreen.svg?react'
 import AddToLiked from '../assets/svgs/addToLiked.svg?react'
 import { AudioControls } from "../cmps/AudioControls";
 import { useFirstRenderEffect } from "../cmps/useFirstRenderEffect";
+import { setPlaylistJson, setTrackJson } from "../services/util.service";
+import { youtubeService } from "../services/youtube.service";
 
 export function Appfooter() {
   const tracks = useSelector(storeState => storeState.currentPlaylist);
@@ -23,44 +25,115 @@ export function Appfooter() {
   const [volume, setVolume] = useState(50);
   const rangeRef = useRef(null);
   const intervalRef = useRef(null);
-  const hasMounted = useRef(false);
+  const [hasInitialized, setHasInitialized] = useState(false);
   
   // Handle Redux store changes to `tracks`
   useFirstRenderEffect(() => {
     // Prepare the first song when tracks are updated
-    if (tracks.length > 0) {
-      var trackPrepared = tracks[trackIndex]
-      if(!trackPrepared.youtubeId){
-        const trackPrepared = addYoutubeProperty(trackPrepared)
-      }    
+    if (tracks) {
+      setProperties(trackIndex) 
     }
   }, [tracks]);
+  // useEffect(() => {
+  //   console.log('tracks:', tracks)
+  //   if (tracks.length > 0 && tracks[trackIndex].youtubeId) {
+  //     const currentTrack = tracks[trackIndex];
+  
+  //     // Stop previous progress tracking and reset state
+  //     stopTrackingProgress();
+  //     setCurrentTime(0);
+  //     setDuration(0);
+  
+  //     // Load and play the new track
+  //     if (player) {
+  //       player.loadVideoById(currentTrack.youtubeId);
+  //       player.playVideo();
+  //       startTrackingProgress();
+  //       setIsPlaying(true);
+  //     }
+  //   }
+  // }, [currentTrack]); // Trigger this when `tracks` or `trackIndex` changes
 
-  useEffect(() => {
-    tracks[trackIndex]
-    if (tracks.length > 0 && tracks[trackIndex].youtubeId) {
-      const currentTrack = tracks[trackIndex];
+  useFirstRenderEffect(() => {
+    // This effect will run whenever currentTrack changes
+    async function playNewTrack() {
+      // Ensure we have a valid track and player
+      if (currentTrack?.youtubeId && player) {
+        try {
+          // Stop any existing progress tracking
+          stopTrackingProgress();
+    
+          // Reset time-related states
+          setCurrentTime(0);
+          setDuration(0);
+    
+          // Load the new video
+          player.loadVideoById(currentTrack.youtubeId);
+    
+          // Play the video
+          player.playVideo();
+    
+          // Start tracking progress
+          startTrackingProgress();
+    
+          // Optional: Get the duration of the new track
+          const newDuration = player.getDuration();
+          setDuration(newDuration);
   
-      // Stop previous progress tracking and reset state
-      stopTrackingProgress();
-      setCurrentTime(0);
-      setDuration(0);
-  
-      // Load and play the new track
-      if (player) {
-        player.loadVideoById(currentTrack.youtubeId);
-        player.playVideo();
-        startTrackingProgress();
-        setIsPlaying(true);
+          // Immediately pause and set playing state to false
+          player.pauseVideo();
+          setIsPlaying(false);
+        } catch (error) {
+          console.error('Error playing new track:', error);
+          setIsPlaying(false);
+        }
       }
     }
-  }, [tracks, trackIndex]); // Trigger this when `tracks` or `trackIndex` changes
+    
+    // Call the async function to play the new track
+    playNewTrack();
+  }, [currentTrack, player]); // Keep currentTrack and player as dependencies
 
   async function addYoutubeProperty(track){
     const youtubeId = await youtubeService.getSongByName(track.artist + " " +  track.title)
+    console.log('youtubeId:', youtubeId)
+    console.log('playTrack:', track)
     const playTrack = { ...track, youtubeId}
+    console.log('playTrack:', playTrack)
     return playTrack
   } 
+
+  async function setProperties(newTrackIndex) {
+    try {
+      let trackToPrepare;
+      const stationType = tracks.stationType;
+  
+      console.log('tracks:', tracks)
+      if (stationType === 'track'){
+        trackToPrepare = tracks;
+        console.log('trackToPrepare:', trackToPrepare)
+      } else if (stationType === 'playlist') {
+        trackToPrepare = tracks.tracks.items[newTrackIndex].track;
+        trackToPrepare = setPlaylistJson(trackToPrepare);
+      } else {
+        trackToPrepare = tracks[newTrackIndex];
+        trackToPrepare = setTrackJson(trackToPrepare);
+      }
+      console.log('final trackToPrepare:', trackToPrepare)
+      // Ensure we have a YouTube ID
+      if (!trackToPrepare.youtubeId) {
+        trackToPrepare = await addYoutubeProperty(trackToPrepare);
+      }
+  
+      // Update the current track
+      setCurrentTrack(trackToPrepare);
+      
+      // Optionally update track index
+      setTrackIndex(newTrackIndex);
+    } catch (error) {
+      console.error('Error setting track properties:', error);
+    }
+  }
 
   // YouTube Player Options
   const opts = {
@@ -72,18 +145,18 @@ export function Appfooter() {
   };
   
   
-  // Modify onPlayerReady to handle auto-playing if needed
-  function onPlayerReady(event) {
-    setPlayer(event.target);
-    event.target.setVolume(volume);
-    setDuration(event.target.getDuration());
+ // Modify your YouTube component to handle track changes
+function onPlayerReady(event) {
+  setPlayer(event.target);
+  event.target.setVolume(volume);
+  setDuration(event.target.getDuration());
 
-    // Optional: If you want to auto-play after track change
-    if (isPlaying) {
-      event.target.playVideo();
-      startTrackingProgress();
-    }
+  // Optional: If you want to handle track changes here
+  if (currentTrack?.youtubeId) {
+    event.target.loadVideoById(currentTrack.youtubeId);
+    event.target.pauseVideo();
   }
+}
 
   // Modify togglePlayPause to handle player state more robustly
   function togglePlayPause() {
@@ -99,7 +172,7 @@ export function Appfooter() {
         startTrackingProgress();
       } else {
         // If no youtubeId, prepare the song first
-        prepareSong(trackIndex);
+        setProperties(tracks[trackIndex]);
       }
     }
     
@@ -149,16 +222,28 @@ export function Appfooter() {
   }
 
   
-  // Previous track logic
   function toPrevTrack() {
-      const newIndex = trackIndex - 1 < 0 ? tracks.length - 1 : trackIndex - 1;
-      prepareSong(newIndex);
+    const totalTracks = tracks.stationType === 'playlist' 
+      ? tracks.tracks.items.length 
+      : tracks.length;
+    
+    const newIndex = trackIndex - 1 < 0 
+      ? totalTracks - 1 
+      : trackIndex - 1;
+    
+    setProperties(newIndex);
   }
-
-  // Next track logic
+  
   function toNextTrack() {
-      const newIndex = trackIndex + 1 >= tracks.length ? 0 : trackIndex + 1;
-      prepareSong(newIndex);
+    const totalTracks = tracks.stationType === 'playlist' 
+      ? tracks.tracks.items.length 
+      : tracks.length;
+    
+    const newIndex = trackIndex + 1 >= totalTracks 
+      ? 0 
+      : trackIndex + 1;
+    
+    setProperties(newIndex);
   }
 
   function formatTime(timeInSeconds) {
@@ -169,42 +254,6 @@ export function Appfooter() {
 
       // Ensure two digits for seconds (e.g., "01" instead of "1")
       return `${minutes.toString().padStart(1, '0')}:${seconds.toString().padStart(2, '0')}`;
-  }
-
-  function prepareSong(newTrackIndex) {
-    console.log('prepareSong newTrackIndex:', newTrackIndex);
-    // Stop current playback and tracking
-    stopTrackingProgress();
-  
-    if (player) {
-      player.stopVideo(); // Completely stop the current video
-      setIsPlaying(false); // Ensure play state is reset
-    }
-  
-    // Reset player-related states
-    setCurrentTime(0);
-    setDuration(0);
-  
-    const trackToPrepare = tracks[newTrackIndex];
-    if (!trackToPrepare.youtubeId) {
-      const fetchYouTubeId = async () => {
-        try {
-          const youtubeId = await youtubeService.getSongByName(`${trackToPrepare.artist} ${trackToPrepare.title}`);
-          trackToPrepare.youtubeId = youtubeId;
-  
-          // Update states to trigger re-render and track change
-          setCurrentTrack(trackToPrepare);
-          setTrackIndex(newTrackIndex);
-        } catch (error) {
-          console.error("Error fetching YouTube ID:", error);
-        }
-      };
-      fetchYouTubeId();
-    } else {
-      // If youtubeId already exists, update states directly
-      setCurrentTrack(trackToPrepare);
-      setTrackIndex(newTrackIndex);
-    }
   }
 
   return (

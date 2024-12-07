@@ -14,8 +14,7 @@ async function getSongByName(songName) {
         const params = {
             key: KEY,
             part: 'snippet',
-            q: songName,
-            maxResults: 1,
+            q: songName
         };
 
         const queryString = new URLSearchParams(params).toString(); // Build query string

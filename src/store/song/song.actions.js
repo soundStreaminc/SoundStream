@@ -1,5 +1,5 @@
 import { stationService } from "../../services/station.service";
-import { setPlaylistJson } from "../../services/util.service";
+import { setPlaylistJson, setTrackJson } from "../../services/util.service";
 import { store } from "../store";
 import { REMOVE_TRACK, SEARCH_ALBUMS, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_RECENT, SET_STATION } from "./song.reducer";
 import { showErrorMsg } from "../../services/event-bus.service.js"; 
@@ -85,11 +85,10 @@ export async function searchAlbums ( albumName , limit){
     }
 }
 
-export async function setCurrentlyPlayingPlaylist ( trackInfo , youtubeId){
+export async function setCurrentlyPlayingPlaylist ( trackInfo ){
     try {
-        trackInfo = setPlaylistJson( trackInfo, youtubeId )
+        trackInfo = {...trackInfo, stationType: 'playlist'}
         await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackInfo })
-        return trackInfo
     } catch (err) {
         console.log('Having issues finding playlists:', err)
         showErrorMsg( 'Having issues finding playlists:' )
@@ -99,7 +98,8 @@ export async function setCurrentlyPlayingPlaylist ( trackInfo , youtubeId){
 
 export async function setCurrentlyPlayingTrack ( trackInfo , youtubeId){
     try {
-        trackInfo = setPlaylistJson( trackInfo, youtubeId )
+        trackInfo = setTrackJson( trackInfo, youtubeId )
+        console.log('setCurrentlyPlayingTrack trackInfo:', trackInfo)
         await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackInfo })
         return trackInfo
     } catch (err) {

@@ -1,8 +1,31 @@
+import { useNavigate } from 'react-router';
 import AddToLiked from '../assets/svgs/addToLiked.svg?react';
 import MoreOptionFor from '../assets/svgs/moreOptionFor.svg?react';
 import PlayWithe from '../assets/svgs/playWithe.svg?react';
+import { useState } from 'react';
 
-export function StationFilterDetails_SongsResults({ songs }){
+export function StationFilterDetails_SongsResults({ songs , isPlayingSearchResult= false}){
+    const navigate = useNavigate()
+    const [isPlaying, setIsPlaying] = useState(isPlayingSearchResult);
+
+    function handleButtonClick(id){
+        navigate(`/track/${id}`)
+    }
+
+    async function handleImageClick(event, song){
+        event.preventDefault();
+        event.stopPropagation();
+        if (isPlaying) {
+            setIsPlaying(false)
+        } else {
+            const youtubeId = await onPlayStation(song)
+            setIsPlaying(true)
+            await addToRecentlyPlayed(song, youtubeId)
+        }
+    }
+
+    
+
     return (
         <div className="filter-songs-container">
                     <div className="search-results-object-song-songs-container">
@@ -10,7 +33,7 @@ export function StationFilterDetails_SongsResults({ songs }){
                             const durationInMinutes = Math.floor(song.duration_ms / 60000);
                             const durationInSeconds = Math.floor((song.duration_ms % 60000) / 1000).toString().padStart(2, '0');
                             return (
-                                <a href={`/${song.type}/${song.id}`} className="search-results-object-song-mini-details-container" key={i}>
+                                <div onClick={() => handleButtonClick(song.id)} className="search-results-object-song-mini-details-container" key={i}>
                                     <div className="search-results-object-song-mini-details-sub-container" key={i + 'r'}>
                                         <div className="search-results-object-song-cover-container" key={i + 'a'}>
                                             <img
@@ -45,7 +68,7 @@ export function StationFilterDetails_SongsResults({ songs }){
                                             </span>
                                         </div>
                                     </div>
-                                </a>
+                                </div>
                             )
                         }
                         )}

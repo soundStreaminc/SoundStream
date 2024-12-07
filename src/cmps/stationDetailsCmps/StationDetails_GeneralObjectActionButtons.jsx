@@ -7,7 +7,7 @@ import AddToLiked from '../../assets/svgs/addToLiked.svg?react';
 import LikedSongAdded from '../../assets/svgs/likedSongAdded.svg?react';
 import { stationService } from "../../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service";
-import { setCurrentlyPlayingTrack } from "../../store/song/song.actions";
+import { setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack } from "../../store/song/song.actions";
 import { usePalette } from 'react-palette';
 import { youtubeService } from '../../services/youtube.service';
 
@@ -23,9 +23,9 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
             //audioRef.current.pause();// this will pause the audio
             setIsPlaying(false)
         } else {
-            await onPlayStation(station)
+            const youtubeId = await onPlayStation(station)
             setIsPlaying(true)
-            await addToRecentlyPlayed(station)
+            await addToRecentlyPlayed(station, youtubeId)
         }
     };
 
@@ -55,35 +55,25 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
         try {      
             switch (station.type){
                 case 'track':
-                    onPlayTrack(station)
-                    break;
+                    return onPlayTrack(station)
                 case 'playlist':
-                    onPlayPlaylist(playlistTrack)
-                    break;
+                    return onPlayPlaylist(playlistTrack)
                 default: 
                     console.log('error with the station type: ', station.type)
                     showErrorMsg('should not be here')
+                    return          
             }
-            //TODO if playlist set store to playlist
-            return          
         } catch (err) {
             console.error(err);
+            return
         }
     }
 
-    async function onPlayPlaylist ( playlistTrack ){
+    async function onPlayPlaylist ( playlistTrack){
         try {      
-            const songToPlay = { 
-                name : playlistTrack[0].track.name, 
-                artist : playlistTrack[0].track.artists[0].name, 
-                image : playlistTrack[0].track.album.images[0].url
-            } 
-
-            const youtubeId = await youtubeService.getSongByName(songToPlay.artist + ' ' + songToPlay.name);
-            var playCurrent = songToPlay ? await setCurrentlyPlayingTrack ( songToPlay , youtubeId) : ''  
-            console.log(`playing:`, playCurrent)
-            showSuccessMsg(`playing: ${playCurrent.title}`)  
-            return youtubeId         
+            await setCurrentlyPlayingPlaylist ( playlistTrack)  
+            console.log(`playing:`, playlistTrack)
+            showSuccessMsg(`playing: ${playlistTrack.name}`)  
         } catch (err) {
             console.error(err);
         }
@@ -92,7 +82,8 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
     async function onPlayTrack ( track ){
         try {      
             const songToPlay = station.type === 'track' ? track : playlistTrack[0].track
-            //TODO if playlist set store to playlist
+            console.log('songToPlay:', songToPlay)
+            console.log("songToPlay.artist + ' ' + songToPlay.name:", songToPlay.artist + ' ' + songToPlay.name)
             const youtubeId = await youtubeService.getSongByName(songToPlay.artist + ' ' + songToPlay.name);
             var playCurrent = songToPlay ? await setCurrentlyPlayingTrack ( songToPlay , youtubeId) : ''  
             console.log(`playing:`, playCurrent)

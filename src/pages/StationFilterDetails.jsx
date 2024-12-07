@@ -185,7 +185,7 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
                             owner: playlist.owner.display_name,
                             //followers: playlist.followers.total,
                         }
-                        return <SearchResultsPreviewObject miniObject={miniPlaylist} key={playlist.id} />
+                        return <SearchResultsPreviewObject miniObject={miniPlaylist} key={playlist.id}  playlistTrack={foundPlaylists[0].tracks.items} />
                     }
                     )}
                 </div>
