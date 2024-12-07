@@ -11,8 +11,9 @@ import FullScreen from '../assets/svgs/fullScreen.svg?react'
 import AddToLiked from '../assets/svgs/addToLiked.svg?react'
 import { AudioControls } from "../cmps/AudioControls";
 import { useFirstRenderEffect } from "../cmps/useFirstRenderEffect";
-import { setPlaylistJson, setTrackJson } from "../services/util.service";
+import { setAlbumJson, setArtistJson, setPlaylistJson, setTrackJson } from "../services/util.service";
 import { youtubeService } from "../services/youtube.service";
+import { showErrorMsg } from "../services/event-bus.service";
 
 export function Appfooter() {
   const tracks = useSelector(storeState => storeState.currentPlaylist);
@@ -109,16 +110,30 @@ export function Appfooter() {
       const stationType = tracks.stationType;
   
       console.log('tracks:', tracks)
-      if (stationType === 'track'){
-        trackToPrepare = tracks;
-        console.log('trackToPrepare:', trackToPrepare)
-      } else if (stationType === 'playlist') {
-        trackToPrepare = tracks.tracks.items[newTrackIndex].track;
-        trackToPrepare = setPlaylistJson(trackToPrepare);
-      } else {
-        trackToPrepare = tracks[newTrackIndex];
-        trackToPrepare = setTrackJson(trackToPrepare);
+
+      switch (tracks.stationType){
+          case 'track':
+            trackToPrepare = tracks;
+            console.log('trackToPrepare:', trackToPrepare)
+            break
+          case 'playlist':
+            trackToPrepare = tracks.tracks.items[newTrackIndex].track
+            trackToPrepare = setPlaylistJson(trackToPrepare)
+            break
+          case 'artist':
+            trackToPrepare = tracks[newTrackIndex]
+            trackToPrepare = setArtistJson(trackToPrepare)
+            break
+          case 'album':
+            trackToPrepare = tracks[newTrackIndex]
+            trackToPrepare = setAlbumJson(trackToPrepare, tracks.albumImage)
+            break
+          default: 
+            console.log('error with the station type: ', tracks.stationType)
+            showErrorMsg('should not be here')
+            return          
       }
+    
       console.log('final trackToPrepare:', trackToPrepare)
       // Ensure we have a YouTube ID
       if (!trackToPrepare.youtubeId) {

@@ -7,7 +7,7 @@ import AddToLiked from '../../assets/svgs/addToLiked.svg?react';
 import LikedSongAdded from '../../assets/svgs/likedSongAdded.svg?react';
 import { stationService } from "../../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service";
-import { setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack } from "../../store/song/song.actions";
+import { setCurrentlyPlayingAlbum, setCurrentlyPlayingArtist, setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack } from "../../store/song/song.actions";
 import { usePalette } from 'react-palette';
 import { youtubeService } from '../../services/youtube.service';
 
@@ -58,6 +58,10 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
                     return onPlayTrack(station)
                 case 'playlist':
                     return onPlayPlaylist(playlistTrack)
+                case 'artist':
+                    return onPlayArtist(playlistTrack)
+                case 'album':
+                    return onPlayAlbum(playlistTrack)
                 default: 
                     console.log('error with the station type: ', station.type)
                     showErrorMsg('should not be here')
@@ -72,6 +76,26 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
     async function onPlayPlaylist ( playlistTrack){
         try {      
             await setCurrentlyPlayingPlaylist ( playlistTrack)  
+            console.log(`playing:`, playlistTrack)
+            showSuccessMsg(`playing: ${playlistTrack.name}`)  
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async function onPlayArtist ( playlistTrack){
+        try {      
+            await setCurrentlyPlayingArtist ( playlistTrack)  
+            console.log(`playing:`, playlistTrack)
+            showSuccessMsg(`playing: ${playlistTrack.name}`)  
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async function onPlayAlbum ( playlistTrack){
+        try {    
+            await setCurrentlyPlayingAlbum ( playlistTrack, imgSrc)  
             console.log(`playing:`, playlistTrack)
             showSuccessMsg(`playing: ${playlistTrack.name}`)  
         } catch (err) {

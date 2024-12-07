@@ -74,7 +74,6 @@ export function getExistingProperties(obj){
 
 export function setTrackJson( trackInfo , youtubeId = null){
     if(!trackInfo) return 'error, did not get track'
-    console.log('daaaaaaaaaaaaa youtubeId:', youtubeId)
     const trackJson =      
     {
         id: trackInfo.id,
@@ -96,6 +95,35 @@ export function setPlaylistJson( trackInfo, youtubeId = null){
         artist: trackInfo.artists[0].name,
         image: trackInfo.album.images[0].url,
         youtubeId: youtubeId
+    }
+    return trackJson
+}
+
+export function setArtistJson( trackInfo , youtubeId = null){
+    if(!trackInfo) return 'error, did not get track'
+    const trackJson =      
+    {
+        id: trackInfo.id,
+        title: trackInfo.name,
+        artist: trackInfo.artists[0].name,
+        image: trackInfo.album.images[0].url,
+        youtubeId: youtubeId,
+        stationType: 'track' 
+    }
+    return trackJson
+}
+
+export function setAlbumJson( trackInfo , albumImage= null){
+    if(!trackInfo) return 'error, did not get track'
+    console.log('trackInfo:', trackInfo)
+    const trackJson =      
+    {
+        id: trackInfo.id,
+        title: trackInfo.name,
+        artist: trackInfo.artists[0].name,
+        image: albumImage,
+        youtubeId: trackInfo.youtubeId,
+        stationType: 'track' 
     }
     return trackJson
 }

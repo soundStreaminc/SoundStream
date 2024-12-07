@@ -96,6 +96,30 @@ export async function setCurrentlyPlayingPlaylist ( trackInfo ){
     }
 }
 
+export async function setCurrentlyPlayingArtist ( trackInfo ){
+    try {
+        trackInfo = {...trackInfo, stationType: 'artist'}
+        console.log('setCurrentlyPlayingArtist trackInfo:', trackInfo)
+        await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackInfo })
+    } catch (err) {
+        console.log('Having issues finding playlists:', err)
+        showErrorMsg( 'Having issues finding playlists:' )
+        throw err
+    }
+}
+
+export async function setCurrentlyPlayingAlbum ( trackInfo , imgSrc){
+    try {
+        trackInfo = {...trackInfo, stationType: 'album', albumImage: imgSrc}
+        console.log('setCurrentlyPlayingArtist trackInfo:', trackInfo)
+        await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackInfo })
+    } catch (err) {
+        console.log('Having issues finding playlists:', err)
+        showErrorMsg( 'Having issues finding playlists:' )
+        throw err
+    }
+}
+
 export async function setCurrentlyPlayingTrack ( trackInfo , youtubeId){
     try {
         trackInfo = setTrackJson( trackInfo, youtubeId )
