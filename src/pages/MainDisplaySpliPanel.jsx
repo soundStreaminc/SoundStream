@@ -21,6 +21,8 @@ export function MainDisplaySpliPanel() {
   // State to store layout and loading status
   const [layout, setLayout] = useState(null);
   
+  const scrollableContainerRef = useRef(null);
+
   // Restore layout from cookie when the component mounts
   useEffect(() => {
     const cookieValue = document.cookie
@@ -96,7 +98,7 @@ export function MainDisplaySpliPanel() {
             saveLayout(newLayout, "right"); // Save layout on resize for right panel
           }}
         >
-          <div style={{
+          <div  ref={scrollableContainerRef} style={{
             height: "100%",
             padding: "10px",
             overflowY: "auto" // Enable vertical scrolling here
@@ -106,9 +108,9 @@ export function MainDisplaySpliPanel() {
                 <Route path="" element={<HomePage />} />
                 <Route path='/search' element={<StationFilter />} />
                 <Route path='/search/:filterText' element={<StationFilterDetails />} />
-                <Route path="/playlist/:stationId" element={<PlaylistDetails />} />
+                <Route path="/playlist/:stationId" element={<PlaylistDetails scrollableContainerRef={scrollableContainerRef} />} />
                 <Route path="/track/:trackId" element={<TrackDetails />} />
-                <Route path="/album/:albumId" element={<AlbumDetails />} />
+                <Route path="/album/:albumId" element={<AlbumDetails scrollableContainerRef={scrollableContainerRef} />} />
                 <Route path="/artist/:artistId" element={<ArtistDetails />} />
                 <Route path="/youtube" element={<PageYoutube />} />
               </Routes>

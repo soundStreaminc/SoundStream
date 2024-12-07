@@ -1,42 +1,46 @@
 import { useEffect } from "react"
 
-export function StationDetails_GeneralObjectMiniTitle({miniStation}){
-    useEffect( () => {
+export function StationDetails_GeneralObjectMiniTitle({ miniStation }) {
+    useEffect(() => {
         getMiniTitle()
     }, [])
-    
-    function getMiniTitle(){
+
+    function getMiniTitle() {
         var stationMiniHeader = ''
         var stationTitleEl = document.querySelector(".station-title4")
-        
-        switch (miniStation.type){
-                                /* TODO create a function to get the duration of the album. maybe api?*/
+
+        switch (miniStation.type) {
+            /* TODO create a function to get the duration of the album. maybe api?*/
             case 'playlist':
-                stationMiniHeader = 
-                `<span className="station-title4-container">
-                    ${miniStation.description}
-                </span>
-                <div className="station-sub-title">
-                    <b> ${miniStation.owner} </b> <span class='seperator-title'> • </span>                        
-                    ${miniStation.followers} save <span class='seperator-title'> • </span>
-                    ${miniStation.count} songs, 
-                    ${miniStation.length}
-                </div>`
+                stationMiniHeader = `
+    <span class="station-title4-container-p">
+        ${miniStation.description}
+    </span>
+
+                <div class="station-sub-title">
+        <b class='owner-name'> ${miniStation.owner} </b> 
+        <span class='seperator-title'> • </span>                        
+        ${miniStation.followers} save 
+        <span class='seperator-title'> • </span>
+        ${miniStation.count} songs, ${miniStation.length}
+    </div>`
                 break
             case 'album':
-                stationMiniHeader = 
-                `<div class="station-sub-title">
-                    <div class='artist-icon-container'>
-                        <img src=${miniStation.image} class='artist-icon'/>
-                    </div> ${miniStation.artist} <span class='seperator-title'> • </span>                  
-                    <div class='mini-title-release-date'> ${getYearFromDate(miniStation.releaseDate).year} </div> <span class='seperator-title'> • </span>
-                    ${miniStation.count} songs, 
-                    ${miniStation.length}
-                </div>`
+                stationMiniHeader = `
+                <div class="station-sub-title-album">
+                  <div class='artist-icon-container'>
+                    <img src=${miniStation.image} class='artist-icon'/>
+                  </div>
+                  <b class='artist-name-album'>${miniStation.artist}</b>  
+                  <span class='seperator-title-album'> • </span>                  
+                  <div class='mini-title-release-date-album'>${getYearFromDate(miniStation.releaseDate).year}</div> 
+                  <span class='seperator-title-album'> • </span>
+                  ${miniStation.count} songs, ${miniStation.length}
+                </div>`;
                 break
             case 'track':
-                stationMiniHeader = 
-                `<div class="station-sub-title">
+                stationMiniHeader =
+                    `<div class="station-sub-title">
                     <div class='artist-icon-container'>
                         <img src=${miniStation.image} class='artist-icon'/>
                     </div> 
@@ -47,8 +51,8 @@ export function StationDetails_GeneralObjectMiniTitle({miniStation}){
                 </div>`
                 break
             case 'artist':
-                stationMiniHeader = 
-                `<div class="station-sub-title">
+                stationMiniHeader =
+                    `<div class="station-sub-title">
                     ${miniStation.followers}  
                     followers
                 </div>`
@@ -60,7 +64,7 @@ export function StationDetails_GeneralObjectMiniTitle({miniStation}){
         stationTitleEl.innerHTML = stationMiniHeader
     }
 
-    function getYearFromDate(date){
+    function getYearFromDate(date) {
         const getDate = string => (([year, day, month]) => ({ day, month, year }))(string.split('-'));
         return getDate(date)
     }
@@ -71,20 +75,9 @@ export function StationDetails_GeneralObjectMiniTitle({miniStation}){
         return mmss
     }
 
-    return(
+    return (
         <div className="station-title4">
-            <span className="station-title4-container">
-                {miniStation.description}
-            </span>
-            <div className="station-sub-title">
-                
-                <b className="owner-name"> {miniStation.owner} </b> 
-                <span className="seperator-title-p"> • </span>                        
-                {miniStation.followers} save <span className="seperator-title-p"> • </span>
-                {miniStation.count} songs, 
-                {/* TODO create a function to get the duration of the album. maybe api?*/}
-                {miniStation.length}
-            </div>
-        </div>  
+
+        </div>
     )
 }

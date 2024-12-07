@@ -2,16 +2,21 @@
     position: relative;
     
 }
-.sticky-container {
+.sticky-general-header {
     position: sticky;
-    top: 0; /* Adjust as needed */
-    z-index: 20; /* Ensures it stays on top */
-    background-color: #121212; /* Consistent background */
-    
+    top: -10px; /* Distance from the top of the container */
+    z-index: 100; /* Ensure it stays above other elements */
+    background-color: #121212; /* Match the background color for seamless effect */
+    // padding: 10px 16px; /* Add some padding */
+    // border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Optional: Add a bottom border for separation */
+    // padding-bottom: 10px;
+    padding-top: 10px;
+
 }
-.sticky-header-general-object {
-    transition: all 0.3s ease; // Smooth transition for UI changes
-}
+
+// .tracks-container{
+//     padding-top: 20px;
+// }
 
 .header-row-playlist{
     margin: 0; /* Remove any margin that could cause gaps */
@@ -24,6 +29,13 @@
     color: var(--text-subdued, #b3b3b3);
     height: 36px;
     background-color: #121212; /* Consistent with container */
+    align-items: center;
+    
+}
+.header-title {
+    justify-self: center; /* Align the Title to the right */
+    text-align: center; /* Ensure text aligns to the right */
+    margin-left: 40px;
 }
 
 .track-list-playlist{
@@ -48,7 +60,8 @@
 
 .header-duration-playlist{
     display:flex;
-    justify-content: center;   
+    justify-content: center; 
+    margin-left: -10px;  
 }
 
 .header-index{
