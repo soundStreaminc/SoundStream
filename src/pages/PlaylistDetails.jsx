@@ -79,7 +79,7 @@ export function PlaylistDetails({ scrollableContainerRef }) {
             <div className={fix ? 'sticky-general-header' : 'general-header'}>
                 {switchHader(fix)}
                 {/* <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false} imgSrc={miniStation.current.image} /> */}
-                <div className="tracks-container">
+                <div className="tracks-header-container-playlist">
                     <div className="header-row-playlist">
                         <div className="header-index">
                             <p>#</p>
@@ -101,7 +101,7 @@ export function PlaylistDetails({ scrollableContainerRef }) {
                     </div>
                 </div>
             </div>
-            <div className="tracks-container">
+            <div className="tracks-container-playlist">
                 <div className="track-list-playlist">
                     {tracks.map((track, index) => (
                         <TrackPreview

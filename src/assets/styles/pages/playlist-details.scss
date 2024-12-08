@@ -1,4 +1,4 @@
-.tracks-container {
+.tracks-header-container-playlist {
     position: relative;
     
 }
@@ -13,10 +13,6 @@
     padding-top: 10px;
 
 }
-
-// .tracks-container{
-//     padding-top: 20px;
-// }
 
 .header-row-playlist{
     margin: 0; /* Remove any margin that could cause gaps */
@@ -33,9 +29,9 @@
     
 }
 .header-title {
-    justify-self: center; /* Align the Title to the right */
-    text-align: center; /* Ensure text aligns to the right */
-    margin-left: 40px;
+    justify-self: left; /* Align the Title to the left */
+    text-align: center; /* Ensure text aligns to the center */
+    //margin-left: 40px;
 }
 
 .track-list-playlist{
@@ -65,5 +61,5 @@
 }
 
 .header-index{
-    justify-self: end;
+    justify-self: start;
 }
