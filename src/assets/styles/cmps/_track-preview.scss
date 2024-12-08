@@ -98,7 +98,11 @@
     align-self: center;
 }
 
-.track-album, .track-date-added, .track-artist{
+.track-album, .track-artist, .track-name {
+    cursor: pointer;
+}
+
+.track-album, .track-artist, .track-date-added{
     font-size: 1rem;
     color: #b3b3b3;
     //text-align: center;
