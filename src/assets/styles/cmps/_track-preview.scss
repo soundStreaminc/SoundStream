@@ -74,6 +74,10 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    font-size: 1.1rem; /* Slightly increase the font size */
+    color: #b3b3b3;
+    flex: 1;
+    text-decoration: none; /* Ensure links within these elements also have no underline */
 }
 
 .track-number-container{
@@ -83,18 +87,18 @@
     min-height: 16px;
     min-width: 16px;
     position: relative;
-    width: var(--tracklist-index-column-width, 16px);
+    width: var(--tracklist-index-column-width, 18px);
     // --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
     // font-family: 'Bank Gothic', 'DIN Next', 'Eurostile';
 
-    font-size: 0.875rem;
+    font-size: 0.9rem; /* Slightly increase font size */
 }
 
 .track-preview-album{
     align-self: center;
 }
 
-.track-number, .track-album, .track-date-added, .track-artist{
+.track-album, .track-date-added, .track-artist{
     font-size: 1rem;
     color: #b3b3b3;
     //text-align: center;
