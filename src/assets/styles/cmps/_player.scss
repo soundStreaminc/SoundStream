@@ -122,7 +122,8 @@
   min-width: 40px;
   text-align: right;
   position: relative;
-
+  font-size: 0.85rem; /* Adjust size to make it smaller */
+  line-height: 1.2; /* Ensure good readability */
 }
 
 :root {
@@ -242,6 +243,8 @@ input[type="range"]:hover::-moz-range-thumb {
   text-align: left;
   position: relative;
   top: 2px;
+  font-size: 0.85rem; /* Match size with .current-time */
+  line-height: 1.2; /* Consistent readability */
 }
 
 .smallImage{
