@@ -47,7 +47,7 @@ export function AlbumDetails({ scrollableContainerRef }) {
 
     function switchHader(isSticky) {
         if (isSticky) {
-            return <StationDetails_GeneralObjectActionButtonsSticky isAlreadyAdded={false} imgSrc={miniStation.current.image} station={miniStation.current}  playlistTrack={tracks}/>
+            return <StationDetails_GeneralObjectActionButtonsSticky isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image}  playlistTrack={tracks}/>
 
         }
 
