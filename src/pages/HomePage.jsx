@@ -30,11 +30,14 @@ export function HomePage() {
 
     return (
         <section className="spotify-homepage" >
-            <div className="content-filters"  onClick={()=> getDateByArtist( inputArtist.current )}>
-                <button>All</button>
-                <button>Music</button>
-                <button>Podcasts</button>
+            <div className="content-filters-home-background">
+                <div className="content-filters"  onClick={()=> getDateByArtist( inputArtist.current )}>
+                    <button>All</button>
+                    <button>Music</button>
+                    <button>Podcasts</button>
+                </div>
             </div>
+            
 
             <MostPlayedList />
 
