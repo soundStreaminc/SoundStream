@@ -1,48 +1,48 @@
-.spotify-homepage {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-    color: #fff;
-    background-color: #181818;
-}
+// .spotify-homepage {
+//     padding: 20px;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 2em;
+//     color: #fff;
+//     background-color: #181818;
+// }
 
-.content-filters {
-    display: flex;
-    gap: 1em;
-    justify-content: flex-start;
-}
+// .content-filters {
+//     display: flex;
+//     gap: 1em;
+//     justify-content: flex-start;
+// }
 
-.content-filters button {
-    background-color: #333;
-    border: none;
-    padding: 10px 20px;
-    color: #fff;
-    border-radius: 20px;
-    cursor: pointer;
-}
+// .content-filters button {
+//     background-color: #333;
+//     border: none;
+//     padding: 10px 20px;
+//     color: #fff;
+//     border-radius: 20px;
+//     cursor: pointer;
+// }
 
-.playlists-section, .made-for-you-section, .top-mixes-section, .recently-played-section, .favorite-artists-section, .recommended-stations-section, .stay-tuned-section {
-    display: flex;
-    flex-direction: column;
-}
+// .playlists-section, .made-for-you-section, .top-mixes-section, .recently-played-section, .favorite-artists-section, .recommended-stations-section, .stay-tuned-section {
+//     display: flex;
+//     flex-direction: column;
+// }
 
-.playlists-grid, .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1em;
-}
+// .playlists-grid, .cards-grid {
+//     display: grid;
+//     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+//     gap: 1em;
+// }
 
-.cards-grid > div {
-    background-color: #282828;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
-    overflow: hidden;
-}
+// .cards-grid > div {
+//     background-color: #282828;
+//     padding: 10px;
+//     border-radius: 8px;
+//     text-align: center;
+//     overflow: hidden;
+// }
 
-.cards-grid img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
+// .cards-grid img {
+//     width: 100%;
+//     height: auto;
+//     border-radius: 8px;
+// }

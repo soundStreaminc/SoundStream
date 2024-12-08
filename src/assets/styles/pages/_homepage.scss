@@ -28,7 +28,6 @@
 
 
 .spotify-homepage {
-    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 2em;
@@ -39,11 +38,30 @@
     
 }
 
+.content-filters-home-background{
+    top: -10px; /* Distance from the top of the container */
+    background-color: black; /* Match the background color for seamless effect */
+    padding-top: 8px;
+    position: sticky;
+    z-index: 1;
+    //border-radius: 10px; /* Match the sidebar's border-radius */
+    box-sizing: border-box;
+
+}
+
 .content-filters {
     display: flex;
     justify-items: center;
     gap: 1em;
     justify-content: flex-start;
+    top: -10px; /* Distance from the top of the container */
+    background-color: #121212; /* Match the background color for seamless effect */
+    padding-top: 8px;
+    position: sticky;
+    z-index: 1;
+    border-radius: 10px 10px 0 0;   /* Match the sidebar's border-radius */
+    box-sizing: border-box;
+    padding-inline: 20px;
 }
 
 .content-filters button {
@@ -58,6 +76,7 @@
  .made-for-you-section, .top-mixes-section, .recently-played-section, .favorite-artists-section, .recommended-stations-section, .stay-tuned-section {
     display: flex;
     flex-direction: column;
+    padding-inline: 20px;
 }
 
 .playlists-section {
