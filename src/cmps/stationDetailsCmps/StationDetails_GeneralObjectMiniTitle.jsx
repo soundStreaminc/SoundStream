@@ -1,6 +1,13 @@
 import { useEffect } from "react"
+import { useNavigate } from "react-router"
 
 export function StationDetails_GeneralObjectMiniTitle({ miniStation }) {
+    const navigate = useNavigate()
+
+    function onButtonClickHandler (  ) {
+        navigate(`/artist/${miniStation.artistId}`);
+    }
+
     useEffect(() => {
         getMiniTitle()
     }, [])

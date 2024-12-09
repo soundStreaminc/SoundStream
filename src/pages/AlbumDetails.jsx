@@ -56,6 +56,7 @@ export function AlbumDetails({ scrollableContainerRef }) {
 
     async function loadTracks() {
         const foundAlbum = await stationService.getStationById_SpotifyApi('album', params.albumId)
+        console.log('foundAlbum:', foundAlbum)
         miniStation.current = {
             id: foundAlbum.id,
             type: foundAlbum.type,
@@ -63,7 +64,8 @@ export function AlbumDetails({ scrollableContainerRef }) {
             image: foundAlbum.images ? foundAlbum.images[0].url : 'not found',
             count: foundAlbum.total_tracks,
             length: "about 4 hr 30 min",
-            artist: foundAlbum.artists[0].name,
+            artist: foundAlbum.artists? foundAlbum.artists[0].name: null,
+            artistId: foundAlbum.artists? foundAlbum.artists[0].id: null,
             releaseDate: foundAlbum.release_date
         }
         setTracks(foundAlbum.tracks.items)
