@@ -278,3 +278,28 @@
     overflow: hidden; /* Prevent overflowing */
     text-overflow: ellipsis; /* Add ellipsis if text is too long */
 }
+
+.following-artist {
+  background-color: black;
+  color: white;
+  border: 1px solid var(--essential-subdued, #818181);
+  border-radius: 20px; /* Rounded corners */
+  padding: 5px 15px; /* Adjust padding for desired size */
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.following-artist:hover {
+  // background-color: white;
+  // color: black;
+
+  border: 2px solid white;
+}
+
+.following-artist:focus {
+  outline: none;
+  box-shadow: 0 0 4px white; /* Focus effect */
+}

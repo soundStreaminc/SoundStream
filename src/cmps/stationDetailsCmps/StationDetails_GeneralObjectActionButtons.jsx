@@ -152,7 +152,7 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
                 </button>
                 )}
             </div>  
-
+            {station.type ==! 'artist' && (
             <div className='controll-btns3'>
                 {!isAdded ? (
                     <button className="add-station-btn" type="button" aria-label="Save To Your Library" onClick={() => onAddRemoveClick(false)}>
@@ -167,7 +167,13 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
                         </span>
                     </button> 
                 )}
-            </div>
+            </div>)}
+
+            {station.type === 'artist' && (
+        <button className='following-artist'>
+            Following
+        </button>
+    )}
 
             <button className="general-object-header-icon">
                 <span aria-hidden="true" className="general-object-header-iconWrapper">
