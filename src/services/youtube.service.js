@@ -30,8 +30,10 @@ async function save(youtubeSearch) {
 }
 
 async function getSongByName(songName) {
-    const youtubeId = getSearchesByFullNameFromCache(songName)
-    if(youtubeId) return youtubeId
+    console.log('getSongByName:')
+    const youtubeSearch = await getSearchesByFullNameFromCache(songName)
+    console.log('cache youtubeId:', youtubeSearch.youtubeId)
+    if(youtubeSearch) return youtubeSearch.youtubeId
     try {
         const params = {
             key: KEY,
@@ -47,6 +49,12 @@ async function getSongByName(songName) {
         }
 
         const data = await response.json();
+        const youtubeSearch = {
+            name: songName,
+            youtubeId : data.items[0]?.id?.videoId
+        }
+
+        save(youtubeSearch)
         return data.items ? data.items[0]?.id?.videoId : 'No results found';
     } catch (error) {
         console.error('Error fetching data:', error);
