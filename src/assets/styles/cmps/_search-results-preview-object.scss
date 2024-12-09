@@ -1,15 +1,16 @@
-.ב{
-    text-decoration: none;
+.search-result-object-mini-details-sub-container{
+    // text-decoration: none;
     color: #fff;
     // background-color: #1c1c1c; // Card background color
     border-radius: 8px;
     overflow: hidden;
-    width: 180px; // Increased width for larger image
-    max-height: 260px; // Increased width for larger image
-    transition: transform 0.2s ease-in-out;
+    // width: 180px; // Increased width for larger image
+    // max-height: 220px; // Increased width for larger image
+    // transition: transform 0.2s ease-in-out;
+    gap: 10px;
   
     &:hover {
-      transform: scale(1.05);
+      // transform: scale(1.05);
       background-color: #282828; // Slightly brighter on hover
     }
    
@@ -43,13 +44,19 @@
     .search-result-object-music-cover-container {
         
       position: relative;
-      width: 170px; // Adjust to fit the container
-      height: 170px; // Increased height for better visibility
+      width: 210px; /* Adjust to match the size of the image in the screenshot */
+      height: 210px; /* Ensure it's a square */
+      display: flex; /* Ensures alignment */
+      justify-content: center; /* Centers the image horizontally */
+      align-items: center; /* Centers the image vertically */
+      overflow: hidden; /* Ensures no content spills out */
+      border-radius: 8px; /* Optional: Rounded corners */
       img {
-        width: 100%; // Adjust to fit the container
-        height: 160px; // Increased height for better visibility
-        object-fit: cover; // Ensures the image covers the area without distortion
-        border-radius: 8px 8px 0 0;
+        width: 100%; /* Ensures the image fills the container */
+        height: 100%; /* Ensure the image maintains proportions */
+        object-fit: cover; /* Ensures the image covers the container without distortion */
+       margin-right: 50px;
+
       }
     }
     
@@ -86,6 +93,7 @@
 }
 
 .search-results-preview-object {
+  
   .search-results-item-btn-container {
       position: absolute;
       top: 75%;
