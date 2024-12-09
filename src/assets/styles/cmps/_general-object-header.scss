@@ -78,6 +78,10 @@
   font-weight: 400;
   display: -webkit-box;
   --text-subdued: #b3b3b3;
+  gap: 5px;
+  align-items: center;
+  text-overflow: ellipsis; /* Add ellipsis for overflowing content */
+
 
 }
 
@@ -165,11 +169,23 @@
 }
 
 .mini-title-artist-name {
+  display: flex; /* Ensure all items are aligned in one row */
+
+  align-items: center;
   font-weight: 700;
   // --fallback-fonts: Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic;
   font-family: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif);
   font-size: 0.875rem;
+  // gap: 5px;
+  color: #ffffff;
+  
 }
+.mini-title-album-name{
+  color: #fff;
+  text-decoration: none;
+
+}
+
 
 .mini-title-release-date,
 .mini-title-duration {
@@ -180,6 +196,7 @@
 .seperator-title{
   // color: gray !important;
   --text-subdued: #b3b3b3;
+
 }
 .station-title4 .seperator-title-p {
 

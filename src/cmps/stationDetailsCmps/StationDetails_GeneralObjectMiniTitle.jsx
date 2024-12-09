@@ -51,9 +51,13 @@ export function StationDetails_GeneralObjectMiniTitle({ miniStation }) {
                     <div class='artist-icon-container'>
                         <img src=${miniStation.image} class='artist-icon'/>
                     </div> 
-                    <div class='mini-title-artist-name'> ${miniStation.artist} </div> <div class='seperator-title'> • </div>  
-                    ${miniStation.album} <span class='seperator-title'> • </span>    
-                    <div class='mini-title-release-date'> ${getYearFromDate(miniStation.releaseDate).year} </div> <span class='seperator-title'> • </span>                       
+                 
+                    <div class='mini-title-artist-name'> ${miniStation.artist} </div>
+                    <span class='seperator-title'> • </span> 
+                     <div class='mini-title-album-name'>${miniStation.album} </div>
+                    <span class='seperator-title'> • </span>    
+                    <div class='mini-title-release-date'> ${getYearFromDate(miniStation.releaseDate).year} </div> 
+                    <span class='seperator-title'> • </span>                       
                     <div class='mini-title-duration'> ${convertMsToMinutes(miniStation.duration)}</div>
                 </div>`
                 break
