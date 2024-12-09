@@ -80,6 +80,11 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
         }
     }
 
+    
+    function truncateText(text, maxLength) {
+        return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+    }
+
     return (
         <section className="search-results-preview-object">
             <div onClick={onButtonClickHandler}
@@ -88,7 +93,7 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
                     <div className="search-result-object-music-cover-container">
                         {isArtistImageExist ? (
                             <img className="search-result-object-music-cover" src={miniObject.image}
-                            alt={`track artwork for ${miniObject.name}`}
+                            alt={`track artwork for ${truncateText(miniObject?.name || 'not found', 20)}`}
                         />): <NoImageArtist />}
                         
                         <div className='search-results-item-btn-container'>
@@ -109,12 +114,12 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
                     </div>
             
                     <div className="search-result-object-mini-details">
-                        <p className="search-result-object-title">{miniObject.name}</p>
+                        <p className="search-result-object-title">{truncateText(miniObject?.name || 'not found', 20)}</p>
                         {miniObject.type === 'playlist' ? (
-                            <p className="search-result-object-subtitle">By {miniObject.owner}</p>
+                            <p className="search-result-object-subtitle">By {truncateText(miniObject?.owner || 'not found', 20)}</p>
                         ): ''}
                         {miniObject.type === 'album' ? (
-                            <p className="search-result-object-subtitle">By {miniObject.artist}</p>
+                            <p className="search-result-object-subtitle">By {truncateText(miniObject?.artist || 'not found', 20)}</p>
                         ): ''}
                        
                     </div>

@@ -155,11 +155,11 @@ body, .station-filter-container {
 
 .albums-container, .artists-container, .playlists-container {
     display: grid;
-    grid-template-columns: repeat(6,minmax(180px, 1fr));
-    gap: 5px; /* Spacing between albums/playlists */
+    gap: 2px; /* Reduce the spacing between items */
+    margin-inline: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Correct minmax syntax */
 }
-  
-  
+
 
 
 
