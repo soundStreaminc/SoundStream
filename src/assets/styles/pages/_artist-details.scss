@@ -14,7 +14,10 @@
     grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
     gap: var(--grid-gap);
     // display: none;
+    margin-left: 18px;
 }
+
+
 
 .duration-headerImage-artist{
     
