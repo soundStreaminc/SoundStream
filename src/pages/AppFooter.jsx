@@ -14,6 +14,7 @@ import { useFirstRenderEffect } from "../cmps/useFirstRenderEffect";
 import { setAlbumJson, setArtistJson, setPlaylistJson, setTrackJson } from "../services/util.service";
 import { youtubeService } from "../services/youtube.service";
 import { showErrorMsg } from "../services/event-bus.service";
+import { size } from 'lodash';
 
 export function Appfooter() {
   const tracks = useSelector(storeState => storeState.currentPlaylist);
@@ -67,7 +68,7 @@ export function Appfooter() {
           // Reset time-related states
           setCurrentTime(0);
           setDuration(0);
-    
+    console.log("currentTrack.youtubeId",currentTrack.youtubeId)
           // Load the new video
           player.loadVideoById(currentTrack.youtubeId);
     
@@ -117,7 +118,8 @@ export function Appfooter() {
             console.log('trackToPrepare:', trackToPrepare)
             break
           case 'playlist':
-            trackToPrepare = tracks.tracks.items[newTrackIndex].track
+console.log("tracks[newTrackIndex]",tracks[newTrackIndex])
+            trackToPrepare = tracks.tracks?tracks.tracks.items[newTrackIndex].track:tracks[newTrackIndex].track
             trackToPrepare = setPlaylistJson(trackToPrepare)
             break
           case 'artist':
@@ -250,9 +252,12 @@ function onPlayerReady(event) {
   }
   
   function toNextTrack() {
+
+   const tracksSize = size( tracks);
+    
     const totalTracks = tracks.stationType === 'playlist' 
-      ? tracks.tracks.items.length 
-      : tracks.length;
+      ? tracks.tracks?.items.length | tracksSize 
+      : tracks.length | tracksSize;
     
     const newIndex = trackIndex + 1 >= totalTracks 
       ? 0 

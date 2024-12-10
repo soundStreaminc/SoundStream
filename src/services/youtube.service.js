@@ -16,7 +16,9 @@ async function query() {
     return cache
 }
 
-function getSearchesByFullNameFromCache(fullname) {
+async function getSearchesByFullNameFromCache(fullname) {
+    const result =await storageService.getByName(STORAGE_KEY, fullname)
+console.log("result",result)
     return storageService.getByName(STORAGE_KEY, fullname)
 }
 
@@ -32,7 +34,7 @@ async function save(youtubeSearch) {
 async function getSongByName(songName) {
     console.log('getSongByName:')
     const youtubeSearch = await getSearchesByFullNameFromCache(songName)
-    console.log('cache youtubeId:', youtubeSearch.youtubeId)
+    console.log('cache youtubeId:', youtubeSearch?.youtubeId)
     if(youtubeSearch) return youtubeSearch.youtubeId
     try {
         const params = {
