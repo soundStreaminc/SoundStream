@@ -3,7 +3,7 @@
     color: #fff;
     // background-color: #1c1c1c; // Card background color
     border-radius: 8px;
-    overflow: hidden;
+    //overflow: hidden;
     // width: 180px; // Increased width for larger image
     // max-height: 220px; // Increased width for larger image
     // transition: transform 0.2s ease-in-out;
@@ -49,15 +49,16 @@
       display: flex; /* Ensures alignment */
       justify-content: center; /* Centers the image horizontally */
       align-items: center; /* Centers the image vertically */
-      overflow: hidden; /* Ensures no content spills out */
+      //overflow: hidden; /* Ensures no content spills out */
       border-radius: 8px; /* Optional: Rounded corners */
       img {
         display: block;
         height: calc( 100% + 20px );
         left: 0;
-        //position: absolute;
+        aspect-ratio : 1 / 1;
         top: 0;
-        width: calc( 100% + 20px )
+        width: calc( 100% + 20px );
+        border-radius: 50%;
 
       }
     }
