@@ -4,13 +4,14 @@
 }
 .sticky-general-header {
     position: sticky;
-    top: -10px; /* Distance from the top of the container */
+        top: -21px;
     z-index: 100; /* Ensure it stays above other elements */
     background-color: #121212; /* Match the background color for seamless effect */
     // padding: 10px 16px; /* Add some padding */
     // border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Optional: Add a bottom border for separation */
     // padding-bottom: 10px;
-    padding-top: 10px;
+    padding-top: 5px;
+    height: 137px;
 
 }
 
