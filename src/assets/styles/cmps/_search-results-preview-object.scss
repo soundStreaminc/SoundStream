@@ -58,7 +58,6 @@
         aspect-ratio : 1 / 1;
         top: 0;
         width: calc( 100% + 20px );
-        border-radius: 50%;
 
       }
     }
@@ -147,4 +146,8 @@
       opacity: 1; /* Show play button on hover */
       visibility: visible;
     }
+}
+
+.search-result-object-music-cover-artist{
+  border-radius: 50%;
 }

@@ -9,6 +9,7 @@ import { setTrackJson } from '../services/util.service';
 export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult = false, playlistTrack = null }){
     const [isPlaying, setIsPlaying] = useState(isPlayingSearchResult);
     const isArtistImageExist= miniObject.image ? true : false
+    const isArtistImage= miniObject.type === "artist" ? true : false
     const navigate = useNavigate();
 
     async function onPlayPauseClick( event ){
@@ -92,7 +93,7 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
                 <div className="search-result-object-mini-details-sub-container">
                     <div className="search-result-object-music-cover-container">
                         {isArtistImageExist ? (
-                            <img className="search-result-object-music-cover" src={miniObject.image}
+                            <img className={isArtistImage ? "search-result-object-music-cover-artist" : "search-result-object-music-cover"} src={miniObject.image}
                             alt={`track artwork for ${truncateText(miniObject?.name || 'not found', 20)}`}
                         />): <NoImageArtist />}
                         
