@@ -4,13 +4,14 @@
 }
 .sticky-general-header {
     position: sticky;
-    top: -10px; /* Distance from the top of the container */
+    top: -21px;
     z-index: 100; /* Ensure it stays above other elements */
     background-color: #121212; /* Match the background color for seamless effect */
     // padding: 10px 16px; /* Add some padding */
     // border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Optional: Add a bottom border for separation */
     // padding-bottom: 10px;
-    padding-top: 10px;
+    padding-top: 5px;
+    height: 125px;
 
 }
 
@@ -20,12 +21,15 @@
     display: grid;
     padding: 0 16px;
     grid-gap: 16px;
-    grid-template-columns: [index] var(--tracklist-index-column-width, 16px) minmax(120px, 6fr) minmax(120px, 4fr) minmax(120px, 3fr) minmax(120px, 1fr);
+    grid-template-columns: [index] var(--tracklist-index-column-width, 99px) minmax(120px, 4.3fr) minmax(121px, 3.3fr) minmax(120px,2.6fr) minmax(120px, 1.6fr);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--text-subdued, #b3b3b3);
     height: 36px;
     background-color: #121212; /* Consistent with container */
     align-items: center;
+    :first-child {
+        padding-left: 10px; /* Moves the first element to the right */
+      }
     
 }
 .header-title {
@@ -43,7 +47,7 @@
     gap: var(--grid-gap);
     // display: none;
     margin-top: 20px; /* Adjust the value to your preference */
-
+ 
 }
 
 

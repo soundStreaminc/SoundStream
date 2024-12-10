@@ -11,11 +11,13 @@
     white-space:nowrap;
     border-radius: 8px; /* Smooth corners for each song */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
-
+    :first-child {
+        padding-left: 6px; /* Moves the first element to the right */
+      }
 
     &:hover {
         background-color: #333; /* Highlight the song on hover */
-        border-radius: 15px; /* More rounded corners on hover */
+        border-radius: 5px; /* More rounded corners on hover */
         // transform: scale(1.02); /* Slightly enlarge on hover */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow effect */
 
@@ -46,7 +48,7 @@
 
     &:hover {
         background-color: #333; /* Highlight the song on hover */
-        border-radius: 15px; /* More rounded corners on hover */
+        border-radius: 5px; /* More rounded corners on hover */
         // transform: scale(1.02); /* Slightly enlarge on hover */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow effect */
 

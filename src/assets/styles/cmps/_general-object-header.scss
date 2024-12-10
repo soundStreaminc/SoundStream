@@ -40,15 +40,16 @@
   gap: 1em;
   justify-items: center;
   align-items: center;
-  padding: 5px;
+  padding: 0 0 0 18px;
 }
 
 .station-title3 h1 {
-
-  margin: 0;
-  font-size: 4rem;
-  /* Reduce font size slightly for longer text */
-  color: #ffffff;
+  font-size: clamp(1.5rem, 5vw, 4rem); /* Dynamically adjust font size */
+  white-space: normal; /* Allow text to break into multiple lines */
+  overflow: visible; /* Ensure the full text is visible */
+  margin: 0; /* Remove margin */
+  color: #ffffff; /* Keep text color white */
+  text-align: center; /* Center the text */
 }
 
 .artist-icon-container {
@@ -69,6 +70,9 @@
 }
 
 .station-sub-title {
+  text-overflow: ellipsis; /* Handle overflow with ellipsis */
+  overflow: hidden;
+  white-space: nowrap; /* Prevent wrapping */
   color: hsla(0, 0%, 100%, .7);
   /* Force white color if overridden elsewhere */
   // font-size: 0.875rem;
@@ -84,10 +88,12 @@
 
 
 }
+.station-title4 {
 
-//   .station-title4 {
-//     color: gray; /* Ensure the entire container has a gray color */
-// }
+  font-weight: 600; /* Make the title slightly bolder */
+  font-size: var(--encore-text-size-medium, 1rem); /* Slightly larger text */
+  gap: 10px; /* Add more spacing between items */
+}
 
 
 .station-title4 .owner-name {
@@ -107,6 +113,7 @@
   font-weight: 400;
   display: -webkit-box;
   --text-subdued: #b3b3b3;
+  text-align: justify; /* Justify text alignment for paragraph */
 
 }
 .station-title4-container-miniobject-title{
