@@ -14,7 +14,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .header-row-album > :nth-child(2) { /* Target the second column */
-    padding-left:200px; /* Add padding to move it to the right */
+    padding-left:20px; /* Add padding to move it to the right */
 }
 .track-list-album{
     --grid-gap: 10px;
