@@ -3,7 +3,7 @@
     --grid-gap: 10px;
     --grid-height: 48px;
     display: grid;
-    grid-template-columns: 20px 3fr 1fr; /* Keep the grid layout */
+    grid-template-columns: 40px 3fr 1fr; /* Keep the grid layout */
 
     gap: var(--grid-gap);
     max-height: var(--grid-height);
@@ -23,6 +23,7 @@
     grid-template-rows: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
     gap: var(--grid-gap);
     // display: none;
+    margin-left: 18px;
 }
 
 .duration-headerImage-album{

@@ -152,7 +152,7 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
                 </button>
                 )}
             </div>  
-            {station.type ==! 'artist' && (
+            {station.type !== 'artist' && (
             <div className='controll-btns3'>
                 {!isAdded ? (
                     <button className="add-station-btn" type="button" aria-label="Save To Your Library" onClick={() => onAddRemoveClick(false)}>
