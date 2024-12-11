@@ -13,7 +13,14 @@ const intialState = {
       foundSongs: [],
       foundPlaylists: [],
       foundAlbums: [],
-      recentlyPlayed: []
+      recentlyPlayed: [],
+      libraryStations: [
+        {        
+            name: "רשימת השמעה המאוד מגניבה של שקד / shaked cool playlist",
+            id: "2ezyaQ3apZRID1oOIBHfLz",
+            type: "playlist"
+        }
+      ]
 }
 
 export const SEARCH_SONGS = 'SEARCH_SONGS'
@@ -27,9 +34,22 @@ export const REMOVE_TRACK = 'REMOVE_TRACK'
 export const CHANGE_IMAGE = 'CHANGE_IMAGE'
 export const EDIT_TRACK = 'EDIT_TRACK'
 export const SET_RECENT = 'SET_RECENT'
+export const GET_LIBRARY = 'GET_LIBRARY'
+export const ADD_STATION_TO_LIBRARY = 'ADD_STATION_TO_LIBRARY'
+export const REMOVE_STATION_FROM_LIBRARY = 'REMOVE_STATION_FROM_LIBRARY'
 
 export function stationReducer ( state = intialState, cmd = {}  ){
     switch (cmd.type){
+        case ADD_STATION_TO_LIBRARY :
+            return{
+                ...state,
+                libraryStations : [...state.libraryStations, cmd.addedStation ] 
+            } 
+        case REMOVE_STATION_FROM_LIBRARY :
+            return{
+                ...state,
+                libraryStations : libraryStations.filter( station => station.id !== cmd.addedStation.id )
+            } 
         case SET_RECENT :
             return{
                 ...state,

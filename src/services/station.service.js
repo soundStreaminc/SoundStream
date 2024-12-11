@@ -57,7 +57,9 @@ async function query() {
 }
 
 async function addPlaylist ( id, name, type, user ){
-    const res = await _addStationToUser(user, { name, id, type })
+    const res = await _addStationToUser( user, { name, id, type })
+    console.log('res:', res)
+    return res
 }
 
 async function getRecentlyPlayedByUser ( username = 'ohad' ){
@@ -96,23 +98,27 @@ async function addToRecentlyPlayedByUser ( track, limit, user = 'ohad' ){
 
 async function addAlbum ( id, name, type, user ){
     const res = await _addStationToUser(user, { name, id, type })
+    return res
 }
 
 async function addTrackToLiked ( id, name, type, user ){
-    const res = await _addStationToUser(user, { name, id, type })
+    //const res = await _addStationToUser(user, { name, id, type })
 }
 
 async function _addStationToUser ( username , station ) {
-    const res = await query(STORAGE_KEY).then(entity => {
+    return station
+    //username is cancelled for now. add in the future TODO
+    // const res = await query(STORAGE_KEY).then(entity => {
 
-        const idx = entity[0].users.find(entity => entity.username === username)
-        idx.playlists.push(station)
+    //     const idx = entity[0].users.find(entity => entity.username === username)
+    //     idx.playlists.push(station)
 
         
-        if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${updatedEntity.id} in: ${entityType}`)
-        return entity
-        })
-    utilService.saveToStorage(STORAGE_KEY, res)
+    //     if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${updatedEntity.id} in: ${entityType}`)
+    //     return entity
+    //     })
+    //     console.log('res:', res)
+    // utilService.saveToStorage(STORAGE_KEY, res)
 }
 
 async function setAccessKey(){

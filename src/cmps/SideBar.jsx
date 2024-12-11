@@ -4,21 +4,22 @@ import Add from '../assets/svgs/add.svg?react';
 import Arrow from '../assets/svgs/rightArrow.svg?react';
 import Search from '../assets/svgs/search.svg?react';
 import Recents from '../assets/svgs/recents.svg?react';
-import { stationService } from '../services/station.service';
 import StationMiniPreview from './StationMiniPreview';
+import { useSelector } from 'react-redux';
 
 export function SideBar() {
     //TODO get logged in User, for now hard coded user is ohad
-    const [ stations , setPlaylists ] = useState([])
- 
+    var stationInLibrary = useSelector ( storeState => storeState.libraryStations )
+    console.log('stationInLibrary:', stationInLibrary)
+
     useEffect( ()=> {
         loadPlaylist()
     }, [])
 
     async function loadPlaylist(){
         //get stations array from local storage (all the ids)
-        const playlistsArray = await stationService.getPlaylistByUser("ohad")
-        setPlaylists( playlistsArray )
+        //const playlistsArray = await stationService.getPlaylistByUser("ohad")
+        //setPlaylists( playlistsArray )
     }
 
     return (
@@ -52,7 +53,7 @@ export function SideBar() {
                     </div>
                         <ul className="station-test" > 
                             {/* //TODO : add scroll only on hover and disapear after some timeout */}
-                            {stations.map((station, index) => (
+                            {stationInLibrary.map((station, index) => (
                                 <StationMiniPreview key={index} stationInfo={station} />
                             ))}
                         </ul>

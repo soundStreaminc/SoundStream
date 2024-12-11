@@ -7,7 +7,7 @@ import AddToLiked from '../../assets/svgs/addToLiked.svg?react';
 import LikedSongAdded from '../../assets/svgs/likedSongAdded.svg?react';
 import { stationService } from "../../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service";
-import { setCurrentlyPlayingAlbum, setCurrentlyPlayingArtist, setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack } from "../../store/song/song.actions";
+import { addStationToLibrary, setCurrentlyPlayingAlbum, setCurrentlyPlayingArtist, setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack } from "../../store/song/song.actions";
 import { usePalette } from 'react-palette';
 import { youtubeService } from '../../services/youtube.service';
 
@@ -35,11 +35,8 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
             setIsAdded(false)
         } else {
             try {    
-                if( station.type === 'album'){
-                    await stationService.addAlbum (station.id, station.name, station.type,  MYUSER)
-                }
-                else if (station.type === 'playlist'){
-                    await stationService.addPlaylist ( station.id, station.name, station.type,  MYUSER)
+                if( station.type === 'album' || station.type === 'playlist'){
+                    await addStationToLibrary( station.id, station.name, station.type,  MYUSER)                      
                 } else if (station.type === 'track'){
                     await stationService.addTrackToLiked ( station.id, station.name, station.type,  MYUSER)
                 }

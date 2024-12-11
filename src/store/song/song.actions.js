@@ -1,7 +1,7 @@
 import { stationService } from "../../services/station.service";
-import { setPlaylistJson, setTrackJson } from "../../services/util.service";
+import {  setTrackJson } from "../../services/util.service";
 import { store } from "../store";
-import { REMOVE_TRACK, SEARCH_ALBUMS, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_RECENT, SET_STATION } from "./song.reducer";
+import { ADD_STATION_TO_LIBRARY, REMOVE_TRACK, SEARCH_ALBUMS, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_RECENT, SET_STATION } from "./song.reducer";
 import { showErrorMsg } from "../../services/event-bus.service.js"; 
 
 export async function loadTracks(){
@@ -81,6 +81,23 @@ export async function searchAlbums ( albumName , limit){
     } catch (err) {
         console.log('Having issues finding albums:', err)
         showErrorMsg( 'Having issues finding albums:' )
+        throw err
+    }
+}
+
+export async function addStationToLibrary (stationId, stationName, stationType,  MYUSER){
+    try {
+        console.log('stationType:', stationType)
+        var addedStation
+        if (stationType === "playlist")
+            addedStation = await stationService.addPlaylist ( stationId, stationName, stationType,  MYUSER)
+        if (stationType === "album" )
+            await stationService.addAlbum ( stationId, stationName, stationType,  MYUSER)
+        console.log('addedStation:', addedStation)
+        store.dispatch( { type: ADD_STATION_TO_LIBRARY , addedStation })
+    } catch (err) {
+        console.log('Having issues add Station To Library:', err)
+        showErrorMsg( 'Having issues add Station To Library' )
         throw err
     }
 }

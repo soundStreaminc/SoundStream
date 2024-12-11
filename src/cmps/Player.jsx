@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react"; 
-import useSound from "use-sound"; // for handling the sound
-
 import NowPlayingView from '../assets/svgs/nowPlayingView.svg?react'
 import Lyrics from '../assets/svgs/lyrics.svg?react'
 import Queue from '../assets/svgs/queue.svg?react'
