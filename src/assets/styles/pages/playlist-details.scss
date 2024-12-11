@@ -19,7 +19,7 @@
     margin: 0; /* Remove any margin that could cause gaps */
 
     display: grid;
-    padding: 0 16px;
+    
     grid-gap: 16px;
     grid-template-columns: [index] var(--tracklist-index-column-width, 16px) minmax(120px, 4.3fr) minmax(121px, 3.3fr) minmax(120px,2.6fr) minmax(120px, 1.6fr);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -27,10 +27,7 @@
     height: 36px;
     background-color: #121212; /* Consistent with container */
     align-items: center;
-    :first-child {
-        padding-left: 10px; /* Moves the first element to the right */
-      }
-    
+
 }
 .header-title {
     justify-self: left; /* Align the Title to the left */
@@ -61,9 +58,9 @@
 .header-duration-playlist{
     display:flex;
     justify-content: center; 
-    margin-left: -10px;  
+    margin-left: 26px;  
 }
 
 .header-index{
-    justify-self: start;
+    justify-self: center;
 }

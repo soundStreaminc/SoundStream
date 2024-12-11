@@ -1,7 +1,6 @@
 
 .track-preview-grid-container-playlist{
     display: grid;
-    padding: 0 16px;
     grid-gap: 16px;
     grid-template-columns: [index] var(--tracklist-index-column-width, 16px) minmax(120px, 4.3fr) minmax(121px, 3.3fr) minmax(120px, 2.6fr) minmax(120px, 1.6fr);
     color: var(--text-subdued, #b3b3b3);
@@ -165,9 +164,7 @@
 .track-actions-playlist {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-left: -20px;
-    // display: none;
+    margin-inline: 18px;    // display: none;
     // transition: opacity 0.3s ease; /* Smooth transition for visibility */
 
 
@@ -294,4 +291,8 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+}
+
+.add-to-liked-iconWrapper{
+    margin-right: 20px;
 }

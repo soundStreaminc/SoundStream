@@ -14,7 +14,7 @@ export function TrackPreview_Duration({track, tracksDisplayType}){
     return (
         <div className={(isPlaylist) ? "track-actions-playlist" : "track-actions-album"}>
             <button className="track-preview-action-icon">
-                <span aria-hidden="true" className="iconWrapper">
+                <span aria-hidden="true" className="add-to-liked-iconWrapper">
                     <AddToLiked className="add-to-liked" />
                 </span>
             </button>
