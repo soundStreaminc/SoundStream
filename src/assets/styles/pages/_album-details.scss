@@ -13,9 +13,7 @@
     border-radius: 8px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
-.header-row-album > :nth-child(2) { /* Target the second column */
-    padding-left:20px; /* Add padding to move it to the right */
-}
+
 .track-list-album{
     --grid-gap: 10px;
     --min-column-width: 20px;
@@ -46,6 +44,7 @@
     text-align: center;
     flex: 1;
     text-decoration: none;
+    padding-left: 28px;
 }
 
 .header-title-album{

@@ -171,7 +171,7 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
 
             {station.type === 'artist' && (
         <button className='following-artist'>
-            Following
+            Follow
         </button>
     )}
 

@@ -2,10 +2,30 @@
   display: flex;
 }
 
-.cover-station img {
-  height: 150px;
-  width: 150px;
-  padding: 20px;
+.station-info-general{
+  padding: 20px 0;
+}
+
+.cover-station {
+  display: flex;
+  align-self: end;
+  img {
+    height: 150px;
+    width: 150px;
+    padding-inline: 20px;
+  }
+}
+
+.cover-station-artist {
+  display: flex;
+  align-self: end;
+  img {
+    height: 150px;
+    width: 150px;
+    padding-inline: 20px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
 }
 
 .general-object-header-svg-container {
@@ -36,8 +56,12 @@
   height: 48px;
   width: 48px;
   fill: #7f7f7f;
-  ;
-  ;
+}
+
+.cover-station-station svg {
+  height: 48px;
+  width: 48px;
+  fill: #7f7f7f;
 }
 
 

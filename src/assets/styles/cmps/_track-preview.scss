@@ -3,7 +3,7 @@
     display: grid;
     padding: 0 16px;
     grid-gap: 16px;
-    grid-template-columns:  [index] var(--tracklist-index-column-width, 16px) minmax(120px, 6fr) minmax(120px, 4fr) minmax(120px, 3fr) minmax(120px, 1fr);
+    grid-template-columns: [index] var(--tracklist-index-column-width, 16px) minmax(120px, 4.3fr) minmax(121px, 3.3fr) minmax(120px, 2.6fr) minmax(120px, 1.6fr);
     color: var(--text-subdued, #b3b3b3);
     height: 56px;
     --grid-height: 48px;
@@ -11,9 +11,6 @@
     white-space:nowrap;
     border-radius: 8px; /* Smooth corners for each song */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
-    :first-child {
-        padding-left: 6px; /* Moves the first element to the right */
-      }
 
     &:hover {
         background-color: #333; /* Highlight the song on hover */
@@ -44,7 +41,6 @@
     margin-bottom: 10px; /* Create a gap between songs */
     border-radius: 8px; /* Smooth corners for each song */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
-
 
     &:hover {
         background-color: #333; /* Highlight the song on hover */
@@ -94,6 +90,11 @@
     // font-family: 'Bank Gothic', 'DIN Next', 'Eurostile';
 
     font-size: 0.9rem; /* Slightly increase font size */
+
+    span{
+        display: flex;
+        justify-content: end;
+    }
 }
 
 .track-preview-album{
@@ -104,8 +105,16 @@
     cursor: pointer;
 }
 
-.track-album, .track-artist, .track-date-added{
+.track-album, .track-date-added{
     font-size: 1rem;
+    color: #b3b3b3;
+    //text-align: center;
+    flex: 1;
+    text-decoration: none; /* Ensure links within these elements also have no underline */
+}
+
+.track-artist{
+    font-size: 0.875rem;    
     color: #b3b3b3;
     //text-align: center;
     flex: 1;

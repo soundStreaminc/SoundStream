@@ -21,7 +21,7 @@
     display: grid;
     padding: 0 16px;
     grid-gap: 16px;
-    grid-template-columns: [index] var(--tracklist-index-column-width, 99px) minmax(120px, 4.3fr) minmax(121px, 3.3fr) minmax(120px,2.6fr) minmax(120px, 1.6fr);
+    grid-template-columns: [index] var(--tracklist-index-column-width, 16px) minmax(120px, 4.3fr) minmax(121px, 3.3fr) minmax(120px,2.6fr) minmax(120px, 1.6fr);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--text-subdued, #b3b3b3);
     height: 36px;

@@ -4,6 +4,7 @@ import NoImageArtist from '../../assets/svgs/noImageArtist.svg?react';
 
 export function StationDetails_GeneralObjectHeader({ station }){
     const isArtistImageExist= station.image ? true : false
+    const isArtistImg= station.type === 'artist' ? true : false
     const imgSrc = station.image 
     const { data, loading, error } = usePalette(imgSrc)
 
@@ -16,7 +17,7 @@ export function StationDetails_GeneralObjectHeader({ station }){
                 'backgroundColor' : '#282828'
                 }}>
                 <div className="station-sub-info">
-                    <div className="cover-station">
+                    <div className={ isArtistImg ? "cover-station-artist" : "cover-station"}>
                     {isArtistImageExist ? <img src={imgSrc} /> : 
                     <div className="general-object-header-svg-container">
                         <div className="general-object-header-svg-radius-container">

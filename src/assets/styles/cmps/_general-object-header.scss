@@ -44,7 +44,7 @@
 }
 
 .station-title3 h1 {
-  font-size: clamp(1.5rem, 5vw, 4rem); /* Dynamically adjust font size */
+  font-size: 2rem; //should be 1.5 on mobile
   white-space: normal; /* Allow text to break into multiple lines */
   overflow: visible; /* Ensure the full text is visible */
   margin: 0; /* Remove margin */
@@ -78,14 +78,14 @@
   // font-size: 0.875rem;
   /* Optional: Adjust font size */
   font-family: var(--encore-body-font-stack);
-  font-size: var(--encore-text-size-smaller);
+  font-size: 0.875rem;
   font-weight: 400;
   display: -webkit-box;
   --text-subdued: #b3b3b3;
   gap: 5px;
   align-items: center;
   text-overflow: ellipsis; /* Add ellipsis for overflowing content */
-
+  margin-top: 8px;
 
 }
 .station-title4 {
@@ -104,12 +104,13 @@
 }
 
 .station-title4-container-p {
+  max-height: 74px;
   color: hsla(0, 0%, 100%, .7);
   /* Force white color if overridden elsewhere */
   // font-size: 0.875rem;
   /* Optional: Adjust font size */
   font-family: var(--encore-body-font-stack);
-  font-size: var(--encore-text-size-smaller);
+  font-size: 0.875rem;
   font-weight: 400;
   display: -webkit-box;
   --text-subdued: #b3b3b3;
