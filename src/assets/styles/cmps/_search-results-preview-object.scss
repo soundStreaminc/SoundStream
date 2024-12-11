@@ -9,10 +9,7 @@
     // transition: transform 0.2s ease-in-out;
     gap: 10px;
   
-    &:hover {
-      // transform: scale(1.05);
-      background-color: #282828; // Slightly brighter on hover
-    }
+
    
     &:hover .search-result-object-add-btn {
       opacity: 1;
@@ -142,6 +139,10 @@
       }
     }
 
+    &:hover {
+      // transform: scale(1.05);
+      background-color: #282828; // Slightly brighter on hover
+    }
     &:hover .search-results-item-btn-container {
       opacity: 1; /* Show play button on hover */
       visibility: visible;

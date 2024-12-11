@@ -47,7 +47,7 @@ export const stationService = {
 window.cs = stationService
 
 let gAccesskey = ''
-const spotifyResultsLimit = 20
+const spotifyResultsLimit = 50
 
 _createStation()
 
@@ -599,7 +599,7 @@ async function getMadeForU_SpotifiApi ( limit ){
 
 async function getTopMixes_SpotifiApi (limit){
     var searchParameters = await setupHeader()
-    var albums = await fetch (`https://api.spotify.com/v1/search?q=mixes&type=playlist&limit=${20}` , searchParameters )
+    var albums = await fetch (`https://api.spotify.com/v1/search?q=mixes&type=playlist&limit=${limit}` , searchParameters )
         .then( response => response.json())
         .then( data => {   
             data.playlists.items = _removeNullFromItems(data.playlists.items)
@@ -665,7 +665,7 @@ async function getBrowseCategories_SpotifiApi(){
     return albums
 }
 
-function _removeNullFromItems(items, limit = 4){
+function _removeNullFromItems(items, limit = 20){
     var itemsWithoutNull = []
     var counter = 0
     items.forEach(element => {

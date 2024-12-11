@@ -15,7 +15,7 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
     const [isPlaying, setIsPlaying] = useState( false );
     const MYUSER = 'ohad'
-    const MAXRECENTPLAYED = 4
+    const MAXRECENTPLAYED = 10
     const { data, loading, error } = usePalette(imgSrc)
 
     async function onPlayPauseClick(  ){

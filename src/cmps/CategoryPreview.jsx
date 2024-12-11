@@ -7,11 +7,11 @@ export function CategoryPreview({category, categoryType = 'track',  isPlayingCat
     const [isPlaying, setIsPlaying] = useState(isPlayingCategory)
     const [track, setTrack] = useState(null)
     const navigate = useNavigate()
+    const isImageExist = category.images && category.images[0] && category.images[0].url ? true : false
 
     useEffect( () =>{
         loadTrack()
     },[])
-
     function loadTrack(){
         if( categoryType === 'track')
             setTrack(category)
@@ -19,7 +19,7 @@ export function CategoryPreview({category, categoryType = 'track',  isPlayingCat
             setTrack({
                 id: category.id,
                 title: category.name,
-                image: category.images? category.images[0].url :'not found' 
+                image: isImageExist ? category.images[0].url : null
             })
     }
 
