@@ -48,7 +48,7 @@ export function stationReducer ( state = intialState, cmd = {}  ){
         case REMOVE_STATION_FROM_LIBRARY :
             return{
                 ...state,
-                libraryStations : libraryStations.filter( station => station.id !== cmd.addedStation.id )
+                libraryStations : state.libraryStations.filter( station => station.id !== cmd.removedStation.id )
             } 
         case SET_RECENT :
             return{

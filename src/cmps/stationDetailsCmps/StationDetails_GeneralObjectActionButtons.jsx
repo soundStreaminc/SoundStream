@@ -7,7 +7,7 @@ import AddToLiked from '../../assets/svgs/addToLiked.svg?react';
 import LikedSongAdded from '../../assets/svgs/likedSongAdded.svg?react';
 import { stationService } from "../../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service";
-import { addStationToLibrary, setCurrentlyPlayingAlbum, setCurrentlyPlayingArtist, setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack } from "../../store/song/song.actions";
+import { addStationToLibrary, removeStationFromLibrary, setCurrentlyPlayingAlbum, setCurrentlyPlayingArtist, setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack } from "../../store/song/song.actions";
 import { usePalette } from 'react-palette';
 import { youtubeService } from '../../services/youtube.service';
 
@@ -31,14 +31,23 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
 
     async function onAddRemoveClick(  ){
         if (isAdded) {
-            //audioRef.current.pause();// this will pause the audio
-            setIsAdded(false)
+            try {    
+                if( station.type === 'album' || station.type === 'playlist'){
+                    await removeStationFromLibrary( station.id, station.name, station.type,  MYUSER)                      
+                } else if (station.type === 'track'){
+                    //await stationService.addTrackToLiked ( station.id, station.name, station.type,  MYUSER)
+                }
+                setIsAdded(false)
+            }   catch (err) {
+                console.log('err:', err)
+                showErrorMsg('problem Removing station: ', err)
+            }        
         } else {
             try {    
                 if( station.type === 'album' || station.type === 'playlist'){
                     await addStationToLibrary( station.id, station.name, station.type,  MYUSER)                      
                 } else if (station.type === 'track'){
-                    await stationService.addTrackToLiked ( station.id, station.name, station.type,  MYUSER)
+                    //await stationService.addTrackToLiked ( station.id, station.name, station.type,  MYUSER)
                 }
                 setIsAdded(true)
             } catch (err) {
