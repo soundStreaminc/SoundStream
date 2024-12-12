@@ -28,7 +28,7 @@ export function Appfooter() {
   const rangeRef = useRef(null);
   const intervalRef = useRef(null);
   const [hasInitialized, setHasInitialized] = useState(false);
-  
+
   // Handle Redux store changes to `tracks`
   useFirstRenderEffect(() => {
     // Prepare the first song when tracks are updated
@@ -55,6 +55,40 @@ export function Appfooter() {
   //     }
   //   }
   // }, [currentTrack]); // Trigger this when `tracks` or `trackIndex` changes
+
+  useEffect(() => {
+
+
+    const rangeInput = document.getElementById('range2');
+    const updateRangeProgress = () => {
+        console.log('volume:', volume)
+        const progress = volume;
+        rangeInput.style.setProperty('--progress', `${progress}%`);
+    };
+    
+    rangeInput.addEventListener('input', updateRangeProgress);
+    updateRangeProgress(); // Initial call to set the progress
+    
+  }, [volume]);
+
+  useEffect( () => {
+
+    const rangeInput = document.getElementById('range1');
+    const updateRangeProgress = () => {
+    const progress = (rangeInput.value / rangeInput.max) * 100;
+      
+
+      rangeInput.style.setProperty('--progress', `${progress}%`);
+    };
+    
+    rangeInput.addEventListener('input', updateRangeProgress);
+    updateRangeProgress(); // Initial call to set the progress
+    //setProgressBar(progress)
+    return () => {
+      rangeInput.removeEventListener('input', updateRangeProgress);
+    };
+    
+}, [currentTime])
 
   useFirstRenderEffect(() => {
     // This effect will run whenever currentTrack changes
@@ -118,7 +152,6 @@ export function Appfooter() {
             console.log('trackToPrepare:', trackToPrepare)
             break
           case 'playlist':
-console.log("tracks[newTrackIndex]",tracks[newTrackIndex])
             trackToPrepare = tracks.tracks?tracks.tracks.items[newTrackIndex].track:tracks[newTrackIndex].track
             trackToPrepare = setPlaylistJson(trackToPrepare)
             break
@@ -331,6 +364,7 @@ function onPlayerReady(event) {
                       <div className="timeline-wrapper">
                           <div className="range">
                           <input
+                            id="range1"
                             ref={rangeRef}
                             value={currentTime}
                             step="0.1"
