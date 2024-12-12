@@ -1,7 +1,7 @@
 import { stationService } from "../../services/station.service";
 import {  setTrackJson } from "../../services/util.service";
 import { store } from "../store";
-import { ADD_STATION_TO_LIBRARY, REMOVE_STATION_FROM_LIBRARY, REMOVE_TRACK, SEARCH_ALBUMS, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_RECENT, SET_STATION } from "./song.reducer";
+import { ADD_STATION_TO_LIBRARY, LOAD_STATION_FROM_LIBRARY, REMOVE_STATION_FROM_LIBRARY, REMOVE_TRACK, SEARCH_ALBUMS, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_RECENT, SET_STATION } from "./song.reducer";
 import { showErrorMsg } from "../../services/event-bus.service.js"; 
 
 export async function loadTracks(){
@@ -85,10 +85,20 @@ export async function searchAlbums ( albumName , limit){
     }
 }
 
+export async function loadStationFromLibrary () {
+    try {
+        const libraryStations = await stationService.query();
+        console.log('libraryStations:', libraryStations)
+        store.dispatch( { type: LOAD_STATION_FROM_LIBRARY ,  libraryStations})
+    } catch (err) {
+        console.error('Error load Station From Library:', err);
+    }
+};
+
 export async function addStationToLibrary (stationId, stationName, stationType,  MYUSER){
     try {
         console.log('stationType:', stationType)
-        var addedStation = { name: stationName, id: stationId, type: stationType }
+        var addedStation = await stationService.addPlaylist(stationId, stationName, stationType,  MYUSER)
         console.log('addedStation:', addedStation)
         store.dispatch( { type: ADD_STATION_TO_LIBRARY , addedStation })
     } catch (err) {
@@ -101,9 +111,8 @@ export async function addStationToLibrary (stationId, stationName, stationType, 
 export async function removeStationFromLibrary (stationId, stationName, stationType,  MYUSER){
     try {
         console.log('stationType:', stationType)
-        var removedStation = { name: stationName, id: stationId, type: stationType }
-        console.log('removedStation:', removedStation)
-        store.dispatch( { type: REMOVE_STATION_FROM_LIBRARY , removedStation })
+        await stationService.removePlaylist(stationId, stationName, stationType,  MYUSER)
+        store.dispatch( { type: REMOVE_STATION_FROM_LIBRARY , stationId })
     } catch (err) {
         console.log('Having issues remove Station From Library:', err)
         showErrorMsg( 'Having issues remove Station From Library' )

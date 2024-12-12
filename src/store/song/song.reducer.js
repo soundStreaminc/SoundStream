@@ -37,6 +37,7 @@ export const SET_RECENT = 'SET_RECENT'
 export const GET_LIBRARY = 'GET_LIBRARY'
 export const ADD_STATION_TO_LIBRARY = 'ADD_STATION_TO_LIBRARY'
 export const REMOVE_STATION_FROM_LIBRARY = 'REMOVE_STATION_FROM_LIBRARY'
+export const LOAD_STATION_FROM_LIBRARY = 'LOAD_STATION_FROM_LIBRARY'
 
 export function stationReducer ( state = intialState, cmd = {}  ){
     switch (cmd.type){
@@ -45,10 +46,15 @@ export function stationReducer ( state = intialState, cmd = {}  ){
                 ...state,
                 libraryStations : [...state.libraryStations, cmd.addedStation ] 
             } 
+        case LOAD_STATION_FROM_LIBRARY :
+            return{
+                ...state,
+                libraryStations: cmd.libraryStations
+            } 
         case REMOVE_STATION_FROM_LIBRARY :
             return{
                 ...state,
-                libraryStations : state.libraryStations.filter( station => station.id !== cmd.removedStation.id )
+                libraryStations : state.libraryStations.filter( station => station.id !== cmd.stationId )
             } 
         case SET_RECENT :
             return{

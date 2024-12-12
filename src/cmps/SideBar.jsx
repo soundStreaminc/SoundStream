@@ -5,21 +5,22 @@ import Arrow from '../assets/svgs/rightArrow.svg?react';
 import Search from '../assets/svgs/search.svg?react';
 import Recents from '../assets/svgs/recents.svg?react';
 import StationMiniPreview from './StationMiniPreview';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadStationFromLibrary } from '../store/song/song.actions';
 
 export function SideBar() {
     //TODO get logged in User, for now hard coded user is ohad
     var stationInLibrary = useSelector ( storeState => storeState.libraryStations )
+    const dispatch = useDispatch();
+
     console.log('stationInLibrary:', stationInLibrary)
 
     useEffect( ()=> {
         loadPlaylist()
-    }, [])
+    }, [dispatch])
 
     async function loadPlaylist(){
-        //get stations array from local storage (all the ids)
-        //const playlistsArray = await stationService.getPlaylistByUser("ohad")
-        //setPlaylists( playlistsArray )
+        await loadStationFromLibrary()
     }
 
     return (

@@ -5,7 +5,7 @@ import { httpService } from './http.service.js';
 const clientId = import.meta.env.VITE_CLIENT_ID
 const clientSecret = import.meta.env.VITE_CLIENT_SECRET
 const STORAGE_KEY = 'station'
-
+const endpoint = 'playing/';
 export const stationService = {
     query,
     setAccessKey,
@@ -17,6 +17,7 @@ export const stationService = {
     getPlaylistByUser,
     getCurrentlyPlaying,
     addPlaylist,
+    removePlaylist,
     addAlbum,
     addTrackToLiked,
     getCategoryPlaylists,
@@ -51,15 +52,21 @@ const spotifyResultsLimit = 50
 
 _createStation()
 
-async function query() {
-    const res = await utilService.loadFromStorage(STORAGE_KEY)
-    return res
+async function query( ) {
+    console.log('query function:')
+    return httpService.get(endpoint)   
 }
 
 async function addPlaylist ( id, name, type, user ){
-    const res = await _addStationToUser( user, { name, id, type })
-    console.log('res:', res)
-    return res
+    var addedStation = { name, id, type }
+        console.log('addPlaylist station service: addedStation ', addedStation)
+    var savedStation = httpService.post(endpoint , addedStation)
+
+    return savedStation
+}
+
+async function removePlaylist ( id ){
+    return httpService.delete(endpoint + id)
 }
 
 async function getRecentlyPlayedByUser ( username = 'ohad' ){
