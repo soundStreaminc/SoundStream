@@ -28,7 +28,7 @@ export function ArtistDetails(  ) {
         setTracks(getTopTracks.tracks) 
     }
 
-    if(!tracks) return <span> loading in progress... </span>
+    if(!tracks) return 
     return (
         <section className="station-details-artist">
             <StationDetails_GeneralObjectHeader station={miniStation.current} />

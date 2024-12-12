@@ -1,6 +1,7 @@
 import { utilService } from './util.service.js'
 import { showErrorMsg } from '../services/event-bus.service.js';
 import { httpService } from './http.service.js';
+import { storageService } from './async-storage.service.js';
 
 const clientId = import.meta.env.VITE_CLIENT_ID
 const clientSecret = import.meta.env.VITE_CLIENT_SECRET
@@ -53,13 +54,11 @@ const spotifyResultsLimit = 50
 _createStation()
 
 async function query( ) {
-    console.log('query function:')
     return httpService.get(endpoint)   
 }
 
 async function addPlaylist ( id, name, type, user ){
     var addedStation = { name, id, type }
-        console.log('addPlaylist station service: addedStation ', addedStation)
     var savedStation = httpService.post(endpoint , addedStation)
 
     return savedStation
@@ -70,7 +69,7 @@ async function removePlaylist ( id ){
 }
 
 async function getRecentlyPlayedByUser ( username = 'ohad' ){
-    const recentlyPlayed = await query()
+    const recentlyPlayed = await storageService.query(STORAGE_KEY)
     .then( data => {  
         return  (data[0].users.find( user => user.username === username )).recentlyPlayed
     })

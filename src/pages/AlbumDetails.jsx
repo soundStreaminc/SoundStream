@@ -70,7 +70,7 @@ export function AlbumDetails({ scrollableContainerRef }) {
         }
         setTracks(foundAlbum.tracks.items)
     }
-    if (!tracks || !miniStation.current.image) return <span> loading in progress... </span>
+    if (!tracks || !miniStation.current.image) return 
     return (
         <section className="album-details">
             <StationDetails_GeneralObjectHeader station={miniStation.current} />

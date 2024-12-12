@@ -12,10 +12,9 @@ export function SideBar() {
     //TODO get logged in User, for now hard coded user is ohad
     var stationInLibrary = useSelector ( storeState => storeState.libraryStations )
     const dispatch = useDispatch();
-
     console.log('stationInLibrary:', stationInLibrary)
-
     useEffect( ()=> {
+        console.log('dispatch:')
         loadPlaylist()
     }, [dispatch])
 

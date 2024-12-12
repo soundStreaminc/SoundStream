@@ -32,34 +32,32 @@ async function save(youtubeSearch) {
 }
 
 async function getSongByName(songName) {
-    console.log('getSongByName:')
-    const youtubeSearch = await getSearchesByFullNameFromCache(songName)
-    console.log('cache youtubeId:', youtubeSearch?.youtubeId)
-    if(youtubeSearch) return youtubeSearch.youtubeId
+    console.log('getSongByName:');
     try {
+        const youtubeSearch = await getSearchesByFullNameFromCache(songName);
+        console.log('cache youtubeId:', youtubeSearch?.youtubeId);
+        if (youtubeSearch) return youtubeSearch.youtubeId;
+
         const params = {
             key: KEY,
             part: 'snippet',
             q: songName
         };
 
-        const queryString = new URLSearchParams(params).toString(); // Build query string
-        const response = await fetch(`https://www.googleapis.com/youtube/v3/search/?${queryString}`); // Append query string to URL
-        
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
-        }
+        const queryString = new URLSearchParams(params).toString();
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/search/?${queryString}`);
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
 
         const data = await response.json();
-        const youtubeSearch = {
+        const youtubeSearchData = {
             name: songName,
-            youtubeId : data.items[0]?.id?.videoId
-        }
+            youtubeId: data.items[0]?.id?.videoId
+        };
 
-        save(youtubeSearch)
-        return data.items ? data.items[0]?.id?.videoId : 'No results found';
+        await save(youtubeSearchData);
+        return youtubeSearchData.youtubeId || 'No results found';
     } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching or processing YouTube data:', error.message);
         return 'Could not fetch data';
     }
 }

@@ -61,7 +61,6 @@ export function Appfooter() {
 
     const rangeInput = document.getElementById('range2');
     const updateRangeProgress = () => {
-        console.log('volume:', volume)
         const progress = volume;
         rangeInput.style.setProperty('--progress', `${progress}%`);
     };
@@ -102,7 +101,7 @@ export function Appfooter() {
           // Reset time-related states
           setCurrentTime(0);
           setDuration(0);
-    console.log("currentTrack.youtubeId",currentTrack.youtubeId)
+
           // Load the new video
           player.loadVideoById(currentTrack.youtubeId);
     
@@ -130,7 +129,7 @@ export function Appfooter() {
     playNewTrack();
   }, [currentTrack, player]); // Keep currentTrack and player as dependencies
 
-  async function addYoutubeProperty(track){
+  async function addYoutubeProperty(track){  
     const youtubeId = await youtubeService.getSongByName(track.artist + " " +  track.title)
     console.log('youtubeId:', youtubeId)
     console.log('playTrack:', track)
@@ -141,11 +140,8 @@ export function Appfooter() {
 
   async function setProperties(newTrackIndex) {
     try {
-      let trackToPrepare;
-      const stationType = tracks.stationType;
-  
-      console.log('tracks:', tracks)
-
+      let trackToPrepare;  
+      console.log('tracks.stationType:', tracks,tracks.stationType)
       switch (tracks.stationType){
           case 'track':
             trackToPrepare = tracks;

@@ -16,9 +16,10 @@ const intialState = {
       recentlyPlayed: [],
       libraryStations: [
         {        
-            name: "רשימת השמעה המאוד מגניבה של שקד / shaked cool playlist",
-            id: "2ezyaQ3apZRID1oOIBHfLz",
-            type: "playlist"
+            name: "Motivational Speeches - The Best Motivation Speeches & Music",
+            id: "78Suoigk80gI9mI9z5tYl8",
+            type: "playlist",
+            _id : "675a808f021acc6a00bde6e1"
         }
       ]
 }

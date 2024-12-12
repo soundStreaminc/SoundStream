@@ -31,7 +31,7 @@ export function TrackDetails(){
         }
         setTrack(miniStation.current)
     }
-    if(!track) return <span> loading in progress... </span>
+    if(!track) return 
     return (
         <section className="track-details-container">
                 <StationDetails_GeneralObjectHeader station={track} />

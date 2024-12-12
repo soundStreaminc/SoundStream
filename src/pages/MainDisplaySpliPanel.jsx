@@ -67,7 +67,7 @@ export function MainDisplaySpliPanel() {
   };
 
   // Show a loading indicator until the layout is restored
-  if (!layout) return <div>Loading...</div>;
+  if (!layout) return 
   return (
     <div className="main-display-container" style={{ gridArea: "main-display", height: "80vh", display: "flex", flexDirection: "column" }}>
       <PanelGroup direction="horizontal">
