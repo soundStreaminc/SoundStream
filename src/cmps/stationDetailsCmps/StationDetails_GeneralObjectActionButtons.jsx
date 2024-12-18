@@ -7,13 +7,14 @@ import AddToLiked from '../../assets/svgs/addToLiked.svg?react';
 import LikedSongAdded from '../../assets/svgs/likedSongAdded.svg?react';
 import { stationService } from "../../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service";
-import { addStationToLibrary, removeStationFromLibrary, setCurrentlyPlayingAlbum, setCurrentlyPlayingArtist, setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack } from "../../store/song/song.actions";
+import { addStationToLibrary, removeStationFromLibrary, setCurrentlyPlayingAlbum, setCurrentlyPlayingArtist, setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack, setIsPlayingSong } from "../../store/song/song.actions";
 import { usePalette } from 'react-palette';
 import { youtubeService } from '../../services/youtube.service';
+import { useSelector } from 'react-redux';
 
 export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, station, imgSrc = null, playlistTrack = null}){
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
-    const [isPlaying, setIsPlaying] = useState( false );
+    const isPlaying = useSelector(storeState => storeState.isPlaying);
     const MYUSER = 'ohad'
     const MAXRECENTPLAYED = 10
     const { data, loading, error } = usePalette(imgSrc)
@@ -21,10 +22,10 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
     async function onPlayPauseClick(  ){
         if (isPlaying) {
             //audioRef.current.pause();// this will pause the audio
-            setIsPlaying(false)
+            setIsPlayingSong(false)
         } else {
             const youtubeId = await onPlayStation(station)
-            setIsPlaying(true)
+            setIsPlayingSong(true)
             await addToRecentlyPlayed(station, youtubeId)
         }
     };

@@ -15,18 +15,17 @@ import { useSelector } from 'react-redux';
 export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded, station, imgSrc = null, playlistTrack = null }) {
     const isPlaying = useSelector(storeState => storeState.isPlaying);
     const [isAdded, setIsAdded] = useState(isAlreadyAdded)
-    //const [isPlaying, setIsPlaying] = useState(false);
     const MYUSER = 'ohad'
     const MAXRECENTPLAYED = 4
     const { data, loading, error } = usePalette(imgSrc)
 
+    console.log('export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded, station, imgSrc = null, playlistTrack = null }) isPlaying:', isPlaying)
     async function onPlayPauseClick() {
         if (isPlaying) {
-            //audioRef.current.pause();// this will pause the audio
             setIsPlayingSong(false)
         } else {
             await onPlayStation(station)
-            setIsPlayingSong(true)
+            setIsPlayingSong(true) //TODO only if the youtubeId is different. else it was paused and need to be played without adding.
             await addToRecentlyPlayed(station)
         }
     };

@@ -18,11 +18,11 @@ import { size } from 'lodash';
 import { setIsPlayingSong } from "../store/song/song.actions";
 
 export function Appfooter() {
+  const isPlaying = useSelector(storeState => storeState.isPlaying);
   const tracks = useSelector(storeState => storeState.currentPlaylist);
   const [trackIndex, setTrackIndex] = useState(0);
   const [currentTrack, setCurrentTrack] = useState(tracks[trackIndex] || {}); //const currentTrack = useMemo(() => tracks[trackIndex] || {}, [trackIndex, tracks]);
   const [player, setPlayer] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(50);
@@ -39,6 +39,14 @@ export function Appfooter() {
       setProperties(trackIndex) 
     }
   }, [tracks]);
+
+    // // Handle Play/Pause from different components
+    // useFirstRenderEffect(() => {
+    //   // Prepare the first song when tracks are updated
+    //   if (tracks) {
+    //     setProperties(trackIndex) 
+    //   }
+    // }, [isPlaying]); 
 
   useEffect(() => {
 
@@ -140,8 +148,6 @@ export function Appfooter() {
   async function onPlaySong() {
       try {
           await setIsPlayingSong(true) 
-          // Set playing state
-          setIsPlaying(true);
       } catch (err) {
           console.log('err:', err)
           showErrorMsg('problem on Play Song: ', err)
@@ -151,8 +157,6 @@ export function Appfooter() {
   async function onPauseSong() {
     try {
         await setIsPlayingSong(false) 
-        // Set playing state
-        setIsPlaying(false);
     } catch (err) {
         console.log('err:', err)
         showErrorMsg('problem on Pause Song: ', err)
@@ -260,6 +264,7 @@ export function Appfooter() {
       if (currentTrack.youtubeId) {
         player.playVideo();
         startTrackingProgress();
+        console.log('should start chenge here:')
         onPlaySong()
       } else {
         // If no youtubeId, prepare the song first
