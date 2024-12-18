@@ -14,10 +14,13 @@ import { useSelector } from 'react-redux';
 
 export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, station, imgSrc = null, playlistTrack = null}){
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
+    const [isThisStationPlaying, setIsThisStationPlaying] = useState( false )
+
     const isPlaying = useSelector(storeState => storeState.isPlaying);
     const MYUSER = 'ohad'
     const MAXRECENTPLAYED = 10
     const { data, loading, error } = usePalette(imgSrc)
+    //var isThisStationPlaying = false
 
     async function onPlayPauseClick(  ){
         if (isPlaying) {
@@ -25,6 +28,7 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
             setIsPlayingSong(false)
         } else {
             const youtubeId = await onPlayStation(station)
+            setIsThisStationPlaying(true)
             setIsPlayingSong(true)
             await addToRecentlyPlayed(station, youtubeId)
         }
@@ -141,9 +145,9 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
             'backgroundImage': 'linear-gradient(oklch(from ' + data.vibrant + ' calc(l - .5) c h), black)'
             }}>
             <div className='controll-btns2'>
-                {!isPlaying ? (
+                {(isThisStationPlaying ? !isPlaying: true) ? (
                 <button type="button" aria-label="Play" className="play playerButton4" onClick={() => onPlayPauseClick(false)}>
-                    <span className="button-inner">         
+                    <span className="button-inner">        
                         <span aria-hidden="true" className="station-details-iconWrapper">         
                             <Play className="action-btn4" />
                         </span>
@@ -152,7 +156,7 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
                 ) : (
                 <button type="button" aria-label="Pause" className="pause playerButton4" onClick={() => onPlayPauseClick(true)}>
                     <span className="button-inner">         
-                        <span aria-hidden="true" className="station-details-iconWrapper">         
+                        <span aria-hidden="true" className="station-details-iconWrapper">       
                             <Pause className="action-btn4" />
                         </span>
                     </span>            
