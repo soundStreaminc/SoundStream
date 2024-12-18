@@ -4,7 +4,7 @@ import Add from '../assets/svgs/add.svg?react';
 import Arrow from '../assets/svgs/rightArrow.svg?react';
 import Search from '../assets/svgs/search.svg?react';
 import Recents from '../assets/svgs/recents.svg?react';
-import StationMiniPreview from './StationMiniPreview';
+import Library_StationMiniPreview from './Library_StationMiniPreview';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadStationFromLibrary } from '../store/song/song.actions';
 
@@ -54,7 +54,7 @@ export function SideBar() {
                         <ul className="station-test" > 
                             {/* //TODO : add scroll only on hover and disapear after some timeout */}
                             {stationInLibrary.map((station, index) => (
-                                <StationMiniPreview key={index} stationInfo={station} />
+                                <Library_StationMiniPreview key={index} stationInfo={station} />
                             ))}
                         </ul>
                 </div>

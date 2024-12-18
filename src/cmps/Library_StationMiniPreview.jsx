@@ -4,7 +4,7 @@ import { stationService } from "../services/station.service.js";
 import PlayWitheStation from '../assets/svgs/playWitheStation.svg?react';
 import { userService } from "../services/user.service.js";
 import { useNavigate } from "react-router";
-export default function StationMiniPreview({ stationInfo }) {
+export default function Library_Library_StationMiniPreview({ stationInfo }) {
   const [station, setStation] = useState(null)
   const navigate = useNavigate()
 

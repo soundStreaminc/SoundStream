@@ -10,10 +10,12 @@ import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service";
 import { setCurrentlyPlayingTrack } from "../../store/song/song.actions";
 import { usePalette } from 'react-palette';
 import { youtubeService } from '../../services/youtube.service';
+import { useSelector } from 'react-redux';
 
 export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded, station, imgSrc = null, playlistTrack = null }) {
+    const isPlaying = useSelector(storeState => storeState.isPlaying);
     const [isAdded, setIsAdded] = useState(isAlreadyAdded)
-    const [isPlaying, setIsPlaying] = useState(false);
+    //const [isPlaying, setIsPlaying] = useState(false);
     const MYUSER = 'ohad'
     const MAXRECENTPLAYED = 4
     const { data, loading, error } = usePalette(imgSrc)
@@ -21,10 +23,10 @@ export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded
     async function onPlayPauseClick() {
         if (isPlaying) {
             //audioRef.current.pause();// this will pause the audio
-            setIsPlaying(false)
+            setIsPlayingSong(false)
         } else {
             await onPlayStation(station)
-            setIsPlaying(true)
+            setIsPlayingSong(true)
             await addToRecentlyPlayed(station)
         }
     };

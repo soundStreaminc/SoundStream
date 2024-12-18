@@ -15,6 +15,7 @@ import { setAlbumJson, setArtistJson, setPlaylistJson, setTrackJson } from "../s
 import { youtubeService } from "../services/youtube.service";
 import { showErrorMsg } from "../services/event-bus.service";
 import { size } from 'lodash';
+import { setIsPlayingSong } from "../store/song/song.actions";
 
 export function Appfooter() {
   const tracks = useSelector(storeState => storeState.currentPlaylist);
@@ -38,25 +39,6 @@ export function Appfooter() {
       setProperties(trackIndex) 
     }
   }, [tracks]);
-  // useEffect(() => {
-  //   console.log('tracks:', tracks)
-  //   if (tracks.length > 0 && tracks[trackIndex].youtubeId) {
-  //     const currentTrack = tracks[trackIndex];
-  
-  //     // Stop previous progress tracking and reset state
-  //     stopTrackingProgress();
-  //     setCurrentTime(0);
-  //     setDuration(0);
-  
-  //     // Load and play the new track
-  //     if (player) {
-  //       player.loadVideoById(currentTrack.youtubeId);
-  //       player.playVideo();
-  //       startTrackingProgress();
-  //       setIsPlaying(true);
-  //     }
-  //   }
-  // }, [currentTrack]); // Trigger this when `tracks` or `trackIndex` changes
 
   useEffect(() => {
 
@@ -140,19 +122,13 @@ export function Appfooter() {
           startTrackingProgress();
      
           // Set playing state
-          setIsPlaying(true);
+          onPlaySong()
+
           console.log('Track should now be playing');
 
-          // // Optional: Get the duration of the new track
-          // const newDuration = playerRef.current.getDuration();
-          // setDuration(newDuration);
-  
-          // // Immediately pause and set playing state to false
-          // playerRef.current.pauseVideo();
-          // setIsPlaying(false);
         } catch (error) {
           console.error('Error playing new track:', error);
-          setIsPlaying(false);
+          onPauseSong()
         }
       }
     }
@@ -160,6 +136,28 @@ export function Appfooter() {
     // Call the async function to play the new track
     playNewTrack();
   }, [currentTrack, player]); // Keep currentTrack and player as dependencies
+
+  async function onPlaySong() {
+      try {
+          await setIsPlayingSong(true) 
+          // Set playing state
+          setIsPlaying(true);
+      } catch (err) {
+          console.log('err:', err)
+          showErrorMsg('problem on Play Song: ', err)
+      }
+  }
+
+  async function onPauseSong() {
+    try {
+        await setIsPlayingSong(false) 
+        // Set playing state
+        setIsPlaying(false);
+    } catch (err) {
+        console.log('err:', err)
+        showErrorMsg('problem on Pause Song: ', err)
+    }
+}
 
   function waitForPlayerReady(player, maxAttempts = 3, interval = 400) {
     return new Promise((resolve, reject) => {
@@ -250,23 +248,24 @@ export function Appfooter() {
 
   // Modify togglePlayPause to handle player state more robustly
   function togglePlayPause() {
+    console.log('am i actually here?:')
     if (!player) return;
 
     if (isPlaying) {
       player.pauseVideo();
       stopTrackingProgress();
+      onPauseSong()
     } else {
       // Check if youtubeId exists before playing
       if (currentTrack.youtubeId) {
         player.playVideo();
         startTrackingProgress();
+        onPlaySong()
       } else {
         // If no youtubeId, prepare the song first
         setProperties(tracks[trackIndex]);
       }
     }
-    
-    setIsPlaying(!isPlaying);
   }
 
   function startTrackingProgress() {
@@ -371,7 +370,7 @@ export function Appfooter() {
       // Load and pause the new video
       playerRef.current.loadVideoById(newTrack.youtubeId);
       playerRef.current.pauseVideo();
-      setIsPlaying(false);
+      onPauseSong()
   
       // Update duration and start progress tracking
       const newDuration = playerRef.current.getDuration();
@@ -399,7 +398,7 @@ export function Appfooter() {
       
       setTimeout(() => {
         event.target.playVideo();
-        setIsPlaying(true);
+        onPlaySong()
       }, 500);
     }
   }

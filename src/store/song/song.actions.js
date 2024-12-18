@@ -1,7 +1,7 @@
 import { stationService } from "../../services/station.service";
 import {  setTrackJson } from "../../services/util.service";
 import { store } from "../store";
-import { ADD_STATION_TO_LIBRARY, LOAD_STATION_FROM_LIBRARY, REMOVE_STATION_FROM_LIBRARY, REMOVE_TRACK, SEARCH_ALBUMS, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_RECENT, SET_STATION } from "./song.reducer";
+import { ADD_STATION_TO_LIBRARY, LOAD_STATION_FROM_LIBRARY, REMOVE_STATION_FROM_LIBRARY, REMOVE_TRACK, SEARCH_ALBUMS, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_PLAY, SET_RECENT, SET_STATION } from "./song.reducer";
 import { showErrorMsg } from "../../services/event-bus.service.js"; 
 import { libraryService } from "../../services/library.service.js";
 
@@ -82,6 +82,16 @@ export async function searchAlbums ( albumName , limit){
     } catch (err) {
         console.log('Having issues finding albums:', err)
         showErrorMsg( 'Having issues finding albums:' )
+        throw err
+    }
+}
+
+export async function setIsPlayingSong ( isPlaying){
+    try {
+        store.dispatch( { type: SET_PLAY , isPlaying })
+    } catch (err) {
+        console.log('Having issues SET_PLAYs:', err)
+        showErrorMsg( 'Having issues SET_PLAY' )
         throw err
     }
 }
