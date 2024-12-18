@@ -93,7 +93,7 @@ export async function loadStationFromLibrary () {
     } catch (err) {
         console.error('Error load Station From Library:', err);
     }
-};
+}
 
 export async function addStationToLibrary (stationId, stationName, stationType,  MYUSER){
     try {

@@ -27,6 +27,8 @@ export function Appfooter() {
   const [volume, setVolume] = useState(50);
   const rangeRef = useRef(null);
   const intervalRef = useRef(null);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const playerRef = useRef(null);
   const [hasInitialized, setHasInitialized] = useState(false);
 
   // Handle Redux store changes to `tracks`
@@ -90,11 +92,36 @@ export function Appfooter() {
 }, [currentTime])
 
   useFirstRenderEffect(() => {
+    console.log('Current Track Changed:', {
+      track: currentTrack,
+      youtubeId: currentTrack?.youtubeId,
+      playerRef: playerRef.current,
+      isInitialLoad: isInitialLoad
+    });
+    // Skip during the first initialization
+  if (!hasInitialized) {
+    setHasInitialized(true);
+    return;
+  }
+
+  // Only trigger when switching tracks
+  if (currentTrack) {
+    handleTrackChange(currentTrack);
+  }
+
     // This effect will run whenever currentTrack changes
     async function playNewTrack() {
       // Ensure we have a valid track and player
       if (currentTrack?.youtubeId && player) {
+        
         try {
+          console.log('Attempting to play new track');
+
+          console.log("Waiting for player to be ready...");
+          await waitForPlayerReady(playerRef.current); // Wait for readiness
+    
+          console.log("Player is ready. Loading track:", currentTrack);
+
           // Stop any existing progress tracking
           stopTrackingProgress();
     
@@ -103,21 +130,26 @@ export function Appfooter() {
           setDuration(0);
 
           // Load the new video
-          player.loadVideoById(currentTrack.youtubeId);
+          playerRef.current.loadVideoById(currentTrack.youtubeId);
     
           // Play the video
-          player.playVideo();
+          playerRef.current.playVideo();
     
+         
           // Start tracking progress
           startTrackingProgress();
-    
-          // Optional: Get the duration of the new track
-          const newDuration = player.getDuration();
-          setDuration(newDuration);
+     
+          // Set playing state
+          setIsPlaying(true);
+          console.log('Track should now be playing');
+
+          // // Optional: Get the duration of the new track
+          // const newDuration = playerRef.current.getDuration();
+          // setDuration(newDuration);
   
-          // Immediately pause and set playing state to false
-          player.pauseVideo();
-          setIsPlaying(false);
+          // // Immediately pause and set playing state to false
+          // playerRef.current.pauseVideo();
+          // setIsPlaying(false);
         } catch (error) {
           console.error('Error playing new track:', error);
           setIsPlaying(false);
@@ -128,6 +160,27 @@ export function Appfooter() {
     // Call the async function to play the new track
     playNewTrack();
   }, [currentTrack, player]); // Keep currentTrack and player as dependencies
+
+  function waitForPlayerReady(player, maxAttempts = 3, interval = 400) {
+    return new Promise((resolve, reject) => {
+      let attempts = 0;
+  
+      const checkPlayerState = () => {
+        const state = player.getPlayerState();
+        console.log(`Checking player state (attempt ${attempts + 1}):`, state);
+  
+        if (state >= 0) { // Ensure state is valid
+          resolve();
+        } else if (++attempts >= maxAttempts) {
+          reject(new Error("Player not ready within timeout."));
+        } else {
+          setTimeout(checkPlayerState, interval);
+        }
+      };
+  
+      checkPlayerState();
+    });
+  }
 
   async function addYoutubeProperty(track){  
     const youtubeId = await youtubeService.getSongByName(track.artist + " " +  track.title)
@@ -140,44 +193,49 @@ export function Appfooter() {
 
   async function setProperties(newTrackIndex) {
     try {
-      let trackToPrepare;  
-      console.log('tracks.stationType:', tracks,tracks.stationType)
-      switch (tracks.stationType){
-          case 'track':
-            trackToPrepare = tracks;
-            console.log('trackToPrepare:', trackToPrepare)
-            break
-          case 'playlist':
-            trackToPrepare = tracks.tracks?tracks.tracks.items[newTrackIndex].track:tracks[newTrackIndex].track
-            trackToPrepare = setPlaylistJson(trackToPrepare)
-            break
-          case 'artist':
-            trackToPrepare = tracks[newTrackIndex]
-            trackToPrepare = setArtistJson(trackToPrepare)
-            break
-          case 'album':
-            trackToPrepare = tracks[newTrackIndex]
-            trackToPrepare = setAlbumJson(trackToPrepare, tracks.albumImage)
-            break
-          default: 
-            console.log('error with the station type: ', tracks.stationType)
-            showErrorMsg('should not be here')
-            return          
+      let trackToPrepare;
+      switch (tracks.stationType) {
+        case "track":
+          trackToPrepare = tracks;
+          break;
+        case "playlist":
+          trackToPrepare = tracks.tracks
+            ? tracks.tracks.items[newTrackIndex].track
+            : tracks[newTrackIndex].track;
+          trackToPrepare = setPlaylistJson(trackToPrepare);
+          break;
+        case "artist":
+          trackToPrepare = setArtistJson(tracks[newTrackIndex]);
+          break;
+        case "album":
+          trackToPrepare = setAlbumJson(tracks[newTrackIndex], tracks.albumImage);
+          break;
+        default:
+          console.error("Invalid station type:", tracks.stationType);
+          showErrorMsg("Unexpected error");
+          return;
       }
-    
-      console.log('final trackToPrepare:', trackToPrepare)
-      // Ensure we have a YouTube ID
+  
       if (!trackToPrepare.youtubeId) {
         trackToPrepare = await addYoutubeProperty(trackToPrepare);
       }
   
-      // Update the current track
       setCurrentTrack(trackToPrepare);
-      
-      // Optionally update track index
       setTrackIndex(newTrackIndex);
+  
+      // Ensure the player loads the new video and starts playing only after initial load
+      if (player && trackToPrepare.youtubeId) {
+        player.loadVideoById(trackToPrepare.youtubeId);
+  
+        if (!isInitialLoad) {
+          player.playVideo();
+        }
+      }
+  
+      // Mark the initial load as complete
+      setIsInitialLoad(false);
     } catch (error) {
-      console.error('Error setting track properties:', error);
+      console.error("Error in setProperties:", error);
     }
   }
 
@@ -189,20 +247,6 @@ export function Appfooter() {
       autoplay: 0, // Auto-play off
     },
   };
-  
-  
- // Modify your YouTube component to handle track changes
-function onPlayerReady(event) {
-  setPlayer(event.target);
-  event.target.setVolume(volume);
-  setDuration(event.target.getDuration());
-
-  // Optional: If you want to handle track changes here
-  if (currentTrack?.youtubeId) {
-    event.target.loadVideoById(currentTrack.youtubeId);
-    event.target.pauseVideo();
-  }
-}
 
   // Modify togglePlayPause to handle player state more robustly
   function togglePlayPause() {
@@ -269,9 +313,11 @@ function onPlayerReady(event) {
 
   
   function toPrevTrack() {
+    const tracksSize = size( tracks);
+
     const totalTracks = tracks.stationType === 'playlist' 
-      ? tracks.tracks.items.length 
-      : tracks.length;
+      ? tracks.tracks.items.length | tracksSize 
+      : tracks.length | tracksSize;
     
     const newIndex = trackIndex - 1 < 0 
       ? totalTracks - 1 
@@ -305,11 +351,64 @@ function onPlayerReady(event) {
       return `${minutes.toString().padStart(1, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
 
+  async function handleTrackChange(newTrack) {
+    if (!newTrack?.youtubeId || !playerRef.current) {
+      console.warn("Cannot change track: Player or new track is missing.");
+      return;
+    }
+  
+    console.log("Switching to new track:", newTrack);
+  
+    try {
+      // Wait for the player to be ready
+      await waitForPlayerReady(playerRef.current);
+  
+      // Stop progress tracking and reset state
+      stopTrackingProgress();
+      setCurrentTime(0);
+      setDuration(0);
+  
+      // Load and pause the new video
+      playerRef.current.loadVideoById(newTrack.youtubeId);
+      playerRef.current.pauseVideo();
+      setIsPlaying(false);
+  
+      // Update duration and start progress tracking
+      const newDuration = playerRef.current.getDuration();
+      setDuration(newDuration);
+      startTrackingProgress();
+    } catch (error) {
+      console.error("Error during track change:", error);
+    }
+  }
+  
+
+   function onPlayerReady(event) {
+    console.log('Player Ready Event');
+    
+    playerRef.current = event.target;
+    setPlayer(event.target);
+
+    // Set initial volume
+    event.target.setVolume(volume);
+
+    // Only start playing if it's not the initial load and we have a track
+    if (!isInitialLoad && currentTrack?.youtubeId) {
+      console.log('Playing track after initial load');
+      event.target.loadVideoById(currentTrack.youtubeId);
+      
+      setTimeout(() => {
+        event.target.playVideo();
+        setIsPlaying(true);
+      }, 500);
+    }
+  }
+
   return (
     <div className="app-footer-container">
       <YouTube
         videoId={currentTrack.youtubeId}
-        key={currentTrack.youtubeId}
+        key={currentTrack?.youtubeId || "default"}
         opts={opts}
         onReady={onPlayerReady}
         onStateChange={handleTimeUpdate}

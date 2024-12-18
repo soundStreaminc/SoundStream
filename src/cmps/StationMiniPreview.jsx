@@ -3,8 +3,10 @@ import { showErrorMsg } from '../services/event-bus.service.js';
 import { stationService } from "../services/station.service.js";
 import PlayWitheStation from '../assets/svgs/playWitheStation.svg?react';
 import { userService } from "../services/user.service.js";
+import { useNavigate } from "react-router";
 export default function StationMiniPreview({ stationInfo }) {
   const [station, setStation] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     //TODO disable first time mount (create use effect without running on intial)
@@ -15,13 +17,17 @@ export default function StationMiniPreview({ stationInfo }) {
     try {
       if (!stationInfo.id) throw new Error('error: did not get stationInfo.id')
       const loadedStation = await stationService.getStationById_SpotifyApi(stationInfo.type, stationInfo.id)
-      //const loadedUser = await userService.getUsers()
+      const loadedUser = await userService.getUsers()
       //console.log('loadedUser:', loadedUser)
       setStation(loadedStation)
     } catch (err) {
       console.log('err:', err)
       showErrorMsg('problem loading Station: ', err)
     }
+  }
+  
+  function onButtonClickHandler (  ) {
+    navigate(`/${stationInfo.type}/${stationInfo.id}`);
   }
 
   function getStationOwnerArtist(stationType) {
@@ -30,12 +36,12 @@ export default function StationMiniPreview({ stationInfo }) {
     return res
   }
 
-  if (!station || !station.images) return <span> station preview loading.. </span>
+  if (!station || !station.images) return
   return (
     <section className="station-mini-preview">
       <li
         className="station-item"
-        onClick={() => (window.location.href = `/${stationInfo.type}/${stationInfo.id}`)}
+        onClick={() => (window.location.href = `/${stationInfo.type}/${stationInfo.id}`)} //onButtonClickHandler TODO bugL the page does not refresh between two different playlists
       >
         <div className="station-img-container">
           <img src={station.images[0].url} alt={station.name} className="station-img" />

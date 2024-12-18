@@ -23,7 +23,7 @@ console.log("result",result)
 }
 
 async function save(youtubeSearch) {
-    const savedSearch = {
+    let savedSearch = {
         name: youtubeSearch.name,
         youtubeId : youtubeSearch.youtubeId
     }
@@ -55,7 +55,7 @@ async function getSongByName(songName) {
         };
 
         await save(youtubeSearchData);
-        return youtubeSearchData.youtubeId || 'No results found';
+        return youtubeSearchData.youtubeId;
     } catch (error) {
         console.error('Error fetching or processing YouTube data:', error.message);
         return 'Could not fetch data';
