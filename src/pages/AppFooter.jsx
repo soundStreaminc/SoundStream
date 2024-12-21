@@ -40,13 +40,13 @@ export function Appfooter() {
     }
   }, [tracks]);
 
-    // // Handle Play/Pause from different components
-    // useFirstRenderEffect(() => {
-    //   // Prepare the first song when tracks are updated
-    //   if (tracks) {
-    //     setProperties(trackIndex) 
-    //   }
-    // }, [isPlaying]); 
+  // useFirstRenderEffect(() => {
+  //   if(player){
+  //     player.pauseVideo();
+  //     stopTrackingProgress();
+  //     onPauseSong()
+  //   }
+  // }, [isPlaying])
 
   useEffect(() => {
 
@@ -201,6 +201,7 @@ export function Appfooter() {
           trackToPrepare = tracks;
           break;
         case "playlist":
+          console.log('testesetetsettsetstracks.tracks:', tracks)
           trackToPrepare = tracks.tracks
             ? tracks.tracks.items[newTrackIndex].track
             : tracks[newTrackIndex].track;

@@ -22,7 +22,8 @@ const intialState = {
             _id : "675a808f021acc6a00bde6e1"
         }
       ],
-      isPlaying: false
+      isPlaying: false,
+      playingStationId : ''
 }
 
 export const SEARCH_SONGS = 'SEARCH_SONGS'
@@ -41,9 +42,15 @@ export const ADD_STATION_TO_LIBRARY = 'ADD_STATION_TO_LIBRARY'
 export const REMOVE_STATION_FROM_LIBRARY = 'REMOVE_STATION_FROM_LIBRARY'
 export const LOAD_STATION_FROM_LIBRARY = 'LOAD_STATION_FROM_LIBRARY'
 export const SET_PLAY = 'SET_PLAY'
+export const SET_PLAYING_STATION = 'SET_PLAYINGSTATION'
 
 export function stationReducer ( state = intialState, cmd = {}  ){
     switch (cmd.type){
+        case SET_PLAYING_STATION :
+            return{
+                ...state,
+                playingStationId: cmd.id
+            } 
         case SET_PLAY :
             return{
                 ...state,

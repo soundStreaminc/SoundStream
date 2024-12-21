@@ -18,9 +18,9 @@ export function SearchResultsPreviewObject({ miniObject , isPlayingSearchResult 
         if (isPlaying) {
             setIsPlaying(false)
         } else {
-            const youtubeId = await onPlayStation(miniObject)
+            //const youtubeId = await onPlayStation(miniObject)
             setIsPlaying(true)
-            await addToRecentlyPlayed(station, youtubeId)
+            await addToRecentlyPlayed(station)
         }
     }
 

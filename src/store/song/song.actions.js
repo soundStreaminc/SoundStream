@@ -1,7 +1,7 @@
 import { stationService } from "../../services/station.service";
 import {  setTrackJson } from "../../services/util.service";
 import { store } from "../store";
-import { ADD_STATION_TO_LIBRARY, LOAD_STATION_FROM_LIBRARY, REMOVE_STATION_FROM_LIBRARY, REMOVE_TRACK, SEARCH_ALBUMS, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_PLAY, SET_RECENT, SET_STATION } from "./song.reducer";
+import { ADD_STATION_TO_LIBRARY, LOAD_STATION_FROM_LIBRARY, REMOVE_STATION_FROM_LIBRARY, REMOVE_TRACK, SEARCH_ALBUMS, SEARCH_ARTISTS, SEARCH_PLAYLISTS, SEARCH_SONGS, SET_CURRENT_PLAYLIST, SET_PLAY, SET_PLAYING_STATION, SET_RECENT, SET_STATION } from "./song.reducer";
 import { showErrorMsg } from "../../services/event-bus.service.js"; 
 import { libraryService } from "../../services/library.service.js";
 
@@ -86,6 +86,16 @@ export async function searchAlbums ( albumName , limit){
     }
 }
 
+export async function setPlayingStationId ( id){
+    try {
+        store.dispatch( { type: SET_PLAYING_STATION , id })
+    } catch (err) {
+        console.log('Having issues SET_PLAYs:', err)
+        showErrorMsg( 'Having issues SET_PLAY' )
+        throw err
+    }
+}
+
 export async function setIsPlayingSong ( isPlaying){
     try {
         store.dispatch( { type: SET_PLAY , isPlaying })
@@ -163,9 +173,9 @@ export async function setCurrentlyPlayingAlbum ( trackInfo , imgSrc){
     }
 }
 
-export async function setCurrentlyPlayingTrack ( trackInfo , youtubeId){
+export async function setCurrentlyPlayingTrack ( trackInfo ){
     try {
-        trackInfo = setTrackJson( trackInfo, youtubeId )
+        trackInfo = setTrackJson( trackInfo )
         console.log('setCurrentlyPlayingTrack trackInfo:', trackInfo)
         await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackInfo })
         return trackInfo
@@ -176,7 +186,7 @@ export async function setCurrentlyPlayingTrack ( trackInfo , youtubeId){
     }
 }
 
-export async function setCurrentlyPlayingInitial ( trackInfo , youtubeId){
+export async function setCurrentlyPlayingInitial ( trackInfo ){
     try {
         await store.dispatch( { type: SET_CURRENT_PLAYLIST , trackInfo })
         return trackInfo

@@ -18,9 +18,9 @@ export function StationFilterDetails_SongsResults({ songs , isPlayingSearchResul
         if (isPlaying) {
             setIsPlaying(false)
         } else {
-            const youtubeId = await onPlayStation(song)
+            //const youtubeId = await onPlayStation(song)
             setIsPlaying(true)
-            await addToRecentlyPlayed(song, youtubeId)
+            await addToRecentlyPlayed(song)
         }
     }
 

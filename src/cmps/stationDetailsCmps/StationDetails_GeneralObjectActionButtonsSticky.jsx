@@ -11,25 +11,30 @@ import { setCurrentlyPlayingTrack } from "../../store/song/song.actions";
 import { usePalette } from 'react-palette';
 import { youtubeService } from '../../services/youtube.service';
 import { useSelector } from 'react-redux';
+import { useFirstRenderEffect } from '../useFirstRenderEffect';
 
-export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded, station, imgSrc = null, playlistTrack = null }) {
+export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded, station, imgSrc = null, playlistTrack = null, isPlayingPlaylist, onButtonClick}) {
+    const [isPlayButtonClicked, setIsPlayButtonClicked] = useState(isPlayingPlaylist)
+    const [isThisStationPlaying, setIsThisStationPlaying] = useState( false )
     const isPlaying = useSelector(storeState => storeState.isPlaying);
-    
+
     const [isAdded, setIsAdded] = useState(isAlreadyAdded)
     const MYUSER = 'ohad'
     const MAXRECENTPLAYED = 4
     const { data, loading, error } = usePalette(imgSrc)
 
-    console.log('export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded, station, imgSrc = null, playlistTrack = null }) isPlaying:', isPlaying)
-    async function onPlayPauseClick() {
+    useFirstRenderEffect(() => {
+        setIsThisStationPlaying(onButtonClick(station.id))
+    }, [isPlayButtonClicked])
+    
+    async function onPlayPauseClick(  ){
         if (isPlaying) {
-            setIsPlayingSong(false)
+            setIsPlayButtonClicked(false)
         } else {
-            await onPlayStation(station)
-            setIsPlayingSong(true) //TODO only if the youtubeId is different. else it was paused and need to be played without adding.
-            await addToRecentlyPlayed(station)
+            setIsThisStationPlaying(true)
+            setIsPlayButtonClicked(true)
         }
-    };
+    }
 
     async function onAddRemoveClick() {
         if (isAdded) {
@@ -53,74 +58,12 @@ export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded
         }
     }
 
-    async function onPlayStation(station) {
-        try {
-            switch (station.type) {
-                case 'track':
-                    onPlayTrack(station)
-                    break;
-                case 'playlist':
-                    onPlayPlaylist(playlistTrack)
-                    break;
-                default:
-                    console.log('error with the station type: ', station.type)
-                    showErrorMsg('should not be here')
-            }
-            //TODO if playlist set store to playlist
-            return
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    async function onPlayPlaylist(playlistTrack) {
-        try {
-            const songToPlay = {
-                name: playlistTrack[0].track.name,
-                artist: playlistTrack[0].track.artists[0].name,
-                image: playlistTrack[0].track.album.images[0].url
-            }
-
-            const youtubeId = await youtubeService.getSongByName(songToPlay.artist + ' ' + songToPlay.name);
-            var playCurrent = songToPlay ? await setCurrentlyPlayingTrack(songToPlay, youtubeId) : ''
-            console.log(`playing:`, playCurrent)
-            showSuccessMsg(`playing: ${playCurrent.title}`)
-            return youtubeId
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    async function onPlayTrack(track) {
-        try {
-            const songToPlay = station.type === 'track' ? track : playlistTrack[0].track
-            //TODO if playlist set store to playlist
-            const youtubeId = await youtubeService.getSongByName(songToPlay.artist + ' ' + songToPlay.name);
-            var playCurrent = songToPlay ? await setCurrentlyPlayingTrack(songToPlay, youtubeId) : ''
-            console.log(`playing:`, playCurrent)
-            showSuccessMsg(`playing: ${playCurrent.title}`)
-            return youtubeId
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    async function addToRecentlyPlayed(track) {
-        try {
-            if (station.type !== 'track') return
-            const trackJson = setTrackJson(track)
-            await stationService.addToRecentlyPlayedByUser(trackJson, MAXRECENTPLAYED, 'ohad')     //TODO should be changed according to user    
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
     return (
         <div className="general-object-header-btns" style={{
             'backgroundImage': 'linear-gradient(oklch(from ' + data.vibrant + ' calc(l - .5) c h), black)'
         }}>
             <div className='controll-btns2'>
-                {!isPlaying ? (
+                {(isThisStationPlaying ? !isPlaying: true) ? (
                     <button type="button" aria-label="Play" className="play playerButton4" onClick={() => onPlayPauseClick(false)}>
                         <span className="button-inner">
                             <span aria-hidden="true" className="station-details-iconWrapper">

@@ -6,7 +6,14 @@ import { TrackPreview } from "../cmps/TrackPreview"
 import { StationDetails_GeneralObjectActionButtons } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectActionButtons"
 import { StationDetails_GeneralObjectHeader } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectHeader"
 import { StationDetails_GeneralObjectActionButtonsSticky } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectActionButtonsSticky"
+import { useSelector } from "react-redux"
+import { setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack, setIsPlayingSong } from "../store/song/song.actions"
+import { setTrackJson } from "../services/util.service"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 export function PlaylistDetails({ scrollableContainerRef }) {
+    const playingStationId = useSelector(storeState => storeState.playingStationId);
+    const isPlaying = useSelector(storeState => storeState.isPlaying);
+    const [isPlaylistPlaying, setIsPlaylistPlaying] = useState( false )
     const params = useParams();
     const miniStation = useRef({
         id: null,
@@ -21,6 +28,7 @@ export function PlaylistDetails({ scrollableContainerRef }) {
     });
     const [tracks, setTracks] = useState(null);
     const [fix, setFix] = useState(false);
+    const MAXRECENTPLAYED = 10
 
     useEffect(() => {
         loadTracks();
@@ -46,11 +54,11 @@ export function PlaylistDetails({ scrollableContainerRef }) {
 
     function switchHader(isSticky) {
         if (isSticky) {
-            return <StationDetails_GeneralObjectActionButtonsSticky isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image} playlistTrack={tracks} />
+            return <StationDetails_GeneralObjectActionButtonsSticky isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image} playlistTrack={tracks} isPlayingPlaylist={isPlaying} onButtonClick={buttonClickFunc}/>
 
         }
 
-        return <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image} playlistTrack={tracks}/>
+        return <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image} playlistTrack={tracks} isPlayingPlaylist={isPlaying} onButtonClick={buttonClickFunc}/>
     }
 
     async function loadTracks() {
@@ -68,7 +76,47 @@ export function PlaylistDetails({ scrollableContainerRef }) {
         };
         setTracks(foundPlaylist.tracks.items);
     }
-  
+
+     async function buttonClickFunc(stationIdVar){
+        try {
+            console.log('here:')
+            if (isPlaying) {
+                setIsPlayingSong(false)
+            } else {
+                await onPlayPlaylist(tracks)
+                setIsPlayingSong(true)
+                await addToRecentlyPlayed(miniStation.current)
+                const currentStationPlayingId = playingStationId
+                if( currentStationPlayingId === stationIdVar) return true
+                else return false
+            }
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg("could not search email")
+        }
+       
+    }
+
+    async function onPlayPlaylist ( playlistTrack){
+        try {      
+            await setCurrentlyPlayingPlaylist ( playlistTrack)  
+            console.log(`playing:`, playlistTrack)
+            showSuccessMsg(`playing: ${playlistTrack.name}`)  
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async function addToRecentlyPlayed ( track ){
+        try {      
+            if (miniStation.current.type !== 'track') return  
+            const trackJson = setTrackJson( track )
+            await stationService.addToRecentlyPlayedByUser( trackJson ,MAXRECENTPLAYED, 'ohad')     //TODO should be changed according to user    
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     if (!tracks || !miniStation.current.image) return <span>Loading in progress...</span>
 
     return (
@@ -109,7 +157,7 @@ export function PlaylistDetails({ scrollableContainerRef }) {
                             trackAddedAt={track.added_at}
                             tracksDisplayType={miniStation.current.type}
                             index={index + 1}
-                            key={track.track?.id || track.id}
+                            key={index}
                         />
                     ))}
                 </div>
