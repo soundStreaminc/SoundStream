@@ -4,11 +4,20 @@ import { useEffect, useRef, useState } from "react"
 import { duration } from "@mui/material"
 import { StationDetails_GeneralObjectActionButtons } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectActionButtons"
 import { StationDetails_GeneralObjectHeader } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectHeader"
+import { useSelector } from "react-redux"
+import { setTrackJson } from "../services/util.service"
+import { setCurrentlyPlayingTrack, setIsPlayingSong, setPlayingStationId } from "../store/song/song.actions"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
 export function TrackDetails(){
     const params = useParams()
     let miniStation = useRef(null)
     const [track, setTrack] = useState( null)
+    const playingStationId = useSelector(storeState => storeState.playingStationId);
+    const isPlaying = useSelector(storeState => storeState.isPlaying);
+    const [isPlaylistPlaying, setIsPlaylistPlaying] = useState( false )
+    const intialPlay = useRef(false)
+    const MAXRECENTPLAYED = 10
 
     useEffect(() => {
         loadTracks()
@@ -31,11 +40,54 @@ export function TrackDetails(){
         }
         setTrack(miniStation.current)
     }
+
+    async function buttonClickFunc(stationIdVar){
+        try {
+            console.log('here:')
+            if (isPlaying && intialPlay.current) {
+                setIsPlayingSong(false)
+            } else {
+                setIsPlaylistPlaying(true)
+                intialPlay.current = true
+                await onPlayTrack(track)
+                setIsPlayingSong(true)
+                await addToRecentlyPlayed(miniStation.current)
+                const currentStationPlayingId = playingStationId === stationIdVar ? true : false
+                await setPlayingStationId(stationIdVar)
+                console.log('currentStationPlayingId:', currentStationPlayingId)
+                return currentStationPlayingId
+            }
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg("could not search email")
+        }
+       
+    }
+
+    async function onPlayTrack ( playlistTrack){
+        try {      
+            await setCurrentlyPlayingTrack ( playlistTrack)  
+            console.log(`playing:`, playlistTrack)
+            showSuccessMsg(`playing: ${playlistTrack.name}`)  
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async function addToRecentlyPlayed ( track ){
+        try {      
+            if (miniStation.current.type !== 'track') return  
+            const trackJson = setTrackJson( track )
+            await stationService.addToRecentlyPlayedByUser( trackJson ,MAXRECENTPLAYED, 'ohad')     //TODO should be changed according to user    
+        } catch (err) {
+            console.error(err);
+        }
+    }
     if(!track) return 
     return (
         <section className="track-details-container">
                 <StationDetails_GeneralObjectHeader station={track} />
-                <StationDetails_GeneralObjectActionButtons station={miniStation.current} isAlreadyAdded={false}  imgSrc={miniStation.current.image} />
+                <StationDetails_GeneralObjectActionButtons station={miniStation.current} isAlreadyAdded={false}  imgSrc={miniStation.current.image}  isPlayingPlaylist={isPlaylistPlaying} onButtonClick={buttonClickFunc}/>
 
         </section >
     )

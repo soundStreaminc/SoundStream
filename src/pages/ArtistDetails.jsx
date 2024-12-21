@@ -75,7 +75,6 @@ export function ArtistDetails({ scrollableContainerRef  }) {
                 intialPlay.current = true
                 await onPlayArtist(tracks)
                 setIsPlayingSong(true)
-                await addToRecentlyPlayed(miniStation.current)
                 const currentStationPlayingId = playingStationId === stationIdVar ? true : false
                 await setPlayingStationId(stationIdVar)
                 console.log('currentStationPlayingId:', currentStationPlayingId)
@@ -93,16 +92,6 @@ export function ArtistDetails({ scrollableContainerRef  }) {
             await setCurrentlyPlayingArtist ( playlistTrack)  
             console.log(`playing:`, playlistTrack)
             showSuccessMsg(`playing: ${playlistTrack.name}`)  
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    async function addToRecentlyPlayed ( track ){
-        try {      
-            if (miniStation.current.type !== 'track') return  
-            const trackJson = setTrackJson( track )
-            await stationService.addToRecentlyPlayedByUser( trackJson ,MAXRECENTPLAYED, 'ohad')     //TODO should be changed according to user    
         } catch (err) {
             console.error(err);
         }
