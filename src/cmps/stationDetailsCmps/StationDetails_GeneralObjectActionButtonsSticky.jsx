@@ -23,7 +23,7 @@ export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded
     const { data, loading, error } = usePalette(imgSrc)
 
     useFirstRenderEffect(() => {
-        setIsThisStationPlaying(onButtonClick(station.id))
+        setIsThisStationPlaying(onButtonClick())
     }, [isPlayButtonClicked])
     
     async function onPlayPauseClick(  ){

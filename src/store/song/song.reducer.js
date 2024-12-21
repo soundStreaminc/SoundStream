@@ -2,11 +2,11 @@
 const intialState = {
     currentPlaylist : [
         {
-            id: "c2",
+            id: "5JHNg1hxZFT7TDEphhM4wj",
             title: "Waiting for the End",
             artist: "Linkin Park",
             youtubeId: "5qF_qbaWt3Q",
-                image: "https://i.scdn.co/image/ab67616d0000b273163d1c5eddd35473f030f2d4"
+            image: "https://i.scdn.co/image/ab67616d0000b273163d1c5eddd35473f030f2d4"
           }
       ],
       foundArtists : [],

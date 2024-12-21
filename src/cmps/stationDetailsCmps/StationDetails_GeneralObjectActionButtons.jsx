@@ -1,14 +1,12 @@
 import MoreOptionFor from '../../assets/svgs/moreOptionFor.svg?react';
-import { setTrackJson } from "../../services/util.service";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Play from '../../assets/svgs/play.svg?react'
 import Pause from '../../assets/svgs/pause.svg?react'
 import AddToLiked from '../../assets/svgs/addToLiked.svg?react';
 import LikedSongAdded from '../../assets/svgs/likedSongAdded.svg?react';
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service";
-import { addStationToLibrary, removeStationFromLibrary, setCurrentlyPlayingAlbum, setCurrentlyPlayingArtist, setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack } from "../../store/song/song.actions";
+import { addStationToLibrary, removeStationFromLibrary } from "../../store/song/song.actions";
 import { usePalette } from 'react-palette';
-import { youtubeService } from '../../services/youtube.service';
 import { useFirstRenderEffect } from '../useFirstRenderEffect';
 import { useSelector } from 'react-redux';
 
@@ -17,10 +15,10 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
     const [isPlayButtonClicked, setIsPlayButtonClicked] = useState(isPlayingPlaylist)
     const [isThisStationPlaying, setIsThisStationPlaying] = useState( false )
     const isPlaying = useSelector(storeState => storeState.isPlaying);
+    const playingStationId = useSelector(storeState => storeState.playingStationId);
 
     const MYUSER = 'ohad'
     const { data, loading, error } = usePalette(imgSrc)
-    console.log('testssssssssssssssssssssssssssssssssssssssssssssss:', isThisStationPlaying, isPlaying)
     useFirstRenderEffect(() => {
         setIsThisStationPlaying(onButtonClick(station.id))
     }, [isPlayButtonClicked])
@@ -29,7 +27,6 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
         if (isPlaying && isThisStationPlaying) {
             setIsPlayButtonClicked(false)
         } else {
-            setIsThisStationPlaying(true)
             setIsPlayButtonClicked(true)
         }
     }

@@ -15,26 +15,16 @@ import { setAlbumJson, setArtistJson, setPlaylistJson, setTrackJson } from "../s
 import { youtubeService } from "../services/youtube.service";
 import { showErrorMsg } from "../services/event-bus.service";
 import { size } from 'lodash';
-import { setIsPlayingSong } from "../store/song/song.actions";
+import { setIsPlayingSong, setPlayingStationId } from "../store/song/song.actions";
 
 export function Appfooter() {
   const isPlaying = useSelector(storeState => storeState.isPlaying);
   const tracks = useSelector(storeState => storeState.currentPlaylist);
   const [trackIndex, setTrackIndex] = useState(0);
   const [currentTrack, setCurrentTrack] = useState(tracks[trackIndex] || {}); //const currentTrack = useMemo(() => tracks[trackIndex] || {}, [trackIndex, tracks]);
-  const [player, setPlayer] = useState(null);
-  //const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.5);
   const rangeRef = useRef(null);
-  const intervalRef = useRef(null);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [hasInitialized, setHasInitialized] = useState(false);
-
-
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  //const [isPlaying, setIsPlaying] = useState(false);
-  //const [volume, setVolume] = useState(0.8);
   const [progress, setProgress] = useState(0);
   const playerRef = useRef(null);
 
@@ -73,70 +63,6 @@ export function Appfooter() {
     };
   }, [progress])
 
-  // useFirstRenderEffect(() => {
-  //   console.log('Current Track Changed:', {
-  //     track: currentTrack,
-  //     youtubeId: currentTrack?.youtubeId,
-  //     playerRef: playerRef.current,
-  //     isInitialLoad: isInitialLoad
-  //   });
-  //   // Skip during the first initialization
-  // if (!hasInitialized) {
-  //   setHasInitialized(true);
-  //   return;
-  // }
-
-  // // Only trigger when switching tracks
-  // if (currentTrack) {
-  //   handleTrackChange(currentTrack);
-  // }
-
-  //   // This effect will run whenever currentTrack changes
-  //   async function playNewTrack() {
-  //     // Ensure we have a valid track and player
-  //     if (currentTrack?.youtubeId && player) {
-        
-  //       try {
-  //         console.log('Attempting to play new track');
-
-  //         console.log("Waiting for player to be ready...");
-  //         await waitForPlayerReady(playerRef.current); // Wait for readiness
-    
-  //         console.log("Player is ready. Loading track:", currentTrack);
-
-  //         // Stop any existing progress tracking
-  //         stopTrackingProgress();
-    
-  //         // Reset time-related states
-  //         setCurrentTime(0);
-  //         setDuration(0);
-
-  //         // Load the new video
-  //         playerRef.current.loadVideoById(currentTrack.youtubeId);
-    
-  //         // Play the video
-  //         playerRef.current.playVideo();
-    
-         
-  //         // Start tracking progress
-  //         startTrackingProgress();
-     
-  //         // Set playing state
-  //         onPlaySong()
-
-  //         console.log('Track should now be playing');
-
-  //       } catch (error) {
-  //         console.error('Error playing new track:', error);
-  //         onPauseSong()
-  //       }
-  //     }
-  //   }
-    
-  //   // Call the async function to play the new track
-  //   playNewTrack();
-  // }, [currentTrack, player]); // Keep currentTrack and player as dependencies
-
   async function onPlaySong() {
     try {
         await setIsPlayingSong(true) 
@@ -153,27 +79,6 @@ export function Appfooter() {
         console.log('err:', err)
         showErrorMsg('problem on Pause Song: ', err)
     }
-  }
-
-  function waitForPlayerReady(player, maxAttempts = 3, interval = 400) {
-    return new Promise((resolve, reject) => {
-      let attempts = 0;
-  
-      const checkPlayerState = () => {
-        const state = player.getPlayerState();
-        console.log(`Checking player state (attempt ${attempts + 1}):`, state);
-  
-        if (state >= 0) { // Ensure state is valid
-          resolve();
-        } else if (++attempts >= maxAttempts) {
-          reject(new Error("Player not ready within timeout."));
-        } else {
-          setTimeout(checkPlayerState, interval);
-        }
-      };
-  
-      checkPlayerState();
-    });
   }
 
   async function addYoutubeProperty(track){  
@@ -224,15 +129,6 @@ export function Appfooter() {
     }
   }
 
-  // YouTube Player Options
-  const opts = {
-    height: "390",
-    width: "640",
-    playerVars: {
-      autoplay: 0, // Auto-play off
-    },
-  };
-
   // Modify togglePlayPause to handle player state more robustly
   function togglePlayPause() {
     console.log('am i actually here?:')
@@ -251,78 +147,6 @@ export function Appfooter() {
     }
   }
 
-  // function startTrackingProgress() {
-  //   if (intervalRef.current) return; // Avoid multiple intervals
-  //   intervalRef.current = setInterval(() => {
-  //     if (player) {
-  //       setCurrentTime(player.getCurrentTime());
-  //     }
-  //   }, 1000); // Update every second
-  // }
-
-  //   // Stop progress tracking
-  // function stopTrackingProgress() {
-  //     clearInterval(intervalRef.current);
-  //     intervalRef.current = null;
-  // }
-
-  // // Cleanup on unmount
-  // useEffect(() => {
-  //   return () => stopTrackingProgress();
-  // }, []);
-
-  // // Update the current time in the state
-  // function handleTimeUpdate() {
-  //   if (player) {
-  //     setCurrentTime(player.getCurrentTime());
-  //     setDuration(player.getDuration());
-  //   }
-  // }
-
-  // // Seek to a specific time
-  // function handleRangeChange(e) {
-  //   const newTime = parseFloat(e.target.value);
-  //   player.seekTo(newTime);
-  //   setCurrentTime(newTime);
-  // }
-
-  // // Update volume
-  // function handleVolumeChange(e) {
-  //   const newVolume = parseInt(e.target.value, 10);
-  //   setVolume(newVolume);
-  //   player.setVolume(newVolume); // Adjust player volume
-  // }
-
-  
-  function toPrevTrack() {
-    const tracksSize = size( tracks);
-
-    const totalTracks = tracks.stationType === 'playlist' 
-      ? tracks.tracks.items.length | tracksSize 
-      : tracks.length | tracksSize;
-    
-    const newIndex = trackIndex - 1 < 0 
-      ? totalTracks - 1 
-      : trackIndex - 1;
-    
-    setProperties(newIndex);
-  }
-  
-  function toNextTrack() {
-
-   const tracksSize = size( tracks);
-    
-    const totalTracks = tracks.stationType === 'playlist' 
-      ? tracks.tracks?.items.length | tracksSize 
-      : tracks.length | tracksSize;
-    
-    const newIndex = trackIndex + 1 >= totalTracks 
-      ? 0 
-      : trackIndex + 1;
-    
-    setProperties(newIndex);
-  }
-
   function formatTime(timeInSeconds) {
       if (timeInSeconds === null) return '0:00';  // Handle case if duration is not available yet
 
@@ -332,63 +156,6 @@ export function Appfooter() {
       // Ensure two digits for seconds (e.g., "01" instead of "1")
       return `${minutes.toString().padStart(1, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
-
-  // async function handleTrackChange(newTrack) {
-  //   if (!newTrack?.youtubeId || !playerRef.current) {
-  //     console.warn("Cannot change track: Player or new track is missing.");
-  //     return;
-  //   }
-  
-  //   console.log("Switching to new track:", newTrack);
-  
-  //   try {
-  //     // Wait for the player to be ready
-  //     await waitForPlayerReady(playerRef.current);
-  
-  //     // Stop progress tracking and reset state
-  //     stopTrackingProgress();
-  //     setCurrentTime(0);
-  //     setDuration(0);
-  
-  //     // Load and pause the new video
-  //     playerRef.current.loadVideoById(newTrack.youtubeId);
-  //     playerRef.current.pauseVideo();
-  //     onPauseSong()
-  
-  //     // Update duration and start progress tracking
-  //     const newDuration = playerRef.current.getDuration();
-  //     setDuration(newDuration);
-  //     startTrackingProgress();
-  //   } catch (error) {
-  //     console.error("Error during track change:", error);
-  //   }
-  // }
-  
-
-  //  async function onPlayerReady(event) {
-  //   console.log('Player Ready Event');
-  //   playerRef.current = event.target;
-  //   setPlayer(event.target);
-
-  //   // Set initial volume
-  //   event.target.setVolume(volume);
-
-  //   // Only start playing if it's not the initial load and we have a track
-  //   if (!isInitialLoad && currentTrack?.youtubeId) {
-  //     console.log('Playing track after initial load');
-  //     event.target.loadVideoById(currentTrack.youtubeId);
-      
-  //     setTimeout(() => {
-  //       event.target.playVideo();
-  //       onPlaySong()
-  //     }, 500);
-  //   }
-  // }
-
-
-  // const handlePlayPause = () => {
-  //   setIsPlaying(!isPlaying);
-  // };
 
   const handleNext = () => {
     const tracksSize = size( tracks);
@@ -402,7 +169,6 @@ export function Appfooter() {
       : trackIndex + 1;
     
     setProperties(newIndex);
-    //setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % tracks.length);
   };
 
   const handlePrevious = () => {
@@ -417,7 +183,6 @@ export function Appfooter() {
       : trackIndex - 1;
     
     setProperties(newIndex);
-    //setCurrentTrackIndex((prevIndex) => (prevIndex - 1 + tracks.length) % tracks.length);
   };
 
   const handleVolumeChange = (e) => {
@@ -443,7 +208,6 @@ export function Appfooter() {
     setDuration(duration); // Set the duration when the track's duration is known
   };
 
-  console.log('this is the best test: currentTrack:', progress, currentTrack.youtubeId)
   return (
     <div className="app-footer-container">
       <ReactPlayer 
@@ -455,16 +219,9 @@ export function Appfooter() {
         onProgress={handleProgress}
         onDuration={handleDuration} // Capture the duration of the track
         onReady={handleReady}
+        onEnded={handleNext} 
         controls={false}
       />
-      {/* <YouTube
-        videoId={currentTrack.youtubeId}
-        opts={opts}
-        onReady={onPlayerReady}
-        onStateChange={handleTimeUpdate}
-        className="youtube-player"
-      /> */}
-
       <div className="player-sub-container">
               <div className="mini-details-player-container">
                   <div className="mini-details-sub-player-container">
