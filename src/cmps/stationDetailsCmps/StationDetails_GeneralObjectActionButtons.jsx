@@ -20,7 +20,7 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
 
     const MYUSER = 'ohad'
     const { data, loading, error } = usePalette(imgSrc)
-
+    console.log('testssssssssssssssssssssssssssssssssssssssssssssss:', isThisStationPlaying, isPlaying)
     useFirstRenderEffect(() => {
         setIsThisStationPlaying(onButtonClick(station.id))
     }, [isPlayButtonClicked])

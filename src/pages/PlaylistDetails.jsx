@@ -55,11 +55,11 @@ export function PlaylistDetails({ scrollableContainerRef }) {
 
     function switchHader(isSticky) {
         if (isSticky) {
-            return <StationDetails_GeneralObjectActionButtonsSticky isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image} playlistTrack={tracks} isPlayingPlaylist={isPlaying} onButtonClick={buttonClickFunc}/>
+            return <StationDetails_GeneralObjectActionButtonsSticky isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image} playlistTrack={tracks} isPlayingPlaylist={isPlaylistPlaying} onButtonClick={buttonClickFunc}/>
 
         }
 
-        return <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image} playlistTrack={tracks} isPlayingPlaylist={isPlaying} onButtonClick={buttonClickFunc}/>
+        return <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image} playlistTrack={tracks} isPlayingPlaylist={isPlaylistPlaying} onButtonClick={buttonClickFunc}/>
     }
 
     async function loadTracks() {
