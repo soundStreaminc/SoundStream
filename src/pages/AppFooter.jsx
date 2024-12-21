@@ -115,7 +115,7 @@ export function Appfooter() {
           showErrorMsg("Unexpected error");
           return;
       }
-  
+      console.log('trackToPrepare:', trackToPrepare)
       if (!trackToPrepare.youtubeId) {
         trackToPrepare = await addYoutubeProperty(trackToPrepare);
       }

@@ -6,9 +6,17 @@ import { TrackPreview } from "../cmps/TrackPreview"
 import { StationDetails_GeneralObjectActionButtons } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectActionButtons"
 import { StationDetails_GeneralObjectHeader } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectHeader"
 import { StationDetails_GeneralObjectActionButtonsSticky } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectActionButtonsSticky"
+import { useSelector } from "react-redux"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
+import { setCurrentlyPlayingAlbum, setCurrentlyPlayingArtist, setCurrentlyPlayingPlaylist, setIsPlayingSong, setPlayingStationId } from "../store/song/song.actions"
+import { setTrackJson } from "../services/util.service"
 
 export function AlbumDetails({ scrollableContainerRef }) {
+    const playingStationId = useSelector(storeState => storeState.playingStationId);
+    const isPlaying = useSelector(storeState => storeState.isPlaying);
+    const [isPlaylistPlaying, setIsPlaylistPlaying] = useState( false )
     const params = useParams();
+    const intialPlay = useRef(false)
     const miniStation = useRef({
         id: null,
         type: '',
@@ -47,11 +55,11 @@ export function AlbumDetails({ scrollableContainerRef }) {
 
     function switchHader(isSticky) {
         if (isSticky) {
-            return <StationDetails_GeneralObjectActionButtonsSticky isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image}  playlistTrack={tracks}/>
+            return <StationDetails_GeneralObjectActionButtonsSticky isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image} playlistTrack={tracks} isPlayingPlaylist={isPlaylistPlaying} onButtonClick={buttonClickFunc}/>
 
         }
 
-        return <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image} playlistTrack={tracks}/>
+        return <StationDetails_GeneralObjectActionButtons isAlreadyAdded={false} station={miniStation.current} imgSrc={miniStation.current.image} playlistTrack={tracks} isPlayingPlaylist={isPlaylistPlaying} onButtonClick={buttonClickFunc}/>
     }
 
     async function loadTracks() {
@@ -70,6 +78,50 @@ export function AlbumDetails({ scrollableContainerRef }) {
         }
         setTracks(foundAlbum.tracks.items)
     }
+    console.log('tracks:', tracks)
+    async function buttonClickFunc(stationIdVar){
+        try {
+            console.log('here:')
+            if (isPlaying && intialPlay.current) {
+                setIsPlayingSong(false)
+            } else {
+                setIsPlaylistPlaying(true)
+                intialPlay.current = true
+                await onPlayAlbum(tracks)
+                setIsPlayingSong(true)
+                await addToRecentlyPlayed(miniStation.current)
+                const currentStationPlayingId = playingStationId === stationIdVar ? true : false
+                await setPlayingStationId(stationIdVar)
+                console.log('currentStationPlayingId:', currentStationPlayingId)
+                return currentStationPlayingId
+            }
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg("could not search email")
+        }
+       
+    }
+
+    async function onPlayAlbum ( playlistTrack){
+        try {      
+            await setCurrentlyPlayingAlbum ( playlistTrack, miniStation.current.image)  
+            console.log(`playing:`, playlistTrack)
+            showSuccessMsg(`playing: ${playlistTrack.name}`)  
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async function addToRecentlyPlayed ( track ){
+        try {      
+            if (miniStation.current.type !== 'track') return  
+            const trackJson = setTrackJson( track )
+            await stationService.addToRecentlyPlayedByUser( trackJson ,MAXRECENTPLAYED, 'ohad')     //TODO should be changed according to user    
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     if (!tracks || !miniStation.current.image) return 
     return (
         <section className="album-details">

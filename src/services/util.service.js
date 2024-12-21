@@ -101,6 +101,7 @@ export function setPlaylistJson( trackInfo, youtubeId = null){
 
 export function setArtistJson( trackInfo , youtubeId = null){
     if(!trackInfo) return 'error, did not get track'
+    console.log('trackInfo:', trackInfo)
     const trackJson =      
     {
         id: trackInfo.id,
