@@ -15,7 +15,7 @@ import { useFirstRenderEffect } from '../useFirstRenderEffect';
 
 export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded, station, imgSrc = null, playlistTrack = null, isPlayingPlaylist, onButtonClick}) {
     const [isPlayButtonClicked, setIsPlayButtonClicked] = useState(isPlayingPlaylist)
-    const [isThisStationPlaying, setIsThisStationPlaying] = useState( false )
+    const [isThisStationPlaying, setIsThisStationPlaying] = useState( isPlayingPlaylist )
     const isPlaying = useSelector(storeState => storeState.isPlaying);
     const [isAdded, setIsAdded] = useState(isAlreadyAdded)
     const MYUSER = 'ohad'
@@ -23,14 +23,13 @@ export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded
     const { data, loading, error } = usePalette(imgSrc)
 
     useFirstRenderEffect(() => {
-        setIsThisStationPlaying(onButtonClick())
+        setIsThisStationPlaying(onButtonClick(station.id))
     }, [isPlayButtonClicked])
-    
+
     async function onPlayPauseClick(  ){
         if (isPlaying && isThisStationPlaying) {
             setIsPlayButtonClicked(false)
         } else {
-            setIsThisStationPlaying(true)
             setIsPlayButtonClicked(true)
         }
     }

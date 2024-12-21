@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, station, imgSrc = null, playlistTrack = null, isPlayingPlaylist, onButtonClick}){
     const [isAdded, setIsAdded] = useState( isAlreadyAdded )
     const [isPlayButtonClicked, setIsPlayButtonClicked] = useState(isPlayingPlaylist)
-    const [isThisStationPlaying, setIsThisStationPlaying] = useState( false )
+    const [isThisStationPlaying, setIsThisStationPlaying] = useState( isPlayingPlaylist )
     const isPlaying = useSelector(storeState => storeState.isPlaying);
     const playingStationId = useSelector(storeState => storeState.playingStationId);
 

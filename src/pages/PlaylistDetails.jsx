@@ -7,7 +7,7 @@ import { StationDetails_GeneralObjectActionButtons } from "../cmps/stationDetail
 import { StationDetails_GeneralObjectHeader } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectHeader"
 import { StationDetails_GeneralObjectActionButtonsSticky } from "../cmps/stationDetailsCmps/StationDetails_GeneralObjectActionButtonsSticky"
 import { useSelector } from "react-redux"
-import { setCurrentlyPlayingPlaylist, setCurrentlyPlayingTrack, setIsPlayingSong, setPlayingStationId } from "../store/song/song.actions"
+import { setCurrentlyPlayingPlaylist, setIsPlayingSong, setPlayingStationId } from "../store/song/song.actions"
 import { setTrackJson } from "../services/util.service"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 export function PlaylistDetails({ scrollableContainerRef }) {
@@ -84,6 +84,7 @@ export function PlaylistDetails({ scrollableContainerRef }) {
             if (isPlaying && intialPlay.current) {
                 setIsPlayingSong(false)
             } else {
+                setIsPlaylistPlaying(true)
                 intialPlay.current = true
                 await onPlayPlaylist(tracks)
                 setIsPlayingSong(true)
