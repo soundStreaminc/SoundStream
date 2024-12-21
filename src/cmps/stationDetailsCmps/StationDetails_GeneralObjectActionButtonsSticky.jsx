@@ -17,7 +17,6 @@ export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded
     const [isPlayButtonClicked, setIsPlayButtonClicked] = useState(isPlayingPlaylist)
     const [isThisStationPlaying, setIsThisStationPlaying] = useState( false )
     const isPlaying = useSelector(storeState => storeState.isPlaying);
-
     const [isAdded, setIsAdded] = useState(isAlreadyAdded)
     const MYUSER = 'ohad'
     const MAXRECENTPLAYED = 4
@@ -28,7 +27,7 @@ export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded
     }, [isPlayButtonClicked])
     
     async function onPlayPauseClick(  ){
-        if (isPlaying) {
+        if (isPlaying && isThisStationPlaying) {
             setIsPlayButtonClicked(false)
         } else {
             setIsThisStationPlaying(true)

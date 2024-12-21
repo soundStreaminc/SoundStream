@@ -14,6 +14,7 @@ export function PlaylistDetails({ scrollableContainerRef }) {
     const playingStationId = useSelector(storeState => storeState.playingStationId);
     const isPlaying = useSelector(storeState => storeState.isPlaying);
     const [isPlaylistPlaying, setIsPlaylistPlaying] = useState( false )
+    const intialPlay = useRef(false)
     const params = useParams();
     const miniStation = useRef({
         id: null,
@@ -80,9 +81,10 @@ export function PlaylistDetails({ scrollableContainerRef }) {
      async function buttonClickFunc(stationIdVar){
         try {
             console.log('here:')
-            if (isPlaying) {
+            if (isPlaying && intialPlay.current) {
                 setIsPlayingSong(false)
             } else {
+                intialPlay.current = true
                 await onPlayPlaylist(tracks)
                 setIsPlayingSong(true)
                 await addToRecentlyPlayed(miniStation.current)

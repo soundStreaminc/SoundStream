@@ -41,11 +41,7 @@ export function Appfooter() {
   }, [tracks]);
 
   // useFirstRenderEffect(() => {
-  //   if(player){
-  //     player.pauseVideo();
-  //     stopTrackingProgress();
-  //     onPauseSong()
-  //   }
+  //   togglePlayPause()
   // }, [isPlaying])
 
   useEffect(() => {

@@ -26,7 +26,7 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
     }, [isPlayButtonClicked])
 
     async function onPlayPauseClick(  ){
-        if (isPlaying) {
+        if (isPlaying && isThisStationPlaying) {
             setIsPlayButtonClicked(false)
         } else {
             setIsThisStationPlaying(true)
