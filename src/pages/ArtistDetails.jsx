@@ -22,21 +22,28 @@ export function ArtistDetails({ scrollableContainerRef  }) {
 
     useEffect(() => {
         const scrollableElement = scrollableContainerRef?.current || window;
+        console.log('Adding scroll listener');
         scrollableElement.addEventListener("scroll", setFixed, true);
-        return () => scrollableElement.removeEventListener("scroll", setFixed, true);
+        return () => {
+            console.log('Removing scroll listener');
+            scrollableElement.removeEventListener("scroll", setFixed, true);
+        };
     }, [scrollableContainerRef]);
-
+    
     function setFixed() {
         const scrollableElement = scrollableContainerRef?.current || document.documentElement;
         const y = scrollableElement.scrollTop || 0;
-
+    
+        console.log('Scroll position:', y); // Debug log
         if (y >= 200) {
+            console.log('Setting fix to true'); // Debug log
             setFix(true);
-
         } else {
+            console.log('Setting fix to false'); // Debug log
             setFix(false);
         }
     }
+    
 
     function switchHader(isSticky) {
         if (isSticky) {
@@ -101,7 +108,7 @@ export function ArtistDetails({ scrollableContainerRef  }) {
     return (
         <section className="station-details-artist">
             <StationDetails_GeneralObjectHeader station={miniStation.current} />
-                <div className={fix ? 'sticky-general-header' : 'general-header'}>
+                <div className={fix ? 'sticky-general-header-artist' : 'general-header'}>
                     {switchHader(fix)}
 
                     <div className="os-scrollbar os-scrollbar-horizontal os-theme-spotify os-scrollbar-auto-hide os-scrollbar-handle-interactive os-scrollbar-track-interactive os-scrollbar-cornerless os-scrollbar-unusable os-scrollbar-auto-hide-hidden" >
@@ -110,10 +117,13 @@ export function ArtistDetails({ scrollableContainerRef  }) {
                             </div>
                         </div>
                     </div>
-                    <h1>Popular</h1>
+                    <h1 className={fix ? 'visibility' : 'hidden'}>Popular</h1>
+
+
                     <div className='header-row-artist'>
                     </div>
                 </div>
+                
             <div className="tracks-container-artist">
                 
                 <br/>

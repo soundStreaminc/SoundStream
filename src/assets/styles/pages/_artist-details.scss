@@ -1,3 +1,21 @@
+// .sticky-general-header-artist {
+//     position: sticky;
+//     top: 0; /* Stick to the top of the viewport */
+//     z-index: 100; /* Ensure it stays above other elements */
+//     background-color: #121212; /* Match the background for seamless effect */
+//     padding: 10px 16px; /* Adjust padding */
+//     border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Optional: Add separation */
+//     height: auto; /* Adjust height if needed */
+// }
+
+.general-header {
+    position: sticky;
+    top: -1px;
+    z-index: 100;
+    // background-color: #121212;
+    transition: all 0.3s ease-in-out;
+   
+}
 .header-row-artist{
     --grid-gap: 5px;
     display: grid;
@@ -6,6 +24,15 @@
     // display: none;
     
     
+}
+
+
+.hidden {
+    display: none !important; /* Ensures the element is completely removed visually */
+}
+
+.visibility {
+    display: block !important; /* Ensures visibility when the sticky header is active */
 }
 .track-list-artist{
     --grid-gap: 10px;
