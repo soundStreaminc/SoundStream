@@ -3,17 +3,15 @@
     background-color: #000;
     display: grid;
     height: inherit;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr auto auto;
     grid-template-areas:
-        "header header header"
-        "main-display main-display main-display" 
-        "footer footer footer";
+        "mobile-filter"
+        "main-display"
+        "footer"
+        "header";
     gap: 8px;
     padding: 8px;
     position: relative;
-    // color: white;
-    overflow: hidden;
     grid-template-rows: auto 1fr auto; /* Header is auto-sized, main takes remaining space, footer auto-sized */
     height: 100vh; /* Ensures the grid spans the full viewport height */
 
@@ -63,4 +61,73 @@
   .gutter.gutter-vertical {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
     cursor: row-resize;
+  }
+
+  @media (min-width: 460px) {
+    .main-app{
+        box-sizing: border-box;
+        background-color: #000;
+        display: grid;
+        height: inherit;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+            "header header header"
+            "main-display main-display main-display" 
+            "footer footer footer";
+        gap: 8px;
+        padding: 8px;
+        position: relative;
+        // color: white;
+        overflow: hidden;
+        grid-template-rows: auto 1fr auto; /* Header is auto-sized, main takes remaining space, footer auto-sized */
+        height: 100vh; /* Ensures the grid spans the full viewport height */
+    
+    }
+    
+    .leftSidebar-container{
+        grid-area: left-sidebar;
+        display: flex;
+        position: relative;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        background-color: #000;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-height: 0;
+        width: calc(var(--left-sidebar-width)* 1px);
+        //z-index: var(--left-sidebar-grid-area-z-index);
+    }
+    
+    .rightSidebar-container{
+        grid-area: right-sidebar;
+    }
+    
+    .main-resize-container{
+        grid-area: resize-container;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .main-page-container{
+        flex: 1; 
+    }
+    
+    .gutter {
+        background-color: #e5e7eb;
+        background-repeat: no-repeat;
+        background-position: 50%;
+      }
+      
+      .gutter.gutter-horizontal {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+        cursor: col-resize;
+      }
+      
+      .gutter.gutter-vertical {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+        cursor: row-resize;
+      }
   }

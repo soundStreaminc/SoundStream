@@ -1,0 +1,29 @@
+.mobile-filter-container{
+    grid-area: mobile-filter;
+    display: flex;
+}
+
+.mobile-filter-background{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    grid-template-areas: "icon menu menu menu";
+    align-content: center;
+    grid-area: menu;
+}
+
+.mobile-user-profile-btn{
+    grid-area: icon;
+    .content-filters button{
+        align-content: center;
+    }
+}
+
+@media (min-width: 460px) {
+    .mobile-filter-background{
+        display: none;
+    }
+
+    .mobile-filter-container{
+        display: none;
+    }
+} 

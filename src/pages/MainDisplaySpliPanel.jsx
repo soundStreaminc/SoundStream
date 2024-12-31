@@ -69,56 +69,73 @@ export function MainDisplaySpliPanel() {
   // Show a loading indicator until the layout is restored
   if (!layout) return 
   return (
-    <div className="main-display-container" style={{ gridArea: "main-display", height: "80vh", display: "flex", flexDirection: "column" }}>
-      <PanelGroup direction="horizontal">
-        {/* Left Panel */}
-        <Panel defaultSize={layout[0]} // Use restored layout
-          minSize={20}
-          onResize={(size) => {
-            const newLayout = [size, 100 - size];
-            saveLayout(newLayout, "left"); // Save layout on resize for left panel
-          }}
-        >
-          <div style={{
-            height: "100%",
-            padding: "10px",
-            overflow: "hidden" // No scroll bar here
-          }}>
-            <SideBar />
-          </div>
-        </Panel>
+    <>
+      <div className="main-display-container" style={{ gridArea: "main-display", height: "80vh", display: "flex", flexDirection: "column" }}>
+        <PanelGroup direction="horizontal">
+          {/* Left Panel */}
+          <Panel defaultSize={layout[0]} // Use restored layout
+            minSize={20}
+            onResize={(size) => {
+              const newLayout = [size, 100 - size];
+              saveLayout(newLayout, "left"); // Save layout on resize for left panel
+            }}
+          >
+            <div style={{
+              height: "100%",
+              padding: "10px",
+              overflow: "hidden" // No scroll bar here
+            }}>
+              <SideBar />
+            </div>
+          </Panel>
 
-        {/* Resize Handle */}
-        <PanelResizeHandle style={{ cursor: "col-resize", width: "6px" }} />
+          {/* Resize Handle */}
+          <PanelResizeHandle style={{ cursor: "col-resize", width: "6px" }} />
 
-        <Panel defaultSize={layout[1]} // Use restored layout
-          minSize={20}
-          onResize={(size) => {
-            const newLayout = [100 - size, size];
-            saveLayout(newLayout, "right"); // Save layout on resize for right panel
-          }}
-        >
-          <div  ref={scrollableContainerRef} style={{
-            height: "100%",
-            padding: "10px",
-            overflowY: "auto" // Enable vertical scrolling here
-          }}>
-            <main className='main-page-container'>
-              <Routes>
-                <Route path="" element={<HomePage />} />
-                <Route path='/search' element={<StationFilter />} />
-                <Route path='/search/:filterText' element={<StationFilterDetails />} />
-                <Route path="/playlist/:stationId" element={<PlaylistDetails scrollableContainerRef={scrollableContainerRef} />} />
-                <Route path="/track/:trackId" element={<TrackDetails />} />
-                <Route path="/album/:albumId" element={<AlbumDetails scrollableContainerRef={scrollableContainerRef} />} />
-                <Route path="/artist/:artistId" element={<ArtistDetails />} />
-                <Route path="/youtube" element={<PageYoutube />} />
-              </Routes>
-            </main>
-          </div>
-        </Panel>
-      </PanelGroup>
-    </div>
+          <Panel defaultSize={layout[1]} // Use restored layout
+            minSize={20}
+            onResize={(size) => {
+              const newLayout = [100 - size, size];
+              saveLayout(newLayout, "right"); // Save layout on resize for right panel
+            }}
+          >
+            <div  ref={scrollableContainerRef} style={{
+              height: "100%",
+              padding: "10px",
+              overflowY: "auto" // Enable vertical scrolling here
+            }}>
+              <main className='main-page-container'>
+                <Routes>
+                  <Route path="" element={<HomePage />} />
+                  <Route path='/search' element={<StationFilter />} />
+                  <Route path='/search/:filterText' element={<StationFilterDetails />} />
+                  <Route path="/playlist/:stationId" element={<PlaylistDetails scrollableContainerRef={scrollableContainerRef} />} />
+                  <Route path="/track/:trackId" element={<TrackDetails />} />
+                  <Route path="/album/:albumId" element={<AlbumDetails scrollableContainerRef={scrollableContainerRef} />} />
+                  <Route path="/artist/:artistId" element={<ArtistDetails />} />
+                  <Route path="/youtube" element={<PageYoutube />} />
+                </Routes>
+              </main>
+            </div>
+          </Panel>
+        </PanelGroup>
+
+      </div>
+      <div  className='main-page-mobile-container'>
+        <main>
+          <Routes>
+            <Route path="" element={<HomePage />} />
+            <Route path='/search' element={<StationFilter />} />
+            <Route path='/search/:filterText' element={<StationFilterDetails />} />
+            <Route path="/playlist/:stationId" element={<PlaylistDetails scrollableContainerRef={scrollableContainerRef} />} />
+            <Route path="/track/:trackId" element={<TrackDetails />} />
+            <Route path="/album/:albumId" element={<AlbumDetails scrollableContainerRef={scrollableContainerRef} />} />
+            <Route path="/artist/:artistId" element={<ArtistDetails />} />
+            <Route path="/youtube" element={<PageYoutube />} />
+          </Routes>
+        </main>
+      </div>
+    </>
   )
 }
 

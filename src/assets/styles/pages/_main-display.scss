@@ -1,4 +1,25 @@
 .main-display-container{
     grid-area: main-display;
-    
+    display: none !important;   
 }
+
+.main-page-mobile-container{
+    display: flex;
+    grid-area: main-display;
+    height: 100%;
+    padding: 10px;
+    width: 100%;
+    main{
+        width: 100%; 
+    }
+}
+
+@media (min-width: 460px) {
+    .main-display-container{
+        display: flex !important;     
+    }
+
+    .main-page-mobile-container{
+        display: none;
+    }
+  } 

@@ -5,288 +5,220 @@
 	justify-content: space-between;
 	align-items: center;
 	height: 58px;
-	// padding: 0 1.5rem;
 	width: 100%;
-	color: white; // Ensure text is visible on the dark background
+	color: white; // Ensure text is visible on the dark background	
+}
 
+/* Remove padding from the header itself */
+.app-header-logo {
+	fill: white;
+	width: 35px;
+	height: 35px;
+	align-content: center;
+	margin-left: 19px;
+}
 
-	/* Remove padding from the header itself */
-	.app-header-logo {
-		fill: white;
-		width: 35px;
-		height: 35px;
-		align-content: center;
-		margin-left: 19px;
+.container-search-home {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
 
+.border-icon {
+	stroke-width: 1px;
+	stroke:  currentcolor;
+}
+
+.border-icon-browse {
+	stroke-width: 2px;
+	stroke: currentcolor;
+
+	&:hover {
+		stroke: #fff;
 	}
+}
 
-	.container-search-home {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-	}
+.container-mid-app-header {
+	align-items: center;
+	display: flex;	
+}
 
-	.border-icon {
-		// fill: currentColor; // Using "currentColor" to inherit the text color
-		// width: var(--encore-graphic-size-decorative-base, 24px);
-		// height: var(--encore-graphic-size-decorative-base, 24px);
-		stroke-width: 1px;
-		stroke:  currentcolor;
-	}
+.cart-icon {
 
-	.border-icon-browse {
-		// fill: currentColor; // Using "currentColor" to inherit the text color
-		// width: var(--encore-graphic-size-decorative-base, 24px);
-		// height: var(--encore-graphic-size-decorative-base, 24px);
-		stroke-width: 2px;
-		stroke: currentcolor;
+	font-size: 1.5rem;
+	color: white;
+}
 
-		&:hover {
-			stroke: #fff;
-		}
-	}
-
-	.container-mid-app-header {
+.app-header-icon.home-icon {
 
 
-
-		align-items: center;
-
-		display: flex;
-
-
-
-
-		.app-header-icon.home-icon {
-
-
-			display: -webkit-box;
-			display: -ms-flexbox;
-			display: flex;
-			-webkit-box-align: center;
-			-ms-flex-align: center;
-			align-items: center;
-			-webkit-box-pack: center;
-			-ms-flex-pack: center;
-			border-radius: 50%;
-			justify-content: center;
-			-ms-flex-negative: 0;
-			color: var(--text-subdued);
-			flex-shrink: 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	border-radius: 50%;
+	justify-content: center;
+	-ms-flex-negative: 0;
+	color: var(--text-subdued);
+	flex-shrink: 0;
 
 
-		}
+}
 
-		.home-icon {
-			-webkit-margin-start: 8px;
-			margin-inline-start: 8px;
-			transition: fill 0.3s ease;
-			// fill: black;
-			background-color: #333;
-			// padding: 0.5rem;
-			align-content: center;
-			flex-wrap: wrap;
-			transition: all 0.3s ease;
-			width: 48px;
-			height: 48px;
-			border-radius: 50%;
+.home-icon {
+	-webkit-margin-start: 8px;
+	margin-inline-start: 8px;
+	transition: fill 0.3s ease;
+	// fill: black;
+	background-color: #333;
+	// padding: 0.5rem;
+	align-content: center;
+	flex-wrap: wrap;
+	transition: all 0.3s ease;
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
 
-			svg {
-				fill: #333;
-				background-color: #333;
-				width: 24px;
-				height: 24px;
-			}
-
-			// &.active {
-			// 	background-color:white; // Background changes to white
-			// }
-
-			&.active svg {
-				fill: white;
-			}
-
-
-		}
-
-
-		.search-bar {
-			display: flex;
-			align-items: center;
-			background-color: #333;
-			border-radius: 53px;
-			padding: 0.7rem;
-			width: 520px;
-			/* Keep the width fixed */
-			color: #b3b3b3;
-			transition: background-color 0.2s ease, color 0.2s ease;
-			/* No width transition */
-			border: 2px solid transparent;
-			gap: 10px;
-
-			input {
-				border: none;
-				background: none;
-				outline: none;
-				color: #b3b3b3;
-				/* Default color for placeholder and text */
-				width: 100%;
-				/* Ensure the input takes full width */
-				transition: color 0.2s ease;
-			}
-
-			&:hover {
-				background-color: #444;
-
-				/* Change background color on hover */
-				input {
-					color: white;
-					/* Change text color on hover */
-				}
-
-				.search-icon {
-					fill: white;
-					/* Change icon color on hover */
-					transition: fill 0.2s ease;
-				}
-			}
-
-			input:focus {
-				border-color: white;
-				/* Change border color on focus */
-				color: white;
-				/* Change input text color on focus */
-			}
-
-
-			.search-icon {
-				width: 24px;
-				height: 24px;
-				fill: #b3b3b3;
-				/* Default icon color */
-				transition: fill 0.2s ease;
-				/* Smooth color change */
-			}
-
-			/* Focus effect for the entire search-bar when input is focused */
-			input:focus+.separator,
-			input:focus+.browse-icon,
-			input:focus {
-				border-color: white;
-				/* Change border to white on focus */
-			}
-
-			/* Focus effect for the whole search-bar when input is focused */
-			&:has(input:focus) {
-				border-color: white;
-				/* White border when focused */
-			}
-
-			/* Placeholder style */
-			.search-bar-input {
-				&::placeholder {
-					border: none;
-					background: none;
-					outline: none;
-					color: #b3b3b3;
-					width: 100%;
-					transition: color 0.2s ease;
-					font-size: 16px; /* Optional: Adjust font size for placeholder */
-
-				}
-			}
-
-
-			// // Separator Line
-			// .separator {
-			// 	height: 1.5rem;
-			// 	width: 1px;
-			// 	background-color: #888;
-
-			// }
-
-			// Browse Icon
-
-		}
-
-		.cart-icon {
-
-			font-size: 1.5rem;
-			color: white;
-		}
-	}
-
-	.app-header-icon.browse-icon {
-
-
-		display: -webkit-box;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-box-align: center;
-		-ms-flex-align: center;
-		align-items: center;
-		-webkit-box-pack: center;
-		-ms-flex-pack: center;
-		border-radius: 50%;
-		justify-content: center;
-		-ms-flex-negative: 0;
-		color: var(--text-subdued);
-		flex-shrink: 0;
-
-
-	}
-
-	.browse-icon {
+	svg {
+		fill: #333;
+		background-color: #333;
 		width: 24px;
 		height: 24px;
+	}
 
-		svg {
-			fill: #333;
-			// background-color: #333;
-			width: 24px;
-			height: 24px;
+	&.active svg {
+		fill: white;
+	}
+}
+
+.search-bar {
+	display: flex;
+	align-items: center;
+	background-color: #333;
+	border-radius: 53px;
+	padding: 0.7rem;
+	width: 520px;
+	/* Keep the width fixed */
+	color: #b3b3b3;
+	transition: background-color 0.2s ease, color 0.2s ease;
+	/* No width transition */
+	border: 2px solid transparent;
+	gap: 10px;
+
+	input {
+		border: none;
+		background: none;
+		outline: none;
+		color: #b3b3b3;
+		/* Default color for placeholder and text */
+		width: 100%;
+		/* Ensure the input takes full width */
+		transition: color 0.2s ease;
+	}
+
+	&:hover {
+		background-color: #444;
+
+		/* Change background color on hover */
+		input {
+			color: white;
+			/* Change text color on hover */
 		}
 
-		&.active svg {
+		.search-icon {
 			fill: white;
-		
-
-		// &:hover {
-		// 	fill: white;
-
-		// }
-
-
+			/* Change icon color on hover */
+			transition: fill 0.2s ease;
+		}
 	}
-	
-    &.active .border-icon-browse {
+
+	input:focus {
+		border-color: white;
+		/* Change border color on focus */
+		color: white;
+		/* Change input text color on focus */
+	}
+
+
+	.search-icon {
+		width: 24px;
+		height: 24px;
+		fill: #b3b3b3;
+		/* Default icon color */
+		transition: fill 0.2s ease;
+		/* Smooth color change */
+	}
+
+	/* Focus effect for the entire search-bar when input is focused */
+	input:focus+.separator,
+	input:focus+.browse-icon,
+	input:focus {
+		border-color: white;
+		/* Change border to white on focus */
+	}
+
+	/* Focus effect for the whole search-bar when input is focused */
+	&:has(input:focus) {
+		border-color: white;
+		/* White border when focused */
+	}
+
+	/* Placeholder style */
+	.search-bar-input {
+		&::placeholder {
+			border: none;
+			background: none;
+			outline: none;
+			color: #b3b3b3;
+			width: 100%;
+			transition: color 0.2s ease;
+			font-size: 16px; /* Optional: Adjust font size for placeholder */
+		}
+	}
+}
+
+.app-header-icon.browse-icon {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	border-radius: 50%;
+	justify-content: center;
+	-ms-flex-negative: 0;
+	color: var(--text-subdued);
+	flex-shrink: 0;
+}
+
+.browse-icon {
+	width: 24px;
+	height: 24px;
+
+	svg {
+		fill: #333;
+		// background-color: #333;
+		width: 24px;
+		height: 24px;
+	}
+
+	&.active svg {
+		fill: white;
+	}
+
+	&.active .border-icon-browse {
 		stroke: #fff;
-		
-    }
 	}
+}
 
-	.app-header-right {
-		display: flex;
-
-
-
-		// 	.user-profile {
-		// 		display: flex;
-		// 		justify-content: center;
-		// 		align-items: center;
-		// 		border-radius: 50%;  // Makes the container circular
-		// 		background-color: #333;  // Background color for the circle
-		// 		width: 40px;  // Adjust the size of the circle
-		// 		height: 40px;  // Adjust the size of the circle
-		// 		padding: 5px;  // Add padding around the SVG
-		// 	}
-
-		// 	.user-profile svg {
-		// 		width: 24px;  // Set the width of the icon
-		// 		height: 24px;  // Set the height of the icon
-		// 		fill: #fff;  // Set the icon color to white
-		// 	}
-	}
+.app-header-right {
+	display: flex;
 }
 
 .user-profile-btn {
@@ -340,3 +272,283 @@
 		}
 	}
 }
+ 
+ @media (min-width: 460px) {
+	.app-header {
+		background-color: black; // Spotify's black shade
+		display: flex;
+		grid-area: header;
+		justify-content: space-between;
+		align-items: center;
+		height: 58px;
+		width: 100%;
+		color: white; // Ensure text is visible on the dark background	
+	}
+	
+	/* Remove padding from the header itself */
+	.app-header-logo {
+		fill: white;
+		width: 35px;
+		height: 35px;
+		align-content: center;
+		margin-left: 19px;
+	}
+	
+	.container-search-home {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+	
+	.border-icon {
+		stroke-width: 1px;
+		stroke:  currentcolor;
+	}
+	
+	.border-icon-browse {
+		stroke-width: 2px;
+		stroke: currentcolor;
+	
+		&:hover {
+			stroke: #fff;
+		}
+	}
+	
+	.container-mid-app-header {
+		align-items: center;
+		display: flex;	
+	}
+	
+	.cart-icon {
+	
+		font-size: 1.5rem;
+		color: white;
+	}
+	
+	.app-header-icon.home-icon {
+	
+	
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		border-radius: 50%;
+		justify-content: center;
+		-ms-flex-negative: 0;
+		color: var(--text-subdued);
+		flex-shrink: 0;
+	
+	
+	}
+	
+	.home-icon {
+		-webkit-margin-start: 8px;
+		margin-inline-start: 8px;
+		transition: fill 0.3s ease;
+		// fill: black;
+		background-color: #333;
+		// padding: 0.5rem;
+		align-content: center;
+		flex-wrap: wrap;
+		transition: all 0.3s ease;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+	
+		svg {
+			fill: #333;
+			background-color: #333;
+			width: 24px;
+			height: 24px;
+		}
+	
+		&.active svg {
+			fill: white;
+		}
+	}
+	
+	.search-bar {
+		display: flex;
+		align-items: center;
+		background-color: #333;
+		border-radius: 53px;
+		padding: 0.7rem;
+		width: 520px;
+		/* Keep the width fixed */
+		color: #b3b3b3;
+		transition: background-color 0.2s ease, color 0.2s ease;
+		/* No width transition */
+		border: 2px solid transparent;
+		gap: 10px;
+	
+		input {
+			border: none;
+			background: none;
+			outline: none;
+			color: #b3b3b3;
+			/* Default color for placeholder and text */
+			width: 100%;
+			/* Ensure the input takes full width */
+			transition: color 0.2s ease;
+		}
+	
+		&:hover {
+			background-color: #444;
+	
+			/* Change background color on hover */
+			input {
+				color: white;
+				/* Change text color on hover */
+			}
+	
+			.search-icon {
+				fill: white;
+				/* Change icon color on hover */
+				transition: fill 0.2s ease;
+			}
+		}
+	
+		input:focus {
+			border-color: white;
+			/* Change border color on focus */
+			color: white;
+			/* Change input text color on focus */
+		}
+	
+	
+		.search-icon {
+			width: 24px;
+			height: 24px;
+			fill: #b3b3b3;
+			/* Default icon color */
+			transition: fill 0.2s ease;
+			/* Smooth color change */
+		}
+	
+		/* Focus effect for the entire search-bar when input is focused */
+		input:focus+.separator,
+		input:focus+.browse-icon,
+		input:focus {
+			border-color: white;
+			/* Change border to white on focus */
+		}
+	
+		/* Focus effect for the whole search-bar when input is focused */
+		&:has(input:focus) {
+			border-color: white;
+			/* White border when focused */
+		}
+	
+		/* Placeholder style */
+		.search-bar-input {
+			&::placeholder {
+				border: none;
+				background: none;
+				outline: none;
+				color: #b3b3b3;
+				width: 100%;
+				transition: color 0.2s ease;
+				font-size: 16px; /* Optional: Adjust font size for placeholder */
+			}
+		}
+	}
+	
+	.app-header-icon.browse-icon {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		border-radius: 50%;
+		justify-content: center;
+		-ms-flex-negative: 0;
+		color: var(--text-subdued);
+		flex-shrink: 0;
+	}
+	
+	.browse-icon {
+		width: 24px;
+		height: 24px;
+	
+		svg {
+			fill: #333;
+			// background-color: #333;
+			width: 24px;
+			height: 24px;
+		}
+	
+		&.active svg {
+			fill: white;
+		}
+	
+		&.active .border-icon-browse {
+			stroke: #fff;
+		}
+	}
+	
+	.app-header-right {
+		display: flex;
+	}
+	
+	.user-profile-btn {
+		border-radius: 50%;
+		width: 48px;
+		height: 48px;
+		background-color: #1f1f1f;
+	}
+	
+	.user-profile-container {
+		width: 32px;
+		height: 32px;
+	}
+	
+	.user-profile-img {
+		border-radius: 50%;
+		height: 100%;
+		-o-object-fit: cover;
+		object-fit: cover;
+		width: 100%;
+	}
+	
+	.auth-buttons {
+		display: flex;
+		gap: 10px;
+	
+		.signup-btn {
+			background: none;
+			border: none;
+			color: gray;
+			font-size: 14px;
+			cursor: pointer;
+	
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	
+		.login-btn {
+			background-color: #fff;
+			color: #000;
+			font-size: 14px;
+			padding: 8px 16px;
+			border: none;
+			border-radius: 20px;
+			cursor: pointer;
+			font-weight: bold;
+	
+			&:hover {
+				background-color: #e0e0e0;
+			}
+		}
+	}
+} 
+
+
+
