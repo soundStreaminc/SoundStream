@@ -7,5 +7,9 @@ export default defineConfig({
   plugins: [react(), svgr()],
   define: {
     'process.env': {}
+  },
+  build:{outDir:'../Soundstream-backend/public',
+    emptyOutDir: true
+
   }
 })
