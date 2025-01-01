@@ -1,19 +1,19 @@
 .mobile-filter-container{
     grid-area: mobile-filter;
-    display: flex;
-    width: min-content;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 3fr;
+    height: 43px;
 }
 
-.mobile-filter-background{
+.mobile-filters-background{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
-    grid-template-areas: "icon menu menu menu";
     align-content: center;
-    grid-area: menu;
 }
 
 .mobile-user-profile-btn{
-    grid-area: icon;
+    height: 43px;
     .content-filters button{
         align-content: center;
     }
@@ -26,5 +26,9 @@
 
     .mobile-filter-container{
         display: none;
+    }
+
+    .mobile-user-profile-btn{
+        height: auto
     }
 } 
