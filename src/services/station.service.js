@@ -383,6 +383,22 @@ async function _getHardCodedData(){
             audioSrc: "https://p.scdn.co/mp3-preview/1e52f7874a0864d96c106a5ee93970dcee66b05f?cid=426b1061c8be4e70babeec62bbcf0f08",
             image: "https://i.scdn.co/image/ab67616d0000b273163d1c5eddd35473f030f2d4",
             type: 'track'
+          },
+          {
+            id: "c3",
+            title: "Breakaway",
+            artist: "Kelly Clarkson",
+            audioSrc: "https://p.scdn.co/mp3-preview/ddabbe456fde1ab1bef88c8022056f7d26f2f5ba?cid=426b1061c8be4e70babeec62bbcf0f08",
+            image: "https://i.scdn.co/image/ab67616d0000b273158c72ad0003cb37ca0c9eff",
+            type: 'track'
+        } ,
+        {
+            id: "c4",
+            title: "Beach Party",
+            artist: "Tame Impala",
+            audioSrc: "https://p.scdn.co/mp3-preview/1e52f7874a0864d96c106a5ee93970dcee66b05f?cid=426b1061c8be4e70babeec62bbcf0f08",
+            image: "https://i.scdn.co/image/ab67616d0000b27385eb70d7ef6eb9fc49ce91f8",
+            type: 'track'
           }
     ]     
 }

@@ -1,7 +1,7 @@
 .spotify-homepage {
     display: flex;
     flex-direction: column;
-    gap: 2em;
+    gap: 1em;
     color: #fff;
     background: linear-gradient(180deg, #121212 0%, #181818 100%); /* Add gradient effect */
     border-radius: 10px; /* Match the sidebar's border-radius */
@@ -46,7 +46,6 @@
  .made-for-you-section, .top-mixes-section, .recently-played-section, .favorite-artists-section, .recommended-stations-section, .stay-tuned-section {
     display: flex;
     flex-direction: column;
-    padding-inline: 20px;
 }
 
 .playlists-section {
@@ -265,8 +264,263 @@
 }
 
 @media (min-width: 460px) {
+    .spotify-homepage {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        color: #fff;
+        background: linear-gradient(180deg, #121212 0%, #181818 100%); /* Add gradient effect */
+        border-radius: 10px; /* Match the sidebar's border-radius */
+        box-sizing: border-box;      
+    }
+
     .content-filters-home-background{
         display: block; 
+    }
+
+    .content-filters {
+        display: flex;
+        justify-items: center;
+        gap: 1em;
+        justify-content: flex-start;
+        top: -10px; /* Distance from the top of the container */
+        background-color: #121212; /* Match the background color for seamless effect */
+        padding-top: 8px;
+        position: sticky;
+        z-index: 1;
+        border-radius: 10px 10px 0 0;   /* Match the sidebar's border-radius */
+        box-sizing: border-box;
+        padding-inline: 20px;
+    }
+    
+    .content-filters button {
+        background-color: #333;
+        border: none;
+        padding: 10px 20px;
+        color: #fff;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    
+     .made-for-you-section, .top-mixes-section, .recently-played-section, .favorite-artists-section, .recommended-stations-section, .stay-tuned-section {
+        display: flex;
+        flex-direction: column;
+        padding-inline: 20px;
+    }
+    
+    .playlists-section {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        color: #fff;
+        width: 100%;
+        margin-top: -10px; /* Move the section 3px up */
+    }
+    
+    .horizontal-playlists {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding: 10px;
+        position: absolute;
+        width: 100%;
+    }
+    
+    .playlist-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background-color: #333;
+        padding: 0;  /* Remove padding to avoid gaps inside the card */
+        // border-radius: 8px;
+        min-width: 260px; /* Adjust width as necessary */
+        transition: background-color 0.2s ease-in-out;
+        cursor: pointer;
+        overflow: hidden; /* Ensure the content doesn’t overflow the card */
+        position: relative; /* Position relative to control the play button */
+    }
+    
+    .playlist-item:hover {
+        background-color: #444;
+    }
+    
+    .playlist-item img {
+        width: 50px;
+        height: 50px;
+        // border-radius: 4px;
+        object-fit: cover;
+    }
+    
+    .cards-grid img {
+        width: 50px;
+        height: 50px;
+        // border-radius: 8px;
+    }
+    .play-button {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: none; /* Hidden by default */
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+    
+    .playlist-item:hover .play-button {
+        display: block; /* Show the play button on hover */
+    }
+    
+    .filter-menu-container {
+        
+        padding-bottom: 12px;
+        padding-top: 12px;
+        display: flex;
+        gap: 10px;
+        flex-direction: row; // Keep the buttons inline but below the header
+        padding: 0 10px; // Padding around the section
+        margin-bottom: 30px; // Add space between serch-recents and playlist-list
+        padding: 0 0 0 15px; /* Add padding to the right for spacing */
+        .filter-btn { 
+               margin-top: 20px; /* Adds space above the filter menu */
+    
+            background-color: #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            border: none;
+            cursor: pointer;
+    
+            &:hover {
+                background-color: #444;
+            }
+        }
+    }
+    
+    
+    .filter-songs-container{
+        border-radius: 8px;
+        width: 100%;   
+    }  
+    
+    .top-result-container {
+        padding: 0 0 0 15px; /* Add padding to the right for spacing */
+        
+    
+    }
+    
+    .title {
+        padding: 0 0 0 5px; /* Add padding to the right for spacing */
+    
+        display: flex;
+        justify-content: space-between; /* Push titles to opposite sides */
+    }
+    
+    .title h2:first-child {
+        padding: 0 10px 0 0;
+        text-align: left; /* Ensure Top Result is on the left */
+        margin-top: -5px; /* Move "Top result" title 10px higher */
+    
+    }
+    
+    .title h2:last-child {
+        padding: 0 0 0 15px; /* Add padding to the right for spacing */
+    
+        text-align: right; /* Ensure Songs title is on the right */
+        // padding: 0 0 0 15px; /* Add padding to the right for spacing */
+        margin-top: -5px; /* Move "Top result" title 10px higher */
+    
+    }
+    
+    .top-result-sub-container{
+        background: #181818;
+        grid-column: span 2;
+        border-radius: 8px;
+        padding: 0 0 0 15px; /* Add padding to the right for spacing */
+        width: 90%;
+        gap: 15px; /* Add space between all child elements */
+        height: 242px;
+        display: flex;
+        flex-direction: column;
+        position: relative; /* Required for child absolute positioning */   
+    }
+    
+    /* Change background and apply a subtle shadow on hover */
+    .top-result-sub-container:hover {
+        background: #282828;
+    }
+    
+    .top-result-item-btn-container {
+        position: absolute;
+        top:75%; /* Center vertically */
+        left: 85%; /* Center horizontally */
+        transform: translate(-50%, -50%);
+        opacity: 0; /* Hidden by default */
+        visibility: hidden; /* Ensure it's not visible */
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+    
+    /* Hover effect to show the button */
+    .top-result-sub-container:hover .top-result-item-btn-container {
+        opacity: 1; /* Make it visible */
+        visibility: visible; /* Ensure visibility */
+    }
+    
+    /* Style for the play button */
+    .search-results-item-btn {
+        background-color: #1db954;
+        border: none;
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+    }
+    
+    .search-results-item-btn:hover {
+        background-color: #1ed760; /* Brighter green on hover */
+    }
+    
+    .search-results-item-svg-wrapper svg {
+        fill: black;
+        width: 24px;
+        height: 24px;
+    }
+    
+    .artist-name{
+        font-family: SpotifyMixUITitle, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, Helvetica Neue, helvetica, arial, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic, sans-serif;
+        font-weight: 700;
+        text-wrap: balance;
+        font-size: 32px;
+    }
+    
+    .filter-top-result-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Allocate space: 1 part for Top Result, 2 parts for Songs */
+        align-items: start; /* Align items to the top */
+        width: 100%; /* Ensure the grid spans the full width */
+    }
+    
+    .filter-albums-container,
+    .filter-artists-container, .filter-albums-container, .filter-playlists-container {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 30px; /* Add spacing from the top result section */
+        width: 100%; /* Start from the left and span full width */   
+    }
+    
+    .artist-image-container{
+        margin-top: 15px; /* Add spacing from the top border */
+        width: 92px;
+        height: 92px;
+        display: flex;
+        justify-content: center; /* Center the image horizontally */
+        align-items: center; /* Center the image vertically */
+    }
+    
+    .artist-image{
+        border-radius: 50%;
+        width: 92px;
+        height: 92px;
     }
 }
 

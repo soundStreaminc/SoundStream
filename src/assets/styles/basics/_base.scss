@@ -1,16 +1,4 @@
-// * {
-//     box-sizing: border-box;
-// }
-
-// ::selection {
-//     background-color: $clr1;
-//     color: $clr6;
-// }
-
 html {
-    // font-family: montserrat;
-    // line-height: 1.6;
-    // color: $clr2;
     --left-sidebar-width: 360;
     --panel-width: 280;
     height: 100%;
@@ -21,7 +9,6 @@ html {
         padding: 0;
         vertical-align: baseline;
     }
-
 }
 
 body {
@@ -29,7 +16,6 @@ body {
     height: 100%;
     line-height: normal;
     min-height: 600px;
-    min-width: 800px;
     width: 100%;
     flex-direction: column;
     -ms-overflow-style: none;
@@ -49,29 +35,44 @@ body {
     overflow-y: scroll !important;
 }
 
-// h1, h2, h3, h4, h5, h6 {
-//     font-family: caveat;
-//     margin: 0 0 0.6em;
-//     line-height: 1;
-// }
 
-
-// section, main, footer {
-//     padding: 5px;
-// }
-
-// img {
-//     width: 100%;
-// }
-
-// p {
-//     margin: 0 0 1em;
-// }
-
-// a {
-//     text-decoration: none;
-// }
-// a:hover {
-//     text-decoration: underline;
-// }
-
+@media (min-width: 480px) {
+    html {
+        --left-sidebar-width: 360;
+        --panel-width: 280;
+        height: 100%;
+        scrollbar-width: none;
+        a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+            border: 0;
+            margin: 0;
+            padding: 0;
+            vertical-align: baseline;
+        }
+    }
+    
+    body {
+        display: flex;
+        height: 100%;
+        line-height: normal;
+        min-height: 600px;
+        min-width: 800px;
+        width: 100%;
+        flex-direction: column;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        overscroll-behavior-y: none;
+    }
+    
+    .root-container{
+        isolation: isolate;
+        width: 100%;
+        z-index: 0;
+        height: 100%;
+        position: relative;
+    }
+    
+    .main-resize-container{
+        overflow-y: scroll !important;
+    }
+    
+}

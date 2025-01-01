@@ -1,6 +1,7 @@
 .mobile-filter-container{
     grid-area: mobile-filter;
     display: flex;
+    width: min-content;
 }
 
 .mobile-filter-background{
