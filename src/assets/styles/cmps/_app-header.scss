@@ -1,6 +1,6 @@
 .app-header {
 	background-color: black; // Spotify's black shade
-	display: flex;
+	display: none;
 	grid-area: header;
 	justify-content: space-between;
 	align-items: center;
@@ -272,8 +272,93 @@
 		}
 	}
 }
+
+// The mobile display menu (bottom)
+
+.app-header-mobile {
+	display: grid;
+    align-items: center;
+    z-index: 100;
+    border-bottom: 1px solid #f9f9f9;
+
+
+    width: 100%;
+    background-color: black;
+    color: white; 
+	grid-area: header;
+    grid-template-areas: "menu-icons"
+                         "menu-text"
+                         ".";
+    grid-template-rows: 0.3fr 0.2fr 0.2fr;
+    height: 70px;
+}
+
+.menu-icons-container{
+    display: grid;
+    grid-area: menu-icons;
+    height: 30px;
+    min-width: 0px;
+    width: 100%;
+    grid-template-columns: repeat(5, minmax(max(20px, 20%),1fr ));
+    justify-content: center;
+    align-content: center;
+}
+
+.menu-text-container{
+    width: 100%;
+    display: grid;
+    grid-area: menu-text;
+    height: 30px;
+    grid-template-columns: repeat(5, minmax(max(20px, 20%),1fr ));
+    align-content: center;
+    justify-content: center;
+}
+
+.MuiSvgIcon-root{
+    background-color: black;
+    fill: white !important;
+    box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3) !important;
+}
+
+.create-text, .preferences-text, .library-text, .search-text, .home-text{
+    justify-self: center;
+    font-size: 12px;
+}
+
+.MuiIconButton-label{
+    background-color: black;
+    fill: white !important;
+    box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3) !important;
+    rect{
+        fill: black !important;
+    }
+    svg{
+		width: 19px;
+		height: 19px;
+        background-color: black !important;
+        path{
+            fill: white !important;
+
+        }
+    }
+    img{
+        background-color: black !important;
+        width: 19px;
+        height: 19px;
+
+    }
+}
+
+.menu-icon-container{
+    padding: 0px !important;
+    padding-top: 8px !important;
+}
  
  @media (min-width: 460px) {
+	.app-header-mobile {
+		display: none;
+	}
+
 	.app-header {
 		background-color: black; // Spotify's black shade
 		display: flex;

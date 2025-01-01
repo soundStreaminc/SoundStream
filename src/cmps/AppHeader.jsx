@@ -6,6 +6,10 @@ import SpotifyIcon from '../assets/svgs/spotifyIcon.svg?react';
 import HomeIcon from '../assets/svgs/home.svg?react';
 import BrowseIcon from '../assets/svgs/browse.svg?react';
 import { stationService } from '../services/station.service';
+import { IconButton }  from '@material-ui/core'
+import AddIcon from '../assets/svgs/add.svg?react'
+import LibraryIcon from '../assets/svgs/library.svg?react'
+import playShuffleBtn from "../assets/imgs/play-shuffle-button.jpg"
 
 export function AppHeader() {
     const params = useParams()
@@ -23,6 +27,9 @@ export function AppHeader() {
 
     const navigate = useNavigate()
 
+    function navigateToChat(){
+        navigate("/chat")
+    }
     const handleBrowseClick = () => {
         // navigate("/search")
         setActiveButton('browse'); // Set home as the active button
@@ -57,97 +64,138 @@ export function AppHeader() {
     };
 
     return (
-        <div className="app-header">
-            <Link to="/">
-                <SpotifyIcon className="app-header-logo" alt="Spotify Logo" title="Spotify" />
-            </Link>
-            {/* Home and Search */}
-            <nav className="container-mid-app-header">
-                <div className=' container-search-home'>
-                    <Tooltip title="Home" arrow>
-                        <div
-                            exact="true"
-                            to="/"
-                            className={`app-header-icon home-icon ${activeButton === 'home' ? 'active' : ''}`}
+        <>
+            <div className="app-header">
+                <Link to="/">
+                    <SpotifyIcon className="app-header-logo" alt="Spotify Logo" title="Spotify" />
+                </Link>
+                {/* Home and Search */}
+                <nav className="container-mid-app-header">
+                    <div className=' container-search-home'>
+                        <Tooltip title="Home" arrow>
+                            <div
+                                exact="true"
+                                to="/"
+                                className={`app-header-icon home-icon ${activeButton === 'home' ? 'active' : ''}`}
 
-                            onClick={handleHomeClick}
-                        >
-                            <HomeIcon className="border-icon"
-                                fill={activeButton === 'home' ? "#fff" : "#333"} // Change color based on active state
-                            // color={activeButton === 'home' ? "#333" : "#fff"} 
-                            />
-                        </div>
-                    </Tooltip>
-
-                    {/* Search Bar */}
-                    <div className="search-bar">
-                        <Tooltip title="Search" arrow>
-                            <div onClick={handleOtherButtonClick}>
-                                <SearchIcon className="search-icon" />
+                                onClick={handleHomeClick}
+                            >
+                                <HomeIcon className="border-icon"
+                                    fill={activeButton === 'home' ? "#fff" : "#333"} // Change color based on active state
+                                // color={activeButton === 'home' ? "#333" : "#fff"} 
+                                />
                             </div>
                         </Tooltip>
-                        <input
-                            type="text" 
-                            className='search-bar-input'
-                            placeholder="What do you want to play?"
-                            value={searchTerm.filterText}  // Bind searchTerm to input
-                            onChange={handleSearchChange} // Handle input change
-                            onClick={handleSearchClick}
-                        />
 
-                        <div className='separator' />
-                        <div className=' container-search-home'>
-
-                            <Tooltip title="Browse" arrow>
-                                <button
-                                    className={`app-header-icon browse-icon ${activeButton === 'browse' ? 'active' : ''}`}
-                                    onClick={() => {
-                                        navigate("/search");
-                                        setActiveButton("browse");
-                                    }}
-                                    style={{
-                                        background: 'none',
-                                        border: 'none',
-                                        padding: '0',
-                                        cursor: 'pointer',
-                                    }}
-                                >
-                                    <BrowseIcon className="border-icon-browse" />
-                                </button>
+                        {/* Search Bar */}
+                        <div className="search-bar">
+                            <Tooltip title="Search" arrow>
+                                <div onClick={handleOtherButtonClick}>
+                                    <SearchIcon className="search-icon" />
+                                </div>
                             </Tooltip>
+                            <input
+                                type="text" 
+                                className='search-bar-input'
+                                placeholder="What do you want to play?"
+                                value={searchTerm.filterText}  // Bind searchTerm to input
+                                onChange={handleSearchChange} // Handle input change
+                                onClick={handleSearchClick}
+                            />
+
+                            <div className='separator' />
+                            <div className=' container-search-home'>
+
+                                <Tooltip title="Browse" arrow>
+                                    <button
+                                        className={`app-header-icon browse-icon ${activeButton === 'browse' ? 'active' : ''}`}
+                                        onClick={() => {
+                                            navigate("/search");
+                                            setActiveButton("browse");
+                                        }}
+                                        style={{
+                                            background: 'none',
+                                            border: 'none',
+                                            padding: '0',
+                                            cursor: 'pointer',
+                                        }}
+                                    >
+                                        <BrowseIcon className="border-icon-browse" />
+                                    </button>
+                                </Tooltip>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {/* Shopping Cart Icon */}
-                <div className="cart-icon" onClick={handleOtherButtonClick}>
-                    <i className="fas fa-shopping-cart"></i>
-                </div>
-            </nav>
+                    {/* Shopping Cart Icon */}
+                    <div className="cart-icon" onClick={handleOtherButtonClick}>
+                        <i className="fas fa-shopping-cart"></i>
+                    </div>
+                </nav>
 
-            {/* Right-side buttons */}
-            <div className="app-header-right">
-                {isLoggedIn ? (
-                    <button className="user-profile-btn" >
-                        <figure>
-                            <div className="user-profile-container" style={{ "borderRadius": "50%", "width": "32px", "height": "32px", "insetInlineStart": "0px" }}>
-                                <img
-                                    src="https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10216273432443013&height=50&width=50&ext=1731476384&hash=Abb3U5-0-6bLM3quVOH_n7mU"
-                                    //alt="Yozik Personage"  TODO: ADD user name
-                                    className="user-profile-img" />
-                            </div>
-                        </figure>
-                    </button>
-                 ) : (
-                    <div className="auth-buttons">
-                    <button className="signup-btn" onClick={handleSignUpClick}>
-                        Sign up
-                    </button>
-                    <button className="login-btn" onClick={handleLoginClick}>
-                        Log in
-                    </button>
+                {/* Right-side buttons */}
+                <div className="app-header-right">
+                    {isLoggedIn ? (
+                        <button className="user-profile-btn" >
+                            <figure>
+                                <div className="user-profile-container" style={{ "borderRadius": "50%", "width": "32px", "height": "32px", "insetInlineStart": "0px" }}>
+                                    <img
+                                        src="https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10216273432443013&height=50&width=50&ext=1731476384&hash=Abb3U5-0-6bLM3quVOH_n7mU"
+                                        //alt="Yozik Personage"  TODO: ADD user name
+                                        className="user-profile-img" />
+                                </div>
+                            </figure>
+                        </button>
+                    ) : (
+                        <div className="auth-buttons">
+                        <button className="signup-btn" onClick={handleSignUpClick}>
+                            Sign up
+                        </button>
+                        <button className="login-btn" onClick={handleLoginClick}>
+                            Log in
+                        </button>
+                    </div>
+                    )} 
                 </div>
-                )} 
             </div>
-        </div>
+
+            <div className="app-header-mobile">
+                <div className='menu-icons-container'>
+                    <IconButton className='menu-icon-container' onClick={navigateToChat}>
+                        <HomeIcon className="menu-icon" />                  
+                    </IconButton>
+                    <IconButton className='menu-icon-container' onClick={navigateToChat}>
+                        <SearchIcon className="menu-icon" />                  
+                    </IconButton>  
+                    <IconButton className='menu-icon-container' onClick={navigateToChat}>
+                        <LibraryIcon className="menu-icon" />                  
+                    </IconButton>
+                    <IconButton className='menu-icon-container'>
+                        <img src={playShuffleBtn} className="menu-icon" />
+                    </IconButton>
+                    <IconButton className='menu-icon-container' onClick={navigateToChat}>
+                        <AddIcon className="menu-icon" />                  
+                    </IconButton>  
+                </div>
+                
+                <div className='menu-text-container'>
+                    <div className='home-text'>
+                        Home
+                    </div>
+                    <div className='search-text'>
+                        Search
+                    </div>
+                    <div className='library-text'>
+                        Library
+                    </div>
+                    <div className='preferences-text'>
+                        Preferences
+                    </div>
+                    <div className='create-text'>
+                        Create
+                    </div>         
+                                
+                </div>
+            </div>
+        </>    
     );
 }
