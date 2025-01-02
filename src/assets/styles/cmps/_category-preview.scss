@@ -21,11 +21,11 @@
     .category-music-cover-container {
         
       position: relative;
-     width: 50px; // Adjust to fit the container
-        height: 50px; // Increased height for better visibility
+      width: 153px; // Adjust to fit the container
+      height: 153px; // Increased height for better visibility
       img {
-        width: 95%; // Adjust to fit the container
-        height: 50px; // Increased height for better visibility
+        width: 153px; // Adjust to fit the container
+        height: 153px; // Increased height for better visibility
         object-fit: cover; // Ensures the image covers the area without distortion
         border-radius: 8px 8px 0 0;
       }
@@ -97,8 +97,8 @@
   .favorite-artists-section .category-music-cover-container img {
     border-radius: 50%; /* Makes the image circular */
     object-fit: cover; /* Ensures proper fit */
-    width: 50px; /* Adjust size as needed */
-    height: 50px; /* Ensures a perfect circle */
+    width: 153px; /* Adjust size as needed */
+    height: 153px; /* Ensures a perfect circle */
     margin: 0 auto; /* Centers the image if needed */
 }
 

@@ -57,14 +57,14 @@
     margin-top: -10px; /* Move the section 3px up */
 }
 
-.horizontal-playlists {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding: 10px;
-    position: absolute;
-    width: 100%;
-}
+// .horizontal-playlists {
+//     display: flex;
+//     gap: 10px;
+//     overflow-x: auto;
+//     padding: 10px;
+//     position: absolute;
+//     width: 100%;
+// }
 
 .playlist-item {
     display: flex;
@@ -317,14 +317,14 @@
         margin-top: -10px; /* Move the section 3px up */
     }
     
-    .horizontal-playlists {
-        display: flex;
-        gap: 10px;
-        overflow-x: auto;
-        padding: 10px;
-        position: absolute;
-        width: 100%;
-    }
+    // .horizontal-playlists {
+    //     display: flex;
+    //     gap: 10px;
+    //     overflow-x: auto;
+    //     padding: 10px;
+    //     position: absolute;
+    //     width: 100%;
+    // }
     
     .playlist-item {
         display: flex;

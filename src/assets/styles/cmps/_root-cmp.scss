@@ -1,5 +1,4 @@
 .main-app{
-    box-sizing: border-box;
     background-color: #000;
     display: grid;
     grid-template-rows: 43px 3.5fr 0.3fr 0.3fr;
@@ -9,7 +8,6 @@
         "footer"
         "header";
     gap: 8px;
-    padding: 8px;
     position: relative;
     height: 100vh; /* Ensures the grid spans the full viewport height */
     width: 100vw;
