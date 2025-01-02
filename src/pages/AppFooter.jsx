@@ -209,159 +209,227 @@ export function Appfooter() {
   };
 
   return (
-    <div className="app-footer-container">
-      <ReactPlayer 
-        ref={playerRef}
-        url={`https://www.youtube.com/watch?v=${currentTrack.youtubeId}`}
-        className="youtube-player"
-        playing={isPlaying}
-        volume={volume}
-        onProgress={handleProgress}
-        onDuration={handleDuration} // Capture the duration of the track
-        onReady={handleReady}
-        onEnded={handleNext} 
-        controls={false}
-      />
-      <div className="player-sub-container">
-              <div className="mini-details-player-container">
-                  <div className="mini-details-sub-player-container">
-                      <div className="media-player-musicCover-container">
-                          <img
-                          className="media-player-musicCover"
-                          src={currentTrack.image}
-                          alt={`track artwork for ${currentTrack.title} by ${currentTrack.artist}`}
-                          />
-                      </div>
-                      
-                      <div className="mini-details-player">
-                          <div className="artist"> {currentTrack.artist}  </div> { /*//get the details from the song  */}
-                          <p className="song-title"> {currentTrack.title} </p>
-                      </div> 
+    <>
+      <div className="app-footer-container">
+        <ReactPlayer 
+          ref={playerRef}
+          url={`https://www.youtube.com/watch?v=${currentTrack.youtubeId}`}
+          className="youtube-player"
+          playing={isPlaying}
+          volume={volume}
+          onProgress={handleProgress}
+          onDuration={handleDuration} // Capture the duration of the track
+          onReady={handleReady}
+          onEnded={handleNext} 
+          controls={false}
+        />
+        <div className="player-sub-container">
+                <div className="mini-details-player-container">
+                    <div className="mini-details-sub-player-container">
+                        <div className="media-player-musicCover-container">
+                            <img
+                            className="media-player-musicCover"
+                            src={currentTrack.image}
+                            alt={`track artwork for ${currentTrack.title} by ${currentTrack.artist}`}
+                            />
+                        </div>
+                        
+                        <div className="mini-details-player">
+                            <div className="artist"> {currentTrack.artist}  </div> { /*//get the details from the song  */}
+                            <p className="song-title"> {currentTrack.title} </p>
+                        </div> 
 
-                      <button className="add-to-liked-btn">
-                          <span aria-hidden="true" className="player-icon-wrapper">                 
-                              <AddToLiked className="add-to-liked"/>
-                          </span>
-                      </button>
-                  </div>
-                      
-              </div>
-          
-              <div className="mini-player-container">
-                  <div className="player-btn-container">
-                  <AudioControls
-                      isPlaying={isPlaying}
-                      onPrevClick={handlePrevious}
-                      onNextClick={handleNext}
-                      onPlayPauseClick={togglePlayPause}
+                        <button className="add-to-liked-btn">
+                            <span aria-hidden="true" className="player-icon-wrapper">                 
+                                <AddToLiked className="add-to-liked"/>
+                            </span>
+                        </button>
+                    </div>
+                        
+                </div>
+            
+                <div className="mini-player-container">
+                    <div className="player-btn-container">
+                    <AudioControls
+                        isPlaying={isPlaying}
+                        onPrevClick={handlePrevious}
+                        onNextClick={handleNext}
+                        onPlayPauseClick={togglePlayPause}
+                    />
+                    
+                    </div>
+                    <div className="time-duration-container">
+                        <p className="current-time">
+                            {progress !== null ? formatTime(progress) : '0:00'}
+
+                            {/* {currTime.min}:{currTime.sec} */} 
+                        </p>
+                        <div className="timeline-wrapper">
+                            <div className="range">
+                            <input
+                              id="range1"
+                              ref={rangeRef}
+                              value={progress}
+                              onChange={handleSeek}
+                              step="0.1"
+                              //onChange={handleRangeChange}
+                              type="range"
+                              min="0"
+                              max={duration || 0} // Ensure `max` updates dynamically
+                              className="timeline"
+                            />
+                            </div>
+                        </div>
+                        
+                        <p className="time-duration">
+                            {duration !== null ? formatTime(duration) : '0:00'}
+                        </p>             
+                    </div>
+                </div>
+
+                      {/* TODO : add image factory to remove code repitition */}
+
+                <div className="player-settings-container">
+                    <div className="player-settings-sub-container">
+                        <button className="now-playing-view-btn">
+                            <span aria-hidden="true" className="media-player-icon-wrapper">
+                        
+                                <NowPlayingView className="now-playing-view smallImage"/>
+                            </span>
+                        </button>
+
+                        <button className="lyrics-btn">
+                            <span aria-hidden="true" className="media-player-icon-wrapper">
+                        
+                                <Lyrics className="lyrics smallImage"/>
+                            </span>
+                        </button>
+
+                        <button className="queue-btn">
+                            <span aria-hidden="true" className="media-player-icon-wrapper">
+                        
+                                <Queue className="queue smallImage"/>
+                            </span>
+                        </button>
+
+                        <button className="connectToDevice-btn">
+                            <span aria-hidden="true" className="media-player-icon-wrapper">
+                        
+                                <ConnectToDevice className="connectToDevice smallImage"/>
+                            </span>
+                        </button>
+
+                        <div className="volume-control">
+                            <button className="mute-btn">
+                                <span aria-hidden="true" className="media-player-icon-wrapper">
+                            
+                                    <Mute className="mute smallImage"/>
+                                </span>
+                            </button>
+                                <div className="wrapper">
+                                    <div className="range">
+                                        <input
+                                            type="range"
+                                            min="0"
+                                            max="1"
+                                            step="0.01"
+                                            value={volume} // Directly use the volume state
+                                            onChange={handleVolumeChange}
+                                            className="slider"
+                                            id="range2"
+                                            default="0"
+                                        />
+                                    </div>
+                                </div>
+                        </div>
+                        
+
+                        <button className="miniPlayer-btn">
+                            <span aria-hidden="true" className="media-player-icon-wrapper">
+                        
+                                <MiniPlayer className="miniPlayer smallImage"/>
+                            </span>
+                        </button>
+
+                        <button className="fullScreen-btn">
+                            <span aria-hidden="true" className="media-player-media-player-icon-wrapper">
+                        
+                                <FullScreen className="fullScreen smallImage"/>
+                            </span>
+                        </button>
+        
+                    </div>
+                    
+                </div>
+            </div>
+      </div>
+
+      <div className="app-footer-mobile-container">
+        <ReactPlayer 
+          ref={playerRef}
+          url={`https://www.youtube.com/watch?v=${currentTrack.youtubeId}`}
+          className="youtube-player"
+          playing={isPlaying}
+          volume={volume}
+          onProgress={handleProgress}
+          onDuration={handleDuration} // Capture the duration of the track
+          onReady={handleReady}
+          onEnded={handleNext} 
+          controls={false}
+        />
+
+          <div className="player-sub-container">
+                <div className="mini-details-player-container">
+                    <div className="mini-details-sub-player-container">
+                        <div className="media-player-musicCover-container">
+                            <img
+                            className="media-player-musicCover"
+                            src={currentTrack.image}
+                            alt={`track artwork for ${currentTrack.title} by ${currentTrack.artist}`}
+                            />
+                        </div>
+                        
+                        <div className="mini-details-player">
+                            <div className="artist"> {currentTrack.artist}  </div> { /*//get the details from the song  */}
+                            <p className="song-title"> {currentTrack.title} </p>
+                        </div> 
+                    </div>
+                        
+                </div>
+            
+                <div className="mini-player-container">
+                    <div className="player-btn-container">
+                    <AudioControls
+                        isPlaying={isPlaying}
+                        onPrevClick={handlePrevious}
+                        onNextClick={handleNext}
+                        onPlayPauseClick={togglePlayPause}
+                    />
+                    
+                    </div>                    
+                </div>
+            </div>
+
+            <div className="time-duration-container">                     
+              <div className="timeline-wrapper">
+                  <div className="range">
+                  <input
+                    id="range1"
+                    ref={rangeRef}
+                    value={progress}
+                    onChange={handleSeek}
+                    step="0.1"
+                    //onChange={handleRangeChange}
+                    type="range"
+                    min="0"
+                    max={duration || 0} // Ensure `max` updates dynamically
+                    className="timeline"
                   />
-                  
                   </div>
-                  <div className="time-duration-container">
-                      <p className="current-time">
-                          {progress !== null ? formatTime(progress) : '0:00'}
-
-                          {/* {currTime.min}:{currTime.sec} */} 
-                      </p>
-                      <div className="timeline-wrapper">
-                          <div className="range">
-                          <input
-                            id="range1"
-                            ref={rangeRef}
-                            value={progress}
-                            onChange={handleSeek}
-                            step="0.1"
-                            //onChange={handleRangeChange}
-                            type="range"
-                            min="0"
-                            max={duration || 0} // Ensure `max` updates dynamically
-                            className="timeline"
-                          />
-                          </div>
-                      </div>
-                      
-                      <p className="time-duration">
-                          {duration !== null ? formatTime(duration) : '0:00'}
-                      </p>             
-                  </div>
-              </div>
-
-                    {/* TODO : add image factory to remove code repitition */}
-
-              <div className="player-settings-container">
-                  <div className="player-settings-sub-container">
-                      <button className="now-playing-view-btn">
-                          <span aria-hidden="true" className="media-player-icon-wrapper">
-                      
-                              <NowPlayingView className="now-playing-view smallImage"/>
-                          </span>
-                      </button>
-
-                      <button className="lyrics-btn">
-                          <span aria-hidden="true" className="media-player-icon-wrapper">
-                      
-                              <Lyrics className="lyrics smallImage"/>
-                          </span>
-                      </button>
-
-                      <button className="queue-btn">
-                          <span aria-hidden="true" className="media-player-icon-wrapper">
-                      
-                              <Queue className="queue smallImage"/>
-                          </span>
-                      </button>
-
-                      <button className="connectToDevice-btn">
-                          <span aria-hidden="true" className="media-player-icon-wrapper">
-                      
-                              <ConnectToDevice className="connectToDevice smallImage"/>
-                          </span>
-                      </button>
-
-                      <div className="volume-control">
-                          <button className="mute-btn">
-                              <span aria-hidden="true" className="media-player-icon-wrapper">
-                          
-                                  <Mute className="mute smallImage"/>
-                              </span>
-                          </button>
-                              <div className="wrapper">
-                                  <div className="range">
-                                      <input
-                                          type="range"
-                                          min="0"
-                                          max="1"
-                                          step="0.01"
-                                          value={volume} // Directly use the volume state
-                                          onChange={handleVolumeChange}
-                                          className="slider"
-                                          id="range2"
-                                          default="0"
-                                      />
-                                  </div>
-                              </div>
-                      </div>
-                      
-
-                      <button className="miniPlayer-btn">
-                          <span aria-hidden="true" className="media-player-icon-wrapper">
-                      
-                              <MiniPlayer className="miniPlayer smallImage"/>
-                          </span>
-                      </button>
-
-                      <button className="fullScreen-btn">
-                          <span aria-hidden="true" className="media-player-media-player-icon-wrapper">
-                      
-                              <FullScreen className="fullScreen smallImage"/>
-                          </span>
-                      </button>
-      
-                  </div>
-                  
-              </div>
+              </div>         
           </div>
-    </div>
+      </div>
+    </>
   );
 };
 

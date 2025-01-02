@@ -1,5 +1,5 @@
 .app-footer-container{
-  display: flex;
+  display: none;
   flex-direction: column;
   height: auto;
   background-color: black;
@@ -99,7 +99,6 @@
 
 //Player
 .mini-player-container{
-  display: none;
   max-width: 722px;
   width: 40%;
   fill: white
@@ -290,7 +289,6 @@ input[type="range"]:hover::-moz-range-thumb {
 .player-settings-container{
   display: -webkit-box;
   display: -ms-flexbox;
-  display: none;
   min-width: 180px;
   width: 30%;
   -webkit-box-orient: horizontal;
@@ -338,7 +336,17 @@ input[type="range"]:hover::-moz-range-thumb {
   flex-wrap: wrap;
 }
 
+//Mobile Display::after
+
+.app-footer-mobile-container{
+  grid-area: footer;
+}
+
 @media (min-width: 480px) {
+  .app-footer-mobile-container{
+    display: none;
+  }
+  
   .app-footer-container{
       display: flex;
       min-width: 620px;
