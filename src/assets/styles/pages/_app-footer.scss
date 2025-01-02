@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 72px;
+  height: 40px;
 }
 
 //the picture and text:
@@ -61,8 +61,8 @@
   background-size: contain;
   left: 0;
   top: 0;
-  width: 56px;
-  height: 56px;
+  width: 36px;
+  height: 40px;
 }
 
 .mini-details-player{
@@ -340,6 +340,12 @@ input[type="range"]:hover::-moz-range-thumb {
 
 .app-footer-mobile-container{
   grid-area: footer;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: black;
+  grid-area: footer;
+  z-index: 100;
 }
 
 @media (min-width: 480px) {

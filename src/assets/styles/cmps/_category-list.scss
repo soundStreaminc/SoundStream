@@ -56,7 +56,7 @@
     }
 
     .category-list{
-        
+        overflow-x: hidden !important;
         grid-template-rows: 1fr;
         grid-auto-rows: 0;
         overflow-y: hidden;

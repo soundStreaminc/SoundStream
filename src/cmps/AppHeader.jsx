@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link, NavLink, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import SearchIcon from '../assets/svgs/search.svg?react';
 import SpotifyIcon from '../assets/svgs/spotifyIcon.svg?react';
 import HomeIcon from '../assets/svgs/home.svg?react';
 import BrowseIcon from '../assets/svgs/browse.svg?react';
+import UserIcon from '../assets/svgs/noImageArtist.svg?react';
 import { stationService } from '../services/station.service';
 import { IconButton }  from '@material-ui/core'
 import AddIcon from '../assets/svgs/add.svg?react'
@@ -138,10 +139,7 @@ export function AppHeader() {
                         <button className="user-profile-btn" >
                             <figure>
                                 <div className="user-profile-container" style={{ "borderRadius": "50%", "width": "32px", "height": "32px", "insetInlineStart": "0px" }}>
-                                    <img
-                                        src="https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10216273432443013&height=50&width=50&ext=1731476384&hash=Abb3U5-0-6bLM3quVOH_n7mU"
-                                        //alt="Yozik Personage"  TODO: ADD user name
-                                        className="user-profile-img" />
+                                    <UserIcon />
                                 </div>
                             </figure>
                         </button>
