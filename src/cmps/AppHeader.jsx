@@ -32,7 +32,7 @@ export function AppHeader() {
     }
 
     const handleLibraryClick = () => {
-        //navigate("/library")
+        navigate("/library")
         setActiveButton('library'); // Set library as the active button
     }
 

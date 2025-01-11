@@ -113,7 +113,6 @@ export function MainDisplaySpliPanel() {
                   <Route path="/track/:trackId" element={<TrackDetails />} />
                   <Route path="/album/:albumId" element={<AlbumDetails scrollableContainerRef={scrollableContainerRef} />} />
                   <Route path="/artist/:artistId" element={<ArtistDetails />} />
-                  <Route path="/youtube" element={<PageYoutube />} />
                 </Routes>
               </main>
             </div>
@@ -131,8 +130,8 @@ export function MainDisplaySpliPanel() {
             <Route path="/track/:trackId" element={<TrackDetails />} />
             <Route path="/album/:albumId" element={<AlbumDetails scrollableContainerRef={scrollableContainerRef} />} />
             <Route path="/artist/:artistId" element={<ArtistDetails />} />
-            <Route path="/youtube" element={<PageYoutube />} />
-          </Routes>
+            <Route path='/library' element={<SideBar />} />
+            </Routes>
         </main>
       </div>
     </>
