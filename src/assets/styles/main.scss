@@ -18,7 +18,6 @@
 
 /* Components */
 @import "cmps/root-cmp";
-
 @import "cmps/player";
 @import "cmps/audio-controlers";
 @import "cmps/app-header";
@@ -30,14 +29,13 @@
 @import"cmps/most-played";
 @import"cmps/category-list";
 
+@import "cmps/station-filter";
 @import"cmps/station-preview";
 @import"cmps/category-preview";
 @import"cmps/track-preview";
 @import"cmps/station-mini-preview";
 @import"cmps/search-results-preview-object";
 @import"cmps/mobile-filter";
-
-@import"cmps/browse";
 
 
 

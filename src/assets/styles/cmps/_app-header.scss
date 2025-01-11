@@ -326,28 +326,46 @@
     font-size: 12px;
 }
 
-.MuiIconButton-label{
-    background-color: black;
-    fill: white !important;
-    box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3) !important;
-    rect{
-        fill: black !important;
-    }
+.MuiIconButton-label{  
     svg{
 		width: 19px;
 		height: 19px;
-        background-color: black !important;
-        path{
-            fill: white !important;
+		fill: #b3b3b3;
 
-        }
+		&:hover {
+			background-color: #282828; // Slightly brighter on hover
+		}
+
+		&.active {
+			fill: white;
+		}
+	
+		&.active:hover {
+			fill: white;
+		}
     }
     img{
-        background-color: black !important;
         width: 19px;
         height: 19px;
+		background-color: #121212;
+		border-radius: 50%;
 
+		&:hover {
+			background-color: #282828; // Slightly brighter on hover
+		}
+
+		&.active {
+			fill: white;
+		}
+	
+		&.active:hover {
+			fill: white;
+		}
     }
+
+	
+
+    
 }
 
 .menu-icon-container{

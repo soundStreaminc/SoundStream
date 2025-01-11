@@ -112,28 +112,7 @@
 
 .filter-menu-container {
     
-    padding-bottom: 12px;
-    padding-top: 12px;
-    display: flex;
-    gap: 10px;
-    flex-direction: row; // Keep the buttons inline but below the header
-    padding: 0 10px; // Padding around the section
-    margin-bottom: 30px; // Add space between serch-recents and playlist-list
-    padding: 0 0 0 15px; /* Add padding to the right for spacing */
-    .filter-btn { 
-           margin-top: 20px; /* Adds space above the filter menu */
-
-        background-color: #333;
-        padding: 8px 16px;
-        border-radius: 20px;
-        color: white;
-        border: none;
-        cursor: pointer;
-
-        &:hover {
-            background-color: #444;
-        }
-    }
+   display: none;
 }
 
 
@@ -233,7 +212,7 @@
 
 .filter-top-result-container{
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Allocate space: 1 part for Top Result, 2 parts for Songs */
+    flex-direction: column;
     align-items: start; /* Align items to the top */
     width: 100%; /* Ensure the grid spans the full width */
 }
@@ -260,6 +239,14 @@
     border-radius: 50%;
     width: 92px;
     height: 92px;
+}
+
+.title-Songs{
+    display: none;
+}
+
+.title-Songs-mobile{
+    display: block;
 }
 
 @media (min-width: 460px) {
@@ -316,22 +303,12 @@
         margin-top: -10px; /* Move the section 3px up */
     }
     
-    // .horizontal-playlists {
-    //     display: flex;
-    //     gap: 10px;
-    //     overflow-x: auto;
-    //     padding: 10px;
-    //     position: absolute;
-    //     width: 100%;
-    // }
-    
     .playlist-item {
         display: flex;
         align-items: center;
         gap: 10px;
         background-color: #333;
         padding: 0;  /* Remove padding to avoid gaps inside the card */
-        // border-radius: 8px;
         min-width: 260px; /* Adjust width as necessary */
         transition: background-color 0.2s ease-in-out;
         cursor: pointer;
@@ -346,14 +323,12 @@
     .playlist-item img {
         width: 50px;
         height: 50px;
-        // border-radius: 4px;
         object-fit: cover;
     }
     
     .cards-grid img {
         width: 50px;
         height: 50px;
-        // border-radius: 8px;
     }
     .play-button {
         position: absolute;
@@ -426,7 +401,6 @@
         padding: 0 0 0 15px; /* Add padding to the right for spacing */
     
         text-align: right; /* Ensure Songs title is on the right */
-        // padding: 0 0 0 15px; /* Add padding to the right for spacing */
         margin-top: -5px; /* Move "Top result" title 10px higher */
     
     }
@@ -493,6 +467,7 @@
     
     .filter-top-result-container{
         display: grid;
+        flex-direction: row;
         grid-template-columns: 1fr 1fr; /* Allocate space: 1 part for Top Result, 2 parts for Songs */
         align-items: start; /* Align items to the top */
         width: 100%; /* Ensure the grid spans the full width */
@@ -520,6 +495,14 @@
         border-radius: 50%;
         width: 92px;
         height: 92px;
+    }
+
+    .title-Songs{
+        display: block;
+    }
+    
+    .title-Songs-mobile{
+        display: none;
     }
 }
 

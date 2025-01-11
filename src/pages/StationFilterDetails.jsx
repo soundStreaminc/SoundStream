@@ -119,6 +119,10 @@ export function StationFilterDetails(isPlayingSearchResult = false) {
 
                <StationFilterDetails_TopResult topResult={foundArtists[0]}/>
 
+               <div className="title-Songs-mobile">
+                    <h2>  <span> Songs </span></h2>
+                </div>
+
                 <StationFilterDetails_SongsResults songs={foundSongs}/>
             </div>
 

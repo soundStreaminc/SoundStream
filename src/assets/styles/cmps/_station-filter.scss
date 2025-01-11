@@ -1,0 +1,171 @@
+.search-bar-mobile {
+	display: flex;
+	align-items: center;
+	background-color: white;
+	border-radius: 4px;
+	padding: 0.7rem;
+	width: 100%;
+	/* Keep the width fixed */
+	transition: background-color 0.2s ease, color 0.2s ease;
+	/* No width transition */
+	border: 2px solid transparent;
+	gap: 10px;
+
+	input {
+		border: none;
+		background: none;
+		outline: none;
+        color:#333; 
+		/* Default color for placeholder and text */
+		width: 100%;
+		/* Ensure the input takes full width */
+		transition: color 0.2s ease;
+	}
+
+	input:focus {
+		border-color: white;
+		/* Change border color on focus */
+		color: white;
+		/* Change input text color on focus */
+	}
+
+
+	.search-icon {
+		width: 24px;
+		height: 24px;
+		fill: #b3b3b3;
+		/* Default icon color */
+		transition: fill 0.2s ease;
+		/* Smooth color change */
+	}
+
+	/* Focus effect for the entire search-bar when input is focused */
+	input:focus+.separator,
+	input:focus+.browse-icon,
+	input:focus {
+		border-color: white;
+		/* Change border to white on focus */
+	}
+
+	/* Focus effect for the whole search-bar when input is focused */
+	&:has(input:focus) {
+		border-color: white;
+		/* White border when focused */
+	}
+
+	/* Placeholder style */
+	.search-bar-input {
+		&::placeholder {
+			border: none;
+			background: none;
+			outline: none;
+			color: #b3b3b3;
+			width: 100%;
+			transition: color 0.2s ease;
+			font-size: 16px; /* Optional: Adjust font size for placeholder */
+		}
+	}
+}
+
+.browse-page {
+    background-color: #121212; // Example dark background
+    color: white;
+
+    .browse-header {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); // 4 columns per row
+        gap: 20px; // Space between cards
+    }
+
+    .category-card {
+        background-color: #181818; // Example card background
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        .category-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+           
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-name {
+            padding: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    }
+}
+
+@media (min-width: 460px) {
+    .search-bar-mobile{
+        display: none;
+    }
+
+    .browse-page {
+        padding: 20px;
+        background-color: #121212; // Example dark background
+        color: white;
+    
+        .browse-header {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+    
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); // 4 columns per row
+            gap: 20px; // Space between cards
+        }
+    
+        .category-card {
+            background-color: #181818; // Example card background
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+    
+            &:hover {
+                transform: scale(1.05);
+            }
+    
+            .category-image img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+               
+            
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+    
+            .category-name {
+                padding: 10px;
+                text-align: center;
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+        }
+    }
+  } 

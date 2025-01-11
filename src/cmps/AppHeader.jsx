@@ -18,13 +18,33 @@ export function AppHeader() {
     const [isLoggedIn, setIsLoggedIn] = useState(false); // // TODO get the login token from the store
 
 
-    const [activeButton, setActiveButton] = useState(''); // Track which button is active
+    const [activeButton, setActiveButton] = useState('home'); // Track which button is active
     const [searchTerm, setSearchTerm] = useState(stationService.getFilterFromSearchParams(params)); // Declare and initialize searchTerm
 
     const handleHomeClick = () => {
         navigate("/")
         setActiveButton('home'); // Set home as the active button
-    };
+    }
+
+    function handleSearchMobileClick() {
+        navigate("/search")
+        setActiveButton('search'); // Set search as the active button
+    }
+
+    const handleLibraryClick = () => {
+        //navigate("/library")
+        setActiveButton('library'); // Set library as the active button
+    }
+
+    const handlePreferencesClick = () => {
+        //navigate("/preferences")
+        setActiveButton('preferences'); // Set preferences as the active button
+    }
+
+    const handleAddClick = () => {
+        //navigate("/add")
+        setActiveButton('add'); // Set add as the active button
+    }
 
     const navigate = useNavigate()
 
@@ -34,17 +54,18 @@ export function AppHeader() {
     const handleBrowseClick = () => {
         // navigate("/search")
         setActiveButton('browse'); // Set home as the active button
-    };
+    }
+    
     const handleOtherButtonClick = () => {
         onClickSearch()
         setActiveButton(''); // Reset active button on other button click
-    };
+    }
 
     const handleSearchChange = (event) => {
         if (event.target.value)
             navigate(`/search/${event.target.value}`)
         setSearchTerm({ filterText: event.target.value }); // Update searchTerm state when input changes
-    };
+    }
 
     useEffect(() => {
         setSearchParams(searchTerm.size > 0 ? { filterText: searchTerm } : '')
@@ -52,9 +73,9 @@ export function AppHeader() {
     }, [searchTerm])
 
     function handleSearchClick() {
-        if (!searchTerm.filterText)
-            navigate(`/search/${searchTerm.filterText}`)
+        if (!searchTerm.filterText) navigate(`/search/${searchTerm.filterText}`)
     }
+    
     const handleLoginClick = () => {
         setIsLoggedIn(true) // TODO add to store the login token
         //navigate("/login");
@@ -158,20 +179,20 @@ export function AppHeader() {
 
             <div className="app-header-mobile">
                 <div className='menu-icons-container'>
-                    <IconButton className='menu-icon-container' onClick={navigateToChat}>
-                        <HomeIcon className="menu-icon" />                  
+                    <IconButton className='menu-icon-container' onClick={handleHomeClick}>
+                        <HomeIcon className={`menu-icon ${activeButton === 'home' ? 'active' : ''}`} />                  
                     </IconButton>
-                    <IconButton className='menu-icon-container' onClick={navigateToChat}>
-                        <SearchIcon className="menu-icon" />                  
+                    <IconButton className='menu-icon-container' onClick={handleSearchMobileClick}>
+                        <SearchIcon className={`menu-icon ${activeButton === 'search' ? 'active' : ''}`} />                  
                     </IconButton>  
-                    <IconButton className='menu-icon-container' onClick={navigateToChat}>
-                        <LibraryIcon className="menu-icon" />                  
+                    <IconButton className='menu-icon-container' onClick={handleLibraryClick}>
+                        <LibraryIcon className={`menu-icon ${activeButton === 'library' ? 'active' : ''}`} />                  
                     </IconButton>
-                    <IconButton className='menu-icon-container'>
-                        <img src={playShuffleBtn} className="menu-icon" />
+                    <IconButton className='menu-icon-container' onClick={handlePreferencesClick}>
+                        <img src={playShuffleBtn} className={`menu-icon ${activeButton === 'preferences' ? 'active' : ''}`} />
                     </IconButton>
-                    <IconButton className='menu-icon-container' onClick={navigateToChat}>
-                        <AddIcon className="menu-icon" />                  
+                    <IconButton className='menu-icon-container' onClick={handleAddClick}>
+                        <AddIcon className={`menu-icon  ${activeButton === 'add' ? 'active' : ''}`} />                  
                     </IconButton>  
                 </div>
                 
