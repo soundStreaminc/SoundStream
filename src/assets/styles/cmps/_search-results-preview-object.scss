@@ -95,21 +95,28 @@
   width: 100%;
 }
 
-.search-results-preview-object {
+
+
+.search-result-object-music-cover-artist{
+  border-radius: 50%;
+}
+
+@media (min-width: 460px) {
+  .search-results-preview-object {
     display: inline-flex;
-      flex-direction: column;
-      row-gap: var(--encore-spacing-tighter-2, 8px);
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-      position: relative;
-      border-radius: var(--encore-corner-radius-larger, 6px);
-      min-block-size: 48px;
-      z-index: 0;
-      color: var(--text-base, #000000);
-      padding-block: 12px;
-      padding-inline: 12px;
-      cursor: pointer;
-  .search-results-item-btn-container {
+    flex-direction: column;
+    row-gap: var(--encore-spacing-tighter-2, 8px);
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    border-radius: var(--encore-corner-radius-larger, 6px);
+    min-block-size: 48px;
+    z-index: 0;
+    color: var(--text-base, #000000);
+    padding-block: 12px;
+    padding-inline: 12px;
+    cursor: pointer;
+    .search-results-item-btn-container {
       position: absolute;
       top: 75%;
       left: 80%;
@@ -140,15 +147,11 @@
     }
 
     &:hover {
-      // transform: scale(1.05);
       background-color: #282828; // Slightly brighter on hover
     }
     &:hover .search-results-item-btn-container {
       opacity: 1; /* Show play button on hover */
       visibility: visible;
     }
-}
-
-.search-result-object-music-cover-artist{
-  border-radius: 50%;
-}
+  }
+} 
