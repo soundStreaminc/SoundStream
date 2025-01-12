@@ -3,7 +3,7 @@ import ErrorIcon from '../assets/svgs/errorIcon.svg?react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
-import { loginUser } from '../store/user/user.actions';
+import { loginUser, logoutUser } from '../store/user/user.actions';
 
 export function LoginSignup(){
     const [isSignup, setIsSignup] = useState(false)
@@ -16,7 +16,6 @@ export function LoginSignup(){
     const [usernameError, setUsernameError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [confirmPasswordError, setConfirmPasswordError] = useState('')
-    const [fullnameError, setFullnameError] = useState('')
 
     //will be in the store in the future
     let loggedinUser = useSelector ( storeState => storeState.loggedinUser ) 
@@ -28,18 +27,12 @@ export function LoginSignup(){
         setUsernameError('')
         setPasswordError('')
         setConfirmPasswordError('')
-        setFullnameError('')
 
         // Check if the user has entered both fields correctly
         if ('' === username) {
             setUsernameError('Please enter your Soundstream username or email address.')
             throw 'validation error'
         }
-
-        // if (!/^[\w-\.]+/.test(username)) {
-        //     setUsernameError('Please enter a valid username')
-        //     throw 'validation error'
-        // }
 
         if ('' === password) {
             setPasswordError('Please enter a password')
@@ -62,8 +55,8 @@ export function LoginSignup(){
                 throw 'validation error'
             }
 
-            if ('' === fullname) {
-                setFullnameError('Please enter your fullname')
+            if ('' === username) {
+                setUsernameError('Please enter your Soundstream username or email address.')
                 throw 'validation error'
             }
     
@@ -116,7 +109,7 @@ export function LoginSignup(){
                 fullname
             } )
             loginUser(user)
-            showSuccessMsg( `Welcome ${user?.fullname}`)
+            showSuccessMsg( `Welcome ${user?.username}`)
 
         } catch (err) {
             console.log('cannot signup :', err)
@@ -124,6 +117,33 @@ export function LoginSignup(){
         }finally{
             navigate('/')
         }
+    }
+
+    async function onGuest () {
+        try {
+        const user = { 
+            username: "guest",
+            fullname: "guest",
+            password: "guest",
+        } 
+        loginUser(user)
+        showSuccessMsg( `Welcome ${user?.username}`)
+
+        } catch (err) {
+            console.log('cannot signup guest:', err)
+            showErrorMsg( 'Cannot signup guest')
+        }finally{
+            navigate('/') 
+        }
+    }
+        
+    async function onLogout () {
+        try {
+            await userService.logout()
+            logoutUser(null)
+        } catch (err) {
+            console.log('cannot logout')
+        } 
     }
 
     return (
@@ -139,8 +159,7 @@ export function LoginSignup(){
                 <div className='login-title-container'> 
                         <h1 className='login-title'> Log in to Soundstream </h1>
                 </div>
-
-                {/* TODO create component htmlFor button preview and map 3 buttons. */}
+{/* 
                 <ul className='continue-with-btns-container'>
                     <li className='continue-with-btn'>
                         <button data-testid="google-login" className="login-btn-container" data-encore-id="buttonSecondary">
@@ -158,9 +177,10 @@ export function LoginSignup(){
                             <span className="continue-with-span" data-encore-id="text">Continue with Apple</span>
                         </button>
                     </li>
-                </ul>
+                </ul> */}
 
                 <hr role="presentation" className="seperate-line"></hr>
+                <button type="button" onClick={onGuest} className="button-19" role="button"> Continue as a Guest </button>
 
                 {!loggedinUser && 
                     <form className='form-container'>
@@ -227,37 +247,25 @@ export function LoginSignup(){
                             placeholder="Enter your fullname here"
                             onChange={(ev) => setFullname(ev.target.value)}
                             className={'inputBox'}
-                            required
                             />
-                            <label className="errorLabel">{fullnameError}</label>
                         </div>
                     </div>
                     }
 
                     <br />
                     <div className={'actions-btn-login'}>
-                        {!isSignup && <div className='login-btns-container'>
-                            <button className="button-19" role="button" onClick={onLogin} type="button">
-                                <span className='btn-login-span'>
-                                    Log in 
-                                </span>
-                                 
-                            </button>
-                        </div>
-                        }
-                        {isSignup&& <div className='login-btns-container'>
-                            <button className="button-19" role="button" onClick={onBackLogin} type="button"> Back to Log in </button>
-                            <button className="button-19" role="button" onClick={onSubmit} type="button"> Submit </button>
-                        </div>}
+                    {!isSignup && <div className='login-btns-container'>
+                        <button className="button-19" role="button" onClick={onLogin} type="button"> Log in </button>
+                        <button className="button-19" role="button" onClick={onSignup} type="button"> Sign up </button>
+                    </div>
+                    }
+                    {isSignup&& <div className='login-btns-container'>
+                        <button className="button-19" role="button" onClick={onBackLogin} type="button"> Back to Log in </button>
+                        <button className="button-19" role="button" onClick={onSubmit} type="button"> Submit </button>
+                    </div>}
                         
                     </div>
-                    <div className="sc-ifyrTC sc-dENhDJ sc-eEPDDI dssuKg ilTmUK egGRlx">
-                        <a href="#" id="reset-password-link" data-testid="reset-password-link" className="Link-sc-k8gsk-0 cgOuFc sc-euGpHm geXsAV" data-encore-id="textLink">
-                            <p variant="bodyMedium" className="sc-czgmHJ kraIJY">Forgot your password?</p>
-                        </a>
-                    </div>
-                    <span className="encore-text encore-text-body-medium encore-internal-color-text-subdued" data-encore-id="text">Don't have an account?</span>
-                    <a href="#" id="sign-up-link" data-testid="signup-btn-link" className="Link-sc-k8gsk-0 cgOuFc sc-kTYLvb klSGTe" data-encore-id="textLink"><span className="encore-text encore-text-body-medium sc-dJDBYC ghuOx" data-encore-id="text">Sign up for Soundstream</span></a>
+                   
                 </div>
                 </form>
                 }
