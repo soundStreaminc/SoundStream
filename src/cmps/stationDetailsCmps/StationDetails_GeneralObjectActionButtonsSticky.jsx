@@ -8,7 +8,7 @@ import LikedSongAdded from '../../assets/svgs/likedSongAdded.svg?react';
 import { stationService } from "../../services/station.service";
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service";
 import { setCurrentlyPlayingTrack } from "../../store/song/song.actions";
-import { usePalette } from 'react-palette';
+import { usePaletteColor } from '../usePaletteColor';
 import { youtubeService } from '../../services/youtube.service';
 import { useSelector } from 'react-redux';
 import { useFirstRenderEffect } from '../useFirstRenderEffect';
@@ -20,7 +20,7 @@ export function StationDetails_GeneralObjectActionButtonsSticky({ isAlreadyAdded
     const [isAdded, setIsAdded] = useState(isAlreadyAdded)
     const MYUSER = 'ohad'
     const MAXRECENTPLAYED = 4
-    const { data, loading, error } = usePalette(imgSrc)
+    const { data, loading, error } = usePaletteColor(imgSrc)
 
     useFirstRenderEffect(() => {
         setIsThisStationPlaying(onButtonClick(station.id))

@@ -1,12 +1,12 @@
 import { StationDetails_GeneralObjectMiniTitle } from "./StationDetails_GeneralObjectMiniTitle";
-import { usePalette } from "react-palette";
+import { usePaletteColor } from "../usePaletteColor";
 import NoImageArtist from '../../assets/svgs/noImageArtist.svg?react';
 
 export function StationDetails_GeneralObjectHeader({ station }){
     const isArtistImageExist= station.image ? true : false
     const isArtistImg= station.type === 'artist' ? true : false
     const imgSrc = station.image 
-    const { data, loading, error } = usePalette(imgSrc)
+    const { data, loading, error } = usePaletteColor(imgSrc)
 
     
     if (!station) return

@@ -6,7 +6,7 @@ import AddToLiked from '../../assets/svgs/addToLiked.svg?react';
 import LikedSongAdded from '../../assets/svgs/likedSongAdded.svg?react';
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service";
 import { addStationToLibrary, removeStationFromLibrary } from "../../store/song/song.actions";
-import { usePalette } from 'react-palette';
+import { usePaletteColor } from '../usePaletteColor';
 import { useFirstRenderEffect } from '../useFirstRenderEffect';
 import { useSelector } from 'react-redux';
 
@@ -18,7 +18,7 @@ export function StationDetails_GeneralObjectActionButtons({ isAlreadyAdded, stat
     const playingStationId = useSelector(storeState => storeState.playingStationId);
 
     const MYUSER = 'ohad'
-    const { data, loading, error } = usePalette(imgSrc)
+    const { data, loading, error } = usePaletteColor(imgSrc)
     useFirstRenderEffect(() => {
         setIsThisStationPlaying(onButtonClick(station.id))
     }, [isPlayButtonClicked])
